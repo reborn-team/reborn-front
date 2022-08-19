@@ -12,7 +12,7 @@
     </select>
     <input class="form-control" type="text" placeholder="Default input" />
     <button type="button" class="btn btn-danger recode search">Search</button>
-  </div>
+  </div><br>
   <div class="pagination-div">
   <ul class="pagination">
     <li class="page-item">
@@ -55,14 +55,14 @@ export default {
   margin: 15px 70px;
 }
 .searchBar {
-  margin-top: 50px;
+  margin: 50px auto ;
   display: inline-flex;
 }
 .form-select {
   width: 10rem;
 }
-.pagination-div{
-  display: flex;
+.pagination{
+  display: inline-flex;
   margin: 0 auto;
 }
 </style>
