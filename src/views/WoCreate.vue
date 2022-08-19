@@ -23,7 +23,7 @@
       <img src="../assets/img/banner.jpg" class="img-thumbnail" alt="" width="500px" height="400px"/>
       <div class="explain"></div>
     </div><br>
-  <button type="button" class="btn btn-danger recode">기록하기</button>
+  <button type="button" class="btn btn-danger recode">Create</button>
   </div>
 </template>
 
