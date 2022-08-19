@@ -1,5 +1,6 @@
 <template>
   <h1>{{message}}</h1>
+  <h1>sadfsadfsdaf</h1>
 </template>
 
 <script>
