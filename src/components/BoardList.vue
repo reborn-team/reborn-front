@@ -36,6 +36,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .table{
+    width:90vw;
+    margin: 0 auto;
+  }
 </style>
