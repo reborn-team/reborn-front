@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="title">{{message}}</h1>
-    <BoardList/>
+    <h1 class="title">{{ message }}</h1>
+    <BoardList />
     <button type="button" class="btn btn-danger recode write">Write</button>
   </div>
   <div class="searchBar">
@@ -10,21 +10,38 @@
       <option value="2">Two</option>
       <option value="3">Three</option>
     </select>
-    <input class="form-control" type="text" placeholder="Default input">
+    <input class="form-control" type="text" placeholder="Default input" />
     <button type="button" class="btn btn-danger recode search">Search</button>
+  </div>
+  <div class="pagination-div">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
   </div>
 </template>
 
 <script>
-import BoardList from '../components/BoardList.vue';
+import BoardList from "../components/BoardList.vue";
 
 export default {
   name: "TheBoard",
-  components: {BoardList},
-  data(){
-    return {message:"Board"}
-  }
-}
+  components: { BoardList },
+  data() {
+    return { message: "Board" };
+  },
+};
 </script>
 
 <style scoped>
@@ -37,13 +54,15 @@ export default {
   float: right;
   margin: 15px 70px;
 }
-.searchBar{
+.searchBar {
+  margin-top: 50px;
+  display: inline-flex;
 }
-input.form-control{
-  width: 30%;
-  margin: 100px auto;
+.form-select {
+  width: 10rem;
 }
-input.form-select{
-  width: 10%;
+.pagination-div{
+  display: flex;
+  margin: 0 auto;
 }
 </style>
