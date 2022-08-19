@@ -79,6 +79,9 @@ export default {
   color: #2c3e50;
 }
 #app hr{
+  border: 0;
+  height: 2px;
+  background: red;
   color: red;
   padding: 0;
   margin: 0;
