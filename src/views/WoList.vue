@@ -23,11 +23,6 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  text-align: left;
-  text-decoration: underline red;
-  margin: 50px 40px;
-}
 .WoBtn {
   text-align: left;
   border-color: none;

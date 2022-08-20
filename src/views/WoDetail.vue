@@ -21,11 +21,7 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  display: flex;
-  text-decoration: underline red;
-  margin: 50px 170px;
-}
+
 .explain{
   display: inline-flex;
 }

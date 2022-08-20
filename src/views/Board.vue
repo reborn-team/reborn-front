@@ -45,11 +45,7 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  display: flex;
-  text-decoration: underline red;
-  margin: 50px 170px;
-}
+
 .write {
   float: right;
   margin: 15px 70px;

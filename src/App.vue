@@ -86,4 +86,10 @@ export default {
   padding: 0;
   margin: 0;
 }
+
+.title {
+  display: flex;
+  text-decoration: underline red;
+  margin: 50px 170px;
+}
 </style>

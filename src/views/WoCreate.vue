@@ -42,8 +42,6 @@ div {
 }
 .title {
   text-align: left;
-  text-decoration: underline red;
-  margin: 50px 40px 0px;
 }
 .form-select {
   display: inline-block;

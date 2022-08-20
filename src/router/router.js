@@ -7,6 +7,7 @@ import WoRecord from "@/views/WoRecord.vue";
 import WoList from "@/views/WoList.vue";
 import WoDetail from "@/views/WoDetail.vue";
 import Board from "@/views/Board.vue";
+import BoardWrite from "@/views/BoardWrite.vue";
 
 const routes = [
   {path: "/", name: "main", component: Main},
@@ -17,6 +18,7 @@ const routes = [
   {path: "/workout/list", name: "woList", component: WoList},
   {path: "/workout/detail", name: "woDetail", component: WoDetail},
   {path: "/board", name: "board", component: Board},
+  {path: "/board/write", name: "boardWrite", component: BoardWrite},
 ]
 
 const router = createRouter({history: createWebHistory(),routes,})

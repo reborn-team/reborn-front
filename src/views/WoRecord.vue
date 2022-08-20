@@ -27,11 +27,6 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  text-align: left;
-  text-decoration: underline red;
-  margin: 50px 40px;
-}
 .memo {
   text-align: left;
   margin: 50px 40px 10px;
