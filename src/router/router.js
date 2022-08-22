@@ -8,6 +8,8 @@ import WoList from "@/views/WoList.vue";
 import WoDetail from "@/views/WoDetail.vue";
 import Board from "@/views/Board.vue";
 import BoardWrite from "@/views/BoardWrite.vue";
+import BoardContent from "@/views/BoardContent.vue";
+import Nearby from "@/views/Nearby.vue";
 
 const routes = [
   {path: "/", name: "main", component: Main},
@@ -19,6 +21,8 @@ const routes = [
   {path: "/workout/detail", name: "woDetail", component: WoDetail},
   {path: "/board", name: "board", component: Board},
   {path: "/board/write", name: "boardWrite", component: BoardWrite},
+  {path: "/board/content", name: "boardContent", component: BoardContent},
+  {path: "/nearby", name: "nearby", component: Nearby},
 ]
 
 const router = createRouter({history: createWebHistory(),routes,})

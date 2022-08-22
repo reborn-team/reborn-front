@@ -10,52 +10,27 @@
     <tr>
       <td>
         <div class="form-floating mb-3">
-          <input
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-          />
+          <input type="text" class="form-control" />
         </div>
       </td>
       <td>
         <div class="form-floating mb-3">
-          <input
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-          />
+          <input type="text" class="form-control" />
         </div>
       </td>
       <td>
         <div class="form-floating mb-3">
-          <input
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-          />
+          <input type="text" class="form-control" />
         </div>
       </td>
       <td>
         <div class="form-floating mb-3">
-          <input
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-          />
+          <input type="text" class="form-control" />
         </div>
       </td>
       <td>
         <div class="form-floating mb-3">
-          <input
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-          />
+          <input type="text" class="form-control" />
         </div>
       </td>
     </tr>
