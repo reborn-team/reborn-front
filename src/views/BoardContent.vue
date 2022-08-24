@@ -69,5 +69,4 @@ export default {
   text-align: left;
   padding: 10px;
 }
-
 </style>

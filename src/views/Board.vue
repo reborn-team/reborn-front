@@ -45,7 +45,6 @@ export default {
 </script>
 
 <style scoped>
-
 .write {
   float: right;
   margin: 15px 70px;

@@ -33,10 +33,6 @@ img {
   width: 100vw;
   height: 35vw;
 }
-.card img {
-  width: 18rem;
-  height: 12rem;
-}
 .WoBtn {
   text-align: left;
   border-color: none;

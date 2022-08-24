@@ -21,7 +21,6 @@ export default {
 </script>
 
 <style scoped>
-
 .explain{
   display: inline-flex;
 }

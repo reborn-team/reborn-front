@@ -36,10 +36,6 @@ hr {
   height: 2px;
   background: red;
 }
-table.table {
-  margin: 0 auto;
-  width: 80vw;
-}
 input.form-control {
   width: 150px;
 }
