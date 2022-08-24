@@ -1,45 +1,81 @@
 <template>
-  <div class="example">
+  <div id="chart">
     <apexchart
-      width="500"
-      height="350"
       type="area"
+      height="350"
       :options="chartOptions"
       :series="series"
     ></apexchart>
   </div>
 </template>
 <script>
-/* eslint-disable */
-
 export default {
   name: "AreaChart",
-  data: function() {
+  data: function () {
     return {
-      chartOptions: {
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          curve: "smooth"
-        },
-        xaxis: {
-          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]
-        },
-        tooltip: {
-          fixed: {
-            enabled: false,
-            position: "topRight"
-          }
-        }
-      },
       series: [
         {
-          name: "series1",
-          data: [31, 40, 28, 51, 42, 109, 100]
+          name: "XYZ MOTORS",
+          data: new Date
         },
-      ]
+      ],
+      chartOptions: {
+        chart: {
+          type: "area",
+          stacked: false,
+          height: 350,
+          zoom: {
+            type: "x",
+            enabled: true,
+            autoScaleYaxis: true,
+          },
+          toolbar: {
+            autoSelected: "zoom",
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        markers: {
+          size: 0,
+        },
+        title: {
+          text: "Stock Price Movement",
+          align: "left",
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            inverseColors: false,
+            opacityFrom: 0.5,
+            opacityTo: 0,
+            stops: [0, 90, 100],
+          },
+        },
+        yaxis: {
+          labels: {
+            formatter: function (val) {
+              return (val / 1000000).toFixed(0);
+            },
+          },
+          title: {
+            text: "Price",
+          },
+        },
+        xaxis: {
+          type: "datetime",
+        },
+        tooltip: {
+          shared: false,
+          y: {
+            formatter: function (val) {
+              return (val / 1000000).toFixed(0);
+            },
+          },
+        },
+      },
     };
-  }
+  },
 };
 </script>
