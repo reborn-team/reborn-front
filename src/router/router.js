@@ -10,6 +10,7 @@ import Board from "@/views/Board.vue";
 import BoardWrite from "@/views/BoardWrite.vue";
 import BoardContent from "@/views/BoardContent.vue";
 import Nearby from "@/views/Nearby.vue";
+import MyPageGoal from "@/views/MyPageGoal.vue";
 
 const routes = [
   {path: "/", name: "main", component: Main},
@@ -23,6 +24,7 @@ const routes = [
   {path: "/board/write", name: "boardWrite", component: BoardWrite},
   {path: "/board/content", name: "boardContent", component: BoardContent},
   {path: "/nearby", name: "nearby", component: Nearby},
+  {path: "/mypage/goal", name: "myPageGoal", component: MyPageGoal},
 ]
 
 const router = createRouter({history: createWebHistory(),routes,})
