@@ -8,7 +8,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'TheCard',
+};
 </script>
 
 <style>

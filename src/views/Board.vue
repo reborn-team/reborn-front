@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import BoardList from "../components/BoardList.vue";
+import BoardList from "../components/List.vue";
 
 export default {
   name: "TheBoard",

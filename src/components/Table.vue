@@ -38,7 +38,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'TheTable',
+};
 </script>
 
 <style></style>

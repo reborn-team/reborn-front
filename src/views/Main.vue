@@ -8,7 +8,7 @@
       <button class="btn btn-primary" type="button">코어</button>
     </div>
     <hr />
-    <WoCard />
+    <WorkoutCard />
     <h3>인기 운동일지</h3>
     <BoardList/>
     <hr />
@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import WoCard from "@/components/WoCard.vue";
-import BoardList from "@/components/BoardList.vue";
+import WorkoutCard from "@/components/Card.vue";
+import BoardList from "@/components/List.vue";
 
 export default {
   name: "TheHome",
-  components: { WoCard, BoardList },
+  components: { WorkoutCard, BoardList },
   data() {
     return { message: "Home" };
   },

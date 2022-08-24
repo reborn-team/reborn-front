@@ -7,15 +7,15 @@
     <button class="btn btn-primary" type="button">코어</button>
   </div>
   <hr />
-  <WoCard />
+  <WorkoutCard />
 </template>
 
 <script>
-import WoCard from "@/components/WoCard.vue";
+import WorkoutCard from "@/components/Card.vue";
 
 export default {
   name: "WoList",
-  components: { WoCard },
+  components: { WorkoutCard },
   data() {
     return { message: "Workout List" };
   },

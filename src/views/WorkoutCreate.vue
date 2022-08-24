@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: "WoCreate",
+  name: "WorkoutCreate",
   data() {
     return { message: "Create Workout Program" };
   },

@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "WoDetail",
+  name: "WorkoutDetail",
   data() {
     return { message: "WorkOut Name" };
   },

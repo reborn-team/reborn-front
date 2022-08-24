@@ -1,6 +1,6 @@
 <template>
   <h1 class="title">{{ message }}</h1>
-  <WoTable />
+  <WorkoutTable />
   <h1 class="memo">Memo</h1>
   <hr />
   <div class="form-floating">
@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import WoTable from "@/components/WoTable.vue";
+import WorkoutTable from "@/components/Table.vue";
 
 export default {
-  name: "WoRecord",
-  components: { WoTable },
+  name: "WorkoutRecord",
+  components: { WorkoutTable },
   data() {
     return { message: "Record Workout Program" };
   },
