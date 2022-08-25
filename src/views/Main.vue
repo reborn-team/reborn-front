@@ -6,15 +6,15 @@
     <div id="mainContent">
       <div id="workoutNav">
         <div class="d-grid gap-2 d-md-block WoBtn">
-          <button class="btn btn-primary" type="button">등</button>
-          <button class="btn btn-primary" type="button">가슴</button>
-          <button class="btn btn-primary" type="button">하체</button>
-          <button class="btn btn-primary" type="button">코어</button>
+          <button class="btn btn-danger" type="button">등</button>
+          <button class="btn btn-danger" type="button">가슴</button>
+          <button class="btn btn-danger" type="button">하체</button>
+          <button class="btn btn-danger" type="button">코어</button>
         </div>
       </div>
       <hr />
       <div id="cardDummy">
-        <div class="card" v-for="i in 3" :key={i}>
+        <div class="card" v-for="i in 4" :key={i}>
           <WorkoutCard />
         </div>
       </div>

@@ -1,7 +1,6 @@
 <template>
   <div id="navbar">
     <nav class="navbar navbar-expand-lg">
-
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <img
@@ -37,13 +36,19 @@
                 프로그램
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/workout/create">생성하기</a></li>
-                <li><a class="dropdown-item" href="/workout/record">기록하기</a></li>
+                <li>
+                  <a class="dropdown-item" href="/workout/create">생성하기</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/workout/record">기록하기</a>
+                </li>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/workout/list">운동정보</a>
+              <a class="nav-link" aria-current="page" href="/workout/list"
+                >운동정보</a
+              >
             </li>
 
             <li class="nav-item">
@@ -51,7 +56,9 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/nearby">주변 헬스장</a>
+              <a class="nav-link" aria-current="page" href="/nearby"
+                >주변 헬스장</a
+              >
             </li>
           </ul>
 
@@ -75,8 +82,8 @@
         </div>
       </div>
     </nav>
-    <hr />
   </div>
+  <hr />
   <router-view />
 </template>
 

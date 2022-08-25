@@ -1,5 +1,6 @@
 <template>
-  <table class="table">
+  <div id="list">
+    <table class="table">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -28,17 +29,12 @@
         </tr>
       </tbody>
     </table>
+  </div>
 </template>
 
 <script>
+import '../css/components/List.css'
 export default {
-  name: 'TheList'
-}
+  name: "TheList",
+};
 </script>
-
-<style scoped>
-  .table{
-    width:90vw;
-    margin: 0 auto;
-  }
-</style>

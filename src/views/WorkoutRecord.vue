@@ -16,6 +16,7 @@
 
 <script>
 import WorkoutTable from "@/components/Table.vue";
+import '../css/views/WorkoutRecord.css'
 
 export default {
   name: "WorkoutRecord",
@@ -25,26 +26,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.memo {
-  text-align: left;
-  margin: 50px 40px 10px;
-}
-hr {
-  border: 0;
-  height: 2px;
-  background: red;
-}
-input.form-control {
-  width: 150px;
-}
-textarea{
-  margin : 15px 120px;
-  width: 56rem;
-}
-button{
-  float:right;
-  margin-right: 100px;
-}
-</style>
