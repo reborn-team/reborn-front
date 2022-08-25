@@ -1,5 +1,5 @@
 <template>
-  <div id="wrap">
+  <div id="create">
     <h1 class="title">{{ message }}</h1>
     <div id="collector">
       <select class="form-select" size="7" aria-label="size 7 select example">

@@ -1,4 +1,5 @@
 <template>
+<div id="record">
   <h1 class="title">{{ message }}</h1>
   <WorkoutTable />
   <h1 class="memo">Memo</h1>
@@ -12,6 +13,7 @@
     ></textarea>
     <button type="button" class="btn btn-danger recode">Record</button>
   </div>
+</div>
 </template>
 
 <script>
