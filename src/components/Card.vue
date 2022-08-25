@@ -14,7 +14,4 @@ export default {
 </script>
 
 <style>
-.card{
-  margin: 15px 20px 15px 30px;
-}
 </style>

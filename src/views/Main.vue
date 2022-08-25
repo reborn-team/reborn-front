@@ -1,23 +1,38 @@
 <template>
-  <div>
-    <img src="../assets/img/banner.jpg" class="img-fluid" alt="" />
-    <div class="d-grid gap-2 d-md-block WoBtn">
-      <button class="btn btn-primary" type="button">등</button>
-      <button class="btn btn-primary" type="button">가슴</button>
-      <button class="btn btn-primary" type="button">하체</button>
-      <button class="btn btn-primary" type="button">코어</button>
+  <div id="main">
+    <div id="banner">
+      <img class="img" src="../assets/img/banner.jpg" />
     </div>
-    <hr />
-    <WorkoutCard />
-    <h3>인기 운동일지</h3>
-    <BoardList/>
-    <hr />
+    <div id="mainContent">
+      <div id="workoutNav">
+        <div class="d-grid gap-2 d-md-block WoBtn">
+          <button class="btn btn-primary" type="button">등</button>
+          <button class="btn btn-primary" type="button">가슴</button>
+          <button class="btn btn-primary" type="button">하체</button>
+          <button class="btn btn-primary" type="button">코어</button>
+        </div>
+      </div>
+      <hr />
+      <div id="cardDummy">
+        <div class="card" v-for="i in 3" :key={i}>
+          <WorkoutCard />
+        </div>
+      </div>
+
+      <div id="board">
+        <h3>인기 운동일지</h3>
+      </div>
+      <hr />
+
+      <BoardList />
+    </div>
   </div>
 </template>
 
 <script>
 import WorkoutCard from "@/components/Card.vue";
 import BoardList from "@/components/List.vue";
+import "../css/views/Main.css";
 
 export default {
   name: "TheHome",
@@ -27,27 +42,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-img {
-  width: 100vw;
-  height: 35vw;
-}
-.WoBtn {
-  text-align: left;
-  border-color: none;
-  background-color: none;
-}
-.btn-primary {
-  background-color: white;
-  border-color: red;
-  color: black;
-  --bs-btn-hover-bg: red;
-  --bs-btn-hover-border-color: none;
-  margin: 40px 10px 0 0;
-}
-h3 {
-  text-align: left;
-  margin-top: 40px;
-}
-</style>
