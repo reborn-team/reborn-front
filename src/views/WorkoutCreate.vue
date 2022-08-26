@@ -34,7 +34,9 @@
       <div class="text"></div>
     </div>
     <br />
-    <button type="button" class="btn btn-danger recode">Create</button>
+    <a href="/workout/record">
+      <button type="button" class="btn btn-danger recode" >Create</button>
+    </a>
   </div>
 </template>
 

@@ -13,7 +13,7 @@
         </div>
       </div>
       <hr />
-      <div id="cardDummy">
+      <div id="MainCard">
         <div class="card" v-for="i in 4" :key={i}>
           <WorkoutCard />
         </div>

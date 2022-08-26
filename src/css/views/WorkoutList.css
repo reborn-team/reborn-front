@@ -1,0 +1,6 @@
+* {margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif;}
+html, body {width:100vw; height:100%;}
+#workoutList{width:70%; height:100%; margin: 0 auto;}
+#workoutList #workoutListNav{ display: inline-flex; width: 100%; margin-bottom: 3px;}
+#workoutList #WorkoutCard { display: flex; width: 100%;}
+#workoutList #WorkoutCard .card{ padding: 3px; border-color: aliceblue;}

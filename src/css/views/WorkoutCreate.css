@@ -4,6 +4,7 @@ html, body {width:100vw; height:100%;}
 #create #collector { display: flex;}
 #create #collector button { width: 35px; height: 35px; margin: 5px; padding: 0; 
 vertical-align: middle; }
-#create #explain{ display: flex; padding: 50px; }
+#create #explain{ display: flex; margin-top: 30px;}
 #create #explain .img { width: 40%; }
 #create #explain .text { width: 100%; height: 300px; border-bottom: 1px solid red; padding: 20px;}
+#create button{float: right;}
