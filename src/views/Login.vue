@@ -30,8 +30,8 @@
           <input
             type="password"
             class="form-control form-control-sm"
-            ref="pw"
-            v-model="state.pw"
+            ref="password"
+            v-model="state.password"
             placeholder="비밀번호를 입력해주세요"
           />
         </div>
@@ -63,13 +63,14 @@ import "../css/views/login.css";
 export default {
   name: "TheLogin",
   setup() {
+
     const router = useRouter();
     const state = reactive({ 
       email : '', 
-      pw    : '', 
-      token : sessionStorage.getItem("TOKEN"), });
+      password    : '', 
+    });
     const email = ref('');
-    const pw = ref('');
+    const password = ref('');
 
     const loginHandler = async () => {
 
@@ -77,22 +78,21 @@ export default {
       if (state.email === '') {
         alert("Check Email");
         email.value.focus();
-        return false;
-      } else if (state.pw === '') {
+        return 
+      } else if (state.password === '') {
         alert("Check Password");
-        pw.value.focus();
-        return false;
+        password.value.focus();
+        return 
       }
 
       // 토큰
       const url     = "http://localhost:8080/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
-      const body    = { email: state.email, pw: state.pw };
+      const body    = { email: state.email, password: state.password };
       await axios.post(url, body, { headers }).then(function (res) {
 
-        if (res.data != null) {
+        if (res.status != 200) {
           sessionStorage.setItem("TOKEN", res.data.token);
-          sessionStorage.setItem("email", res.data.email);
           alert("로그인되었습니다.");
           router.push({ name: "Login" });
         } else {
@@ -101,10 +101,13 @@ export default {
 
       });
     };
+
+    // 라우트
     const goMain = () =>{
       router.push({name: "Main"})
     }
-    return { state, email, pw, loginHandler, goMain};
+
+    return { state, email, password, loginHandler, goMain};
   },
   data() {
     return { message: "Login" };
