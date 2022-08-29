@@ -97,6 +97,9 @@ export default {
 </script>
 
 <style>
+* {margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif;}
+html, body {width:100vw; height:100%;}
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -115,6 +118,6 @@ export default {
 .title {
   display: flex;
   text-decoration: underline red;
-  margin: 50px 170px;
+  margin: 50px auto;
 }
 </style>

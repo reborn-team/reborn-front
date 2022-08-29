@@ -5,7 +5,6 @@
       <h3>제목 :</h3>
       <input class="form-control form-control sub" type="text" />
     </div>
-    <br />
     <WritingForm />
     <div id="writeBtn">
       <button type="button" class="btn btn-danger recode">Cancel</button>
@@ -26,22 +25,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.subject {
-  display: flex;
-  margin-left: 250px;
-}
-h3 {
-  display: inline-block;
-}
-.sub {
-  display: inline-block;
-  width: 20%;
-  margin-left: 20px;
-}
-.btn {
-  position: relative;
-  left: 100px;
-}
-</style>

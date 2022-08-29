@@ -1,0 +1,3 @@
+#boardWrap { width: 70%; margin: 0 auto;}
+#boardWrap #boardList a{float:right}
+#boardWrap #searchBar{display: flex; margin-top: 80px; }
