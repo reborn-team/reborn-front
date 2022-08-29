@@ -39,7 +39,7 @@
 
       <div id="loginBtn">
         <div class="login-button">
-          <input type="button" value="로그인" @click="loginHandler"><br>
+          <input type="button" class="btn btn-danger" value="로그인" @click="loginHandler"><br>
         </div>
 
         <div class="join-button">
