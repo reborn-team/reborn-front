@@ -1,0 +1,8 @@
+#nearby{ width: 70%; margin: 0 auto;}
+#nearby #content {width: 100%; }
+#nearby #content .form-control{height:4rem; margin: 5px 0;}
+#nearby #rely {background-color: pink; width: 100%; height:80px; margin-top: 5px; border-radius: 8px;}
+#nearby #rely #reply-header{float: left; padding: 0px;}
+#nearby #rely #reply-header h6{margin: 0 5px; float:left; font-weight: bold;}
+#nearby #rely #reply-header p{margin: 0 5px; font-weight: 100;}
+#nearby #rely #reply-body{display: flex; justify-content: center; padding: 10px;}

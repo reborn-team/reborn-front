@@ -1,0 +1,7 @@
+#join{width: 70%; margin: 0 auto; }
+#join #join-box{width:100%; margin: 10px; align-content: center;}
+#join #join-box label{text-align: left;}
+#join #join-box input{width: 60%;}
+#join #join-box #address {display: flex;}
+#join #joinBtn {display: flex; float: right; gap: 10px;} 
+#join #joinBtn button{ width: 80px;} 

@@ -1,3 +1,7 @@
 #boardWrap { width: 70%; margin: 0 auto;}
-#boardWrap #boardList a{float:right}
-#boardWrap #searchBar{display: flex; margin-top: 80px; }
+#boardWrap #boardList a {float:right}
+#boardWrap #searchBar{display: flex; justify-content: center; margin-top: 80px; }
+#boardWrap #searchBar select {width: 25%; }
+#boardWrap #searchBar input {width: 40%; }
+#boardWrap #searchBar button {width: 10%; }
+#boardWrap #boardPagi{display:flex; justify-content: center; margin-top: 15px;}

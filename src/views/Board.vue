@@ -18,7 +18,7 @@
           Search
         </button>
       </div>
-      <div class="pagination-div">
+      <div id="boardPagi" class="pagination-div">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" href="#" aria-label="Previous">
