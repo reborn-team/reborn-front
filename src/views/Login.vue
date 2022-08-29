@@ -14,8 +14,8 @@
           <input
             type="text"
             class="form-control form-control-sm"
-            id="colFormLabelSm"
-            placeholder="내용을 입력해주세요"
+            ref="email"
+            placeholder="ID를 입력해주세요"
           />
         </div>
       </div>
@@ -29,17 +29,15 @@
           <input
             type="password"
             class="form-control form-control-sm"
-            id="colFormLabelSm"
-            placeholder="내용을 입력해주세요"
+            ref="pw"
+            placeholder="비밀번호를 입력해주세요"
           />
         </div>
       </div>
 
       <div id="loginBtn">
         <div class="login-button">
-          <a href="/">
-            <button type="button" class="btn btn-danger btn-sm">로그인</button>
-          </a>
+          <input type="button" value="로그인" @click="loginHandler"><br>
         </div>
 
         <div class="join-button">
@@ -64,26 +62,30 @@ export default {
   name: "TheLogin",
   setup() {
     const router = useRouter();
-    const state = reactive({ email: "adasd@n.co", pw: "21312312" });
-    const email = ref("");
-    const pw = ref("");
+    const state = reactive({ 
+      email : '', 
+      pw    : '', 
+      token : sessionStorage.getItem("TOKEN"), });
+    const email = ref('');
+    const pw = ref('');
 
     const loginHandler = async () => {
 
       // 유효성
-      if (state.email === "") {
+      if (state.email === '') {
         alert("Check Email");
         email.value.focus();
         return false;
-      } else if (state.pw === "") {
+      } else if (state.pw === '') {
         alert("Check Password");
         pw.value.focus();
         return false;
       }
 
-      const url = "http://localhost:8080/api/v1/login";
+      // 토큰
+      const url     = "http://localhost:8080/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
-      const body = { email: state.email, pw: state.pw };
+      const body    = { email: state.email, pw: state.pw };
       await axios.post(url, body, { headers }).then(function (res) {
 
         if (res.data != null) {
