@@ -101,8 +101,10 @@ export default {
 
       });
     };
-
-    return { state, email, pw, loginHandler };
+    const goMain = () =>{
+      router.push({name: "Main"})
+    }
+    return { state, email, pw, loginHandler, goMain};
   },
   data() {
     return { message: "Login" };
