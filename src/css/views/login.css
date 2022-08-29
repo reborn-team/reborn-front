@@ -1,6 +1,6 @@
-#login{width: 70%; margin: 0 auto; }
-#login #login-box{width:100%; margin: 10px; align-content: center;}
-#login #login-box label{text-align: left;}
-#login #login-box input{width: 60%;}
-#login #loginBtn{display: flex; float: right; gap: 10px;} 
+#login{width: 50%; margin: 0 auto; }
+#login #login-box{width:50%; margin: 40px auto;}
+#login #login-box label{text-align: left; }
+#login #login-box input{width: 100%;}
+#login #loginBtn {display: flex; gap: 10px; margin-top: 10px; float: right;}
 #login #loginBtn button{ width: 80px;} 

@@ -1,0 +1,5 @@
+#rely {background-color: pink; width: 100%; height:80px; margin-top: 5px; border-radius: 8px;}
+#rely #reply-header{float: left; padding: 0px;}
+#rely #reply-header h6{margin: 0 5px; float:left; font-weight: bold;}
+#rely #reply-header p{margin: 0 5px; font-weight: 100;}
+#rely #reply-body{display: flex; justify-content: center; padding: 10px;}

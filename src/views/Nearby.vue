@@ -12,25 +12,18 @@
       </table>
     </div>
     <hr />
-    <div id="rely">
-      <div id="reply-header">
-        <h6 class="id">ID</h6>
-        <p class="time">Time</p>
-      </div>
-      <div id="reply-body">
-        <p>Content</p>
-      </div>
-    </div>
+    <Reply/>    
   </div>
 </template>
 
 <script>
 import MapAPI from "@/components/MapAPI.vue";
 import "../css/views/Nearby.css";
+import Reply from "@/components/Reply.vue";
 
 export default {
   name: "TheNearby",
-  components: { MapAPI },
+  components: { MapAPI, Reply },
   data() {
     return { message: "Nearby" };
   },

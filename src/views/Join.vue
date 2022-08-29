@@ -99,7 +99,7 @@
               placeholder="우편번호"
             />
           </div>
-          <div class="address-search-button">
+          <div >
             <button type="button" class="btn btn-danger btn-sm">
               주소 검색
             </button>

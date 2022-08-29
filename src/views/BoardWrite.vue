@@ -7,8 +7,8 @@
     </div>
     <WritingForm />
     <div id="writeBtn">
-      <button type="button" class="btn btn-danger recode">Cancel</button>
       <button type="button" class="btn btn-danger recode">Regist</button>
+      <button type="button" class="btn btn-danger recode">Cancel</button>
     </div>
   </div>
 </template>
