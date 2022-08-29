@@ -1,0 +1,4 @@
+#workoutDetail { width: 70%; margin: 0 auto;}
+#workoutDetail #detail { display: flex; justify-content: left; }
+#workoutDetail img { width: 40%; }
+#workoutDetail .detail { width: 100%; border: 1px solid red; margin-left: 10px;}

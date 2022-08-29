@@ -16,7 +16,7 @@ export default {
       series: [
         {
           name: "Desktops",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 100],
         },
       ],
       chartOptions: {
@@ -28,14 +28,14 @@ export default {
           },
         },
         dataLabels: {
-          enabled: false,
+          enabled: true,
         },
         stroke: {
           curve: "straight",
         },
         title: {
-          text: "Product Trends by Month",
-          align: "left",
+          text: "월 별 달성도",
+          align: "center",
         },
         grid: {
           row: {

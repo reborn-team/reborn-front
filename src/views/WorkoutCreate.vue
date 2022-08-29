@@ -15,7 +15,7 @@
         <option value="3">바벨로우</option>
         <option value="4">인버티드 로우</option>
       </select>
-      <div>
+      <div id="createBtn">
         <button type="button" class="btn btn-danger">+</button><br />
         <button type="button" class="btn btn-danger">-</button>
       </div>
