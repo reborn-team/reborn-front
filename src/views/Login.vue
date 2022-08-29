@@ -34,7 +34,7 @@
           />
         </div>
       </div>
-      
+
       <div id="loginBtn">
         <div class="login-button">
           <a href="/">
@@ -54,11 +54,52 @@
   </div>
 </template>
 
-<script>
+<script charset='utf-8'>
+import { reactive, ref } from "@vue/reactivity";
+import axios from "axios";
+import { useRouter } from "vue-router";
 import "../css/views/login.css";
 
 export default {
   name: "TheLogin",
+  setup() {
+    const router = useRouter();
+    const state = reactive({ email: "adasd@n.co", pw: "21312312" });
+    const email = ref("");
+    const pw = ref("");
+
+    const loginHandler = async () => {
+
+      // 유효성
+      if (state.email === "") {
+        alert("Check Email");
+        email.value.focus();
+        return false;
+      } else if (state.pw === "") {
+        alert("Check Password");
+        pw.value.focus();
+        return false;
+      }
+
+      const url = "http://localhost:8080/api/v1/login";
+      const headers = { "Content-Type": "application/json; charset=utf-8" };
+      const body = { email: state.email, pw: state.pw };
+      await axios.post(url, body, { headers }).then(function (res) {
+
+        if (res.data != null) {
+          sessionStorage.setItem("TOKEN", res.data.token);
+          sessionStorage.setItem("email", res.data.email);
+          alert("로그인되었습니다.");
+          router.push({ name: "Login" });
+        } else {
+          alert("로그인 실패하였습니다.");
+        }
+
+      });
+    };
+
+    return { state, email, pw, loginHandler };
+  },
   data() {
     return { message: "Login" };
   },
