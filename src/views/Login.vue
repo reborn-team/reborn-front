@@ -15,6 +15,7 @@
             type="text"
             class="form-control form-control-sm"
             ref="email"
+            v-model="state.email"
             placeholder="ID를 입력해주세요"
           />
         </div>
@@ -30,6 +31,7 @@
             type="password"
             class="form-control form-control-sm"
             ref="pw"
+            v-model="state.pw"
             placeholder="비밀번호를 입력해주세요"
           />
         </div>
