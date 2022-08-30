@@ -1,8 +1,9 @@
 #create { width: 70%; margin: 0 auto; }
-#create #collector { display: flex;}
+#create #collector { display: flex; }
 #create #collector #createBtn{ margin-top: 2.5rem;}
-#create #collector button { width: 35px; height: 35px; margin: 5px; padding: 0; }
-#create #explain{ display: flex; margin-top: 30px;}
-#create #explain .img { width: 40%; }
-#create #explain .text { width: 100%; height: 300px; border-bottom: 1px solid red; padding: 20px; margin-left: 10px;}
+#create #collector .img { width: 40%; margin-left: 10px; border-radius: 10px; }
+#create #createBtn {margin-bottom: 4rem;}
+#create #createBtn button { width: 7.5rem; height: 35px; margin-left: 5px; margin-top: 5px; padding: 0; }
 #create button{float: right;}
+
+#create #collector .img:hover{ box-shadow: inset 0 0 5px #888a; }

@@ -15,38 +15,29 @@
         <option value="3">바벨로우</option>
         <option value="4">인버티드 로우</option>
       </select>
-      <div id="createBtn">
-        <button type="button" class="btn btn-danger">+</button><br />
-        <button type="button" class="btn btn-danger">-</button>
-      </div>
-      <select
-        class="form-select"
-        size="8"
-        aria-label="size 8 select example"
-      ></select>
+      <img src="../assets/img/banner.jpg" class="img" alt="" />
     </div>
-    <div id="explain">
-      <img
-        src="../assets/img/banner.jpg"
-        class="img"
-        alt=""
-      />
-      <div class="text"></div>
+    <div id="createBtn">
+      <button type="button" class="btn btn-danger">-</button>
+      <button type="button" class="btn btn-danger">+</button>
     </div>
+    <Table />
     <br />
     <a href="/workout/record">
-      <button type="button" class="btn btn-danger recode" >Create</button>
+      <button type="button" class="btn btn-danger recode">Create</button>
     </a>
   </div>
 </template>
 
 <script>
 import "../css/views/WorkoutCreate.css";
+import Table from "@/components/Table.vue";
 
 export default {
-  name: "WorkoutCreate",
-  data() {
-    return { message: "Create Workout Program" };
-  },
+    name: "WorkoutCreate",
+    data() {
+        return { message: "Create Workout Program" };
+    },
+    components: { Table }
 };
 </script>
