@@ -215,81 +215,42 @@ export default {
     async joinConfirm(e) {
       
       e.preventDefault();
-      //공백
-      const pattern_blank = /[\s]/g;
-      //한글만
-      const pattern_kor = /^[가-힣]+$/;
-      //완전한글포함
-      const pattern_complete_kor = /[가-힣]/;
-      //ID
-      const pattern_id = /^[a-z0-9]{5,15}$/;
-
-
       let id = this.userForm.id;
       let name = this.userForm.name;
       let password = this.userForm.password;
       let re_password = this.userForm.rePassword;
       let phone = this.phoneNum;
 
-      if (id == "" || !password || !re_password || !name || !phone) {
-        alert("모든 값을 입력해 주세요");
-        return;
-      }
-      //아이디 소문자, 숫자만 사용
-      console.log(!pattern_id);
-      if (!pattern_id.test(id)) {
-        alert("아이디를 확인해 주세요");
-        return;
-        // 중복확인
-      }
-      if (!this.idConfirm) {
-        console.log(this.idConfirm);
-        alert("아이디 중복확인을 해주세요");
-        return;
-      }
-      //이름 체크. 한글만
-      console.log(!pattern_kor.test(name));
-      if (!pattern_kor.test(name)) {
-        alert("이름을 확인해 주세요");
-        return;
-      }
-      //비밀번호 체크
-      if (
-        pattern_blank.test(password) ||
-        pattern_complete_kor.test(password) ||
-        password.length < 8 ||
-        password.length > 20
-      ) {
-        alert("비밀번호는 공백없이 8~20자 내외로 입력해주세요");
-        return;
-      }
-      //비밀번호 재확인 비교
-      if (password != re_password) {
-        alert("동일한 비밀번호를 입력해주세요");
-        return;
-      }
+       if (id === "") {
+        alert("Check Email");
+        id.value.focus();
+        return false;
+      } else if (password === "") {
+        alert("Check Password");
+        password.value.focus();
+        return false;
+      } else if (re_password === "") {
+        alert("Check RePassword");
+        re_password.value.focus();
+        return false;
+      } else if (password != re_password) {
+        alert("Check Password and RePassword");
+        password.value.value = "";
+        re_password.value.value = "";
+        password.value.focus();
+        return false;
+      } else if (name === "") {
+        alert("Check Name");
+        name.value.focus();
+        return false;
+      } else if (phone === "") {
+        alert("Check PhoneNum");
+        phone.value.focus();
+        return false;
+      } 
+      
+      
 
-      console.log(this.userForm.profileFile);
-      let userData = new FormData();
-      for (const key in this.userForm) {
-        userData.append(key, this.userForm[key]);
-      }
-      userData.delete("rePassword");
-      userData.append("phone", this.phoneNum);
-      console.log(userData.phone);
-      try {
-        console.log(userData);
-        let res = await this.$axios.post("/api/signup/register", userData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        console.log(res);
-        this.$router.push("/signup/complete");
-      } catch (e) {
-        console.log(e);
-        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
-      }
     },
   },
 };
