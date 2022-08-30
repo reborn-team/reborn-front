@@ -102,15 +102,8 @@ export default {
       });
     };
 
-    // 라우트
-    const goMain = () =>{
-      this.$router.push("/")
-    }
-
-    return { state, email, password, loginHandler, goMain};
+    return { state, email, password, loginHandler, message:"Login" };
   },
-  data() {
-    return { message: "Login" };
-  },
+  
 };
 </script>
