@@ -91,7 +91,7 @@ export default {
       const body    = { email: state.email, password: state.password };
       await axios.post(url, body, { headers }).then(function (res) {
 
-        if (res.status != 200) {
+        if (res.status == 200) {
           sessionStorage.setItem("TOKEN", res.data.token);
           alert("로그인되었습니다.");
           router.push({ name: "Login" });
