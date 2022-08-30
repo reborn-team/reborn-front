@@ -11,7 +11,7 @@
           type="text"
           class="form-control form-control-sm"
           id="user_id"
-          v-model="id"
+          v-model="userForm.id"
           placeholder="이메일 형식으로 입력하세요"
         />
       </div>
@@ -23,7 +23,7 @@
           type="password"
           class="form-control form-control-sm"
           id="user_password"
-          v-model="password"
+          v-model="userForm.password"
           placeholder="비밀번호를 입력해주세요"
         />
       </div>
@@ -35,7 +35,7 @@
           type="password"
           class="form-control form-control-sm"
           id="re_password"
-          v-model="rePassword"
+          v-model="userForm.rePassword"
           placeholder="비밀번호를 입력해주세요"
         />
       </div>
@@ -47,7 +47,7 @@
           type="text"
           class="form-control form-control-sm"
           id="user_name"
-          v-model="name"
+          v-model="userForm.name"
           placeholder="이름을 입력해주세요"
         />
       </div>
@@ -73,6 +73,7 @@
               type="text"
               class="form-control form-control-sm"
               id="postcode"
+              v-model="userForm.postcode"
               disabled
             />
           </div>
@@ -92,6 +93,7 @@
           type="text"
           class="form-control form-control-sm"
           id="address"
+          v-model="userForm.address"
           placeholder="'주소 검색' 버튼을 클릭하세요"
           disabled
         />
@@ -102,8 +104,8 @@
           type="text"
           class="form-control form-control-sm"
           id="detail_address"
+          v-model="userForm.detailAddress"
           placeholder="상세주소를 입력하세요"
-          v-model="detailAddress"
         />
       </div>
 
@@ -135,16 +137,17 @@ export default {
   data() {
     return {
       message: "Regist",
-      id: "",
-      password: "",
-      rePassword: "",
-      email: "",
-      name: "",
-      postcode: "",
-      address: "",
-      detailAddress: "",
-      phoneNum: "",
       postOpen: false,
+      phoneNum: "",
+      userForm: {
+        id: "",
+        password: "",
+        rePassword: "",
+        name: "",
+        postcode: "",
+        address: "",
+        detailAddress: "",
+      },
     };
   },
   watch: {
@@ -166,10 +169,11 @@ export default {
     },
   },
   methods: {
-    async address_search(e) {
+    address_search(e) {
       e.preventDefault();
       this.postOpen = !this.postOpen;
     },
+
     oncomplete(data) {
       var addr = ""; // 주소 변수
       var extraAddr = ""; // 참고항목 변수
@@ -183,7 +187,8 @@ export default {
       }
 
       if (data.userSelectedType === "R") {
-        if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+
+        if (data.bname !== "" ) {
           extraAddr += data.bname;
         }
         if (data.buildingName !== "" && data.apartment === "Y") {
@@ -193,37 +198,32 @@ export default {
         if (extraAddr !== "") {
           extraAddr = " (" + extraAddr + ")";
         }
+
         document.getElementById("address").value = addr + " " + extraAddr;
       } else {
         document.getElementById("address").value = addr;
       }
+
       document.getElementById("postcode").value = data.zonecode;
       document.getElementById("detail_address").focus();
       this.userForm.postcode = data.zonecode;
-      this.userForm.address = addr;
+      this.userForm.address = data.addr;
+
       this.postOpen = false;
     },
+
     async joinConfirm(e) {
+      
       e.preventDefault();
       //공백
       const pattern_blank = /[\s]/g;
       //한글만
-      const patten_kor = /^[가-힣]+$/;
+      const pattern_kor = /^[가-힣]+$/;
       //완전한글포함
-      const patten_complete_kor = /[가-힣]/;
+      const pattern_complete_kor = /[가-힣]/;
       //ID
-      const patten_id = /^[a-z0-9]{5,15}$/;
-      // //숫자포함
-      // const patten_include_num = /[0-9]/;
-      // //영어포함
-      // const patten_include_eng = /[a-zA-Z]/;
-      // //특수문자
-      // const pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/;
-      // //email
-      // const pattern_email =
-      //   /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
+      const pattern_id = /^[a-z0-9]{5,15}$/;
 
-      // let validate_result = true
 
       let id = this.userForm.id;
       let name = this.userForm.name;
@@ -236,8 +236,8 @@ export default {
         return;
       }
       //아이디 소문자, 숫자만 사용
-      console.log(!patten_id);
-      if (!patten_id.test(id)) {
+      console.log(!pattern_id);
+      if (!pattern_id.test(id)) {
         alert("아이디를 확인해 주세요");
         return;
         // 중복확인
@@ -248,15 +248,15 @@ export default {
         return;
       }
       //이름 체크. 한글만
-      console.log(!patten_kor.test(name));
-      if (!patten_kor.test(name)) {
+      console.log(!pattern_kor.test(name));
+      if (!pattern_kor.test(name)) {
         alert("이름을 확인해 주세요");
         return;
       }
       //비밀번호 체크
       if (
         pattern_blank.test(password) ||
-        patten_complete_kor.test(password) ||
+        pattern_complete_kor.test(password) ||
         password.length < 8 ||
         password.length > 20
       ) {
