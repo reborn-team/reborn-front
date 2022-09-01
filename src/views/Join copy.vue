@@ -6,12 +6,12 @@
     <!-- 아이디 -->
     <div id="join-box">
       <div class="row mb-3">
-        <label for="id" class="form-label">ID</label>
+        <label for="email" class="form-label">ID</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          id="id"
-          v-model="state.id"
+          ref="email"
+          v-model="state.email"
           placeholder="이메일 형식으로 입력하세요"
         />
       </div>
@@ -22,7 +22,7 @@
         <input
           type="password"
           class="form-control form-control-sm"
-          id="user_password"
+          ref="password"
           v-model="state.password"
           placeholder="비밀번호를 입력해주세요"
         />
@@ -30,11 +30,11 @@
 
       <!-- 비밀번호 확인 -->
       <div class="row mb-3">
-        <label for="re_password" class="form-label">RePassword</label>
+        <label for="repassword" class="form-label">RePassword</label>
         <input
           type="password"
           class="form-control form-control-sm"
-          id="re_password"
+          ref="repassword"
           v-model="state.repassword"
           placeholder="비밀번호를 입력해주세요"
         />
@@ -42,11 +42,11 @@
 
       <!-- 이름 -->
       <div class="row mb-3">
-        <label for="user_name" class="form-label">Name</label>
+        <label for="name" class="form-label">Name</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          id="user_name"
+          ref="name"
           v-model="state.name"
           placeholder="이름을 입력해주세요"
         />
@@ -58,9 +58,9 @@
         <input
           type="text"
           class="form-control form-control-sm"
-          id="phoneNum"
+          ref="phoneNum"
           placeholder="ex) 010-1111-1111"
-          v-model="phoneNum"
+          v-model="state.phoneNum"
         />
       </div>
 
@@ -72,7 +72,7 @@
             <input
               type="text"
               class="form-control form-control-sm"
-              id="postcode"
+              ref="postcode"
               v-model="state.postcode"
               disabled
             />
@@ -82,9 +82,6 @@
               주소 검색
             </button>
           </div>
-          <div class="post-box" v-if="postOpen">
-            <VueDaumPostcode @complete="oncomplete" />
-          </div>
         </div>
       </div>
 
@@ -92,7 +89,7 @@
         <input
           type="text"
           class="form-control form-control-sm"
-          id="address"
+          ref="address"
           v-model="state.address"
           placeholder="'주소 검색' 버튼을 클릭하세요"
           disabled
@@ -103,10 +100,13 @@
         <input
           type="text"
           class="form-control form-control-sm"
-          id="detail_address"
+          ref="detailAddress"
           v-model="state.detailAddress"
           placeholder="상세주소를 입력하세요"
         />
+      </div>
+      <div class="post-box" v-if="postOpen">
+        <VueDaumPostcode @complete="oncomplete" />
       </div>
 
       <div id="joinBtn">
@@ -127,7 +127,7 @@
 
 <script>
 import { VueDaumPostcode } from "vue-daum-postcode";
-import { reactive, ref, } from "@vue/reactivity";
+import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
 import "../css/views/join.css";
 
@@ -136,8 +136,7 @@ export default {
   components: { VueDaumPostcode },
   setup() {
     const state = reactive({
-      postOpen: false,
-      id: "",
+      email: "",
       password: "",
       repassword: "",
       name: "",
@@ -147,21 +146,20 @@ export default {
       detailAddress: "",
       token: sessionStorage.getItem("TOKEN"),
     });
-    const id = ref("");
+    const email = ref("");
     const password = ref("");
     const repassword = ref("");
     const name = ref("");
     const phoneNum = ref("");
-    const postcode = ref("");
-    const address = ref("");
+    let postcode = ref("");
+    let address = ref("");
     const detailAddress = ref("");
-    // const postOpen = ref(false);
+    let postOpen = ref(false);
 
     const joinHandler = async () => {
-
-      if (state.id === "") {
+      if (state.email === "") {
         alert("Check Email");
-        id.value.focus();
+        email.value.focus();
         return false;
       } else if (state.password === "") {
         alert("Check Password");
@@ -170,36 +168,26 @@ export default {
       } else if (state.repassword === "") {
         alert("Check RePassword");
         repassword.value.focus();
-        return false;
-      } else if (state.password != state.repassword) {
+        return;
+      } else if (state.password !== state.repassword) {
         alert("Check Password and RePassword");
-        password.value.value = "";
-        repassword.value.value = "";
         password.value.focus();
         return false;
       } else if (state.name === "") {
         alert("Check Name");
         name.value.focus();
-        return false;
+        return;
       } else if (state.phoneNum === "") {
         alert("Check PhoneNum");
         phoneNum.value.focus();
-        return false;
-      } else if (state.postcode === "") {
-        alert("Check Postcode");
-        postcode.value.focus();
-        return false;
-      } else if (state.address === "") {
-        alert("Check Address");
-        address.value.focus();
-        return false;
+        return;
       } else if (state.detailAddress === "") {
         alert("Check detailAddress");
         detailAddress.value.focus();
-        return false;
+        return;
       }
 
-      const url = "/apiserverex/api/memberRegister";
+      const url = "/api/vi/join";
       const headers = {
         "Content-Type": "application/json",
         Authorization: state.token,
@@ -221,12 +209,11 @@ export default {
       } else {
         alert("회원가입에 실패하였습니다.");
       }
-
     };
 
     const address_search = async () => {
-      this.postOpen = !this.postOpen;
-    }
+      postOpen.value = !postOpen.value;
+    };
 
     const oncomplete = (data) => {
       var addr = ""; // 주소 변수
@@ -241,8 +228,7 @@ export default {
       }
 
       if (data.userSelectedType === "R") {
-
-        if (data.bname !== "" ) {
+        if (data.bname !== "") {
           extraAddr += data.bname;
         }
         if (data.buildingName !== "" && data.apartment === "Y") {
@@ -252,179 +238,56 @@ export default {
         if (extraAddr !== "") {
           extraAddr = " (" + extraAddr + ")";
         }
-
-        document.getElementById("address").value = addr + " " + extraAddr;
+        address.value.value = addr + " " + extraAddr;
       } else {
-        document.getElementById("address").value = addr;
+        address.value.value = addr;
       }
 
-      document.getElementById("postcode").value = data.zonecode;
-      document.getElementById("detail_address").focus();
-      this.userForm.postcode = data.zonecode;
-      this.userForm.address = addr;
+      postcode.value.value = data.zonecode;
+      detailAddress.value.focus();
 
-      this.postOpen = false;
-    }
+      state.postcode = data.zonecode;
+      state.address = addr;
 
-    return { state, id, name, password, repassword, joinHandler, address_search, oncomplete };
+      postOpen.value = false;
+    };
+
+    // watch(
+    //   () => state.phoneNum,
+    //   function(phoneNum) {
+    //     phoneNum=phoneNum.replace(/[^0-9]/g, "");
+    //     if(phoneNum.length<4) {
+    //       return;
+    //     } else if(phoneNum.length<8) {
+    //       phoneNum=
+    //         phoneNum.substr(0, 3)+"-"+phoneNum.substr(3);
+    //     } else if(phoneNum.length<12) {
+    //       phoneNum=
+    //         phoneNum.substr(0, 3)+
+    //         "-"+
+    //         phoneNum.substr(3, 4)+
+    //         "-"+
+    //         phoneNum.substr(7);
+    //     }
+    //   },
+    // )
+
+    return {
+      state,
+      email,
+      password,
+      repassword,
+      name,
+      phoneNum,
+      postcode,
+      address,
+      detailAddress,
+      joinHandler,
+      address_search,
+      oncomplete,
+      message: "Join",
+      postOpen,
+    };
   },
-
-  // data() {
-  //   return {
-  //     message: "Regist",
-  //     postOpen: false,
-  //     phoneNum: "",
-  //     userForm: {
-  //       id: "",
-  //       password: "",
-  //       rePassword: "",
-  //       name: "",
-  //       postcode: "",
-  //       address: "",
-  //       detailAddress: "",
-  //     },
-  //   };
-  // },
-  // watch: {
-  //   phoneNum() {
-  //     this.phoneNum = this.phoneNum.replace(/[^0-9]/g, "");
-  //     if (this.phoneNum.length < 4) {
-  //       return;
-  //     } else if (this.phoneNum.length < 8) {
-  //       this.phoneNum =
-  //         this.phoneNum.substr(0, 3) + "-" + this.phoneNum.substr(3);
-  //     } else if (this.phoneNum.length < 12) {
-  //       this.phoneNum =
-  //         this.phoneNum.substr(0, 3) +
-  //         "-" +
-  //         this.phoneNum.substr(3, 4) +
-  //         "-" +
-  //         this.phoneNum.substr(7);
-  //     }
-  //   },
-  // },
-  // methods: {
-  //   address_search(e) {
-  //     e.preventDefault();
-  //     this.postOpen = !this.postOpen;
-  //   },
-
-  //   oncomplete(data) {
-  //     var addr = ""; // 주소 변수
-  //     var extraAddr = ""; // 참고항목 변수
-
-  //     if (data.userSelectedType === "R") {
-  //       // 사용자가 도로명 주소를 선택했을 경우
-  //       addr = data.roadAddress;
-  //     } else {
-  //       // 사용자가 지번 주소를 선택했을 경우(J)
-  //       addr = data.jibunAddress;
-  //     }
-
-  //     if (data.userSelectedType === "R") {
-
-  //       if (data.bname !== "" ) {
-  //         extraAddr += data.bname;
-  //       }
-  //       if (data.buildingName !== "" && data.apartment === "Y") {
-  //         extraAddr +=
-  //           extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
-  //       }
-  //       if (extraAddr !== "") {
-  //         extraAddr = " (" + extraAddr + ")";
-  //       }
-
-  //       document.getElementById("address").value = addr + " " + extraAddr;
-  //     } else {
-  //       document.getElementById("address").value = addr;
-  //     }
-
-  //     document.getElementById("postcode").value = data.zonecode;
-  //     document.getElementById("detail_address").focus();
-  //     this.userForm.postcode = data.zonecode;
-  //     this.userForm.address = addr;
-
-  //     this.postOpen = false;
-  //   },
-
-  //   async joinConfirm(e) {
-
-  //     e.preventDefault();
-  //     //공백
-  //     const pattern_blank = /[\s]/g;
-  //     //한글만
-  //     const pattern_kor = /^[가-힣]+$/;
-  //     //완전한글포함
-  //     const pattern_complete_kor = /[가-힣]/;
-  //     //ID
-  //     const pattern_id = /^[a-z0-9]{5,15}$/;
-
-  //     let id = this.userForm.id;
-  //     let name = this.userForm.name;
-  //     let password = this.userForm.password;
-  //     let re_password = this.userForm.rePassword;
-  //     let phone = this.phoneNum;
-
-  //     if (id == "" || !password || !re_password || !name || !phone) {
-  //       alert("모든 값을 입력해 주세요");
-  //       return;
-  //     }
-  //     //아이디 소문자, 숫자만 사용
-  //     console.log(!pattern_id);
-  //     if (!pattern_id.test(id)) {
-  //       alert("아이디를 확인해 주세요");
-  //       return;
-  //       // 중복확인
-  //     }
-  //     if (!this.idConfirm) {
-  //       console.log(this.idConfirm);
-  //       alert("아이디 중복확인을 해주세요");
-  //       return;
-  //     }
-  //     //이름 체크. 한글만
-  //     console.log(!pattern_kor.test(name));
-  //     if (!pattern_kor.test(name)) {
-  //       alert("이름을 확인해 주세요");
-  //       return;
-  //     }
-  //     //비밀번호 체크
-  //     if (
-  //       pattern_blank.test(password) ||
-  //       pattern_complete_kor.test(password) ||
-  //       password.length < 8 ||
-  //       password.length > 20
-  //     ) {
-  //       alert("비밀번호는 공백없이 8~20자 내외로 입력해주세요");
-  //       return;
-  //     }
-  //     //비밀번호 재확인 비교
-  //     if (password != re_password) {
-  //       alert("동일한 비밀번호를 입력해주세요");
-  //       return;
-  //     }
-
-  //     console.log(this.userForm.profileFile);
-  //     let userData = new FormData();
-  //     for (const key in this.userForm) {
-  //       userData.append(key, this.userForm[key]);
-  //     }
-  //     userData.delete("rePassword");
-  //     userData.append("phone", this.phoneNum);
-  //     console.log(userData.phone);
-  //     try {
-  //       console.log(userData);
-  //       let res = await this.$axios.post("/api/signup/register", userData, {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       });
-  //       console.log(res);
-  //       this.$router.push("/signup/complete");
-  //     } catch (e) {
-  //       console.log(e);
-  //       alert("회원가입에 실패했습니다. 다시 시도해주세요.");
-  //     }
-  //   },
-  // },
 };
 </script>

@@ -56,8 +56,8 @@
 
 <script charset='utf-8'>
 import { reactive, ref } from "@vue/reactivity";
-import axios from "axios";
 import { useRouter } from "vue-router";
+import axios from "axios";
 import "../css/views/login.css";
 
 export default {

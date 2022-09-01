@@ -248,9 +248,6 @@ export default {
         phone.value.focus();
         return false;
       } 
-      
-      
-
     },
   },
 };

@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Main from "@/views/Main.vue";
 import Login from "@/views/Login.vue";
-import Join from "@/views/Join.vue";
+import Join from "@/views/Join copy.vue";
 import WorkoutCreate from "@/views/WorkoutCreate.vue";
 import WorkoutRecord from "@/views/WorkoutRecord.vue";
 import WorkoutList from "@/views/WorkoutList.vue";
