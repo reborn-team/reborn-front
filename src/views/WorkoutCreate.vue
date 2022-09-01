@@ -3,13 +3,16 @@
     <h1 class="title">{{ message }}</h1>
     <div id="collector">
       <select class="form-select" size="7" aria-label="size 7 select example">
-        <option selected>부위</option>
+        <option disabled>부위</option>
+        <option></option>
         <option value="1">등</option>
         <option value="2">가슴</option>
         <option value="3">하체</option>
         <option value="4">코어</option>
       </select>
       <select class="form-select" size="7" aria-label="size 7 select example">
+        <option disabled>세부사항</option>
+        <option></option>
         <option value="1">렛풀다운</option>
         <option value="2">풀업</option>
         <option value="3">바벨로우</option>
@@ -23,9 +26,7 @@
     </div>
     <Table />
     <br />
-    <a href="/workout/record">
-      <button type="button" class="btn btn-danger recode">Create</button>
-    </a>
+    <button type="button" class="btn btn-danger recode">Create</button>
   </div>
 </template>
 
@@ -34,10 +35,10 @@ import "../css/views/WorkoutCreate.css";
 import Table from "@/components/Table.vue";
 
 export default {
-    name: "WorkoutCreate",
-    data() {
-        return { message: "Create Workout Program" };
-    },
-    components: { Table }
+  name: "WorkoutCreate",
+  data() {
+    return { message: "Create Workout Program" };
+  },
+  components: { Table },
 };
 </script>

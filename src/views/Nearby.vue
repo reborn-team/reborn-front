@@ -5,14 +5,16 @@
       <MapAPI />
       <table id="content">
         <tr>
-          <div v-for="i in 4" :key={i} >
+          <div v-for="i in 3" :key={i} >
             <input type="text" class="form-control" />
           </div>
         </tr>
       </table>
     </div>
     <hr />
-    <Reply/>    
+    <div v-for="i in 4" :key={i}>
+      <Reply/>    
+    </div>
   </div>
 </template>
 

@@ -44,9 +44,7 @@
 
         <div class="join-button">
           <a href="/join">
-            <button type="button" class="btn btn-danger btn-sm">
-              회원가입
-            </button>
+            <input type="button" class="btn btn-danger" value="회원가입"><br>
           </a>
         </div>
       </div>

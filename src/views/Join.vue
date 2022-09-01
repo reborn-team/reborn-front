@@ -6,12 +6,12 @@
     <!-- 아이디 -->
     <div id="join-box">
       <div class="row mb-3">
-        <label for="user_id" class="form-label">ID</label>
+        <label for="email" class="form-label">ID</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          id="user_id"
-          v-model="userForm.id"
+          ref="email"
+          v-model="state.email"
           placeholder="이메일 형식으로 입력하세요"
         />
       </div>
@@ -22,58 +22,58 @@
         <input
           type="password"
           class="form-control form-control-sm"
-          id="user_password"
-          v-model="userForm.password"
+          ref="password"
+          v-model="state.password"
           placeholder="비밀번호를 입력해주세요"
         />
       </div>
 
       <!-- 비밀번호 확인 -->
       <div class="row mb-3">
-        <label for="re_password" class="form-label">RePassword</label>
+        <label for="repassword" class="form-label">RePassword</label>
         <input
           type="password"
           class="form-control form-control-sm"
-          id="re_password"
-          v-model="userForm.rePassword"
+          ref="repassword"
+          v-model="state.repassword"
           placeholder="비밀번호를 입력해주세요"
         />
       </div>
 
       <!-- 이름 -->
       <div class="row mb-3">
-        <label for="user_name" class="form-label">Name</label>
+        <label for="name" class="form-label">Name</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          id="user_name"
-          v-model="userForm.name"
+          ref="name"
+          v-model="state.name"
           placeholder="이름을 입력해주세요"
         />
       </div>
 
       <!-- 전화번호 -->
       <div class="row mb-3">
-        <label for="user_phone" class="form-label">Mobile</label>
+        <label for="phoneNum" class="form-label">Mobile</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          id="user_phone"
+          ref="phoneNum"
           placeholder="ex) 010-1111-1111"
-          v-model="phoneNum"
+          v-model="state.phoneNum"
         />
       </div>
 
       <!-- 주소 -->
       <div id="address">
-        <div class="row mb-1">
-          <label for="user_address" class="form-label">Address</label>
+        <div class="row mb-1 search">
+          <label for="address" class="form-label">Address</label>
           <div class="col-sm-5">
             <input
               type="text"
               class="form-control form-control-sm"
-              id="postcode"
-              v-model="userForm.postcode"
+              ref="postcode"
+              v-model="state.postcode"
               disabled
             />
           </div>
@@ -82,9 +82,6 @@
               주소 검색
             </button>
           </div>
-          <div class="post-box" v-if="postOpen">
-            <VueDaumPostcode @complete="oncomplete" />
-          </div>
         </div>
       </div>
 
@@ -92,30 +89,31 @@
         <input
           type="text"
           class="form-control form-control-sm"
-          id="address"
-          v-model="userForm.address"
+          ref="address"
+          v-model="state.address"
           placeholder="'주소 검색' 버튼을 클릭하세요"
           disabled
         />
       </div>
 
-      <div class="row mb-3">
+      <div class="row mb-1">
         <input
           type="text"
           class="form-control form-control-sm"
-          id="detail_address"
-          v-model="userForm.detailAddress"
+          ref="detailAddress"
+          v-model="state.detailAddress"
           placeholder="상세주소를 입력하세요"
         />
+      </div>
+      <div class="post-box" v-if="postOpen">
+        <VueDaumPostcode @complete="oncomplete" />
       </div>
 
       <div id="joinBtn">
         <div class="join2-button">
-          <a href="/login">
-            <button class="btn btn-danger btn-sm" @click="joinConfirm">
-              완료
-            </button>
-          </a>
+          <button class="btn btn-danger btn-sm" @click="joinHandler">
+            완료
+          </button>
         </div>
         <div class="cancle-button">
           <a href="/login">
@@ -129,52 +127,95 @@
 
 <script>
 import { VueDaumPostcode } from "vue-daum-postcode";
+import { reactive, ref } from "@vue/reactivity";
+import axios from "axios";
 import "../css/views/join.css";
 
 export default {
   name: "TheRegist",
   components: { VueDaumPostcode },
-  data() {
-    return {
-      message: "Regist",
-      postOpen: false,
+  setup() {
+    const state = reactive({
+      email: "",
+      password: "",
+      repassword: "",
+      name: "",
       phoneNum: "",
-      userForm: {
-        id: "",
-        password: "",
-        rePassword: "",
-        name: "",
-        postcode: "",
-        address: "",
-        detailAddress: "",
-      },
-    };
-  },
-  watch: {
-    phoneNum() {
-      this.phoneNum = this.phoneNum.replace(/[^0-9]/g, "");
-      if (this.phoneNum.length < 4) {
-        return;
-      } else if (this.phoneNum.length < 8) {
-        this.phoneNum =
-          this.phoneNum.substr(0, 3) + "-" + this.phoneNum.substr(3);
-      } else if (this.phoneNum.length < 12) {
-        this.phoneNum =
-          this.phoneNum.substr(0, 3) +
-          "-" +
-          this.phoneNum.substr(3, 4) +
-          "-" +
-          this.phoneNum.substr(7);
-      }
-    },
-  },
-  methods: {
-    address_search(e) {
-      e.preventDefault();
-      this.postOpen = !this.postOpen;
-    },
+      postcode: "",
+      address: "",
+      detailAddress: "",
+      token: sessionStorage.getItem("TOKEN"),
+    });
+    const email = ref("");
+    const password = ref("");
+    const repassword = ref("");
+    const name = ref("");
+    const phoneNum = ref("");
+    let postcode = ref("");
+    let address = ref("");
+    const detailAddress = ref("");
+    let postOpen = ref(false);
 
-    oncomplete(data) {
+    const joinHandler = async () => {
+      if (state.email === "") {
+        alert("Check Email");
+        email.value.focus();
+        return false;
+      } else if (state.password === "") {
+        alert("Check Password");
+        password.value.focus();
+        return false;
+      } else if (state.repassword === "") {
+        alert("Check RePassword");
+        repassword.value.focus();
+        return;
+      } else if (state.password !== state.repassword) {
+        alert("Check Password and RePassword");
+        password.value.focus();
+        return false;
+      } else if (state.name === "") {
+        alert("Check Name");
+        name.value.focus();
+        return;
+      } else if (state.phoneNum === "") {
+        alert("Check PhoneNum");
+        phoneNum.value.focus();
+        return;
+      } else if (state.detailAddress === "") {
+        alert("Check detailAddress");
+        detailAddress.value.focus();
+        return;
+      }
+
+      const url = "/api/vi/join";
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: state.token,
+        token: state.token,
+      };
+      const body = {
+        email: state.email,
+        password: state.password,
+        name: state.name,
+        phoneNum: state.phoneNum,
+        postcode: state.postcode,
+        address: state.address,
+        detailAddress: state.detailAddress,
+      };
+      const response = await axios.post(url, body, { headers });
+      console.log(response.data);
+      if (response.status === 200) {
+        alert("회원가입이 되었습니다.");
+      } else {
+        alert("회원가입에 실패하였습니다.");
+      }
+    };
+
+    const address_search = async () => {
+      postOpen.value = !postOpen.value;
+    };
+
+    const oncomplete = (data) => {
       var addr = ""; // 주소 변수
       var extraAddr = ""; // 참고항목 변수
 
@@ -187,8 +228,7 @@ export default {
       }
 
       if (data.userSelectedType === "R") {
-
-        if (data.bname !== "" ) {
+        if (data.bname !== "") {
           extraAddr += data.bname;
         }
         if (data.buildingName !== "" && data.apartment === "Y") {
@@ -198,57 +238,56 @@ export default {
         if (extraAddr !== "") {
           extraAddr = " (" + extraAddr + ")";
         }
-
-        document.getElementById("address").value = addr + " " + extraAddr;
+        address.value.value = addr + " " + extraAddr;
       } else {
-        document.getElementById("address").value = addr;
+        address.value.value = addr;
       }
 
-      document.getElementById("postcode").value = data.zonecode;
-      document.getElementById("detail_address").focus();
-      this.userForm.postcode = data.zonecode;
-      this.userForm.address = data.addr;
+      postcode.value.value = data.zonecode;
+      detailAddress.value.focus();
 
-      this.postOpen = false;
-    },
+      state.postcode = data.zonecode;
+      state.address = addr;
 
-    async joinConfirm(e) {
-      
-      e.preventDefault();
-      let id = this.userForm.id;
-      let name = this.userForm.name;
-      let password = this.userForm.password;
-      let re_password = this.userForm.rePassword;
-      let phone = this.phoneNum;
+      postOpen.value = false;
+    };
 
-       if (id === "") {
-        alert("Check Email");
-        id.value.focus();
-        return false;
-      } else if (password === "") {
-        alert("Check Password");
-        password.value.focus();
-        return false;
-      } else if (re_password === "") {
-        alert("Check RePassword");
-        re_password.value.focus();
-        return false;
-      } else if (password != re_password) {
-        alert("Check Password and RePassword");
-        password.value.value = "";
-        re_password.value.value = "";
-        password.value.focus();
-        return false;
-      } else if (name === "") {
-        alert("Check Name");
-        name.value.focus();
-        return false;
-      } else if (phone === "") {
-        alert("Check PhoneNum");
-        phone.value.focus();
-        return false;
-      } 
-    },
+    // watch(
+    //   () => state.phoneNum,
+    //   function(phoneNum) {
+    //     phoneNum=phoneNum.replace(/[^0-9]/g, "");
+    //     if(phoneNum.length<4) {
+    //       return;
+    //     } else if(phoneNum.length<8) {
+    //       phoneNum=
+    //         phoneNum.substr(0, 3)+"-"+phoneNum.substr(3);
+    //     } else if(phoneNum.length<12) {
+    //       phoneNum=
+    //         phoneNum.substr(0, 3)+
+    //         "-"+
+    //         phoneNum.substr(3, 4)+
+    //         "-"+
+    //         phoneNum.substr(7);
+    //     }
+    //   },
+    // )
+
+    return {
+      state,
+      email,
+      password,
+      repassword,
+      name,
+      phoneNum,
+      postcode,
+      address,
+      detailAddress,
+      joinHandler,
+      address_search,
+      oncomplete,
+      message: "Join",
+      postOpen,
+    };
   },
 };
 </script>
