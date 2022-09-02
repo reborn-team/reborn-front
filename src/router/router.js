@@ -10,6 +10,7 @@ import BoardWrite from "@/views/BoardWrite.vue";
 import BoardContent from "@/views/BoardContent.vue";
 import Nearby from "@/views/Nearby.vue";
 import MyPageGoal from "@/views/MyPageGoal.vue";
+import MyPageList from "@/views/MyPageList.vue";
 import MyPageChange from "@/views/MyPageChange.vue";
 
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
   {path: "/board/content", name: "boardContent", component: BoardContent},
   {path: "/nearby", name: "nearby", component: Nearby},
   {path: "/mypage/goal", name: "myPageGoal", component: MyPageGoal},
+  {path: "/mypage/list", name: "myPageList", component: MyPageList},
   {path: "/mypage/change", name: "myPageChange", component: MyPageChange},
 ]
 

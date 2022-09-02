@@ -1,4 +1,5 @@
 <template>
+  <MyPageNav/>
   <div class="all">
     <form action="">
       <div class="join-box">
@@ -142,7 +143,8 @@
 </template>
 
 <script>
-export default {};
+import MyPageNav from '@/components/MyPageNav.vue'; 
+export default { components: { MyPageNav } };
 </script>
 
 <style>
