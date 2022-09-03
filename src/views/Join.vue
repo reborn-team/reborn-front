@@ -128,6 +128,7 @@
 <script>
 import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
+import router from '@/router/router';
 import axios from "axios";
 import "../css/views/join.css";
 
@@ -189,9 +190,7 @@ export default {
 
       const url = "/api/vi/join";
       const headers = {
-        "Content-Type": "application/json",
-        Authorization: state.token,
-        token: state.token,
+        "Content-Type": "application/json", 
       };
       const body = {
         email: state.email,
@@ -202,13 +201,15 @@ export default {
         address: state.address,
         detailAddress: state.detailAddress,
       };
-      const response = await axios.post(url, body, { headers });
-      console.log(response.data);
-      if (response.status === 200) {
-        alert("회원가입이 되었습니다.");
-      } else {
-        alert("회원가입에 실패하였습니다.");
-      }
+      await axios.post(url, body, { headers }).then(function (res) {
+        if (res.status === 200) {
+          sessionStorage.setItem("TOKEN", res.headers.authorization);
+          alert("회원가입이 되었습니다.");
+          router.push({name:"Join"});
+        } else {
+          alert("회원가입에 실패하였습니다.");
+        }
+      });
     };
 
     const address_search = async () => {
