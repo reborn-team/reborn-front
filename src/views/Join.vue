@@ -145,7 +145,6 @@ export default {
       postcode: "",
       address: "",
       detailAddress: "",
-      token: sessionStorage.getItem("TOKEN"),
     });
     const email = ref("");
     const password = ref("");
@@ -188,7 +187,7 @@ export default {
         return;
       }
 
-      const url = "/api/vi/join";
+      const url = "/api/v1/join";
       const headers = {
         "Content-Type": "application/json", 
       };
@@ -203,7 +202,6 @@ export default {
       };
       await axios.post(url, body, { headers }).then(function (res) {
         if (res.status === 200) {
-          sessionStorage.setItem("TOKEN", res.headers.authorization);
           alert("회원가입이 되었습니다.");
           router.push({name:"Join"});
         } else {
@@ -253,25 +251,7 @@ export default {
       postOpen.value = false;
     };
 
-    // watch(
-    //   () => state.phoneNum,
-    //   function(phoneNum) {
-    //     phoneNum=phoneNum.replace(/[^0-9]/g, "");
-    //     if(phoneNum.length<4) {
-    //       return;
-    //     } else if(phoneNum.length<8) {
-    //       phoneNum=
-    //         phoneNum.substr(0, 3)+"-"+phoneNum.substr(3);
-    //     } else if(phoneNum.length<12) {
-    //       phoneNum=
-    //         phoneNum.substr(0, 3)+
-    //         "-"+
-    //         phoneNum.substr(3, 4)+
-    //         "-"+
-    //         phoneNum.substr(7);
-    //     }
-    //   },
-    // )
+
 
     return {
       state,

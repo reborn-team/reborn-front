@@ -84,12 +84,12 @@ export default {
       }
 
       // 토큰
-      const url     = "api/v1/login";
+      const url     = "http://localhost:8080/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
       const body    = { email: state.email, password: state.password };
       await axios.post(url, body, { headers }).then(function (res) {
 
-        if (res.status == 200) {
+        if (res.data == 200) {
           sessionStorage.setItem("TOKEN", res.headers.authorization);
           alert("로그인되었습니다.");
           router.push({ name: "Login" });
