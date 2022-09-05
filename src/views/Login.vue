@@ -57,6 +57,7 @@ import { reactive, ref } from "@vue/reactivity";
 // import { useRouter } from "vue-router";
 import axios from "axios";
 import "../css/views/login.css";
+import router from '@/router/router';
 
 export default {
   name: "TheLogin",
@@ -64,7 +65,7 @@ export default {
 
     // const router = useRouter();
     const state = reactive({ 
-      email : 'reborn1@naver.com', 
+      email : 'reborn111@naver.com', 
       password    : '1', 
     });
     const email = ref('');
@@ -92,9 +93,8 @@ export default {
         console.log(res.data)
         if (res.status == 200) {
           sessionStorage.setItem("TOKEN", res.headers.authorization);
-          sessionStorage.setItem("email", res.data.email);
           alert("로그인 되었습니다.");
-          // router.push({ name: "Login" });
+          router.push("/");
         } else if(res.status == 403) {
           alert("로그인 실패하였습니다.");
         }

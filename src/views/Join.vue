@@ -72,8 +72,8 @@
             <input
               type="text"
               class="form-control form-control-sm"
-              ref="zipcode"
-              v-model="state.zipcode"
+              ref="postcode"
+              v-model="state.postcode"
               disabled
             />
           </div>
@@ -89,8 +89,8 @@
         <input
           type="text"
           class="form-control form-control-sm"
-          ref="roadName"
-          v-model="state.roadName"
+          ref="address"
+          v-model="state.address"
           placeholder="'주소 검색' 버튼을 클릭하세요"
           disabled
         />
@@ -128,7 +128,7 @@
 <script>
 import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
-import router from '@/router/router';
+import router from "@/router/router";
 import axios from "axios";
 import "../css/views/join.css";
 
@@ -142,8 +142,8 @@ export default {
       repassword: "",
       name: "",
       phoneNum: "",
-      zipcode: "",
-      roadName: "",
+      postcode: "",
+      address: "",
       detailAddress: "",
     });
     const email = ref("");
@@ -151,8 +151,8 @@ export default {
     const repassword = ref("");
     const name = ref("");
     const phoneNum = ref("");
-    let zipcode = ref("");
-    let roadName = ref("");
+    let postcode = ref("");
+    let address = ref("");
     const detailAddress = ref("");
     let postOpen = ref(false);
 
@@ -189,21 +189,21 @@ export default {
 
       const url = "/api/v1/join";
       const headers = {
-        "Content-Type": "application/json", 
+        "Content-Type": "application/json",
       };
       const body = {
         email: state.email,
         password: state.password,
         name: state.name,
         phoneNum: state.phoneNum,
-        zipcode: state.zipcode,
-        roadName: state.roadName,
+        postcode: state.postcode,
+        address: state.address,
         detailAddress: state.detailAddress,
       };
       await axios.post(url, body, { headers }).then(function (res) {
-        if (res.status === 200) {
+        if (res.status === 201) {
           alert("회원가입이 되었습니다.");
-          router.push({name:"Join"});
+          router.push("/login");
         } else {
           alert("회원가입에 실패하였습니다.");
         }
@@ -237,21 +237,19 @@ export default {
         if (extraAddr !== "") {
           extraAddr = " (" + extraAddr + ")";
         }
-        roadName.value.value = addr + " " + extraAddr;
+        address.value.value = addr + " " + extraAddr;
       } else {
-        roadName.value.value = addr;
+        address.value.value = addr;
       }
 
-      zipcode.value.value = data.zonecode;
+      postcode.value.value = data.zonecode;
       detailAddress.value.focus();
 
-      state.zipcode = data.zonecode;
-      state.roadName = addr;
+      state.postcode = data.zonecode;
+      state.address = addr;
 
       postOpen.value = false;
     };
-
-
 
     return {
       state,
@@ -260,8 +258,8 @@ export default {
       repassword,
       name,
       phoneNum,
-      zipcode,
-      roadName,
+      postcode,
+      address,
       detailAddress,
       joinHandler,
       address_search,
