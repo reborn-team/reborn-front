@@ -72,8 +72,8 @@
             <input
               type="text"
               class="form-control form-control-sm"
-              ref="postcode"
-              v-model="state.postcode"
+              ref="zipcode"
+              v-model="state.zipcode"
               disabled
             />
           </div>
@@ -89,8 +89,8 @@
         <input
           type="text"
           class="form-control form-control-sm"
-          ref="address"
-          v-model="state.address"
+          ref="roadName"
+          v-model="state.roadName"
           placeholder="'주소 검색' 버튼을 클릭하세요"
           disabled
         />
@@ -142,8 +142,8 @@ export default {
       repassword: "",
       name: "",
       phoneNum: "",
-      postcode: "",
-      address: "",
+      zipcode: "",
+      roadName: "",
       detailAddress: "",
     });
     const email = ref("");
@@ -151,8 +151,8 @@ export default {
     const repassword = ref("");
     const name = ref("");
     const phoneNum = ref("");
-    let postcode = ref("");
-    let address = ref("");
+    let zipcode = ref("");
+    let roadName = ref("");
     const detailAddress = ref("");
     let postOpen = ref(false);
 
@@ -196,8 +196,8 @@ export default {
         password: state.password,
         name: state.name,
         phoneNum: state.phoneNum,
-        postcode: state.postcode,
-        address: state.address,
+        zipcode: state.zipcode,
+        roadName: state.roadName,
         detailAddress: state.detailAddress,
       };
       await axios.post(url, body, { headers }).then(function (res) {
@@ -237,16 +237,16 @@ export default {
         if (extraAddr !== "") {
           extraAddr = " (" + extraAddr + ")";
         }
-        address.value.value = addr + " " + extraAddr;
+        roadName.value.value = addr + " " + extraAddr;
       } else {
-        address.value.value = addr;
+        roadName.value.value = addr;
       }
 
-      postcode.value.value = data.zonecode;
+      zipcode.value.value = data.zonecode;
       detailAddress.value.focus();
 
-      state.postcode = data.zonecode;
-      state.address = addr;
+      state.zipcode = data.zonecode;
+      state.roadName = addr;
 
       postOpen.value = false;
     };
@@ -260,8 +260,8 @@ export default {
       repassword,
       name,
       phoneNum,
-      postcode,
-      address,
+      zipcode,
+      roadName,
       detailAddress,
       joinHandler,
       address_search,

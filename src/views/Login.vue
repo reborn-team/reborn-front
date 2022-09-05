@@ -54,7 +54,7 @@
 
 <script charset='utf-8'>
 import { reactive, ref } from "@vue/reactivity";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 import axios from "axios";
 import "../css/views/login.css";
 
@@ -62,10 +62,10 @@ export default {
   name: "TheLogin",
   setup() {
 
-    const router = useRouter();
+    // const router = useRouter();
     const state = reactive({ 
-      email : '', 
-      password    : '', 
+      email : 'reborn1@naver.com', 
+      password    : '1', 
     });
     const email = ref('');
     const password = ref('');
@@ -84,16 +84,18 @@ export default {
       }
 
       // 토큰
-      const url     = "http://localhost:8080/api/v1/login";
+      const url     = "/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
       const body    = { email: state.email, password: state.password };
       await axios.post(url, body, { headers }).then(function (res) {
 
-        if (res.data == 200) {
+        console.log(res.data)
+        if (res.status == 200) {
           sessionStorage.setItem("TOKEN", res.headers.authorization);
-          alert("로그인되었습니다.");
-          router.push({ name: "Login" });
-        } else {
+          sessionStorage.setItem("email", res.data.email);
+          alert("로그인 되었습니다.");
+          // router.push({ name: "Login" });
+        } else if(res.status == 403) {
           alert("로그인 실패하였습니다.");
         }
 
