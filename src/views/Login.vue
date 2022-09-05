@@ -39,12 +39,21 @@
 
       <div id="loginBtn">
         <div class="login-button">
-          <input type="button" class="btn btn-danger" value="로그인" @click="loginHandler"><br>
+          <input
+            type="button"
+            class="btn btn-danger"
+            value="로그인"
+            @click="loginHandler"
+          /><br />
         </div>
 
         <div class="join-button">
           <a href="/join">
-            <input type="button" class="btn btn-danger" value="회원가입"><br>
+            <input
+              type="button"
+              class="btn btn-danger"
+              value="회원가입"
+            /><br />
           </a>
         </div>
       </div>
@@ -52,58 +61,54 @@
   </div>
 </template>
 
-<script charset='utf-8'>
+<script charset="utf-8">
 import { reactive, ref } from "@vue/reactivity";
 // import { useRouter } from "vue-router";
 import axios from "axios";
 import "../css/views/login.css";
-import router from '@/router/router';
+import router from "@/router/router";
 
 export default {
   name: "TheLogin",
   setup() {
-
     // const router = useRouter();
-    const state = reactive({ 
-      email : 'reborn111@naver.com', 
-      password    : '1', 
+    const state = reactive({
+      email: "reborn111@naver.com",
+      password: "1",
     });
-    const email = ref('');
-    const password = ref('');
+    const email = ref("");
+    const password = ref("");
 
     const loginHandler = async () => {
-
       // 유효성
-      if (state.email === '') {
+      if (state.email === "") {
         alert("Check Email");
         email.value.focus();
-        return 
-      } else if (state.password === '') {
+        return;
+      } else if (state.password === "") {
         alert("Check Password");
         password.value.focus();
-        return 
+        return;
       }
 
       // 토큰
-      const url     = "/api/v1/login";
+      const url = "/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
-      const body    = { email: state.email, password: state.password };
+      const body = { email: state.email, password: state.password };
       await axios.post(url, body, { headers }).then(function (res) {
+        console.log(res.data);
 
-        console.log(res.data)
         if (res.status == 200) {
           sessionStorage.setItem("TOKEN", res.headers.authorization);
           alert("로그인 되었습니다.");
           router.push("/");
-        } else if(res.status == 403) {
-          alert("로그인 실패하였습니다.");
+        } else {
+          alert("로그인 실패")
         }
-
       });
     };
 
-    return { state, email, password, loginHandler, message:"Login" };
+    return { state, email, password, loginHandler, message: "Login" };
   },
-  
 };
 </script>

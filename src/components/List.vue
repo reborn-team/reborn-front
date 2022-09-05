@@ -11,8 +11,8 @@
         </tr>
       </thead>
       <tbody class="table-group-divider" >
-        <tr v-for="i in 5" :key="{i}">
-          <th scope="row">1</th>
+        <tr v-for="i in 5" :key="{i}" @click="link">
+          <th scope="row" >1</th>
           <td>더미 1</td>
           <td>김아무개</td>
           <td>2022/08/01</td>
@@ -24,13 +24,16 @@
 </template>
 
 <script>
+import router from '@/router/router';
 import "../css/components/List.css";
 export default {
   name: "TheList",
   setup() {
-    const moveTo = () => {};
+    const link = () => {
+      router.push("/board/content")
+    };
 
-    return { moveTo };
+    return { link };
   },
 };
 </script>

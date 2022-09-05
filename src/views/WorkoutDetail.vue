@@ -6,7 +6,6 @@
         src="../assets/img/banner.jpg"
         class="card-img-top"
         alt=""
-        href="#"
       />
       <div class="detail"></div>
     </div>
