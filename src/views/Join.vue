@@ -11,9 +11,13 @@
           type="text"
           class="form-control form-control-sm"
           ref="email"
+          @keyup="emailCheckHandler"
           v-model="state.email"
           placeholder="이메일 형식으로 입력하세요"
         />
+        <label for="">
+          {{ state.emailCheck }}
+        </label>
       </div>
 
       <!-- 비밀번호 -->
@@ -68,43 +72,42 @@
       <div id="address">
         <div class="row mb-1 search">
           <label for="address" class="form-label">Address</label>
-          <div class="col-sm-5">
             <input
               type="text"
-              class="form-control form-control-sm"
+              class="form-control form-control-sm zipcode"
               ref="zipcode"
               v-model="state.zipcode"
               disabled
             />
-          </div>
-          <div class="col-auto">
             <button @click="address_search" class="btn btn-danger btn-sm">
               주소 검색
             </button>
-          </div>
         </div>
       </div>
 
-      <div class="row mb-1">
-        <input
-          type="text"
-          class="form-control form-control-sm"
-          ref="roadName"
-          v-model="state.roadName"
-          placeholder="'주소 검색' 버튼을 클릭하세요"
-          disabled
-        />
+      <div id="addressInput">
+        <div class="row mb-1">
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            ref="roadName"
+            v-model="state.roadName"
+            placeholder="'주소 검색' 버튼을 클릭하세요"
+            disabled
+          />
+        </div>
+        
+        <div class="row mb-1">
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            ref="detailAddress"
+            v-model="state.detailAddress"
+            placeholder="상세주소를 입력하세요"
+          />
+        </div>
       </div>
-
-      <div class="row mb-1">
-        <input
-          type="text"
-          class="form-control form-control-sm"
-          ref="detailAddress"
-          v-model="state.detailAddress"
-          placeholder="상세주소를 입력하세요"
-        />
-      </div>
+      
       <div class="post-box" v-if="postOpen">
         <VueDaumPostcode @complete="oncomplete" />
       </div>
@@ -138,6 +141,7 @@ export default {
   setup() {
     const state = reactive({
       email: "",
+      emailCheck: "",
       password: "",
       repassword: "",
       name: "",
@@ -210,6 +214,17 @@ export default {
       });
     };
 
+    const emailCheckHandler = async () => {
+      const url = "/api/v1/email-check?email=";
+      const email = state.email;
+      const response = await axios.get(url + email);
+      if (response.status === 200) {
+        state.emailCheck = response.data == 1 ? "사용 불가" : "사용 가능";
+      } else {
+        state.emailCheck = "중복 확인";
+      }
+    };
+
     const address_search = async () => {
       postOpen.value = !postOpen.value;
     };
@@ -264,6 +279,7 @@ export default {
       joinHandler,
       address_search,
       oncomplete,
+      emailCheckHandler,
       message: "Join",
       postOpen,
     };
