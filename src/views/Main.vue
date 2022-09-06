@@ -1,12 +1,14 @@
 <template>
   <div id="main">
     <div id="banner">
-      <img class="img" src="../assets/img/banner.jpg" />
+      <video muted autoplay>
+        <source src="@/assets/video/banner.mp4" type="video/mp4" />
+      </video>
     </div>
     <div id="mainContent">
       <div id="workoutNav">
-        <div class="d-grid gap-2 d-md-block WoBtn">
-          <button class="btn btn-danger" type="button">등</button>
+        <div class="d-grid gap-2 d-md-flex">
+          <button class="btn btn-danger" type="button">Button</button>
           <button class="btn btn-danger" type="button">가슴</button>
           <button class="btn btn-danger" type="button">하체</button>
           <button class="btn btn-danger" type="button">코어</button>
@@ -14,9 +16,7 @@
       </div>
       <hr />
       <div id="MainCard">
-        <div class="card" v-for="i in 4" :key={i}>
-          <WorkoutCard />
-        </div>
+        <WorkoutCard />
       </div>
 
       <div id="board">

@@ -1,2 +1,2 @@
-#list {display: flex; padding: 20px; max-width: 100%;}
-#list table tbody tr:hover{ background-color: pink; }
+#list {display: flex; padding: 0px; width: 90%; margin: 20px auto;}
+#list table tbody tr:hover{ background-color: pink; cursor: pointer;}

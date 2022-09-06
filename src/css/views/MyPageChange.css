@@ -1,0 +1,16 @@
+#change { width: 50%; margin: 0 auto; }
+#change #change-box{ width:50%; margin: 10px auto; }
+#change #change-box .row{ flex-wrap: nowrap; }
+#change #change-box .form-label{ width: 7rem; }
+#change #change-box button{ width: 16rem; }
+#change #change-box .form-control{ width: 16rem; }
+#change #change-box .col-sm-5{ padding : 0px; }
+#change #change-box label{ text-align: left; }
+#change #change-box input{ width: 100%; }
+#change #change-box #address { display:flex; }
+#change #change-box #address .zipcode { width: 8rem;}
+#change #change-box #address button { width: 5rem; margin-left: 3rem;}
+#change #change-box #addressInput { margin-left: 7em;}
+#change #changeBtn { display: flex; gap: 10px; margin-top: 20px;}
+#change #changeBtn .delete{ margin-right: 6rem; }
+#change #changeBtn button{ width: 80px; }

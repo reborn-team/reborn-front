@@ -1,8 +1,0 @@
-#create { width: 70%; margin: 0 auto; }
-#create #collector { display: flex;}
-#create #collector #createBtn{ margin-top: 2.5rem;}
-#create #collector button { width: 35px; height: 35px; margin: 5px; padding: 0; }
-#create #explain{ display: flex; margin-top: 30px;}
-#create #explain .img { width: 40%; }
-#create #explain .text { width: 100%; height: 300px; border-bottom: 1px solid red; padding: 20px; margin-left: 10px;}
-#create button{float: right;}
