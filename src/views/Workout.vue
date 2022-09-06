@@ -2,7 +2,7 @@
   <div id="create">
     <h1 class="title">{{ message }}</h1>
     <div id="collector">
-      <select class="form-select" size="7" aria-label="size 7 select example">
+      <select class="form-select one" size="7" aria-label="size 7 select example">
         <option disabled>부위</option>
         <option value="1">등</option>
         <option value="2">가슴</option>
@@ -10,7 +10,7 @@
         <option value="4">코어</option>
       </select>
       <select
-        class="form-select"
+        class="form-select two"
         size="7"
         aria-label="size 7 select example"
         v-model="selected"
@@ -22,15 +22,13 @@
         <option value="바벨로우">바벨로우</option>
         <option value="인버티드로우">인버티드 로우</option>
       </select>
-      <img :src="`${tmp[selected]}`" class="img" alt="" />
+      <div>
+        <img :src="`${tmp[selected]}`" class="img three" alt="" />
+      </div>
     </div>
     <div id="createBtn">
-      <button type="button" class="btn btn-danger" @click="minusWorkout">
-        -
-      </button>
-      <button type="button" class="btn btn-danger" @click="addWorkout">
-        +
-      </button>
+      <button type="button" class="btn btn-danger" @click="minusWorkout">-</button>
+      <button type="button" class="btn btn-danger" @click="addWorkout">+</button>
     </div>
 
     <Table :arr="arr" :changeValue="changeValue" />
@@ -41,7 +39,7 @@
 </template>
 
 <script>
-import "../css/views/WorkoutCreate.css";
+import "../css/views/Workout.css";
 import Table from "@/components/Table.vue";
 import { reactive, ref } from "@vue/reactivity";
 
@@ -102,6 +100,7 @@ export default {
       addWorkout,
       minusWorkout,
       changeValue,
+      message:"Workout"
     };
   },
 };

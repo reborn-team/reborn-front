@@ -6,13 +6,13 @@
       <button class="btn btn-danger" type="button">가슴</button>
       <button class="btn btn-danger" type="button">하체</button>
       <button class="btn btn-danger" type="button">코어</button>
+      <button class="btn btn-danger" id="add" @click="addWorkoukList">
+        추가
+      </button>
     </div>
     <hr />
     <div id="WorkoutCard">
-      <div class="card" v-for="i in 4" :key="{ i }">
-        <WorkoutCard />
-        <WorkoutCard />
-      </div>
+      <WorkoutCard />
     </div>
   </div>
 </template>

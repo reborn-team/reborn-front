@@ -39,21 +39,19 @@
 
       <div id="loginBtn">
         <div class="login-button">
-          <input
+          <button
             type="button"
-            class="btn btn-danger"
-            value="로그인"
+            class="btn btn-danger btn-sm"
             @click="loginHandler"
-          /><br />
+        >로그인</button>
         </div>
 
         <div class="join-button">
           <a href="/join">
-            <input
+            <button
               type="button"
-              class="btn btn-danger"
-              value="회원가입"
-            /><br />
+              class="btn btn-danger btn-sm"
+            >회원가입</button><br />
           </a>
         </div>
       </div>

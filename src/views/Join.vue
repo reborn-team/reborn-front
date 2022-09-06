@@ -219,7 +219,7 @@ export default {
       const email = state.email;
       const response = await axios.get(url + email);
       if (response.status === 200) {
-        state.emailCheck = response.data == 1 ? "사용 불가" : "사용 가능";
+        state.emailCheck = response.data == true ? "사용 불가" : "사용 가능";
       } else {
         state.emailCheck = "중복 확인";
       }
