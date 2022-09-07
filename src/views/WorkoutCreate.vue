@@ -6,12 +6,16 @@
       <div id="createWrap">
         <div id="category">
           <label
-            for="category"
+            for="workoutCategory"
             class="col-sm-2 col-form-label col-form-label-sm"
             >카테고리 :
           </label>
           <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" />
+            <input type="text" 
+            class="form-control form-control-sm" 
+            ref="workoutCategory"
+            v-model="state.workoutCategory"
+            />
           </div>
         </div>
         <div id="wokroutName">
@@ -21,17 +25,23 @@
             >운동명 :
           </label>
           <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" />
+            <input type="text" 
+            class="form-control form-control-sm" 
+            ref="workoutName"
+            v-model="state.workoutName"
+            />
           </div>
         </div>
         <div id="explain">
-          <label for="explain" class="col-sm-2 col-form-label col-form-label-sm"
+          <label for="content" class="col-sm-2 col-form-label col-form-label-sm"
             >설명 :
           </label>
           <textarea
             class="form-control"
             aria-label="With textarea"
             rows="7"
+            ref="content"
+            v-model="state.content"
           ></textarea>
         </div>
       </div>
@@ -49,17 +59,23 @@
 <script>
 import router from '@/router/router';
 import "../css/views/WorkoutCreate.css";
+import { reactive } from '@vue/reactivity';
 
 export default {
   name: "WorkoutDetail",
 
   setup() {
-    
     const linkList = () => {
       router.push("/workout/list")
     }
+
+    const state = reactive({
+      
+    });
+
     return {
       linkList,
+      state,
       message: "운동 생성",
     };
   },

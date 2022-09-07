@@ -13,10 +13,8 @@
           ref="email"
           v-model="state.email"
           placeholder="이메일 형식으로 입력하세요"
-        />
-        <label for="">
-          {{ state.emailCheck }}
-        </label>
+          />
+          <button type="button" class="btn btn-danger btn-sm" @click="emailCheckHandler">✔</button>
       </div>
 
       <!-- 비밀번호 -->
@@ -218,7 +216,7 @@ export default {
       const email = state.email;
       const response = await axios.get(url + email);
       if (response.status === 200) {
-        state.emailCheck = response.data == true ? "사용 불가" : "사용 가능";
+        response.data == true ? alert("사용 불가") : alert("사용 가능");
       } else {
         state.emailCheck = "중복 확인";
       }
