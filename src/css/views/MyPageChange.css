@@ -14,3 +14,7 @@
 #change #changeBtn { display: flex; gap: 10px; margin-top: 20px;}
 #change #changeBtn .delete{ margin-right: 6rem; }
 #change #changeBtn button{ width: 80px; }
+.modal-body {width: 70%; margin: 0 auto; padding: 10px;}
+.modal-body div{display: flex; margin-bottom: 7px;}
+.modal-body label{width:100%; text-align: left;}
+.modal-body input{width: 100%;}
