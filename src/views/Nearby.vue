@@ -26,8 +26,10 @@ import Reply from "@/components/Reply.vue";
 export default {
   name: "TheNearby",
   components: { MapAPI, Reply },
-  data() {
-    return { message: "Nearby" };
-  },
+  setup(){
+    return{
+      message:"주변 헬스장"
+    }
+  }
 };
 </script>

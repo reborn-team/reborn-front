@@ -1,4 +1,4 @@
-#join { width: 70%; margin: 0 auto; }
+#join { width: 50%; margin: 0 auto; }
 #join #join-box{ width:50%; margin: 10px auto; }
 #join #join-box .row{ flex-wrap: nowrap; }
 #join #join-box .form-label{ width: 7rem; }
@@ -6,6 +6,7 @@
 #join #join-box .col-sm-5{ padding : 0px; }
 #join #join-box label{ text-align: left; }
 #join #join-box input{ width: 100%; }
+#join #join-box input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none; }
 #join #join-box #address { display:flex; }
 #join #join-box #address .zipcode { width: 8rem;}
 #join #join-box #address button { width: 5rem; margin-left: 3rem;}

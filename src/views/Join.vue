@@ -11,7 +11,6 @@
           type="text"
           class="form-control form-control-sm"
           ref="email"
-          @keyup="emailCheckHandler"
           v-model="state.email"
           placeholder="이메일 형식으로 입력하세요"
         />
@@ -58,13 +57,13 @@
 
       <!-- 전화번호 -->
       <div class="row mb-3">
-        <label for="phoneNum" class="form-label">Mobile</label>
+        <label for="phone" class="form-label">Mobile</label>
         <input
-          type="text"
+          type="number"
           class="form-control form-control-sm"
-          ref="phoneNum"
+          ref="phone"
           placeholder="ex) 010-1111-1111"
-          v-model="state.phoneNum"
+          v-model="state.phone"
         />
       </div>
 
@@ -72,16 +71,16 @@
       <div id="address">
         <div class="row mb-1 search">
           <label for="address" class="form-label">Address</label>
-            <input
-              type="text"
-              class="form-control form-control-sm zipcode"
-              ref="zipcode"
-              v-model="state.zipcode"
-              disabled
-            />
-            <button @click="address_search" class="btn btn-danger btn-sm">
-              주소 검색
-            </button>
+          <input
+            type="text"
+            class="form-control form-control-sm zipcode"
+            ref="zipcode"
+            v-model="state.zipcode"
+            disabled
+          />
+          <button @click="address_search" class="btn btn-danger btn-sm">
+            주소 검색
+          </button>
         </div>
       </div>
 
@@ -96,7 +95,7 @@
             disabled
           />
         </div>
-        
+
         <div class="row mb-1">
           <input
             type="text"
@@ -107,7 +106,7 @@
           />
         </div>
       </div>
-      
+
       <div class="post-box" v-if="postOpen">
         <VueDaumPostcode @complete="oncomplete" />
       </div>
@@ -145,7 +144,7 @@ export default {
       password: "",
       repassword: "",
       name: "",
-      phoneNum: "",
+      phone: "",
       zipcode: "",
       roadName: "",
       detailAddress: "",
@@ -154,7 +153,7 @@ export default {
     const password = ref("");
     const repassword = ref("");
     const name = ref("");
-    const phoneNum = ref("");
+    const phone = ref("");
     let zipcode = ref("");
     let roadName = ref("");
     const detailAddress = ref("");
@@ -181,9 +180,9 @@ export default {
         alert("Check Name");
         name.value.focus();
         return;
-      } else if (state.phoneNum === "") {
-        alert("Check PhoneNum");
-        phoneNum.value.focus();
+      } else if (state.phone === "") {
+        alert("Check Phone");
+        phone.value.focus();
         return;
       } else if (state.detailAddress === "") {
         alert("Check detailAddress");
@@ -199,7 +198,7 @@ export default {
         email: state.email,
         password: state.password,
         name: state.name,
-        phone: state.phoneNum,
+        phone: state.phone,
         zipcode: state.zipcode,
         roadName: state.roadName,
         detailAddress: state.detailAddress,
@@ -266,13 +265,15 @@ export default {
       postOpen.value = false;
     };
 
+    // const phon
+    
     return {
       state,
       email,
       password,
       repassword,
       name,
-      phoneNum,
+      phone,
       zipcode,
       roadName,
       detailAddress,

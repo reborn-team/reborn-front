@@ -34,7 +34,9 @@ import '../css/views/BoardContent.css'
 export default {
   name: "BoardContent",
   components: { Reply },
-  data() {},
+  setup(){
+    
+  }
 };
 </script>
 

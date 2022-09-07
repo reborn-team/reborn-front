@@ -17,7 +17,3 @@ export default {
   components: { LineChart, BarChart, MyPageNav }
 }
 </script>
-
-<style>
-
-</style>

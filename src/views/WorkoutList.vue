@@ -20,28 +20,20 @@
 <script>
 import WorkoutCard from "@/components/Card.vue";
 import "../css/views/WorkoutList.css";
+import router from '@/router/router';
 
 export default {
   name: "WorkoutList",
   components: { WorkoutCard },
-  data() {
-    return { message: "Workout List" };
-  },
+  setup(){
+    const addWorkoukList = () => {
+      router.push("/workout/create")
+    }
+
+    return { 
+      addWorkoukList,
+      message:"운동 목록"
+    }
+  }
 };
 </script>
-
-<style scoped>
-.WoBtn {
-  text-align: left;
-  border-color: none;
-  background-color: none;
-}
-.btn-primary {
-  background-color: white;
-  border-color: red;
-  color: black;
-  --bs-btn-hover-bg: red;
-  --bs-btn-hover-border-color: none;
-  margin: 0px 20px 0 30px;
-}
-</style>

@@ -1,9 +1,9 @@
 <template>
-  <MyPageNav/>
+  <MyPageNav />
   <div id="MyPageList">
-    <List/>
-        <!-- 서치 옵션 -->
-        <div id="searchBar">
+    <List />
+    <!-- 서치 옵션 -->
+    <div id="searchBar">
       <select class="form-select">
         <option value="1">제목</option>
         <option value="2">작성자</option>
@@ -34,15 +34,11 @@
 </template>
 
 <script>
-import List from '@/components/List.vue';
-import '../css/views/MyPageList.css';
-import MyPageNav from '@/components/MyPageNav.vue';
+import List from "@/components/List.vue";
+import "../css/views/MyPageList.css";
+import MyPageNav from "@/components/MyPageNav.vue";
 
 export default {
-    components: { List, MyPageNav }
-}
+  components: { List, MyPageNav },
+};
 </script>
-
-<style>
-
-</style>

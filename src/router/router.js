@@ -5,6 +5,7 @@ import Join from "@/views/Join.vue";
 import Workout from "@/views/Workout.vue";
 import WorkoutList from "@/views/WorkoutList.vue";
 import WorkoutDetail from "@/views/WorkoutDetail.vue";
+import WorkoutCreate from "@/views/WorkoutCreate.vue";
 import Board from "@/views/Board.vue";
 import BoardWrite from "@/views/BoardWrite.vue";
 import BoardContent from "@/views/BoardContent.vue";
@@ -20,6 +21,7 @@ const routes = [
   {path: "/workout/", name: "workout", component: Workout},
   {path: "/workout/list", name: "woList", component: WorkoutList},
   {path: "/workout/detail", name: "woDetail", component: WorkoutDetail},
+  {path: "/workout/create", name: "woCreate", component: WorkoutCreate},
   {path: "/board", name: "board", component: Board},
   {path: "/board/write", name: "boardWrite", component: BoardWrite},
   {path: "/board/content", name: "boardContent", component: BoardContent},

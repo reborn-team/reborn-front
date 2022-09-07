@@ -22,7 +22,7 @@
 
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/workout/list"
-                >운동정보</a
+                >운동목록</a
               >
             </li>
 

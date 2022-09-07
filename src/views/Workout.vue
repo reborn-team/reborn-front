@@ -100,7 +100,7 @@ export default {
       addWorkout,
       minusWorkout,
       changeValue,
-      message:"Workout"
+      message:"프로그램"
     };
   },
 };

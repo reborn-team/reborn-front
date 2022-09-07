@@ -31,7 +31,7 @@ export default {
     }
 
 
-    return { registArticle, message: "Writing" };
+    return { registArticle, message: "글쓰기" };
   }
 };
 </script>

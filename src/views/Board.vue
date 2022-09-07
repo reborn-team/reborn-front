@@ -46,8 +46,10 @@ import "../css/views/Board.css";
 export default {
   name: "TheBoard",
   components: { BoardList },
-  data() {
-    return { message: "Board" };
-  },
+  setup(){
+    return{
+      message:"게시판",
+    }
+  }
 };
 </script>
