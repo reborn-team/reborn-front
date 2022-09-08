@@ -59,7 +59,7 @@
   </div>
 </template>
 
-<script charset="utf-8">
+<script>
 import { reactive, ref } from "@vue/reactivity";
 // import { useRouter } from "vue-router";
 import axios from "axios";

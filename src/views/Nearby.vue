@@ -3,7 +3,7 @@
     <h1 class="title">{{ message }}</h1>
     <div class="map">
       <MapAPI />
-      <table id="content">
+      <table id="MapContent">
         <tr>
           <div v-for="i in 3" :key={i} >
             <input type="text" class="form-control" />

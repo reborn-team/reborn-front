@@ -1,6 +1,7 @@
 #workoutCreate { width: 70%; margin: 0 auto;}
 #workoutCreate #Create { display: flex; justify-content: left; }
 #workoutCreate #Create #category{ display: flex; text-align: left; }
+#workoutCreate #Create #category select{ width: 42%; }
 #workoutCreate #Create #wokroutName{ display: flex; text-align: left;}
 #workoutCreate #Create #explain{ display: flex; text-align: left; }
 #workoutCreate #Create #explain textarea{ height:100%; }
@@ -8,6 +9,8 @@
 #workoutCreate #Create input{ width: 50%; }
 #workoutCreate img { width: 40%; }
 #workoutCreate #createWrap { width: 100%; margin-left: 10px;}
-#workoutCreate #insert {margin-top: 20px; display: flex; width: 100%; justify-content: space-between}
-#workoutCreate #insert input{ width: 40%; }
+#workoutCreate #createWrap #woCategory{ display: flex; text-align: left;}
+#workoutCreate #createWrap #woName{ display: flex; text-align: left;}
+#workoutCreate #createWrap #woContent{ display: flex; text-align: left;}
 #workoutCreate #insert #intertBtn button{padding: 10px;}
+#workoutCreate #insert {margin-top: 20px; display: flex; width: 100%; justify-content: space-between}

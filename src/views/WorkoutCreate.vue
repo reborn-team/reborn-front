@@ -10,29 +10,30 @@
             class="col-sm-2 col-form-label col-form-label-sm"
             >카테고리 :
           </label>
-          <div class="col-sm-10">
-            <input type="text" 
-            class="form-control form-control-sm" 
-            ref="workoutCategory"
-            v-model="state.workoutCategory"
-            />
-          </div>
+          <select class="form-select" aria-label="Default select example" ref="workoutCategory" v-model="state.workoutCategory">
+            <option selected disabled>부위</option>
+            <option value="BACK">등</option>
+            <option value="CHEST">가슴</option>
+            <option value="LOWER_BODY">하체</option>
+            <option value="CORE">코어</option>
+          </select>
         </div>
-        <div id="wokroutName">
+        <div id="woName">
           <label
             for="workoutName"
             class="col-sm-2 col-form-label col-form-label-sm"
             >운동명 :
           </label>
           <div class="col-sm-10">
-            <input type="text" 
-            class="form-control form-control-sm" 
-            ref="workoutName"
-            v-model="state.workoutName"
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              ref="workoutName"
+              v-model="state.workoutName"
             />
           </div>
         </div>
-        <div id="explain">
+        <div id="woContent">
           <label for="content" class="col-sm-2 col-form-label col-form-label-sm"
             >설명 :
           </label>
@@ -46,36 +47,78 @@
         </div>
       </div>
     </div>
-    <div id="insert" >
-      <input type="file" class="form-control" />
+    <div id="insert">
+      <FileUpload />
       <div id="insertBtn">
-        <button type="button" class="btn btn-danger btn-sm" @click="linkList">등록하기</button>
-        <button type="button" class="btn btn-danger btn-sm" @click="linkList">취소하기</button>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          @click="createHandler"
+        >
+          등록하기
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" @click="linkList">
+          취소하기
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import router from '@/router/router';
+import router from "@/router/router";
 import "../css/views/WorkoutCreate.css";
-import { reactive } from '@vue/reactivity';
+import { reactive, ref } from "@vue/reactivity";
+import FileUpload from "../components/FileUpload.vue";
+import axios from "axios";
 
 export default {
   name: "WorkoutDetail",
-
+  components: { FileUpload },
   setup() {
-    const linkList = () => {
-      router.push("/workout/list")
-    }
-
     const state = reactive({
-      
+      workoutCategory: "",
+      workoutName: "",
+      content: "",
+      token: sessionStorage.getItem("TOKEN"),
     });
+    const workoutCategory = ref("");
+    const workoutName = ref("");
+    const content = ref("");
+
+    const createHandler = async () => {
+      const url = "/api/v1/workout";
+      const headers = {
+        "Content-Type": "application/json;",
+        Authorization: state.token,
+        token: state.token,
+      };
+      const body = {
+        workoutCategory: state.workoutCategory,
+        workoutName: state.workoutName,
+        content: state.content,
+      };
+      await axios.post(url, body, { headers }).then(function (res) {
+        if (res.status === 201) {
+          alert("운동이 등록 되었습니다.");
+          router.push("/workout/"+res.data);
+        } else {
+          alert("운동 등록에 실패하였습니다.");
+        }
+      });
+    };
+
+    const linkList = () => {
+      router.push("/workout/list");
+    };
 
     return {
       linkList,
+      createHandler,
       state,
+      workoutCategory,
+      workoutName,
+      content,
       message: "운동 생성",
     };
   },
