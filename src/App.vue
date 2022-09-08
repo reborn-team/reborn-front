@@ -1,13 +1,13 @@
 <template>
   <div id="navbar">
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <img
-            src="./assets/img/header/ribbon.png"
+            src="./assets/img/header/ReBORN.png"
             alt=""
-            width="50"
-            height="35"
+            width="60"
+            height="50"
             href="../src/views/Main.vue"
           />
         </a>
@@ -107,7 +107,7 @@ body {
 }
 
 #app button {
-  --bs-btn-active-color: #b02a37;
+  --bs-btn-active-color: black;
   --bs-btn-active-bg: #fff;
 }
 

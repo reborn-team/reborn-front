@@ -57,7 +57,7 @@
       <div class="row mb-3">
         <label for="phone" class="form-label">Mobile</label>
         <input
-          type="number"
+          type="text"
           class="form-control form-control-sm"
           ref="phone"
           placeholder="ex) 010-1111-1111"

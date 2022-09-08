@@ -1,5 +1,5 @@
 <template>
-  <div class="row row-cols-2 g-5">
+  <div class="row row-cols-3 g-1">
   <div class="col" v-for="i in 6" :key="{i}">
     <div id="card">
       <img src="../assets/img/banner.jpg" class="card-img-top" alt="#" @click="link">
