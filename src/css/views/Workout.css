@@ -1,8 +1,8 @@
-#create { width: 70%; margin: 0 auto; }
+#create { width: 50%; margin: 0 auto; }
 #create #collector { display:grid; grid-template-columns: 1fr 1fr 1fr; }
+#create #collector .one::-webkit-scrollbar{ display:none; }
 #create #collector img { width: 100%; height:250px; margin-left: 10px; border-radius: 10px; justify-items: right; margin: 0;}
 #create #collector #createBtn{ margin-top: 2.5rem;}
 #create #createBtn {margin-bottom: 4rem;}
 #create #createBtn button { width: 7.5rem; height: 35px; margin-left: 5px; margin-top: 5px; padding: 0; }
 #create button{float: right;}
-#create #collector .img:hover{ box-shadow: inset 0 0 5px #888a; }

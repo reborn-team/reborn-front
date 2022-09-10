@@ -2,8 +2,8 @@
   <div id="create">
     <h1 class="title">{{ message }}</h1>
     <div id="collector">
-      <select class="form-select one" size="7" aria-label="size 7 select example">
-        <option disabled>부위</option>
+      <select class="form-select one" size="7" >
+        <option style="font-weight: bold;" disabled>부위</option>
         <option value="1">등</option>
         <option value="2">가슴</option>
         <option value="3">하체</option>
@@ -16,7 +16,7 @@
         v-model="selected"
         @change="onchange"
       >
-        <option disabled>세부사항</option>
+        <option style="font-weight: bold;" disabled>세부사항</option>
         <option value="렛풀다운">렛풀다운</option>
         <option value="풀업">풀업</option>
         <option value="바벨로우">바벨로우</option>

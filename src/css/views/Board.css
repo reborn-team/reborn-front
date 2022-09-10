@@ -1,4 +1,4 @@
-#boardWrap { width: 70%; margin: 0 auto;}
+#boardWrap { width: 50%; margin: 0 auto;}
 #boardWrap #boardList a {float:right; margin: 0;}
 #boardWrap #searchBar {display: flex; justify-content: center; margin-top: 80px; gap:5px;}
 #boardWrap #searchBar select {width: 15%; }

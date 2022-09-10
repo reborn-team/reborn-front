@@ -18,12 +18,8 @@
       <div id="MainCard">
         <WorkoutCard />
       </div>
-
-      <div id="board">
         <h3>인기 운동일지</h3>
-      </div>
       <hr />
-
       <BoardList />
     </div>
   </div>

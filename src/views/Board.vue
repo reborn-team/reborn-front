@@ -48,7 +48,7 @@ export default {
   components: { BoardList },
   setup(){
     return{
-      message:"게시판",
+      message:"Board",
     }
   }
 };

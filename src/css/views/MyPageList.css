@@ -1,4 +1,4 @@
-#MyPageList { width: 70%; margin: 0 auto;}
+#MyPageList { width: 50%; margin: 0 auto;}
 #MyPageList #searchBar {display: flex; justify-content: center; margin-top: 80px; gap:5px;}
 #MyPageList #searchBar select {width: 15%; }
 #MyPageList #searchBar input {width: 40%; }

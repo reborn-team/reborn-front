@@ -7,12 +7,13 @@
 <script>
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import "../css/components/WritingForm.css"
 
 export default {
   components: {
     QuillEditor,
   },
-  data() {
+  setup() {
     return {
       options: {
         debug: "info",
@@ -23,7 +24,7 @@ export default {
             ["bold", "italic", "underline"],
             [{ color: [] }, { background: [] }],
             ["blockquote"],
-            [{ list: "ordered" },{ list: "bullet" },],
+            [{ list: "ordered" }, { list: "bullet" }],
             ["image", "video"],
             ["clean"],
           ],
@@ -36,10 +37,3 @@ export default {
 };
 </script>
 
-<style>
-.quill {
-  width: 60vw;
-  height: 35rem;
-  margin: 10px auto;
-}
-</style>
