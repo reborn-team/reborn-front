@@ -7,7 +7,7 @@
     </div>
     <div id="mainContent">
       <div id="workoutNav">
-        <div class="d-grid gap-2 d-md-flex">
+        <div class="gap-3 d-md-flex">
           <button class="btn btn-danger" type="button">등</button>
           <button class="btn btn-danger" type="button">가슴</button>
           <button class="btn btn-danger" type="button">하체</button>

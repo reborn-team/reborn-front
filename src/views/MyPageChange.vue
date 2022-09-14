@@ -41,7 +41,6 @@
           ref="name"
           v-model="state.name"
           placeholder="이름을 입력해주세요"
-          disabled
         />
       </div>
 
@@ -103,7 +102,7 @@
 
       <div id="changeBtn">
         <div class="change-button">
-          <button class="btn btn-warning btn-sm delete" @click="deletehandler">
+          <button class="btn btn-secondary btn-sm delete" @click="deletehandler">
             회원 탈퇴
           </button>
         </div>

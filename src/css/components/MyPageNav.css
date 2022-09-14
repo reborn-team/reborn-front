@@ -1,4 +1,6 @@
+#MyPageNav { min-width: 1000px;}
 #MyPageNav nav{ width: 55%; margin: 4rem auto 0; padding: 0 4rem;}
 #MyPageNav nav a{ padding: 5px }
 #MyPageNav nav a:hover{ font-weight: bold; }
+#MyPageNav nav a.active{ font-weight: bold; }
 #MyPageNav hr{width: 70%; margin: 0 auto 3rem; }

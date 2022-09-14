@@ -10,7 +10,7 @@
             class="col-sm-2 col-form-label col-form-label-sm"
             >카테고리 :
           </label>
-          <div class="workoutItem">{{workout.workoutCategory}}</div>
+          <div class="workoutItem">{{Workout.workoutCategory}}</div>
         </div>
         <div id="wokroutName">
           <label
@@ -18,13 +18,13 @@
             class="col-sm-2 col-form-label col-form-label-sm"
             >운동명 :
           </label>
-          <div class="workoutItem">{{workout.workoutName}}</div>
+          <div class="workoutItem">{{Workout.workoutName}}</div>
         </div>
         <div id="explain">
           <label for="explain" class="col-sm-2 col-form-label col-form-label-sm"
             >설명 :
           </label>
-          <div class="workoutExplain">{{workout.content}}</div>
+          <div class="workoutExplain">{{Workout.content}}</div>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
 <script>
 import router from "@/router/router";
 import "../css/views/WorkoutDetail.css";
-import { reactive, ref } from "@vue/reactivity";
+import { ref } from "@vue/reactivity";
 import axios from "axios";
 import { onMounted } from "@vue/runtime-core";
 import { useRoute } from 'vue-router';
@@ -51,26 +51,22 @@ export default {
       getWorkoutHandler();
     });
 
-    const state = reactive({
-      workout: "",
-      workoutID: "",
-      token: sessionStorage.getItem("TOKEN"),
-    });
-    const workoutID = ref(route.params.workoutID);
-    const workout = ref("");
+    const Token = ref(sessionStorage.getItem("TOKEN")); 
+    const WorkoutID = ref(route.params.workoutID); 
+    const Workout = ref("");
 
     async function getWorkoutHandler() {
-      const url = `/api/v1/workout/${workoutID.value}`;
+      const url = `/api/v1/workout/${WorkoutID.value}`;
       
       const headers = {
         "Content-Type": "application/json",
-        Authorization: state.token,
-        token: state.token,
+        Authorization: Token.value,
+        token: Token.value,
       };
       await axios.get(url, { headers }).then((res) => {
         console.log(res.data);
         if(res.status === 200) {
-          workout.value = res.data
+          Workout.value = res.data 
         }
       });
     }
@@ -80,12 +76,12 @@ export default {
     };
 
     return {
-      workout,
-      workoutID,
-      linkList,
+      Workout,
+      WorkoutID,
+      linkList, 
       getWorkoutHandler,
       message: "운동 정보",
     };
   },
 };
-</script>
+</script> 
