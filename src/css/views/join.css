@@ -1,4 +1,4 @@
-#join { width: 50%; margin: 0 auto; }
+#join { width: 50%; margin: 0 auto; min-width: 680px;} 
 #join #join-box{ width:50%; margin: 10px auto; }
 #join #join-box .row{ flex-wrap: nowrap; }
 #join #join-box .form-label{ width: 7rem; }

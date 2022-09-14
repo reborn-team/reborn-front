@@ -113,7 +113,7 @@
         <div class="join2-button">
           <button class="btn btn-danger btn-sm" @click="joinHandler">
             완료
-          </button>
+          </button> 
         </div>
         <div class="cancle-button">
           <a href="/login">
@@ -204,7 +204,7 @@ export default {
       await axios.post(url, body, { headers }).then(function (res) {
         if (res.status === 201) {
           alert("회원가입이 되었습니다.");
-          router.push("/login");
+          router.push("/login");  
         } else {
           alert("회원가입에 실패하였습니다.");
         }

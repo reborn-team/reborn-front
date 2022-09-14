@@ -18,10 +18,11 @@ const routes = [
   {path: "/", name: "main", component: Main},
   {path: "/login", name: "login", component: Login},
   {path: "/join", name: "join", component: Join},
-  {path: "/workout/", name: "workout", component: Workout},
+
   {path: "/workout/list", name: "woList", component: WorkoutList},
-  {path: "/workout/detail", name: "woDetail", component: WorkoutDetail},
   {path: "/workout/create", name: "woCreate", component: WorkoutCreate},
+  {path: "/workout/:workoutID", name: "woDetail", component: WorkoutDetail},
+  {path: "/workout/", name: "workout", component: Workout},
   {path: "/board", name: "board", component: Board},
   {path: "/board/write", name: "boardWrite", component: BoardWrite},
   {path: "/board/content", name: "boardContent", component: BoardContent},

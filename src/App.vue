@@ -17,7 +17,7 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/workout/"
                 >프로그램</a
-              >
+              > 
             </li>
 
             <li class="nav-item">

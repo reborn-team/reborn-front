@@ -26,6 +26,9 @@ export default {
   name: "WorkoutList",
   components: { WorkoutCard },
   setup(){
+
+    
+
     const addWorkoukList = () => {
       router.push("/workout/create")
     }
