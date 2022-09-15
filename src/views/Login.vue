@@ -103,7 +103,9 @@ export default {
         } else {
           alert("로그인 실패")
         }
-      });
+      }).catch(() => {
+        alert("로그인에 실패했습니다")
+      })
     };
 
     return { state, email, password, loginHandler, message: "Login" };

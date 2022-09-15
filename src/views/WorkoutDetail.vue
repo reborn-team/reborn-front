@@ -81,7 +81,7 @@ export default {
         "Content-Type": "application/json",
         Authorization: Token.value,
       }
-      await axios.post(url, {headers}).then((res)=>{
+      await axios.post(url, {}, {headers}).then((res)=>{
         console.log(res.data);
         console.log(Token.value);
       })

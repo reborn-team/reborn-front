@@ -102,9 +102,9 @@ export default {
         if (res.status === 201) {
           alert("운동이 등록 되었습니다.");
           router.push("/workout/"+res.data);
-        } else {
-          alert("운동 등록에 실패하였습니다.");
         }
+      }).catch(() => {
+        alert("등록에 실패했습니다")
       });
     };
 

@@ -214,9 +214,9 @@ export default {
         if (res.status === 201) {
           alert("회원가입이 되었습니다.");
           router.push("/login");
-        } else {
-          alert("회원가입에 실패하였습니다.");
-        }
+        } 
+      }).catch(() => {
+        alert("회원가입에 실패했습니다")
       });
     };
 
