@@ -18,12 +18,8 @@ import '../css/components/Card.css'
 export default {
   name: "TheCard",
   setup(){
-
-    
-
-
     const link = () =>{
-      router.push("/routine/:workoutID")
+      router.push("/workout/:workoutID")
     }
     return { link }
   }

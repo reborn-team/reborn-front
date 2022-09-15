@@ -302,7 +302,10 @@ export default {
       };
       console.log(body);
       await axios.patch(url, body, { headers }).then((res)=>{
-        console.log(res.data);
+        if(res.status==200){
+          alert("비밀번호가 변경 되었습니다.")
+          
+        }
       })
     };
 

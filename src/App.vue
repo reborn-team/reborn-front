@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/workout/"
+              <a class="nav-link active" aria-current="page" href="/program/"
                 >프로그램</a
               >
             </li>
@@ -28,9 +28,9 @@
               aria-expanded="false"
             >루틴관리</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/routine/list">운동 리스트</a></li>
+              <li><a class="dropdown-item" href="/workout">운동 리스트</a></li>
               <li>
-                <a class="dropdown-item" href="/routine/private">나의 리스트</a>
+                <a class="dropdown-item" href="/workout/myworkout">나의 리스트</a>
               </li>
             </ul>
           </li>

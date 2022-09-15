@@ -4,13 +4,13 @@
     <div id="detail">
       <img src="../assets/img/banner.jpg" class="card-img-top" alt="" />
       <div id="detailWrap">
-        <div id="category">
+        <div id="workoutCategory">
           <label
             for="category"
             class="col-sm-2 col-form-label col-form-label-sm"
             >카테고리 :
           </label>
-          <div class="workoutItem">{{ Workout.workoutCategory }}</div>
+          <div class="workoutItem" >{{ Workout.workoutCategory }}</div>
         </div>
         <div id="wokroutName">
           <label
@@ -31,14 +31,14 @@
     <button type="button" class="btn btn-danger btn-sm" @click="linkList">
       목록으로
     </button>
-    <button type="button" class="btn btn-danger btn-sm" @click="linkPrivate">추가하기</button>
+    <button type="button" class="btn btn-danger btn-sm" @click="linkMyworkout">추가하기</button>
   </div>
 </template>
 
 <script>
 import router from "@/router/router";
 import "../css/views/WorkoutDetail.css";
-import { ref } from "@vue/reactivity";
+import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
 import { onMounted } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
@@ -47,6 +47,7 @@ export default {
   name: "WorkoutDetail",
 
   setup() {
+
     const route = useRoute();
     onMounted(() => {
       getWorkoutHandler();
@@ -61,30 +62,42 @@ export default {
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
-        token: Token.value,
       };
       await axios.get(url, { headers }).then((res) => {
-        console.log(res.data);
         if (res.status === 200) {
           Workout.value = res.data;
         }
       });
     }
 
-    const linkPrivate = () => {
-      router.push("/routine/private");
+    const state = reactive({
+      category: "",
+
+    })
+
+    const linkMyworkout = async() => {
+      const url = `/api/v1/my-workout/${WorkoutID.value}`
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: Token.value,
+      }
+      await axios.post(url, {headers}).then((res)=>{
+        console.log(res.data);
+        console.log(Token.value);
+      })
     };
 
     const linkList = () => {
-      router.push("/routine/list");
+      router.push("/workout");
     };
 
     return {
       Workout,
       WorkoutID,
       linkList,
-      linkPrivate,
+      linkMyworkout,
       getWorkoutHandler,
+      state,
       message: "운동 정보",
     };
   },

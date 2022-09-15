@@ -2,11 +2,11 @@ import { createWebHistory, createRouter } from "vue-router";
 import Main from "@/views/Main.vue";
 import Login from "@/views/Login.vue";
 import Join from "@/views/Join.vue";
+import Program from "@/views/Program.vue";
 import Workout from "@/views/Workout.vue";
-import RoutineList from "@/views/RoutineList.vue";
-import RoutinePrivate from "@/views/RoutinePrivate.vue";
-import RoutineDetail from "@/views/RoutineDetail.vue";
-import RoutineCreate from "@/views/RoutineCreate.vue";
+import WorkoutMyworkout from "@/views/WorkoutMyworkout";
+import WorkoutDetail from "@/views/WorkoutDetail.vue";
+import WorkoutCreate from "@/views/WorkoutCreate.vue";
 import Board from "@/views/Board.vue";
 import BoardWrite from "@/views/BoardWrite.vue";
 import BoardContent from "@/views/BoardContent.vue";
@@ -20,12 +20,12 @@ const routes = [
   {path: "/login", name: "login", component: Login},
   {path: "/join", name: "join", component: Join},
 
-  {path: "/routine/list", name: "routineList", component: RoutineList},
-  {path: "/routine/private", name: "routinePrivate", component: RoutinePrivate},
-  {path: "/routine/:workoutID", name: "routineDetail", component: RoutineDetail},
-  {path: "/routine/create", name: "routineCreate", component: RoutineCreate},
+  {path: "/workout", name: "Workout", component: Workout},
+  {path: "/workout/myworkout", name: "WorkoutMyworkout", component: WorkoutMyworkout},
+  {path: "/workout/:workoutID", name: "workoutDetail", component: WorkoutDetail},
+  {path: "/workout/create", name: "workoutCreate", component: WorkoutCreate},
 
-  {path: "/workout/", name: "workout", component: Workout},
+  {path: "/program", name: "program", component: Program},
 
   {path: "/board", name: "board", component: Board},
   {path: "/board/write", name: "boardWrite", component: BoardWrite},

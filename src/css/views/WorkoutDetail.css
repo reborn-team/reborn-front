@@ -2,7 +2,7 @@
 #workoutDetail img { width: 40%; }
 #workoutDetail #detail label{ width: 20%; }
 #workoutDetail #detail { display: flex; justify-content: left; }
-#workoutDetail #detail #category{ display: flex; text-align: left; }
+#workoutDetail #detail #workoutCategory{ display: flex; text-align: left; }
 #workoutDetail #detail #wokroutName{ display: flex; text-align: left;}
 #workoutDetail #detail #explain{ display: flex; text-align: left; }
 #workoutDetail #detail .workoutItem{ width: 50%; border-bottom: 1px solid red; }
