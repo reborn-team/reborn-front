@@ -6,8 +6,6 @@
 export default {
   mounted() {
     let kakao = window.kakao;
-    console.log(this.$refs.map);
-
     var container = this.$refs.map; 
   
     var options = {

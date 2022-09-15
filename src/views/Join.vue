@@ -13,8 +13,14 @@
           ref="email"
           v-model="state.email"
           placeholder="이메일 형식으로 입력해 주세요"
-          />
-          <button type="button" class="btn btn-danger btn-sm" @click="emailCheckHandler">✔</button>
+        />
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          @click="emailCheckHandler"
+        >
+          ✔
+        </button>
       </div>
 
       <!-- 비밀번호 -->
@@ -113,7 +119,7 @@
         <div class="join2-button">
           <button class="btn btn-danger btn-sm" @click="joinHandler">
             완료
-          </button> 
+          </button>
         </div>
         <div class="cancle-button">
           <a href="/login">
@@ -172,7 +178,8 @@ export default {
         return;
       } else if (state.password !== state.repassword) {
         alert("비밀번호가 일치하지 않습니다");
-        password.value.focus();
+        repassword.value.focus();
+        repassword.value.value = "";
         return false;
       } else if (state.name === "") {
         alert("이름을 입력해 주세요");
@@ -187,6 +194,8 @@ export default {
         detailAddress.value.focus();
         return;
       }
+
+     
 
       const url = "/api/v1/join";
       const headers = {
@@ -204,7 +213,7 @@ export default {
       await axios.post(url, body, { headers }).then(function (res) {
         if (res.status === 201) {
           alert("회원가입이 되었습니다.");
-          router.push("/login");  
+          router.push("/login");
         } else {
           alert("회원가입에 실패하였습니다.");
         }
@@ -264,7 +273,7 @@ export default {
     };
 
     // const phon
-    
+
     return {
       state,
       email,

@@ -109,7 +109,7 @@ export default {
     };
 
     const linkList = () => {
-      router.push("/workout/list");
+      router.push("/routine/list");
     };
 
     return {

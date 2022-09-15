@@ -285,7 +285,8 @@ export default {
         return;
       } else if (state.changePassword !== state.passwordCheck) {
         alert("새 비밀번호가 일치하지 않습니다");
-        changePassword.value.focus();
+        passwordCheck.value.value = "";
+        passwordCheck.value.focus();
 
         return false;
       }
@@ -294,12 +295,12 @@ export default {
       const headers = {
         "Content-Type": "application/json;",
         Authorization: state.token,
-        token: state.token,
       };
       const body = {
         rawPassword: state.rawPassword,
         changePassword: state.changePassword,
       };
+      console.log(body);
       await axios.patch(url, body, { headers }).then((res)=>{
         console.log(res.data);
       })

@@ -8,4 +8,4 @@
 #workoutDetail #detail .workoutItem{ width: 50%; border-bottom: 1px solid red; }
 #workoutDetail #detail .workoutExplain{ width: 100%; height: 12rem; border-bottom: 1px solid red; }
 #workoutDetail #detailWrap { width: 100%; margin-left: 10px;}
-#workoutDetail button { float: right; margin-top: 20px;}
+#workoutDetail button { float: right; margin-top: 20px; margin-left: 5px;}

@@ -10,7 +10,7 @@
             class="col-sm-2 col-form-label col-form-label-sm"
             >카테고리 :
           </label>
-          <div class="workoutItem">{{Workout.workoutCategory}}</div>
+          <div class="workoutItem">{{ Workout.workoutCategory }}</div>
         </div>
         <div id="wokroutName">
           <label
@@ -18,19 +18,20 @@
             class="col-sm-2 col-form-label col-form-label-sm"
             >운동명 :
           </label>
-          <div class="workoutItem">{{Workout.workoutName}}</div>
+          <div class="workoutItem">{{ Workout.workoutName }}</div>
         </div>
         <div id="explain">
           <label for="explain" class="col-sm-2 col-form-label col-form-label-sm"
             >설명 :
           </label>
-          <div class="workoutExplain">{{Workout.content}}</div>
+          <div class="workoutExplain">{{ Workout.content }}</div>
         </div>
       </div>
     </div>
     <button type="button" class="btn btn-danger btn-sm" @click="linkList">
       목록으로
     </button>
+    <button type="button" class="btn btn-danger btn-sm" @click="linkPrivate">추가하기</button>
   </div>
 </template>
 
@@ -40,7 +41,7 @@ import "../css/views/WorkoutDetail.css";
 import { ref } from "@vue/reactivity";
 import axios from "axios";
 import { onMounted } from "@vue/runtime-core";
-import { useRoute } from 'vue-router';
+import { useRoute } from "vue-router";
 
 export default {
   name: "WorkoutDetail",
@@ -51,8 +52,8 @@ export default {
       getWorkoutHandler();
     });
 
-    const Token = ref(sessionStorage.getItem("TOKEN")); 
-    const WorkoutID = ref(route.params.workoutID); 
+    const Token = ref(sessionStorage.getItem("TOKEN"));
+    const WorkoutID = ref(route.params.workoutID);
     const Workout = ref("");
 
     async function getWorkoutHandler() {
@@ -64,23 +65,28 @@ export default {
       };
       await axios.get(url, { headers }).then((res) => {
         console.log(res.data);
-        if(res.status === 200) {
-          Workout.value = res.data 
+        if (res.status === 200) {
+          Workout.value = res.data;
         }
       });
     }
 
+    const linkPrivate = () => {
+      router.push("/routine/private");
+    };
+
     const linkList = () => {
-      router.push("/workout/list");
+      router.push("/routine/list");
     };
 
     return {
       Workout,
       WorkoutID,
-      linkList, 
+      linkList,
+      linkPrivate,
       getWorkoutHandler,
       message: "운동 정보",
     };
   },
 };
-</script> 
+</script>
