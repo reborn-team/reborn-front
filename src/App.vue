@@ -21,7 +21,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/workout/list"
+              <a class="nav-link active" aria-current="page" href="/list"
                 >운동목록</a
               >
             </li>

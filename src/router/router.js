@@ -19,14 +19,18 @@ const routes = [
   {path: "/login", name: "login", component: Login},
   {path: "/join", name: "join", component: Join},
 
-  {path: "/workout/list", name: "woList", component: WorkoutList},
-  {path: "/workout/create", name: "woCreate", component: WorkoutCreate},
-  {path: "/workout/:workoutID", name: "woDetail", component: WorkoutDetail},
+  {path: "/list/", name: "workoutList", component: WorkoutList},
+  {path: "/list/:workoutID", name: "workoutDetail", component: WorkoutDetail},
+  {path: "/list/create", name: "workoutCreate", component: WorkoutCreate},
+
   {path: "/workout/", name: "workout", component: Workout},
+
   {path: "/board", name: "board", component: Board},
   {path: "/board/write", name: "boardWrite", component: BoardWrite},
   {path: "/board/content", name: "boardContent", component: BoardContent},
+
   {path: "/nearby", name: "nearby", component: Nearby},
+  
   {path: "/mypage/goal", name: "myPageGoal", component: MyPageGoal},
   {path: "/mypage/list", name: "myPageList", component: MyPageList},
   {path: "/mypage/change", name: "myPageChange", component: MyPageChange},

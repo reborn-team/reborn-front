@@ -12,7 +12,7 @@
           class="form-control form-control-sm"
           ref="email"
           v-model="state.email"
-          placeholder="이메일 형식으로 입력하세요"
+          placeholder="이메일 형식으로 입력해 주세요"
           />
           <button type="button" class="btn btn-danger btn-sm" @click="emailCheckHandler">✔</button>
       </div>
@@ -25,7 +25,7 @@
           class="form-control form-control-sm"
           ref="password"
           v-model="state.password"
-          placeholder="비밀번호를 입력해주세요"
+          placeholder="비밀번호를 입력해 주세요"
         />
       </div>
 
@@ -37,7 +37,7 @@
           class="form-control form-control-sm"
           ref="repassword"
           v-model="state.repassword"
-          placeholder="비밀번호를 입력해주세요"
+          placeholder="비밀번호를 입력해 주세요"
         />
       </div>
 
@@ -49,7 +49,7 @@
           class="form-control form-control-sm"
           ref="name"
           v-model="state.name"
-          placeholder="이름을 입력해주세요"
+          placeholder="이름을 입력해 주세요"
         />
       </div>
 
@@ -100,7 +100,7 @@
             class="form-control form-control-sm"
             ref="detailAddress"
             v-model="state.detailAddress"
-            placeholder="상세주소를 입력하세요"
+            placeholder="상세주소를 입력해 주세요"
           />
         </div>
       </div>
@@ -159,31 +159,31 @@ export default {
 
     const joinHandler = async () => {
       if (state.email === "") {
-        alert("Check Email");
+        alert("아이디를 입력해 주세요");
         email.value.focus();
         return false;
       } else if (state.password === "") {
-        alert("Check Password");
+        alert("비밀번호를 입력해 주세요");
         password.value.focus();
         return false;
       } else if (state.repassword === "") {
-        alert("Check RePassword");
+        alert("비밀번호를 확인해 주세요");
         repassword.value.focus();
         return;
       } else if (state.password !== state.repassword) {
-        alert("Check Password and RePassword");
+        alert("비밀번호가 일치하지 않습니다");
         password.value.focus();
         return false;
       } else if (state.name === "") {
-        alert("Check Name");
+        alert("이름을 입력해 주세요");
         name.value.focus();
         return;
       } else if (state.phone === "") {
-        alert("Check Phone");
+        alert("전화번호를 입력해 주세요");
         phone.value.focus();
         return;
       } else if (state.detailAddress === "") {
-        alert("Check detailAddress");
+        alert("상세주소를 입력해 주세요");
         detailAddress.value.focus();
         return;
       }

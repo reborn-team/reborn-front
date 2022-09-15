@@ -57,7 +57,6 @@ export default {
 
     async function getWorkoutHandler() {
       const url = `/api/v1/workout/${WorkoutID.value}`;
-      
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,

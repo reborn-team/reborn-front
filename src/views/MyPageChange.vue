@@ -9,14 +9,8 @@
           type="text"
           class="form-control form-control-sm"
           ref="email"
-          @keyup="emailCheckHandler"
-          v-model="state.email"
-          placeholder="이메일 형식으로 입력하세요"
           disabled
         />
-        <label for="">
-          {{ state.emailCheck }}
-        </label>
       </div>
 
       <!-- 비밀번호 -->
@@ -102,14 +96,12 @@
 
       <div id="changeBtn">
         <div class="change-button">
-          <button class="btn btn-secondary btn-sm delete" @click="deletehandler">
+          <button
+            class="btn btn-secondary btn-sm delete"
+            @click="deletehandler"
+          >
             회원 탈퇴
           </button>
-        </div>
-        <div class="cancle-button">
-          <a href="#">
-            <button type="button" class="btn btn-danger btn-sm">취소</button>
-          </a>
         </div>
         <div class="change-button">
           <button class="btn btn-danger btn-sm" @click="changeHandler">
@@ -142,15 +134,30 @@
         <div class="modal-body" id="modalBody">
           <div>
             <label for="" class="form-label">현재 비밀번호</label>
-            <input type="text" class="form-control form-control-sm" ref="" />
+            <input
+              type="password"
+              class="form-control form-control-sm"
+              ref="rawPassword"
+              v-model="state.rawPassword"
+            />
           </div>
           <div>
             <label for="" class="form-label">새 비밀번호</label>
-            <input type="text" class="form-control form-control-sm" ref="" />
+            <input
+              type="password"
+              class="form-control form-control-sm"
+              ref="changePassword"
+              v-model="state.changePassword"
+            />
           </div>
           <div>
             <label for="" class="form-label">새 비밀번호 확인</label>
-            <input type="text" class="form-control form-control-sm" ref="" />
+            <input
+              type="password"
+              class="form-control form-control-sm"
+              ref="passwordCheck"
+              v-model="state.passwordCheck"
+            />
           </div>
         </div>
         <div class="modal-footer">
@@ -161,7 +168,7 @@
           >
             취소
           </button>
-          <button type="button" class="btn btn-danger">변경하기</button>
+          <button type="button" class="btn btn-danger" @click="changePasswordHandler">변경하기</button>
         </div>
       </div>
     </div>
@@ -172,8 +179,8 @@
 import MyPageNav from "@/components/MyPageNav.vue";
 import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
-import axios from "axios";
 import "../css/views/MyPageChange.css";
+import axios from 'axios';
 
 export default {
   name: "TheRegist",
@@ -181,18 +188,20 @@ export default {
   setup() {
     const state = reactive({
       email: "",
-      emailCheck: "",
-      password: "",
-      repassword: "",
+      rawPassword: "",
+      changePassword: "",
+      passwordCheck: "",
       name: "",
       phoneNum: "",
       zipcode: "",
       roadName: "",
       detailAddress: "",
+      token: sessionStorage.getItem("TOKEN"),
     });
     const email = ref("");
-    const password = ref("");
-    const repassword = ref("");
+    const rawPassword = ref("");
+    const changePassword = ref("");
+    const passwordCheck = ref("");
     const name = ref("");
     const phoneNum = ref("");
     let zipcode = ref("");
@@ -200,21 +209,12 @@ export default {
     const detailAddress = ref("");
     let postOpen = ref(false);
 
-    const emailCheckHandler = async () => {
-      const url = "/api/v1/email-check?email=";
-      const email = state.email;
-      const response = await axios.get(url + email);
-      if (response.status === 200) {
-        state.emailCheck = response.data == true ? "사용 불가" : "사용 가능";
-      } else {
-        state.emailCheck = "중복 확인";
-      }
-    };
-
+    // 주소창 열기
     const address_search = async () => {
       postOpen.value = !postOpen.value;
     };
 
+    // 주소 API
     const oncomplete = (data) => {
       var addr = ""; // 주소 변수
       var extraAddr = ""; // 참고항목 변수
@@ -252,11 +252,65 @@ export default {
       postOpen.value = false;
     };
 
+    const changeHandler = async () => {
+      if (state.name === "") {
+        alert("이름을 입력해 주세요");
+        name.value.focus();
+        return;
+      } else if (state.phoneNum === "") {
+        alert("전화번호를 입력해 주세요");
+        phoneNum.value.focus();
+        return;
+      } else if (state.detailAddress === "") {
+        alert("상세주소를 입력해 주세요");
+        detailAddress.value.focus();
+        return;
+      }
+    };
+
+    //비밀번호 변경
+    const changePasswordHandler = async () => {
+
+      if (state.rawPassword === "") {
+        alert("현재 비밀번호를 입력해 주세요");
+        rawPassword.value.focus();
+        return false;
+      } else if (state.changePassword === "") {
+        alert("새 비밀번호를 입력해 주세요");
+        changePassword.value.focus();
+        return;
+      } else if (state.passwordCheck === "") {
+        alert("새 비밀번호를 확인해 주세요");
+        passwordCheck.value.focus();
+        return;
+      } else if (state.changePassword !== state.passwordCheck) {
+        alert("새 비밀번호가 일치하지 않습니다");
+        changePassword.value.focus();
+
+        return false;
+      }
+
+      const url = "/api/v1/change-password";
+      const headers = {
+        "Content-Type": "application/json;",
+        Authorization: state.token,
+        token: state.token,
+      };
+      const body = {
+        rawPassword: state.rawPassword,
+        changePassword: state.changePassword,
+      };
+      await axios.patch(url, body, { headers }).then((res)=>{
+        console.log(res.data);
+      })
+    };
+
     return {
       state,
       email,
-      password,
-      repassword,
+      rawPassword,
+      changePassword,
+      passwordCheck,
       name,
       phoneNum,
       zipcode,
@@ -264,8 +318,9 @@ export default {
       detailAddress,
       address_search,
       oncomplete,
-      emailCheckHandler,
       postOpen,
+      changeHandler,
+      changePasswordHandler,
     };
   },
 };
