@@ -3,10 +3,10 @@
     <h1 class="title">{{ message }}</h1>
     <div id="workoutListNav">
       <button class="btn btn-danger" type="button" @click="changeCategory('')">전체</button>
-      <button class="btn btn-danger" type="button" @click="changeCategory('BACK')">등</button>
-      <button class="btn btn-danger" type="button" @click="changeCategory('CHEST')">가슴</button>
-      <button class="btn btn-danger" type="button" @click="changeCategory('LOWER_BODY')">하체</button>
-      <button class="btn btn-danger" type="button" @click="changeCategory('CORE')">코어</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('back')">등</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('chest')">가슴</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('lower_body')">하체</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('core')">코어</button>
       <button class="btn btn-danger" id="add" @click="addWorkoukList">
         추가
       </button>
@@ -47,7 +47,7 @@ export default {
         }
       });
     }
-
+    changeCategory("");
     const addWorkoukList = () => {
       router.push("/workout/create")
     }
