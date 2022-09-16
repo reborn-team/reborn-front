@@ -32,16 +32,12 @@ export default {
     const page = ref([]);
     const id = ref("");
     let category = "";
-    const Token = ref(sessionStorage.getItem("TOKEN"));
 
     const changeCategory = async (i) =>{
       category = i;
       const url = `/api/v1/workout?id=${id.value}&category=${category}`;
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: Token.value,
-      };
-      axios.get(url, { headers }).then(res=>{
+  
+      axios.get(url).then(res=>{
         if (res.status === 200) {
           page.value = res.data.page
         }
