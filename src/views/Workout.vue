@@ -2,6 +2,7 @@
   <div id="workoutList">
     <h1 class="title">{{ message }}</h1>
     <div id="workoutListNav">
+      <button class="btn btn-danger" type="button" @click="changeCategory('')">전체</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('BACK')">등</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('CHEST')">가슴</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('LOWER_BODY')">하체</button>
@@ -28,40 +29,24 @@ export default {
   name: "WorkoutList",
   components: { WorkoutCard },
   setup(){
-
     const page = ref([]);
-    const id = ref(97);
+    const id = ref("");
     let category = "";
     const Token = ref(sessionStorage.getItem("TOKEN"));
 
     const changeCategory = async (i) =>{
       category = i;
-      console.log(category)
-      const url = `/api/v1/workout?id=${id}&category=${category}`;
+      const url = `/api/v1/workout?id=${id.value}&category=${category}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
       axios.get(url, { headers }).then(res=>{
         if (res.status === 200) {
-        page.value = res.data.page
-        console.log(res.data)
+          page.value = res.data.page
         }
       });
-   
-      
     }
-
-    const madeBox = async () => {
-      const url = `/api/v1/workout?id=${id}&category=${category}`;
-      const response = await axios.get(url);
-      if (response.status === 200) {
-        page.value = response.data.page
-        console.log(response.data)
-        
-      } 
-    };
-    
 
     const addWorkoukList = () => {
       router.push("/workout/create")
@@ -70,7 +55,7 @@ export default {
     return { 
       page,
       changeCategory,
-      madeBox,
+      // madeBox,
       addWorkoukList,
       message:"운동 리스트"
     }
