@@ -1,6 +1,6 @@
 <template>
   <div class="row row-cols-3 g-1">
-  <div class="col" v-for="i in 6" :key="{i}">
+  <div class="col" v-for="i in 54" :key="{i}">
     <div id="card">
       <img src="../assets/img/banner.jpg" class="card-img-top" alt="#" @click="link">
       <div class="card-body">
@@ -17,6 +17,7 @@ import '../css/components/Card.css'
 
 export default {
   name: "TheCard",
+  props: ["getListItem"],
   setup(){
     const link = () =>{
       router.push("/workout/:workoutID")
