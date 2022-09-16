@@ -3,9 +3,17 @@
     <h1 class="title">{{ message }}</h1>
     <div id="Create">
       <div v-for="i in files" :key="i">
-        <img :src="viewUrl(i.uploadFileName)" class="card-img-top" alt="No Image"/>
+        <img
+          :src="viewUrl(i.uploadFileName)"
+          class="card-img-top"
+          alt="No Image"
+        />
       </div>
-      <img src="https://place-hold.it/300x300/666/fff/000.gif" alt="" v-if="files.length == 0">
+      <img
+        src="https://place-hold.it/300x300/666/fff/000.gif"
+        alt=""
+        v-if="files.length == 0"
+      />
 
       <div id="createWrap">
         <div id="category">
@@ -135,7 +143,7 @@ export default {
         formData.append("file", file);
       }
       axios
-        .post("/api/v1/upload", formData, {
+        .post("/api/v1/file", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
@@ -149,7 +157,7 @@ export default {
     };
 
     const viewUrl = (i) => {
-      return "/api/v1/upload/images/" + i;
+      return "/api/v1/file/images?filename=" + i;
     };
 
     const linkList = () => {

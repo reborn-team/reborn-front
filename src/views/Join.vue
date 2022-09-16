@@ -233,7 +233,7 @@ export default {
       const email = state.email;
       const response = await axios.get(url + email);
       if (response.status === 200) {
-        response.data == true ? alert("사용 불가") : alert("사용 가능");
+        response.data == true ? alert("중복된 이메일입니다") : alert("등록 가능한 이메일입니다");
       } else {
         state.emailCheck = "중복 확인";
       }
