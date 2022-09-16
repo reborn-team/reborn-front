@@ -209,6 +209,9 @@ export default {
     const detailAddress = ref("");
     let postOpen = ref(false);
 
+    // 전화번호 정규식
+    const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
+
     // 주소창 열기
     const address_search = async () => {
       postOpen.value = !postOpen.value;
@@ -252,6 +255,7 @@ export default {
       postOpen.value = false;
     };
 
+    // 유효성 검사
     const changeHandler = async () => {
       if (state.name === "") {
         alert("이름을 입력해 주세요");
@@ -261,10 +265,10 @@ export default {
         alert("전화번호를 입력해 주세요");
         phoneNum.value.focus();
         return;
-      } else if (state.detailAddress === "") {
-        alert("상세주소를 입력해 주세요");
-        detailAddress.value.focus();
-        return;
+      } else if( !phone_pattern.test(state.phone)){
+        alert("전화번호 형식에 맞춰주세요");
+        email.value.focus();
+        return false;
       }
     };
 
@@ -304,7 +308,6 @@ export default {
       await axios.patch(url, body, { headers }).then((res)=>{
         if(res.status==200){
           alert("비밀번호가 변경 되었습니다.")
-          
         }
       })
     };

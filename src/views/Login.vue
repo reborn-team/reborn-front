@@ -4,6 +4,8 @@
     <hr />
 
     <div id="login-box">
+
+      <!-- ID -->
       <div class="row mb-3">
         <label
           for="colFormLabelSm"
@@ -20,6 +22,8 @@
           />
         </div>
       </div>
+
+      <!-- Password -->
       <div class="row mb-3">
         <label
           for="colFormLabelSm"
@@ -37,6 +41,7 @@
         </div>
       </div>
 
+      <!-- 버튼 -->
       <div id="loginBtn">
         <div class="login-button">
           <button
@@ -71,14 +76,16 @@ export default {
   setup() {
     // const router = useRouter();
     const state = reactive({
-      email: "reborn111@naver.com",
-      password: "1",
+      email: "",
+      password: "",
     });
     const email = ref("");
     const password = ref("");
 
+    // 로그인 버튼
     const loginHandler = async () => {
-      // 유효성
+
+      // 유효성 검사
       if (state.email === "") {
         alert("Check Email");
         email.value.focus();

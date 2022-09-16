@@ -87,7 +87,6 @@
           </button>
         </div>
       </div>
-
       <div id="addressInput">
         <div class="row mb-1">
           <input
@@ -99,7 +98,6 @@
             disabled
           />
         </div>
-
         <div class="row mb-1">
           <input
             type="text"
@@ -110,11 +108,11 @@
           />
         </div>
       </div>
-
       <div class="post-box" v-if="postOpen">
         <VueDaumPostcode @complete="oncomplete" />
       </div>
 
+      <!-- 버튼 -->
       <div id="joinBtn">
         <div class="join2-button">
           <button class="btn btn-danger btn-sm" @click="joinHandler">
@@ -163,9 +161,20 @@ export default {
     const detailAddress = ref("");
     let postOpen = ref(false);
 
+    // 유효성 검사 정규식
+    const email_pattern = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
+    const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
+
+    // 가입 버튼
     const joinHandler = async () => {
+
+      // 유효성 검사
       if (state.email === "") {
         alert("아이디를 입력해 주세요");
+        email.value.focus();
+        return false;
+      } else if( !email_pattern.test(state.email)){
+        alert("이메일 형식에 맞춰주세요");
         email.value.focus();
         return false;
       } else if (state.password === "") {
@@ -189,13 +198,11 @@ export default {
         alert("전화번호를 입력해 주세요");
         phone.value.focus();
         return;
-      } else if (state.detailAddress === "") {
-        alert("상세주소를 입력해 주세요");
-        detailAddress.value.focus();
-        return;
+      } else if( !phone_pattern.test(state.phone)){
+        alert("전화번호 형식에 맞춰주세요");
+        email.value.focus();
+        return false;
       }
-
-     
 
       const url = "/api/v1/join";
       const headers = {
@@ -220,6 +227,7 @@ export default {
       });
     };
 
+    // ID 중복체크
     const emailCheckHandler = async () => {
       const url = "/api/v1/email-check?email=";
       const email = state.email;
@@ -231,10 +239,10 @@ export default {
       }
     };
 
+    // 주소 API
     const address_search = async () => {
       postOpen.value = !postOpen.value;
     };
-
     const oncomplete = (data) => {
       var addr = ""; // 주소 변수
       var extraAddr = ""; // 참고항목 변수
@@ -272,7 +280,6 @@ export default {
       postOpen.value = false;
     };
 
-    // const phon
 
     return {
       state,

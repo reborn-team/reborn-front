@@ -8,10 +8,11 @@
 #workoutCreate #Create #explain textarea{ height:100%; }
 #workoutCreate #Create label{ width: 20%; }
 #workoutCreate #Create input{ width: 50%; }
-#workoutCreate img { width: 40%; }
 #workoutCreate #createWrap { width: 100%; margin-left: 10px;}
 #workoutCreate #createWrap #category{ display: flex; text-align: left; margin-bottom: 5px;}
 #workoutCreate #createWrap #woName{ display: flex; text-align: left; margin-bottom: 5px;}
 #workoutCreate #createWrap #woContent{ display: flex; text-align: left;}
+#workoutCreate #Create img { width: 300px; height: 300px;}
+#workoutCreate #fileUpload .form-control { float : left; width: 300px;}
 #workoutCreate #insert #insertBtn button{margin-left: 5px;}
 #workoutCreate #insert {margin-top: 20px; display: flex; width: 100%; justify-content: space-between}
