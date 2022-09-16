@@ -48,11 +48,11 @@ export default {
 
   setup() {
 
-    const route = useRoute();
     onMounted(() => {
       getWorkoutHandler();
     });
-
+    
+    const route = useRoute();
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const WorkoutID = ref(route.params.workoutID);
     const Workout = ref("");
