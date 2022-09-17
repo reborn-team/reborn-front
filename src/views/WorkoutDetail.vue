@@ -2,8 +2,9 @@
   <div id="workoutDetail">
     <h1 class="title">{{ message }}</h1>
     <div id="detail">
-      <img src="../assets/img/banner.jpg" class="card-img-top" alt="" />
-      <div id="detailWrap">
+      <img :src="viewUrl(Workout.uploadFileName)" class="card-img-top" alt="#"  v-if="Workout.uploadFileName != 'empty' && Workout.uploadFileName != null"/>
+      <img src="https://place-hold.it/300x300/666/fff/000.gif" alt="" v-if="Workout.uploadFileName == 'empty'"/>     
+       <div id="detailWrap">
         <div id="workoutCategory">
           <label
             for="category"
@@ -56,7 +57,9 @@ export default {
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const WorkoutID = ref(route.params.workoutID);
     const Workout = ref("");
-
+    const viewUrl = (i) => {
+      return "/api/v1/file/images?filename=" + i;
+    };
     async function getWorkoutHandler() {
       const url = `/api/v1/workout/${WorkoutID.value}`;
       const headers = {
@@ -66,7 +69,11 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           Workout.value = res.data;
+          console.log(res.data)
+          console.log(Workout.value.uploadFileName)
+          viewUrl()
         }
+        
       });
     }
 
@@ -90,11 +97,13 @@ export default {
     const linkList = () => {
       router.push("/workout");
     };
+ 
 
     return {
       Workout,
       WorkoutID,
       linkList,
+      viewUrl,
       linkMyworkout,
       getWorkoutHandler,
       state,

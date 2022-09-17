@@ -3,10 +3,10 @@
     <h1 class="title">{{ message }}</h1>
     <div id="workoutListNav">
       <button class="btn btn-danger" type="button" @click="changeCategory('')">전체</button>
-      <button class="btn btn-danger" type="button" @click="changeCategory('BACK')">등</button>
-      <button class="btn btn-danger" type="button" @click="changeCategory('CHEST')">가슴</button>
-      <button class="btn btn-danger" type="button" @click="changeCategory('LOWER_BODY')">하체</button>
-      <button class="btn btn-danger" type="button" @click="changeCategory('CORE')">코어</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('back')">등</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('chest')">가슴</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('lower_body')">하체</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('core')">코어</button>
       <button class="btn btn-danger" id="add" @click="addWorkoukList">
         추가
       </button>
@@ -32,23 +32,21 @@ export default {
     const page = ref([]);
     const id = ref("");
     let category = "";
+
     const Token = ref(sessionStorage.getItem("TOKEN"));
     
     const changeCategory = async (i) =>{
       category = i;
       const url = `/api/v1/workout?id=${id.value}&category=${category}`;
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: Token.value,
-      };
-      axios.get(url, { headers }).then(res=>{
+  
+      axios.get(url).then(res=>{
         if (res.status === 200) {
           page.value = res.data.page
         }
       });
     }
     changeCategory("");
-    
+
     const addWorkoukList = () => {
       router.push("/workout/create")
     }
