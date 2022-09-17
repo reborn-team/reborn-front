@@ -18,7 +18,7 @@ import '../css/components/Card.css'
 
 export default {
   name: "TheCard",
-  props: ["page", "changeValue"],
+  props: ["page"],
   setup(){
     const link = (i) =>{
       router.push("/workout/"+i)

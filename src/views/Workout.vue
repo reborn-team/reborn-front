@@ -33,6 +33,8 @@ export default {
     const id = ref("");
     let category = "";
 
+    const Token = ref(sessionStorage.getItem("TOKEN"));
+    
     const changeCategory = async (i) =>{
       category = i;
       const url = `/api/v1/workout?id=${id.value}&category=${category}`;
@@ -44,6 +46,7 @@ export default {
       });
     }
     changeCategory("");
+
     const addWorkoukList = () => {
       router.push("/workout/create")
     }
