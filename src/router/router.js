@@ -14,11 +14,8 @@ import Nearby from "@/views/Nearby.vue";
 import MyPageGoal from "@/views/MyPageGoal.vue";
 import MyPageList from "@/views/MyPageList.vue";
 import MyPageChange from "@/views/MyPageChange.vue";
-import test from "@/views/TheTest.vue";
 
 const routes = [
-  {path: "/test", name: "test", component: test},
-
   {path: "/", name: "main", component: Main},
   {path: "/login", name: "login", component: Login},
   {path: "/join", name: "join", component: Join},
