@@ -3,7 +3,6 @@
     <h1 class="title">{{ message }}</h1>
     <hr />
 
-    <!-- 아이디 -->
     <div id="join-box">
       <div class="row mb-3">
         <label for="email" class="form-label">ID</label>
@@ -23,7 +22,6 @@
         </button>
       </div>
 
-      <!-- 비밀번호 -->
       <div class="row mb-3">
         <label for="user_password" class="form-label">Password</label>
         <input
@@ -35,7 +33,6 @@
         />
       </div>
 
-      <!-- 비밀번호 확인 -->
       <div class="row mb-3">
         <label for="repassword" class="form-label">RePassword</label>
         <input
@@ -47,7 +44,6 @@
         />
       </div>
 
-      <!-- 이름 -->
       <div class="row mb-3">
         <label for="name" class="form-label">Name</label>
         <input
@@ -59,7 +55,6 @@
         />
       </div>
 
-      <!-- 전화번호 -->
       <div class="row mb-3">
         <label for="phone" class="form-label">Mobile</label>
         <input
@@ -71,7 +66,6 @@
         />
       </div>
 
-      <!-- 주소 -->
       <div id="address">
         <div class="row mb-1 search">
           <label for="address" class="form-label">Address</label>
@@ -112,7 +106,6 @@
         <VueDaumPostcode @complete="oncomplete" />
       </div>
 
-      <!-- 버튼 -->
       <div id="joinBtn">
         <div class="join2-button">
           <button class="btn btn-danger btn-sm" @click="joinHandler">
@@ -161,14 +154,11 @@ export default {
     const detailAddress = ref("");
     let postOpen = ref(false);
 
-    // 유효성 검사 정규식
     const email_pattern = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
     const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
-    // 가입 버튼
     const joinHandler = async () => {
 
-      // 유효성 검사
       if (state.email === "") {
         alert("아이디를 입력해 주세요");
         email.value.focus();
@@ -227,7 +217,6 @@ export default {
       });
     };
 
-    // ID 중복체크
     const emailCheckHandler = async () => {
       const url = "/api/v1/email-check?email=";
       const email = state.email;
@@ -239,19 +228,16 @@ export default {
       }
     };
 
-    // 주소 API
     const address_search = async () => {
       postOpen.value = !postOpen.value;
     };
     const oncomplete = (data) => {
-      var addr = ""; // 주소 변수
-      var extraAddr = ""; // 참고항목 변수
+      var addr = ""; 
+      var extraAddr = ""; 
 
       if (data.userSelectedType === "R") {
-        // 사용자가 도로명 주소를 선택했을 경우
         addr = data.roadAddress;
       } else {
-        // 사용자가 지번 주소를 선택했을 경우(J)
         addr = data.jibunAddress;
       }
 

@@ -1,7 +1,6 @@
 <template>
   <MyPageNav />
   <div id="change">
-    <!-- 아이디 -->
     <div id="change-box">
       <div class="row mb-3">
         <label for="email" class="form-label">ID</label>
@@ -13,7 +12,6 @@
         />
       </div>
 
-      <!-- 비밀번호 -->
       <div class="row mb-3">
         <label for="user_password" class="form-label">Password</label>
         <button
@@ -26,7 +24,6 @@
         </button>
       </div>
 
-      <!-- 이름 -->
       <div class="row mb-3">
         <label for="name" class="form-label">Name</label>
         <input
@@ -38,7 +35,6 @@
         />
       </div>
 
-      <!-- 전화번호 -->
       <div class="row mb-3">
         <label for="phoneNum" class="form-label">Mobile</label>
         <input
@@ -50,7 +46,6 @@
         />
       </div>
 
-      <!-- 주소 -->
       <div id="address">
         <div class="row mb-1 search">
           <label for="address" class="form-label">Address</label>
@@ -112,7 +107,6 @@
     </div>
   </div>
 
-  <!-- 모달 -->
   <div
     class="modal fade"
     id="changePassword"
@@ -209,24 +203,19 @@ export default {
     const detailAddress = ref("");
     let postOpen = ref(false);
 
-    // 전화번호 정규식
     const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
-    // 주소창 열기
     const address_search = async () => {
       postOpen.value = !postOpen.value;
     };
 
-    // 주소 API
     const oncomplete = (data) => {
-      var addr = ""; // 주소 변수
-      var extraAddr = ""; // 참고항목 변수
+      var addr = ""; 
+      var extraAddr = ""; 
 
       if (data.userSelectedType === "R") {
-        // 사용자가 도로명 주소를 선택했을 경우
         addr = data.roadAddress;
       } else {
-        // 사용자가 지번 주소를 선택했을 경우(J)
         addr = data.jibunAddress;
       }
 
@@ -255,7 +244,6 @@ export default {
       postOpen.value = false;
     };
 
-    // 유효성 검사
     const changeHandler = async () => {
       if (state.name === "") {
         alert("이름을 입력해 주세요");
@@ -272,7 +260,6 @@ export default {
       }
     };
 
-    //비밀번호 변경
     const changePasswordHandler = async () => {
 
       if (state.rawPassword === "") {
