@@ -1,5 +1,5 @@
 <template>
-  <div id="workoutList">
+  <div id="workout">
     <h1 class="title">{{ message }}</h1>
     <div id="workoutListNav">
       <button class="btn btn-danger" type="button" @click="changeCategory('')">전체</button>
@@ -20,13 +20,13 @@
 
 <script>
 import WorkoutCard from "@/components/Card.vue";
-import "../css/views/WorkoutList.css";
+import "../css/views/Workout.css";
 import router from '@/router/router';
 import { ref } from '@vue/runtime-core';
 import axios from 'axios';
 
 export default {
-  name: "WorkoutList",
+  name: "TheWorkout",
   components: { WorkoutCard },
   setup(){
     const page = ref([]);
@@ -41,9 +41,11 @@ export default {
         if (res.status === 200) {
           page.value = res.data.page
         }
-      });
+      }).catch(()=>{
+      })
     }
     changeCategory("");
+
     const addWorkoukList = () => {
       router.push("/workout/create")
     }
@@ -51,7 +53,6 @@ export default {
     return { 
       page,
       changeCategory,
-      // madeBox,
       addWorkoukList,
       message:"운동 리스트"
     }

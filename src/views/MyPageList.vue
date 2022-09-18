@@ -1,6 +1,6 @@
 <template>
   <MyPageNav />
-  <div id="MyPageList">
+  <div id="myPageList">
     <List />
     <!-- 서치 옵션 -->
     <div id="searchBar">

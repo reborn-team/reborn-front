@@ -5,11 +5,10 @@
       <div v-for="i in files" :key="i">
         <img
           id="uploadImg"
-          :src="'/api/v1/file/images?filename=' + i.uploadFileName"
+          :src="viewUrl(i.uploadFileName)"
           class="card-img-top"
           alt="No Image"
         />
-        <h1 id="imgUrl" hidden>{{i.uploadFileName}}</h1>
       </div>
       <img
         src="https://place-hold.it/300x300/666/fff/000.gif"
@@ -69,7 +68,7 @@
     <div id="insert">
       <div id="fileUpload">
         <div class="form-group centerz">
-          <input type="file" @change="selectFile" class="form-control" />
+          <input type="file" @change="selectFile" class="form-control" id="imgName" accept="image/*"/>
         </div>
       </div>
       <div id="insertBtn">
@@ -102,10 +101,10 @@ import router from "@/router/router";
 import "../css/views/WorkoutCreate.css";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
-
 export default {
   name: "WorkoutDetail",
   setup() {
+
     const state = reactive({
       workoutCategory: "",
       workoutName: "",
@@ -117,6 +116,7 @@ export default {
     const workoutName = ref("");
     const content = ref("");
     let files = ref([]);
+    let imageName;
 
     const createHandler = async () => {
       const url = "/api/v1/workout";
@@ -155,6 +155,8 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             files.value = res.data;
+            imageName = files.value[0].uploadFileName;
+            console.log(imageName)
           }
         })
         .catch((error) => {
@@ -163,17 +165,24 @@ export default {
     };
 
     const deleteImage = () => {
-      const imgUrl = document.getElementById("imgUrl").innerText
+      const headers = { "Content-Type": "application/json;" };
 
-      const headers = {"Content-Type": "application/json;",};
+      axios.delete("/api/v1/file?filename=" + imageName, { headers }).then((res) => {
+          console.log(imageName)
+          if (res.status == 200) {
+            if (res.data) {
+              files.value=""
+              imageName = undefined;
+              document.getElementById("imgName").value=""
+            }
+          }
+        })
+        .catch((err) => console.log(err));
+    };
 
-      axios.delete("/api/v1/file?filename="+imgUrl,  {headers}).then((res)=>{
-        if(res.status==200){
-          files.value=""
-          console.log(res.data)
-        }
-      }).catch(err => console.log(err))
-    }
+    const viewUrl = (i) => {
+      return "/api/v1/file/images?filename=" + i;
+    };
 
     const linkList = () => {
       router.push("/workout");
@@ -184,6 +193,7 @@ export default {
       createHandler,
       selectFile,
       deleteImage,
+      viewUrl,
       state,
       files,
       workoutCategory,

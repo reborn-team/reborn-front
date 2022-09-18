@@ -1,4 +1,4 @@
-#workoutCreate {min-width: 680px;}
+#workoutCreate {min-width: 700px;}
 #workoutCreate { width: 50%; margin: 0 auto;}
 #workoutCreate #Create { display: flex; justify-content: left; }
 #workoutCreate #Create #category{ display: flex; text-align: left; }

@@ -1,6 +1,6 @@
 <template>
   <MyPageNav />
-  <div id="change">
+  <div id="myPageChange">
     <div id="change-box">
       <div class="row mb-3">
         <label for="email" class="form-label">ID</label>

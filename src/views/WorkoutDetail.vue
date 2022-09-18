@@ -2,7 +2,8 @@
   <div id="workoutDetail">
     <h1 class="title">{{ message }}</h1>
     <div id="detail">
-      <img :src="viewUrl(Workout.uploadFileName)" class="card-img-top" alt="#"  v-if="Workout.uploadFileName != 'empty' && Workout.uploadFileName != null"/>
+      <img :src="viewUrl(Workout.uploadFileName)" class="card-img-top" alt="#"  v-if="Workout.uploadFileName != 'empty' && Workout.uploadFileName != null"
+      onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"/>
       <img src="https://place-hold.it/300x300/666/fff/000.gif" alt="" v-if="Workout.uploadFileName == 'empty'"/>     
        <div id="detailWrap">
         <div id="workoutCategory">
@@ -69,17 +70,13 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           Workout.value = res.data;
-          console.log(res.data)
-          console.log(Workout.value.uploadFileName)
           viewUrl()
         }
-        
       });
     }
 
     const state = reactive({
       category: "",
-
     })
 
     const convertCategoryValue = (category) => {
@@ -103,7 +100,6 @@ export default {
       }
       await axios.post(url, {}, {headers}).then((res)=>{
         console.log(res.data);
-        console.log(Token.value);
       })
     };
 
