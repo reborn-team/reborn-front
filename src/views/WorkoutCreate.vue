@@ -4,14 +4,16 @@
     <div id="Create">
       <div v-for="i in files" :key="i">
         <img
-          :src="viewUrl(i.uploadFileName)"
+          id="uploadImg"
+          :src="'/api/v1/file/images?filename=' + i.uploadFileName"
           class="card-img-top"
           alt="No Image"
         />
+        <h1 id="imgUrl" hidden>{{i.uploadFileName}}</h1>
       </div>
       <img
         src="https://place-hold.it/300x300/666/fff/000.gif"
-        alt=""
+        alt="Error"
         v-if="files.length == 0"
       />
 
@@ -67,12 +69,7 @@
     <div id="insert">
       <div id="fileUpload">
         <div class="form-group centerz">
-          <input
-            type="file"
-            @change="selectFile"
-            ref="fileRef"
-            class="form-control"
-          />
+          <input type="file" @change="selectFile" class="form-control" />
         </div>
       </div>
       <div id="insertBtn">
@@ -88,6 +85,15 @@
         </button>
       </div>
     </div>
+    <button
+      id="deleteImage"
+      type="button"
+      class="btn btn-danger btn-sm"
+      @click="deleteImage"
+      v-if="files.length != 0"
+    >
+      삭제하기
+    </button>
   </div>
 </template>
 
@@ -156,9 +162,18 @@ export default {
         });
     };
 
-    const viewUrl = (i) => {
-      return "/api/v1/file/images?filename=" + i;
-    };
+    const deleteImage = () => {
+      const imgUrl = document.getElementById("imgUrl").innerText
+      
+      const body = { uploadFileName: imgUrl}
+      const headers = {"Content-Type": "application/json",};
+      console.log(imgUrl)
+      axios.delete("/api/v1/file", body, {headers}).then((res)=>{
+        if(res.status==200){
+          console.log("이미지 삭제")
+        }
+      })
+    }
 
     const linkList = () => {
       router.push("/workout");
@@ -168,9 +183,9 @@ export default {
       linkList,
       createHandler,
       selectFile,
+      deleteImage,
       state,
       files,
-      viewUrl,
       workoutCategory,
       workoutName,
       content,

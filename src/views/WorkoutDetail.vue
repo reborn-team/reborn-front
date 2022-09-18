@@ -9,9 +9,9 @@
           <label
             for="category"
             class="col-sm-2 col-form-label col-form-label-sm"
-            >카테고리 :
+            >운동 부위 :
           </label>
-          <div class="workoutItem" >{{ Workout.workoutCategory }}</div>
+          <div class="workoutItem" >{{ convertCategoryValue(Workout.workoutCategory) }}</div>
         </div>
         <div id="wokroutName">
           <label
@@ -82,6 +82,19 @@ export default {
 
     })
 
+    const convertCategoryValue = (category) => {
+      switch (category) {
+        case "BACK":  
+          return "등";     
+        case "CHEST":
+          return "가슴"
+        case "LOWER_BODY":
+          return "하체";
+        case "CORE":
+          return "코어" 
+      }
+    }
+
     const linkMyworkout = async() => {
       const url = `/api/v1/my-workout/${WorkoutID.value}`
       const headers = {
@@ -97,7 +110,6 @@ export default {
     const linkList = () => {
       router.push("/workout");
     };
- 
 
     return {
       Workout,
@@ -106,6 +118,7 @@ export default {
       viewUrl,
       linkMyworkout,
       getWorkoutHandler,
+      convertCategoryValue,
       state,
       message: "운동 정보",
     };

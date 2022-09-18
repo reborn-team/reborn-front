@@ -1,4 +1,4 @@
-#change{min-width: 680px;}
+#workoutCreate {min-width: 680px;}
 #workoutCreate { width: 50%; margin: 0 auto;}
 #workoutCreate #Create { display: flex; justify-content: left; }
 #workoutCreate #Create #category{ display: flex; text-align: left; }
@@ -16,3 +16,4 @@
 #workoutCreate #fileUpload .form-control { float : left; width: 300px;}
 #workoutCreate #insert #insertBtn button{margin-left: 5px;}
 #workoutCreate #insert {margin-top: 20px; display: flex; width: 100%; justify-content: space-between}
+#workoutCreate #deleteImage{ display:flex; margin-top: 3px; width: 300px; justify-content: center;}
