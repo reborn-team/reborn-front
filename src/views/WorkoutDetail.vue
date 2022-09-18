@@ -9,9 +9,9 @@
           <label
             for="category"
             class="col-sm-2 col-form-label col-form-label-sm"
-            >카테고리 :
+            >운동 부위 :
           </label>
-          <div class="workoutItem" >{{ Workout.workoutCategory }}</div>
+          <div class="workoutItem" >{{ convertCategory(Workout.workoutCategory) }}</div>
         </div>
         <div id="wokroutName">
           <label
@@ -64,7 +64,6 @@ export default {
       const url = `/api/v1/workout/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
-        Authorization: Token.value,
       };
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
@@ -86,14 +85,24 @@ export default {
       const url = `/api/v1/my-workout/${WorkoutID.value}`
       const headers = {
         "Content-Type": "application/json",
-        Authorization: Token.value,
       }
       await axios.post(url, {}, {headers}).then((res)=>{
         console.log(res.data);
         console.log(Token.value);
       })
     };
-
+    const convertCategory = (category) => {
+      switch (category) {
+        case "BACK":  
+          return "등";     
+        case "CHEST":
+          return "가슴"
+        case "LOWER_BODY":
+          return "하체";
+        case "CORE":
+          return "코어" 
+      }
+    }
     const linkList = () => {
       router.push("/workout");
     };
@@ -106,6 +115,7 @@ export default {
       viewUrl,
       linkMyworkout,
       getWorkoutHandler,
+      convertCategory,
       state,
       message: "운동 정보",
     };
