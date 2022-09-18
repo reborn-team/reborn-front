@@ -164,15 +164,15 @@ export default {
 
     const deleteImage = () => {
       const imgUrl = document.getElementById("imgUrl").innerText
-      
-      const body = { uploadFileName: imgUrl}
-      const headers = {"Content-Type": "application/json",};
-      console.log(imgUrl)
-      axios.delete("/api/v1/file", body, {headers}).then((res)=>{
+
+      const headers = {"Content-Type": "application/json;",};
+
+      axios.delete("/api/v1/file?filename="+imgUrl,  {headers}).then((res)=>{
         if(res.status==200){
-          console.log("이미지 삭제")
+          files.value=""
+          console.log(res.data)
         }
-      })
+      }).catch(err => console.log(err))
     }
 
     const linkList = () => {
