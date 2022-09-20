@@ -104,7 +104,7 @@ export default {
     };
 
     const linkList = () => {
-      router.push('/workout?categroy='+Workout.value.workoutCategory);
+      router.push(`/workout?category=${route.query.category}`);
       console.log(Workout.value.workoutCategory)
     };
 

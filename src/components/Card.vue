@@ -11,7 +11,8 @@
           />
           <img src="../assets/img/noImage.gif" alt="No Image" v-else />
           <div class="card-body">
-            <h5 class="card-title">{{ i.workoutName }}</h5>
+            <!-- <h5 class="card-title">{{ i.workoutName }}</h5> -->
+            <h5 class="card-title">{{ i.workoutId }}</h5>
           </div>
       </div>
     </div>
@@ -24,10 +25,11 @@ import "../css/components/Card.css";
 
 export default {
   name: "TheCard",
-  props: ["page"],
-  setup() {
+  props: ["page", "category"],
+  setup(props) {
     const link = (i) => {
-      router.push("/workout/" + i);
+      router.push(`/workout/${i}?category=${props.category}`);
+
     };
     const viewUrl = (i) => {
       return "/api/v1/file/images?filename=" + i;
