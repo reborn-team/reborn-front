@@ -13,8 +13,9 @@
     </div>
     <hr />
     <div id="WorkoutCard">
-      <WorkoutCard :page ="page"/>
+      <WorkoutCard :page ="page" :category="category"/>
     </div>
+    <button id="addBtn" class="btn btn-danger" type="button" @click="addCard" v-if="hasNext.valueOf(true)">더보기</button>
   </div>
 </template>
 
@@ -30,30 +31,51 @@ export default {
   components: { WorkoutCard },
   setup(){
     const page = ref([]);
-    const id = ref("");
-    let category = "";
+    const id = ref(""); 
+    const category = ref("");
+    let hasNext = ref(true);
 
     const changeCategory = async (i) =>{
-      category = i;
-      const url = `/api/v1/workout?id=${id.value}&category=${category}`;
-  
-      axios.get(url).then(res=>{
+      category.value = i;
+      id.value='';
+      const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
+      if(hasNext){
+        axios.get(url).then(res=>{
         if (res.status === 200) {
-          page.value = res.data.page
+          page.value = page.value.concat(res.data.page)
+          id.value = res.data.page[res.data.page.length - 1].workoutId
+          hasNext.value = res.data.hasNext
+
+          router.push(`/workout?categroy=${category.value}`)
         }
+        
       }).catch(()=>{
-      })
+      })}
     }
     changeCategory("");
 
+    const addCard = () => {
+      const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
+      if(hasNext.value){axios.get(url).then(res=>{ 
+        if (res.status === 200) {
+          page.value = page.value.concat(res.data.page)
+          id.value = res.data.page[res.data.page.length - 1].workoutId
+          hasNext.value=res.data.hasNext
+        }
+      }).catch(()=>{
+      })}
+    }
+
     const addWorkoukList = () => {
-      router.push("/workout/create")
+      router.push("/workout/create") 
     }
 
     return { 
       page,
+      hasNext,
       changeCategory,
       addWorkoukList,
+      addCard,
       message:"운동 리스트"
     }
   }

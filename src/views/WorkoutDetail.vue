@@ -2,9 +2,10 @@
   <div id="workoutDetail">
     <h1 class="title">{{ message }}</h1>
     <div id="detail">
-      <img :src="viewUrl(Workout.uploadFileName)" class="card-img-top" alt="#"  v-if="Workout.uploadFileName != 'empty' && Workout.uploadFileName != null"
-      onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"/>
-      <img src="https://place-hold.it/300x300/666/fff/000.gif" alt="" v-if="Workout.uploadFileName == 'empty'"/>     
+      <div>
+        <img :src="viewUrl(Workout.uploadFileName)" class="card-img-top" alt="No image"  v-if="Workout.uploadFileName != 'empty'" onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"/>
+      </div>
+      <img src="https://place-hold.it/300x300/666/fff/000.gif" alt="Error" v-if="Workout.uploadFileName == 'empty'"/>     
        <div id="detailWrap">
         <div id="workoutCategory">
           <label
@@ -47,7 +48,6 @@ import { useRoute } from "vue-router";
 
 export default {
   name: "WorkoutDetail",
-
   setup() {
 
     onMounted(() => {
@@ -61,6 +61,7 @@ export default {
     const viewUrl = (i) => {
       return "/api/v1/file/images?filename=" + i;
     };
+    
     async function getWorkoutHandler() {
       const url = `/api/v1/workout/${WorkoutID.value}`;
       const headers = {
@@ -70,7 +71,6 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           Workout.value = res.data;
-          viewUrl()
         }
       });
     }
@@ -104,7 +104,8 @@ export default {
     };
 
     const linkList = () => {
-      router.push("/workout");
+      router.push('/workout?categroy='+Workout.value.workoutCategory);
+      console.log(Workout.value.workoutCategory)
     };
 
     return {

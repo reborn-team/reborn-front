@@ -58,7 +58,7 @@
           <textarea
             class="form-control"
             aria-label="With textarea"
-            rows="7"
+            rows="8"
             ref="content"
             v-model="state.content"
           ></textarea>
@@ -87,7 +87,7 @@
     <button
       id="deleteImage"
       type="button"
-      class="btn btn-danger btn-sm"
+      class="btn btn-secondary btn-sm"
       @click="deleteImage"
       v-if="files.length != 0"
     >

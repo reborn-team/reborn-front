@@ -79,7 +79,9 @@
     </nav>
   </div>
   <hr />
+
   <router-view />
+  
 </template>
 
 <script>

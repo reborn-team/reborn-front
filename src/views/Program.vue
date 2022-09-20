@@ -17,7 +17,7 @@
         @change="onchange"
       >
         <option style="font-weight: bold;" disabled>세부사항</option>
-        <option value="렛풀다운">렛풀다운</option>
+        <option value="렛풀다운"></option>
         <option value="풀업">풀업</option>
         <option value="바벨로우">바벨로우</option>
         <option value="인버티드로우">인버티드 로우</option>

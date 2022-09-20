@@ -16,21 +16,16 @@ export default {
   setup() {
     return {
       options: {
-        debug: "info",
         modules: {
-          syntax: true,
+          syntax: false,
           toolbar: [
             [{ font: [] }, { size: [] }],
-            ["bold", "italic", "underline"],
-            [{ color: [] }, { background: [] }],
-            ["blockquote"],
-            [{ list: "ordered" }, { list: "bullet" }],
             ["image", "video"],
             ["clean"],
           ],
         },
-        placeholder: "Compose an epic...",
-        theme: "snow",
+        placeholder: "내용을 입력하세요",
+        theme: "bubble",
       },
     };
   },
