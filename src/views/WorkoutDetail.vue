@@ -85,7 +85,7 @@ export default {
           return "등";     
         case "CHEST":
           return "가슴"
-        case "LOWER_BODY":
+        case "LOWER-BODY":
           return "하체";
         case "CORE":
           return "코어" 

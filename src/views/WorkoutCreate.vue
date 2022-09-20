@@ -32,7 +32,7 @@
             <option selected disabled>부위</option>
             <option value="BACK">등</option>
             <option value="CHEST">가슴</option>
-            <option value="LOWER_BODY">하체</option>
+            <option value="LOWER-BODY">하체</option>
             <option value="CORE">코어</option>
           </select>
         </div>

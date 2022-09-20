@@ -5,7 +5,7 @@
       <button class="btn btn-danger" type="button" @click="changeCategory('')">전체</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('back')">등</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('chest')">가슴</button>
-      <button class="btn btn-danger" type="button" @click="changeCategory('lower_body')">하체</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('lower-body')">하체</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('core')">코어</button>
       <button class="btn btn-danger" id="add" @click="addWorkoukList">추가</button>
     </div>
