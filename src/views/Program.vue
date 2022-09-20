@@ -1,5 +1,5 @@
 <template>
-  <div id="create">
+  <div id="program">
     <h1 class="title">{{ message }}</h1>
     <div id="collector">
       <select class="form-select one" size="7" >
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import "../css/views/Workout.css";
+import "../css/views/Program.css";
 import Table from "@/components/Table.vue";
 import { reactive, ref } from "@vue/reactivity";
 

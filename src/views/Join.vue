@@ -127,7 +127,7 @@ import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
 import router from "@/router/router";
 import axios from "axios";
-import "../css/views/join.css";
+import "../css/views/Join.css";
 
 export default {
   name: "TheRegist",

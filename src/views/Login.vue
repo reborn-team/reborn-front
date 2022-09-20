@@ -65,7 +65,7 @@
 import { reactive, ref } from "@vue/reactivity";
 // import { useRouter } from "vue-router";
 import axios from "axios";
-import "../css/views/login.css";
+import "../css/views/Login.css";
 import router from "@/router/router";
 
 export default {

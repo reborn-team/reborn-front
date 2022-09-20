@@ -1,4 +1,4 @@
-#boardContent { width: 50%; margin: 80px auto;}
+#boardContent { width: 50%; margin: 80px auto; min-width: 700px;}
 #boardContent #article { margin: 0px; width: 100%;}
 #boardContent #article .article-subject{display: flex;}
 #boardContent #article .subject { margin:10px; width: 50%; height: 30px; border-bottom: 1px solid red; }
