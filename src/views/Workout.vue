@@ -7,13 +7,11 @@
       <button class="btn btn-danger" type="button" @click="changeCategory('chest')">가슴</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('lower_body')">하체</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('core')">코어</button>
-      <button class="btn btn-danger" id="add" @click="addWorkoukList">
-        추가
-      </button>
+      <button class="btn btn-danger" id="add" @click="addWorkoukList">추가</button>
     </div>
     <hr />
     <div id="WorkoutCard">
-      <WorkoutCard :page ="page" :category="category"/>
+      <WorkoutCard :page="page" :category="category" />
     </div>
     <button id="addBtn" class="btn btn-danger" type="button" @click="addCard" v-if="hasNext.valueOf(true)">더보기</button>
   </div>
@@ -22,62 +20,69 @@
 <script>
 import WorkoutCard from "@/components/Card.vue";
 import "../css/views/Workout.css";
-import router from '@/router/router';
-import { ref } from '@vue/runtime-core';
-import axios from 'axios';
+import router from "@/router/router";
+import { ref } from "@vue/runtime-core";
+import axios from "axios";
 
 export default {
   name: "TheWorkout",
   components: { WorkoutCard },
-  setup(){
+  setup() {
     const page = ref([]);
-    const id = ref(""); 
+    const id = ref("");
     const category = ref("");
     let hasNext = ref(true);
 
-    const changeCategory = async (i) =>{
+    const changeCategory = async (i) => {
       category.value = i;
-      id.value='';
+      id.value = "";
       const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
-      if(hasNext){
-        axios.get(url).then(res=>{
-        if (res.status === 200) {
-          page.value = page.value.concat(res.data.page)
-          id.value = res.data.page[res.data.page.length - 1].workoutId
-          hasNext.value = res.data.hasNext
 
-          router.push(`/workout?categroy=${category.value}`)
+      axios.get(url).then((res) => {
+        if (res.status === 200) {
+          if (res.data.hasNext){
+            res.data.page.pop()   
+          }
+          page.value = res.data.page;
+          id.value = res.data.page[res.data.page.length - 1].workoutId;
+          hasNext.value = res.data.hasNext;
+
+          router.push(`/workout?categroy=${category.value}`);
         }
         
-      }).catch(()=>{
-      })}
+      }).catch(() => {});
     }
     changeCategory("");
 
     const addCard = () => {
       const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
-      if(hasNext.value){axios.get(url).then(res=>{ 
-        if (res.status === 200) {
-          page.value = page.value.concat(res.data.page)
-          id.value = res.data.page[res.data.page.length - 1].workoutId
-          hasNext.value=res.data.hasNext
-        }
-      }).catch(()=>{
-      })}
-    }
+      if (hasNext.value) {
+        axios.get(url).then((res) => {
+          if (res.status === 200) {
+            if (res.data.hasNext){
+            res.data.page.pop()   
+          }
+            page.value = page.value.concat(res.data.page);
+            id.value = res.data.page[res.data.page.length-1].workoutId;
+            hasNext.value = res.data.hasNext;
+          }
+        
+        }).catch(() => {});
+      }
+    };
 
     const addWorkoukList = () => {
-      router.push("/workout/create") 
-    }
+      router.push("/workout/create");
+    };
 
-    return { 
+    return {
       page,
       hasNext,
       changeCategory,
       addWorkoukList,
       addCard,
-      message:"운동 리스트"
-    }
-  }
+      message: "운동 리스트",
+    };
+  },
 };
 </script>

@@ -1,7 +1,6 @@
 <template>
   <div class="row row-cols-3">
     <div class="col" v-for="(i, idx) in page" :key="{ i, idx }">
-      <div v-if="idx != 9">
         <div id="card" @click="link(i.workoutId)">
           <img
             :src="viewUrl(i.uploadFileName)"
@@ -14,7 +13,6 @@
           <div class="card-body">
             <h5 class="card-title">{{ i.workoutName }}</h5>
           </div>
-        </div>
       </div>
     </div>
   </div>
