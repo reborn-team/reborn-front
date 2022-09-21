@@ -8,6 +8,7 @@
           type="text"
           class="form-control form-control-sm"
           ref="email"
+          v-model="state.email"
           disabled
         />
       </div>
@@ -219,14 +220,13 @@ export default {
       await axios.get(url, { headers }).then((res)=>{
         if(res.status==200){
           data.value = res.data
-          console.log(data.value.phone)
 
-          email.value.value = data.value.email
-          nickname.value.value = data.value.nickname
-          phone.value.value = data.value.phone
-          zipcode.value.value = data.value.zipcode
-          roadName.value.value = data.value.roadName
-          detailAddress.value.value = data.value.detailAddress
+          state.email = data.value.email
+          state.nickname = data.value.nickname
+          state.phone = data.value.phone
+          state.zipcode = data.value.zipcode
+          state.roadName = data.value.roadName
+          state.detailAddress = data.value.detailAddress
         }
       })
     }
