@@ -31,7 +31,7 @@
           class="form-control form-control-sm"
           ref="nickname"
           v-model="state.nickname"
-          placeholder=""
+          placeholder="닉네임을 입력하세요"
         />
       </div>
 
@@ -167,7 +167,6 @@
       </div>
     </div>
   </div>
-  <button @click="getData">dkdkd</button>
 </template>
 
 <script>
@@ -195,7 +194,7 @@ export default {
       token: sessionStorage.getItem("TOKEN"),
     });
 
-    const data = ref('');
+    const data = ref("");
     const email = ref("");
     const rawPassword = ref("");
     const changePassword = ref("");
@@ -206,12 +205,6 @@ export default {
     let roadName = ref("");
     const detailAddress = ref("");
     let postOpen = ref(false);
-
-    const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
-
-    const address_search = async () => {
-      postOpen.value = !postOpen.value;
-    };
 
     onMounted(()=>{
       getData();
@@ -226,9 +219,19 @@ export default {
       await axios.get(url, { headers }).then((res)=>{
         if(res.status==200){
           data.value = res.data
+          console.log(data.value.phone)
+
+          email.value.value = data.value.email
+          nickname.value.value = data.value.nickname
+          phone.value.value = data.value.phone
+          zipcode.value.value = data.value.zipcode
+          roadName.value.value = data.value.roadName
+          detailAddress.value.value = data.value.detailAddress
         }
       })
     }
+
+    const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
     const changeHandler = async () => {
       if (state.nickname === "") {
@@ -252,7 +255,7 @@ export default {
       };
       const body = {
         nickname: state.nickname,
-        mobile: state.phoneNum,
+        phone: state.phone,
         zipcode: state.zipcode,
         roadName: state.roadName,
         detailAddress: state.detailAddress
@@ -302,6 +305,10 @@ export default {
           alert("비밀번호가 변경 되었습니다.")
         }
       })
+    };
+
+    const address_search = async () => {
+      postOpen.value = !postOpen.value;
     };
 
     const oncomplete = (data) => {
