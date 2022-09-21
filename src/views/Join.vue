@@ -194,7 +194,7 @@ export default {
         return false;
       }
 
-      const url = "/api/v1/join";
+      const url = "/api/v1/members ";
       const headers = {
         "Content-Type": "application/json",
       };
@@ -222,10 +222,8 @@ export default {
       const email = state.email;
       const response = await axios.get(url + email);
       if (response.status === 200) {
-        response.data == true ? alert("중복된 이메일입니다") : alert("등록 가능한 이메일입니다");
-      } else {
-        state.emailCheck = "중복 확인";
-      }
+        response.data.exist == true ? alert("중복된 이메일입니다") : alert("등록 가능한 이메일입니다");
+      } 
     };
 
     const address_search = async () => {

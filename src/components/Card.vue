@@ -11,8 +11,8 @@
           />
           <img src="../assets/img/noImage.gif" alt="No Image" v-else />
           <div class="card-body">
-            <!-- <h5 class="card-title">{{ i.workoutName }}</h5> -->
-            <h5 class="card-title">{{ i.workoutId }}</h5>
+            <h5 class="card-title">{{ i.workoutName }}</h5>
+            <!-- <h5 class="card-title">{{ i.workoutId }}</h5> -->
           </div>
       </div>
     </div>

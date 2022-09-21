@@ -293,7 +293,7 @@ export default {
       };
       console.log(body);
       await axios.patch(url, body, { headers }).then((res)=>{
-        if(res.status==200){
+        if(res.status==204){
           alert("비밀번호가 변경 되었습니다.")
         }
       })
