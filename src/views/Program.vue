@@ -30,9 +30,7 @@
       <button type="button" class="btn btn-danger" @click="minusWorkout">-</button>
       <button type="button" class="btn btn-danger" @click="addWorkout">+</button>
     </div>
-
     <Table :arr="arr" :changeValue="changeValue" />
-
     <br />
     <button type="button" class="btn btn-danger recode">Create</button>
   </div>

@@ -31,7 +31,7 @@
           class="form-control form-control-sm"
           ref="nickname"
           v-model="state.nickname"
-          placeholder="닉네임을 입력해주세요"
+          placeholder=""
         />
       </div>
 
@@ -167,6 +167,7 @@
       </div>
     </div>
   </div>
+  <button @click="getData">dkdkd</button>
 </template>
 
 <script>
@@ -175,6 +176,7 @@ import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
 import "../css/views/MyPageChange.css";
 import axios from 'axios';
+import { onMounted } from '@vue/runtime-core';
 
 export default {
   name: "TheRegist",
@@ -192,6 +194,8 @@ export default {
       detailAddress: "",
       token: sessionStorage.getItem("TOKEN"),
     });
+
+    const data = ref('');
     const email = ref("");
     const rawPassword = ref("");
     const changePassword = ref("");
@@ -209,6 +213,23 @@ export default {
       postOpen.value = !postOpen.value;
     };
 
+    onMounted(()=>{
+      getData();
+    })
+
+    const getData = async() =>{
+      const url = "/api/v1/members/me";
+      const headers = {
+        "Content-Type": "application/json;",
+        Authorization: state.token,
+      };
+      await axios.get(url, { headers }).then((res)=>{
+        if(res.status==200){
+          data.value = res.data
+        }
+      })
+    }
+
     const changeHandler = async () => {
       if (state.nickname === "") {
         alert("닉네임을 입력해 주세요");
@@ -224,7 +245,7 @@ export default {
         return false;
       }
 
-      const url = "/api/v1/members";
+      const url = "/api/v1/members/me";
       const headers = {
         "Content-Type": "application/json;",
         Authorization: state.token,
@@ -325,6 +346,8 @@ export default {
       postOpen,
       changeHandler,
       changePasswordHandler,
+      getData,
+      data
     };
   },
 };

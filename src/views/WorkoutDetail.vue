@@ -98,6 +98,7 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           Workout.value = res.data;
+          console.log(Workout.value)
         }
       });
     }

@@ -2,15 +2,13 @@
   <div id="nearby">
     <h1 class="title">{{ message }}</h1>
     <div class="map-area">
-      <button type="button" class="btn btn-danger" @click="zoom(1)">
+      <button type="button" @click="zoom(1)">
         <span class="material-symbols-outlined"> zoom_in </span>
       </button>
-      <button type="button" class="btn btn-danger" @click="zoom(-1)">
+      <button type="button" @click="zoom(-1)">
         <span class="material-symbols-outlined"> zoom_out </span>
       </button>
-
       <MapAPI ref="kmap" class="kmap" :options="mapOptions" />
-
       <div class="overlay-popup" ref="harborOverlay">
         <div v-if="overlayHarbor">
           <slot></slot>
