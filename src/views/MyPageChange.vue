@@ -25,13 +25,13 @@
       </div>
 
       <div class="row mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="nickname" class="form-label">Nickname</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          ref="name"
-          v-model="state.name"
-          placeholder="이름을 입력해주세요"
+          ref="nickname"
+          v-model="state.nickname"
+          placeholder="닉네임을 입력해주세요"
         />
       </div>
 
@@ -185,7 +185,7 @@ export default {
       rawPassword: "",
       changePassword: "",
       passwordCheck: "",
-      name: "",
+      nickname: "",
       phoneNum: "",
       zipcode: "",
       roadName: "",
@@ -196,7 +196,7 @@ export default {
     const rawPassword = ref("");
     const changePassword = ref("");
     const passwordCheck = ref("");
-    const name = ref("");
+    const nickname = ref("");
     const phoneNum = ref("");
     let zipcode = ref("");
     let roadName = ref("");
@@ -245,9 +245,9 @@ export default {
     };
 
     const changeHandler = async () => {
-      if (state.name === "") {
-        alert("이름을 입력해 주세요");
-        name.value.focus();
+      if (state.nickname === "") {
+        alert("닉네임을 입력해 주세요");
+        nickname.value.focus();
         return;
       } else if (state.phoneNum === "") {
         alert("전화번호를 입력해 주세요");
@@ -305,7 +305,7 @@ export default {
       rawPassword,
       changePassword,
       passwordCheck,
-      name,
+      nickname,
       phoneNum,
       zipcode,
       roadName,

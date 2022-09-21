@@ -5,4 +5,4 @@
 #workout hr{ margin-bottom: 1rem;}
 #workout #WorkoutCard { display: flex; width: 80%; margin: 0 auto; justify-content: center;}
 #workout #WorkoutCard .row{ width: 100%;}
-#workout #addBtn { width: 90%;}
+#workout #addBtn { width: 75%; margin-bottom: 30px;}

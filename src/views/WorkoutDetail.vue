@@ -3,17 +3,29 @@
     <h1 class="title">{{ message }}</h1>
     <div id="detail">
       <div>
-        <img :src="viewUrl(Workout.uploadFileName)" class="card-img-top" alt="No image"  v-if="Workout.uploadFileName != 'empty'" onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"/>
+        <img
+          :src="viewUrl(Workout.uploadFileName)"
+          class="card-img-top"
+          alt="No image"
+          v-if="Workout.uploadFileName != 'empty'"
+          onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
+        />
       </div>
-      <img src="https://place-hold.it/300x300/666/fff/000.gif" alt="Error" v-if="Workout.uploadFileName == 'empty'"/>     
-       <div id="detailWrap">
+      <img
+        src="https://place-hold.it/300x300/666/fff/000.gif"
+        alt="Error"
+        v-if="Workout.uploadFileName == 'empty'"
+      />
+      <div id="detailWrap">
         <div id="workoutCategory">
           <label
             for="category"
             class="col-sm-2 col-form-label col-form-label-sm"
             >운동 부위 :
           </label>
-          <div class="workoutItem" >{{ convertCategoryValue(Workout.workoutCategory) }}</div>
+          <div class="workoutItem">
+            {{ convertCategoryValue(Workout.workoutCategory) }}
+          </div>
         </div>
         <div id="wokroutName">
           <label
@@ -29,13 +41,27 @@
           </label>
           <div class="workoutExplain">{{ Workout.content }}</div>
         </div>
+        <div id="author">
+          <label for="author" class="col-sm-2 col-form-label col-form-label-sm"
+            >작성자 :
+          </label>
+          <div class="author">{{ Workout.content }}</div>
+        </div>
       </div>
     </div>
     <button type="button" class="btn btn-danger btn-sm" @click="linkList">
       목록으로
     </button>
-    <button type="button" class="btn btn-danger btn-sm" @click="linkMyworkout">추가하기</button>
-  </div>
+    <button type="button" class="btn btn-danger btn-sm" @click="linkMyworkout">
+      추가하기
+    </button>
+      <button type="button" class="btn btn-warning btn-sm" >
+        수정
+      </button>
+      <button type="button" class="btn btn-secondary btn-sm" >
+        삭제
+      </button>
+    </div>
 </template>
 
 <script>
@@ -49,11 +75,10 @@ import { useRoute } from "vue-router";
 export default {
   name: "WorkoutDetail",
   setup() {
-
     onMounted(() => {
       getWorkoutHandler();
     });
-    
+
     const route = useRoute();
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const WorkoutID = ref(route.params.workoutID);
@@ -61,7 +86,7 @@ export default {
     const viewUrl = (i) => {
       return "/api/v1/file/images?filename=" + i;
     };
-    
+
     async function getWorkoutHandler() {
       const url = `/api/v1/workout/${WorkoutID.value}`;
       const headers = {
@@ -77,35 +102,35 @@ export default {
 
     const state = reactive({
       category: "",
-    })
+    });
 
     const convertCategoryValue = (category) => {
       switch (category) {
-        case "BACK":  
-          return "등";     
+        case "BACK":
+          return "등";
         case "CHEST":
-          return "가슴"
+          return "가슴";
         case "LOWER-BODY":
           return "하체";
         case "CORE":
-          return "코어" 
+          return "코어";
       }
-    }
+    };
 
-    const linkMyworkout = async() => {
-      const url = `/api/v1/my-workout/${WorkoutID.value}`
+    const linkMyworkout = async () => {
+      const url = `/api/v1/my-workout/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
-      }
-      await axios.post(url, {}, {headers}).then((res)=>{
+      };
+      await axios.post(url, {}, { headers }).then((res) => {
         console.log(res.data);
-      })
+      });
     };
 
     const linkList = () => {
       router.push(`/workout?category=${route.query.category}`);
-      console.log(Workout.value.workoutCategory)
+      console.log(Workout.value.workoutCategory);
     };
 
     return {

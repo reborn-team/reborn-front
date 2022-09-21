@@ -1,0 +1,26 @@
+{
+  "back": [
+    { "name": "렛풀다운", "img": "NoImage", "total": "0", "date":"" },
+    { "name": "풀업", "img": "NoImage", "total": "0" },
+    { "name": "인버티드로우", "img": "NoImage", "total": "0" },
+    { "name": "바벨로우", "img": "NoImage", "total": "0" }
+  ],
+  "chest": [
+    { "name": "렛풀다운", "img": "NoImage", "total": "0" },
+    { "name": "풀업", "img": "NoImage", "total": "0" },
+    { "name": "인버티드로우", "img": "NoImage", "total": "0" },
+    { "name": "바벨로우", "img": "NoImage", "total": "0" }
+  ],
+  "lower-body": [
+    { "name": "렛풀다운", "img": "NoImage", "total": "0" },
+    { "name": "풀업", "img": "NoImage", "total": "0" },
+    { "name": "인버티드로우", "img": "NoImage", "total": "0" },
+    { "name": "바벨로우", "img": "NoImage", "total": "0" }
+  ],
+  "core": [
+    { "name": "렛풀다운", "img": "NoImage", "total": "0" },
+    { "name": "풀업", "img": "NoImage", "total": "0" },
+    { "name": "인버티드로우", "img": "NoImage", "total": "0" },
+    { "name": "바벨로우", "img": "NoImage", "total": "0" }
+  ]
+}

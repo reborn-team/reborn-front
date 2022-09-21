@@ -5,7 +5,9 @@
 #workoutDetail #detail #workoutCategory{ display: flex; text-align: left; }
 #workoutDetail #detail #wokroutName{ display: flex; text-align: left;}
 #workoutDetail #detail #explain{ display: flex; text-align: left; }
+#workoutDetail #detail #author{ display: flex; text-align: left;}
+#workoutDetail #detail #author .author{ width: 50%; border-bottom: 1px solid red; margin-bottom: 10px; }
 #workoutDetail #detail .workoutItem{ width: 50%; border-bottom: 1px solid red; margin-bottom: 10px;}
-#workoutDetail #detail .workoutExplain{ width: 100%; height: 14rem; border-bottom: 1px solid red; }
+#workoutDetail #detail .workoutExplain{ width: 100%; height: 12rem; border-bottom: 1px solid red; margin-bottom: 15px; }
 #workoutDetail #detailWrap { width: 100%; margin-left: 10px;}
 #workoutDetail button { float: right; margin-top: 20px; margin-left: 5px;}

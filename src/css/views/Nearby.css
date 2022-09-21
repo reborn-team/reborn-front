@@ -3,6 +3,13 @@
 #nearby .map-area { display: flex;}
 #nearby .map-area .k-map{ flex: 1 1 auto;}
 #nearby .map-area h4{ border: 1px solid red}
-#nearby #MapContent {width: 100%; }
-#nearby #MapContent .form-control{height:4rem; margin: 5px 0;}
+
+#nearby .overlay-popup{background-color: #ffffffcc; box-shadow: 0 0 8px #0000004d, 0 0 1px 2px #00000022; max-width: 200px; min-width: 160px; position: absolute; bottom:40px; right: -80px;}
+#nearby .overlay-popup h3{margin:0; padding: 8px; background-color: rgb(148, 180, 84); color: white; font-weight: 400; font-size: 16px;}
+#nearby .overlay-popup div{padding: 8px; white-space: break-spaces;}
+#nearby .overlay-popup a{color:black; position: absolute; top: 0; left: 100%; transform: translate(-50%, -50%); background-color: white; border-radius: 100%; line-height: 0; box-shadow: 0 0 6px black; }
+
+#nearby .map-area .harbors .harbor :hover{ background-color: pink; cursor: pointer;}
+#nearby .map-area .harbors .harbor :active{ background-color: yellow; cursor: pointer;}
+#nearby .map-area .harbors .active{ background-color: yellow; cursor: pointer;}
 

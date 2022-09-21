@@ -1,36 +1,54 @@
 <template>
   <div id="nearby">
     <h1 class="title">{{ message }}</h1>
-      <button type="button" class="btn btn-danger" @click="zoom(1)">
-        <span class="material-symbols-outlined"> zoom_in </span>
-      </button>
-      <button type="button" class="btn btn-danger" @click="zoom(-1)">
-        <span class="material-symbols-outlined"> zoom_out </span>
-      </button>
-      <div class="map-area">
-        <div class="harbors">
-          <div class="harbor" v-for="hbr in harbors" :key="hbr.seq">
-            <h4>{{hbr.place}}</h4>
-          </div>
+    <button type="button" class="btn btn-danger" @click="zoom(1)">
+      <span class="material-symbols-outlined"> zoom_in </span>
+    </button>
+    <button type="button" class="btn btn-danger" @click="zoom(-1)">
+      <span class="material-symbols-outlined"> zoom_out </span>
+    </button>
+    <div class="map-area">
+
+      <MapAPI ref="kmap" class="kmap" :options="mapOptions"/>
+
+      <div class="harbors">
+        <div
+          class="harbor"
+          v-for="hbr in harbors"
+          :key="hbr.seq"
+          @click="showOnMap(hbr)"
+          :class="{active: hbr == activeHarbor}"
+        >
+          <h4>{{ hbr.place }}</h4>
         </div>
-        <MapAPI :options="mapOptions" />
       </div>
-    <hr />
-    <div v-for="i in 4" :key="{ i }">
-      <Reply />
+      
+      <div class="overlay-popup" ref="harborOverlay"> 
+        <div v-if="overlayHarbor">
+          <slot></slot>
+          <h3>{{overlayHarbor.place}}</h3>
+          <div>{{overlayHarbor.addr}}</div>
+          <a href="#" @click.prevent="closeOverlay()"><span class="material-symbols-outlined">
+            close
+          </span></a>
+        </div>
+      </div>
+
     </div>
+
   </div>
-</template>
+</template> 
 
 <script>
 import MapAPI from "@/components/MapAPI.vue";
 import api from "../service/api";
 import "../css/views/Nearby.css";
-import Reply from "@/components/Reply.vue";
+import MarkerHandler from "../components/marker-handler";
+import KakaoOverlay from "../components/overlay"
 
 export default {
   name: "TheNearby",
-  components: { MapAPI, Reply },
+  components: { MapAPI },
   data() {
     return {
       mapOptions: {
@@ -41,12 +59,33 @@ export default {
         level: 4,
       },
       harbors: [],
+      markers: null,
+      activeHarbor: null,
+
+      overlay: null,
+      overlayHarbor: null,
     };
   },
   mounted() {
+    const vueKakaoMap = this.$refs.kmap;
+
+    this.markers = new MarkerHandler(vueKakaoMap, {
+      markerClicked: (harbor) => {
+        this.showOnMap(harbor);
+        this.overlayHarbor = harbor;
+        this.overlay.showAt(harbor.lat, harbor.lng);
+      },
+    });
+
+    this.overlay = new KakaoOverlay(vueKakaoMap, this.$refs.harborOverlay)
+
     api.harbor.all((res) => {
       console.log("[헬스장 목록] :", res.harbors);
       this.harbors = res.harbors;
+
+      this.markers.add(this.harbors, (harbor) => {
+        return { lat: harbor.lat, lng: harbor.lng };
+      });
     });
   },
   methods: {
@@ -54,6 +93,16 @@ export default {
       const level = Math.max(3, this.mapOptions.level + delta);
       this.mapOptions.level = level;
     },
+    showOnMap(harbor) {
+      this.activeHarbor = harbor;
+      this.mapOptions.center = {
+        lat: harbor.lat,
+        lng: harbor.lng,
+      };
+    },
+    closeOverlay(){
+      this.overlay.hide();
+    }
   },
   setup() {
     return {

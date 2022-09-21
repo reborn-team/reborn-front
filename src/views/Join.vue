@@ -45,14 +45,20 @@
       </div>
 
       <div class="row mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="nickname" class="form-label">NickName</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          ref="name"
-          v-model="state.name"
-          placeholder="이름을 입력해 주세요"
+          ref="nickname"
+          v-model="state.nickname"
+          placeholder="닉네임을 입력해 주세요"
         />
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+        >
+          ✔
+        </button>
       </div>
 
       <div class="row mb-3">
@@ -138,7 +144,7 @@ export default {
       emailCheck: "",
       password: "",
       repassword: "",
-      name: "",
+      nickname: "",
       phone: "",
       zipcode: "",
       roadName: "",
@@ -147,7 +153,7 @@ export default {
     const email = ref("");
     const password = ref("");
     const repassword = ref("");
-    const name = ref("");
+    const nickname = ref("");
     const phone = ref("");
     let zipcode = ref("");
     let roadName = ref("");
@@ -180,9 +186,9 @@ export default {
         repassword.value.focus();
         repassword.value.value = "";
         return false;
-      } else if (state.name === "") {
-        alert("이름을 입력해 주세요");
-        name.value.focus();
+      } else if (state.nickname === "") {
+        alert("닉네임을 입력해 주세요");
+        nickname.value.focus();
         return;
       } else if (state.phone === "") {
         alert("전화번호를 입력해 주세요");
@@ -201,7 +207,7 @@ export default {
       const body = {
         email: state.email,
         password: state.password,
-        name: state.name,
+        nickname: state.nickname,
         phone: state.phone,
         zipcode: state.zipcode,
         roadName: state.roadName,
@@ -270,7 +276,7 @@ export default {
       email,
       password,
       repassword,
-      name,
+      nickname,
       phone,
       zipcode,
       roadName,
