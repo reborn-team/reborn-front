@@ -36,13 +36,13 @@
       </div>
 
       <div class="row mb-3">
-        <label for="phoneNum" class="form-label">Mobile</label>
+        <label for="phone" class="form-label">Mobile</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          ref="phoneNum"
+          ref="phone"
           placeholder="ex) 010-1111-1111"
-          v-model="state.phoneNum"
+          v-model="state.phone"
         />
       </div>
 
@@ -186,7 +186,7 @@ export default {
       changePassword: "",
       passwordCheck: "",
       nickname: "",
-      phoneNum: "",
+      phone: "",
       zipcode: "",
       roadName: "",
       detailAddress: "",
@@ -197,7 +197,7 @@ export default {
     const changePassword = ref("");
     const passwordCheck = ref("");
     const nickname = ref("");
-    const phoneNum = ref("");
+    const phone = ref("");
     let zipcode = ref("");
     let roadName = ref("");
     const detailAddress = ref("");
@@ -209,55 +209,39 @@ export default {
       postOpen.value = !postOpen.value;
     };
 
-    const oncomplete = (data) => {
-      var addr = ""; 
-      var extraAddr = ""; 
-
-      if (data.userSelectedType === "R") {
-        addr = data.roadAddress;
-      } else {
-        addr = data.jibunAddress;
-      }
-
-      if (data.userSelectedType === "R") {
-        if (data.bname !== "") {
-          extraAddr += data.bname;
-        }
-        if (data.buildingName !== "" && data.apartment === "Y") {
-          extraAddr +=
-            extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
-        }
-        if (extraAddr !== "") {
-          extraAddr = " (" + extraAddr + ")";
-        }
-        roadName.value.value = addr + " " + extraAddr;
-      } else {
-        roadName.value.value = addr;
-      }
-
-      zipcode.value.value = data.zonecode;
-      detailAddress.value.focus();
-
-      state.zipcode = data.zonecode;
-      state.roadName = addr;
-
-      postOpen.value = false;
-    };
-
     const changeHandler = async () => {
       if (state.nickname === "") {
         alert("닉네임을 입력해 주세요");
         nickname.value.focus();
         return;
-      } else if (state.phoneNum === "") {
+      } else if (state.phone === "") {
         alert("전화번호를 입력해 주세요");
-        phoneNum.value.focus();
+        phone.value.focus();
         return;
-      } else if( !phone_pattern.test(state.phone)){
+      } else if(!phone_pattern.test(state.phone)){
         alert("전화번호 형식에 맞춰주세요");
-        email.value.focus();
+        phone.value.focus();
         return false;
       }
+
+      const url = "/api/v1/members";
+      const headers = {
+        "Content-Type": "application/json;",
+        Authorization: state.token,
+      };
+      const body = {
+        nickname: state.nickname,
+        mobile: state.phoneNum,
+        zipcode: state.zipcode,
+        roadName: state.roadName,
+        detailAddress: state.detailAddress
+      };
+      console.log(body);
+      await axios.patch(url, body, { headers }).then((res)=>{
+        if(res.status==204){
+          alert("회원정보가 수정 되었습니다.")
+        }
+      })
     };
 
     const changePasswordHandler = async () => {
@@ -299,6 +283,32 @@ export default {
       })
     };
 
+    const oncomplete = (data) => {
+      var addr = ""; 
+      var extraAddr = ""; 
+
+      if (data.userSelectedType === "R") {addr = data.roadAddress;} 
+      else {addr = data.jibunAddress;}
+
+      if (data.userSelectedType === "R") {
+        if (data.bname !== "") {extraAddr += data.bname;}
+        if (data.buildingName !== "" && data.apartment === "Y") {
+          extraAddr +=
+            extraAddr !== "" ? ", " + data.buildingName : data.buildingName;}
+        if (extraAddr !== "") {
+          extraAddr = " (" + extraAddr + ")";}
+        roadName.value.value = addr + " " + extraAddr;
+      } else {roadName.value.value = addr;}
+
+      zipcode.value.value = data.zonecode;
+      detailAddress.value.focus();
+
+      state.zipcode = data.zonecode;
+      state.roadName = addr;
+
+      postOpen.value = false;
+    };
+
     return {
       state,
       email,
@@ -306,7 +316,7 @@ export default {
       changePassword,
       passwordCheck,
       nickname,
-      phoneNum,
+      phone,
       zipcode,
       roadName,
       detailAddress,

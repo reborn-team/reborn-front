@@ -56,6 +56,7 @@
         <button
           type="button"
           class="btn btn-danger btn-sm"
+          @click="nickNameCheckHandler"
         >
           ✔
         </button>
@@ -160,8 +161,8 @@ export default {
     const detailAddress = ref("");
     let postOpen = ref(false);
 
-    const email_pattern = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
-    const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
+    // const email_pattern = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
+    // const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
     const joinHandler = async () => {
 
@@ -169,11 +170,13 @@ export default {
         alert("아이디를 입력해 주세요");
         email.value.focus();
         return false;
-      } else if( !email_pattern.test(state.email)){
-        alert("이메일 형식에 맞춰주세요");
-        email.value.focus();
-        return false;
-      } else if (state.password === "") {
+      } 
+      // else if( !email_pattern.test(state.email)){
+      //   alert("이메일 형식에 맞춰주세요");
+      //   email.value.focus();
+      //   return false;
+      // }
+       else if (state.password === "") {
         alert("비밀번호를 입력해 주세요");
         password.value.focus();
         return false;
@@ -194,11 +197,12 @@ export default {
         alert("전화번호를 입력해 주세요");
         phone.value.focus();
         return;
-      } else if( !phone_pattern.test(state.phone)){
-        alert("전화번호 형식에 맞춰주세요");
-        email.value.focus();
-        return false;
-      }
+      } 
+      // else if( !phone_pattern.test(state.phone)){
+      //   alert("전화번호 형식에 맞춰주세요");
+      //   email.value.focus();
+      //   return false;
+      // }
 
       const url = "/api/v1/members ";
       const headers = {
@@ -229,6 +233,15 @@ export default {
       const response = await axios.get(url + email);
       if (response.status === 200) {
         response.data.exist == true ? alert("중복된 이메일입니다") : alert("등록 가능한 이메일입니다");
+      } 
+    };
+    
+    const nickNameCheckHandler = async () => {
+      const url = "/api/v1/nickname-check?nickname=";
+      const nickname = state.nickname;
+      const response = await axios.get(url + nickname);
+      if (response.status === 200) {
+        response.data.exist == true ? alert("중복된 닉네임입니다") : alert("등록 가능한 닉네임입니다");
       } 
     };
 
@@ -285,6 +298,7 @@ export default {
       address_search,
       oncomplete,
       emailCheckHandler,
+      nickNameCheckHandler,
       message: "Join",
       postOpen,
     };

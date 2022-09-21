@@ -2,15 +2,21 @@ import { createWebHistory, createRouter } from "vue-router";
 import Main from "@/views/Main.vue";
 import Login from "@/views/Login.vue";
 import Join from "@/views/Join.vue";
+
 import Program from "@/views/Program.vue";
+
 import Workout from "@/views/Workout.vue";
 import WorkoutMyworkout from "@/views/WorkoutMyworkout";
 import WorkoutDetail from "@/views/WorkoutDetail.vue";
 import WorkoutCreate from "@/views/WorkoutCreate.vue";
+import WorkoutModify from "@/views/WorkoutModify.vue";
+
 import Board from "@/views/Board.vue";
 import BoardWrite from "@/views/BoardWrite.vue";
 import BoardContent from "@/views/BoardContent.vue";
+
 import Nearby from "@/views/Nearby.vue";
+
 import MyPageGoal from "@/views/MyPageGoal.vue";
 import MyPageList from "@/views/MyPageList.vue";
 import MyPageChange from "@/views/MyPageChange.vue";
@@ -24,6 +30,7 @@ const routes = [
   {path: "/workout/myworkout", name: "WorkoutMyworkout", component: WorkoutMyworkout},
   {path: "/workout/:workoutID", name: "workoutDetail", component: WorkoutDetail},
   {path: "/workout/create", name: "workoutCreate", component: WorkoutCreate},
+  {path: "/workout/modify", name: "workoutModify", component: WorkoutModify},
 
   {path: "/program", name: "program", component: Program},
 

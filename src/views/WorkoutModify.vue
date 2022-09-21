@@ -3,14 +3,13 @@
     <h1 class="title">{{ message }}</h1>
     <div id="Create">
       <div v-for="i in files" :key="i">
-        <img
-          id="uploadImg"
+        <img id="uploadImg" 
           :src="viewUrl(i.uploadFileName)"
           class="card-img-top"
           alt="No Image"
         />
       </div>
-      <img
+      <img 
         src="https://place-hold.it/300x300/666/fff/000.gif"
         alt="Error"
         v-if="files.length == 0"
@@ -19,15 +18,15 @@
       <div id="createWrap">
         <div id="category">
           <label
-            for="workoutCategory"
+            for="modifyCategory"
             class="col-sm-2 col-form-label col-form-label-sm"
             >카테고리 :
           </label>
           <select
             class="form-select"
             aria-label="Default select example"
-            ref="workoutCategory"
-            v-model="state.workoutCategory"
+            ref="modifyCategory"
+            v-model="state.modifyCategory"
           >
             <option selected disabled>부위</option>
             <option value="BACK">등</option>
@@ -68,7 +67,13 @@
     <div id="insert">
       <div id="fileUpload">
         <div class="form-group centerz">
-          <input type="file" @change="selectFile" class="form-control" id="imgName" accept="image/*"/>
+          <input
+            type="file"
+            @change="selectFile"
+            class="form-control"
+            id="imgName"
+            accept="image/*"
+          />
         </div>
       </div>
       <div id="insertBtn">
@@ -118,8 +123,7 @@ export default {
     let imageName;
 
     const createHandler = async () => {
-
-      if(state.workoutCategory === "") {
+      if (state.workoutCategory === "") {
         alert("카테고리를 선택해 주세요");
         workoutCategory.value.focus();
         return false;
@@ -132,7 +136,6 @@ export default {
         content.value.focus();
         return false;
       }
-
 
       const url = "/api/v1/workout";
       const headers = {
@@ -158,6 +161,9 @@ export default {
         });
     };
 
+   
+   
+   
     const selectFile = (event) => {
       const formData = new FormData();
       for (const file of event.target.files) {
@@ -171,7 +177,7 @@ export default {
           if (res.status == 200) {
             files.value = res.data;
             imageName = files.value[0].uploadFileName;
-            console.log(imageName)
+            console.log(imageName);
           }
         })
         .catch(() => {
@@ -182,13 +188,15 @@ export default {
     const deleteImage = () => {
       const headers = { "Content-Type": "application/json;" };
 
-      axios.delete("/api/v1/file?filename=" + imageName, { headers }).then((res) => {
-          console.log(imageName)
+      axios
+        .delete("/api/v1/file?filename=" + imageName, { headers })
+        .then((res) => {
+          console.log(imageName);
           if (res.status == 200) {
             if (res.data) {
-              files.value=""
+              files.value = "";
               imageName = undefined;
-              document.getElementById("imgName").value=""
+              document.getElementById("imgName").value = "";
             }
           }
         })

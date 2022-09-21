@@ -45,7 +45,7 @@
           <label for="author" class="col-sm-2 col-form-label col-form-label-sm"
             >작성자 :
           </label>
-          <div class="author">{{ Workout.content }}</div>
+          <div class="author">{{ Workout.memberNickname }}</div>
         </div>
       </div>
     </div>
@@ -55,12 +55,14 @@
     <button type="button" class="btn btn-danger btn-sm" @click="linkMyworkout">
       추가하기
     </button>
-      <button type="button" class="btn btn-warning btn-sm" >
+    <div class="authorBtn" v-if="Workout.author==true">
+      <button type="button" class="btn btn-warning btn-sm">
         수정
       </button>
       <button type="button" class="btn btn-secondary btn-sm" >
         삭제
       </button>
+    </div>
     </div>
 </template>
 

@@ -1,50 +1,47 @@
 <template>
   <div id="nearby">
     <h1 class="title">{{ message }}</h1>
-    <button type="button" class="btn btn-danger" @click="zoom(1)">
-      <span class="material-symbols-outlined"> zoom_in </span>
-    </button>
-    <button type="button" class="btn btn-danger" @click="zoom(-1)">
-      <span class="material-symbols-outlined"> zoom_out </span>
-    </button>
     <div class="map-area">
+      <button type="button" class="btn btn-danger" @click="zoom(1)">
+        <span class="material-symbols-outlined"> zoom_in </span>
+      </button>
+      <button type="button" class="btn btn-danger" @click="zoom(-1)">
+        <span class="material-symbols-outlined"> zoom_out </span>
+      </button>
 
-      <MapAPI ref="kmap" class="kmap" :options="mapOptions"/>
+      <MapAPI ref="kmap" class="kmap" :options="mapOptions" />
 
-      <div class="harbors">
-        <div
-          class="harbor"
-          v-for="hbr in harbors"
-          :key="hbr.seq"
-          @click="showOnMap(hbr)"
-          :class="{active: hbr == activeHarbor}"
-        >
-          <h4>{{ hbr.place }}</h4>
-        </div>
-      </div>
-      
-      <div class="overlay-popup" ref="harborOverlay"> 
+      <div class="overlay-popup" ref="harborOverlay">
         <div v-if="overlayHarbor">
           <slot></slot>
-          <h3>{{overlayHarbor.place}}</h3>
-          <div>{{overlayHarbor.addr}}</div>
-          <a href="#" @click.prevent="closeOverlay()"><span class="material-symbols-outlined">
-            close
-          </span></a>
+          <h3>{{ overlayHarbor.place }}</h3>
+          <div>{{ overlayHarbor.addr }}</div>
+          <a href="#" @click.prevent="closeOverlay()"
+            ><span class="material-symbols-outlined"> close </span></a
+          >
         </div>
       </div>
-
     </div>
-
+    <div class="harbors">
+      <div
+        class="harbor"
+        v-for="hbr in harbors"
+        :key="hbr.seq"
+        @click="showOnMap(hbr)"
+        :class="{ active: hbr == activeHarbor }"
+      >
+        <h4>{{ hbr.place }}</h4>
+      </div>
+    </div>
   </div>
-</template> 
+</template>
 
 <script>
 import MapAPI from "@/components/MapAPI.vue";
 import api from "../service/api";
 import "../css/views/Nearby.css";
 import MarkerHandler from "../components/marker-handler";
-import KakaoOverlay from "../components/overlay"
+import KakaoOverlay from "../components/overlay";
 
 export default {
   name: "TheNearby",
@@ -56,7 +53,7 @@ export default {
           lat: 35.1605598,
           lng: 129.0560362,
         },
-        level: 4,
+        level: 3,
       },
       harbors: [],
       markers: null,
@@ -77,7 +74,7 @@ export default {
       },
     });
 
-    this.overlay = new KakaoOverlay(vueKakaoMap, this.$refs.harborOverlay)
+    this.overlay = new KakaoOverlay(vueKakaoMap, this.$refs.harborOverlay);
 
     api.harbor.all((res) => {
       console.log("[헬스장 목록] :", res.harbors);
@@ -100,9 +97,9 @@ export default {
         lng: harbor.lng,
       };
     },
-    closeOverlay(){
+    closeOverlay() {
       this.overlay.hide();
-    }
+    },
   },
   setup() {
     return {
