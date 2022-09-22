@@ -1,5 +1,0 @@
-#record { width: 70%; margin: 0 auto;}
-#record .title{display: flex; margin: 50px 0;}
-#record .memo-title{display: flex; margin: 15px 0 0; }
-#record .memo-text{margin-top: 10px;}
-#record button { float: right; margin-top: 5px;}

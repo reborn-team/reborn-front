@@ -3,7 +3,6 @@
     <h1 class="title">{{ message }}</h1>
     <hr />
 
-    <!-- 아이디 -->
     <div id="join-box">
       <div class="row mb-3">
         <label for="email" class="form-label">ID</label>
@@ -11,16 +10,18 @@
           type="text"
           class="form-control form-control-sm"
           ref="email"
-          @keyup="emailCheckHandler"
           v-model="state.email"
-          placeholder="이메일 형식으로 입력하세요"
+          placeholder="이메일 형식으로 입력해 주세요"
         />
-        <label for="">
-          {{ state.emailCheck }}
-        </label>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          @click="emailCheckHandler"
+        >
+          ✔
+        </button>
       </div>
 
-      <!-- 비밀번호 -->
       <div class="row mb-3">
         <label for="user_password" class="form-label">Password</label>
         <input
@@ -28,11 +29,10 @@
           class="form-control form-control-sm"
           ref="password"
           v-model="state.password"
-          placeholder="비밀번호를 입력해주세요"
+          placeholder="비밀번호를 입력해 주세요"
         />
       </div>
 
-      <!-- 비밀번호 확인 -->
       <div class="row mb-3">
         <label for="repassword" class="form-label">RePassword</label>
         <input
@@ -40,51 +40,54 @@
           class="form-control form-control-sm"
           ref="repassword"
           v-model="state.repassword"
-          placeholder="비밀번호를 입력해주세요"
+          placeholder="비밀번호를 입력해 주세요"
         />
       </div>
 
-      <!-- 이름 -->
       <div class="row mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="nickname" class="form-label">NickName</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          ref="name"
-          v-model="state.name"
-          placeholder="이름을 입력해주세요"
+          ref="nickname"
+          v-model="state.nickname"
+          placeholder="닉네임을 입력해 주세요"
         />
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          @click="nickNameCheckHandler"
+        >
+          ✔
+        </button>
       </div>
 
-      <!-- 전화번호 -->
       <div class="row mb-3">
-        <label for="phoneNum" class="form-label">Mobile</label>
+        <label for="phone" class="form-label">Mobile</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          ref="phoneNum"
+          ref="phone"
           placeholder="ex) 010-1111-1111"
-          v-model="state.phoneNum"
+          v-model="state.phone"
         />
       </div>
 
-      <!-- 주소 -->
       <div id="address">
         <div class="row mb-1 search">
           <label for="address" class="form-label">Address</label>
-            <input
-              type="text"
-              class="form-control form-control-sm zipcode"
-              ref="zipcode"
-              v-model="state.zipcode"
-              disabled
-            />
-            <button @click="address_search" class="btn btn-danger btn-sm">
-              주소 검색
-            </button>
+          <input
+            type="text"
+            class="form-control form-control-sm zipcode"
+            ref="zipcode"
+            v-model="state.zipcode"
+            disabled
+          />
+          <button @click="address_search" class="btn btn-danger btn-sm">
+            주소 검색
+          </button>
         </div>
       </div>
-
       <div id="addressInput">
         <div class="row mb-1">
           <input
@@ -96,18 +99,16 @@
             disabled
           />
         </div>
-        
         <div class="row mb-1">
           <input
             type="text"
             class="form-control form-control-sm"
             ref="detailAddress"
             v-model="state.detailAddress"
-            placeholder="상세주소를 입력하세요"
+            placeholder="상세주소를 입력해 주세요"
           />
         </div>
       </div>
-      
       <div class="post-box" v-if="postOpen">
         <VueDaumPostcode @complete="oncomplete" />
       </div>
@@ -133,7 +134,7 @@ import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
 import router from "@/router/router";
 import axios from "axios";
-import "../css/views/join.css";
+import "../css/views/Join.css";
 
 export default {
   name: "TheRegist",
@@ -144,8 +145,8 @@ export default {
       emailCheck: "",
       password: "",
       repassword: "",
-      name: "",
-      phoneNum: "",
+      nickname: "",
+      phone: "",
       zipcode: "",
       roadName: "",
       detailAddress: "",
@@ -153,53 +154,65 @@ export default {
     const email = ref("");
     const password = ref("");
     const repassword = ref("");
-    const name = ref("");
-    const phoneNum = ref("");
+    const nickname = ref("");
+    const phone = ref("");
     let zipcode = ref("");
     let roadName = ref("");
     const detailAddress = ref("");
     let postOpen = ref(false);
 
+    // const email_pattern = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
+    // const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
+
     const joinHandler = async () => {
+
       if (state.email === "") {
-        alert("Check Email");
+        alert("아이디를 입력해 주세요");
         email.value.focus();
         return false;
-      } else if (state.password === "") {
-        alert("Check Password");
+      } 
+      // else if( !email_pattern.test(state.email)){
+      //   alert("이메일 형식에 맞춰주세요");
+      //   email.value.focus();
+      //   return false;
+      // }
+       else if (state.password === "") {
+        alert("비밀번호를 입력해 주세요");
         password.value.focus();
         return false;
       } else if (state.repassword === "") {
-        alert("Check RePassword");
+        alert("비밀번호를 확인해 주세요");
         repassword.value.focus();
         return;
       } else if (state.password !== state.repassword) {
-        alert("Check Password and RePassword");
-        password.value.focus();
+        alert("비밀번호가 일치하지 않습니다");
+        repassword.value.focus();
+        repassword.value.value = "";
         return false;
-      } else if (state.name === "") {
-        alert("Check Name");
-        name.value.focus();
+      } else if (state.nickname === "") {
+        alert("닉네임을 입력해 주세요");
+        nickname.value.focus();
         return;
-      } else if (state.phoneNum === "") {
-        alert("Check PhoneNum");
-        phoneNum.value.focus();
+      } else if (state.phone === "") {
+        alert("전화번호를 입력해 주세요");
+        phone.value.focus();
         return;
-      } else if (state.detailAddress === "") {
-        alert("Check detailAddress");
-        detailAddress.value.focus();
-        return;
-      }
+      } 
+      // else if( !phone_pattern.test(state.phone)){
+      //   alert("전화번호 형식에 맞춰주세요");
+      //   email.value.focus();
+      //   return false;
+      // }
 
-      const url = "/api/v1/join";
+      const url = "/api/v1/members ";
       const headers = {
         "Content-Type": "application/json",
       };
       const body = {
         email: state.email,
         password: state.password,
-        name: state.name,
-        phone: state.phoneNum,
+        nickname: state.nickname,
+        phone: state.phone,
         zipcode: state.zipcode,
         roadName: state.roadName,
         detailAddress: state.detailAddress,
@@ -208,9 +221,9 @@ export default {
         if (res.status === 201) {
           alert("회원가입이 되었습니다.");
           router.push("/login");
-        } else {
-          alert("회원가입에 실패하였습니다.");
-        }
+        } 
+      }).catch(() => {
+        alert("회원가입에 실패했습니다")
       });
     };
 
@@ -219,25 +232,29 @@ export default {
       const email = state.email;
       const response = await axios.get(url + email);
       if (response.status === 200) {
-        state.emailCheck = response.data == true ? "사용 불가" : "사용 가능";
-      } else {
-        state.emailCheck = "중복 확인";
-      }
+        response.data.exist == true ? alert("중복된 이메일입니다") : alert("등록 가능한 이메일입니다");
+      } 
+    };
+    
+    const nickNameCheckHandler = async () => {
+      const url = "/api/v1/nickname-check?nickname=";
+      const nickname = state.nickname;
+      const response = await axios.get(url + nickname);
+      if (response.status === 200) {
+        response.data.exist == true ? alert("중복된 닉네임입니다") : alert("등록 가능한 닉네임입니다");
+      } 
     };
 
     const address_search = async () => {
       postOpen.value = !postOpen.value;
     };
-
     const oncomplete = (data) => {
-      var addr = ""; // 주소 변수
-      var extraAddr = ""; // 참고항목 변수
+      var addr = ""; 
+      var extraAddr = ""; 
 
       if (data.userSelectedType === "R") {
-        // 사용자가 도로명 주소를 선택했을 경우
         addr = data.roadAddress;
       } else {
-        // 사용자가 지번 주소를 선택했을 경우(J)
         addr = data.jibunAddress;
       }
 
@@ -266,13 +283,14 @@ export default {
       postOpen.value = false;
     };
 
+
     return {
       state,
       email,
       password,
       repassword,
-      name,
-      phoneNum,
+      nickname,
+      phone,
       zipcode,
       roadName,
       detailAddress,
@@ -280,6 +298,7 @@ export default {
       address_search,
       oncomplete,
       emailCheckHandler,
+      nickNameCheckHandler,
       message: "Join",
       postOpen,
     };

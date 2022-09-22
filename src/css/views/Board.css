@@ -1,7 +1,7 @@
-#boardWrap { width: 70%; margin: 0 auto;}
-#boardWrap #boardList a {float:right; margin: 0;}
-#boardWrap #searchBar {display: flex; justify-content: center; margin-top: 80px; gap:5px;}
-#boardWrap #searchBar select {width: 15%; }
-#boardWrap #searchBar input {width: 40%; }
-#boardWrap #searchBar button {width: 80px; }
-#boardWrap #boardPagi{display:flex; justify-content: center; margin-top: 15px;}
+#board { width: 50%; margin: 0 auto; min-width: 700px;}
+#board #boardList a {float:right; margin: 0;}
+#board #searchBar {display: flex; justify-content: center; margin-top: 80px; gap:5px;}
+#board #searchBar select {width: 15%; }
+#board #searchBar input {width: 40%; }
+#board #searchBar button {width: 80px; }
+#board #boardPagi{display:flex; justify-content: center; margin-top: 15px;}

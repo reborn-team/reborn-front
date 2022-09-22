@@ -1,5 +1,5 @@
 <template>
-  <div id="boardWrap">
+  <div id="board">
     <div id="boardList">
       <h1 class="title">{{ message }}</h1>
       <BoardList />
@@ -46,8 +46,10 @@ import "../css/views/Board.css";
 export default {
   name: "TheBoard",
   components: { BoardList },
-  data() {
-    return { message: "Board" };
-  },
+  setup(){
+    return{
+      message:"Board",
+    }
+  }
 };
 </script>

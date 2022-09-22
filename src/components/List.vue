@@ -19,7 +19,7 @@
           <td>42</td>
         </tr>
       </tbody>
-    </table>
+    </table> 
   </div>
 </template>
 

@@ -1,10 +1,17 @@
 const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: true
-})
 
-module.exports = {
+const target = 'http://localhost:8080'
+module.exports = defineConfig({
+  configureWebpack: {
+    performance: {
+      maxEntrypointSize: 5120000,
+      maxAssetSize: 5120000
+    }
+  },
   devServer: {
-        proxy : 'http://localhost:8080'
-      }
-}
+    port: 8081,
+    proxy : {
+    "/api/" : {target, changeOrigin: true},
+    }
+  },
+})

@@ -1,4 +1,6 @@
-#boardWrite {width: 60%; height:100%; margin: 0 auto;}
+#boardWrite {width: 50%; height:100%; margin: 0 auto; min-width: 700px;}
 #boardWrite #subject{display: flex; }
 #boardWrite #subject input{width: 40%; margin-left: 10px;}
-#boardWrite #writeBtn{display: flex; justify-content: right; margin-top: 80px; gap: 10px;}
+#boardWrite .content{ margin-top: 10px;}
+#boardWrite .fileUpload{margin: 10px 0;}
+#boardWrite #writeBtn{display: flex; justify-content: right; gap: 10px;}

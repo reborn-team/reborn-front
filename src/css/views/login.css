@@ -1,4 +1,4 @@
-#login{width: 50%; margin: 0 auto; }
+#login{width: 50%; margin: 0 auto; min-width: 700px;}
 #login #login-box{width:50%; margin: 40px auto;}
 #login #login-box label{text-align: left; }
 #login #login-box input{width: 100%;}

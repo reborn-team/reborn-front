@@ -1,106 +1,93 @@
 <template>
-  <div id="create">
+  <div id="workout">
     <h1 class="title">{{ message }}</h1>
-    <div id="collector">
-      <select class="form-select one" size="7" aria-label="size 7 select example">
-        <option disabled>부위</option>
-        <option value="1">등</option>
-        <option value="2">가슴</option>
-        <option value="3">하체</option>
-        <option value="4">코어</option>
-      </select>
-      <select
-        class="form-select two"
-        size="7"
-        aria-label="size 7 select example"
-        v-model="selected"
-        @change="onchange"
-      >
-        <option disabled>세부사항</option>
-        <option value="렛풀다운">렛풀다운</option>
-        <option value="풀업">풀업</option>
-        <option value="바벨로우">바벨로우</option>
-        <option value="인버티드로우">인버티드 로우</option>
-      </select>
-      <div>
-        <img :src="`${tmp[selected]}`" class="img three" alt="" />
-      </div>
+    <div id="workoutListNav">
+      <button class="btn btn-danger" type="button" @click="changeCategory('')">전체</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('back')">등</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('chest')">가슴</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('lower-body')">하체</button>
+      <button class="btn btn-danger" type="button" @click="changeCategory('core')">코어</button>
+      <button class="btn btn-danger" id="add" @click="addWorkoukList">추가</button>
     </div>
-    <div id="createBtn">
-      <button type="button" class="btn btn-danger" @click="minusWorkout">-</button>
-      <button type="button" class="btn btn-danger" @click="addWorkout">+</button>
+    <hr />
+    <div id="WorkoutCard">
+      <WorkoutCard :page="page" :category="category" />
     </div>
-
-    <Table :arr="arr" :changeValue="changeValue" />
-
-    <br />
-    <button type="button" class="btn btn-danger recode">Create</button>
+    <button id="addBtn" class="btn btn-danger" type="button" @click="addCard" v-if="hasNext.valueOf(true)">더보기</button>
   </div>
 </template>
 
 <script>
+import WorkoutCard from "@/components/Card.vue";
 import "../css/views/Workout.css";
-import Table from "@/components/Table.vue";
-import { reactive, ref } from "@vue/reactivity";
-
+import router from "@/router/router";
+import { ref } from "@vue/runtime-core";
+import axios from "axios";
+import { useRoute } from 'vue-router';
 export default {
-  name: "WorkoutCreate",
-  components: { Table },
+  name: "TheWorkout",
+  components: { WorkoutCard },
   setup() {
-    const selected = ref("인버티드로우");
-    const tmp = {
-      렛풀다운:
-        "https://images.unsplash.com/photo-1534872724459-3a23213491fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80",
-      풀업: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      바벨로우:
-        "https://images.unsplash.com/photo-1616803689943-5601631c7fec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-      인버티드로우:
-        "https://images.unsplash.com/photo-1603503364272-6e28e046b37a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80",
+    const ROUTE = useRoute()
+    const page = ref([]);
+    const id = ref();
+    const category = ref();
+    const hasNext = ref(true);
+
+    const changeCategory = async (i) => {
+      console.log(category.value !== i)
+      if(category.value !== i) {
+        category.value = i || "";
+        id.value = "";
+        const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
+  
+        axios.get(url).then((res) => {
+          if (res.status === 200) {
+            if (res.data.hasNext){
+              res.data.page.pop()   
+            }
+            page.value = res.data.page;
+            id.value = res.data.page[res.data.page.length - 1].workoutId;
+            hasNext.value = res.data.hasNext;
+  
+            router.replace(`/workout?category=${category.value}`);
+          }
+          
+        }).catch(() => {});
+      }
+    }
+    changeCategory(ROUTE.query.category || "");
+    // changeCategory();
+
+    const addCard = () => {
+      const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
+      if (hasNext.value) {
+        axios.get(url).then((res) => {
+          if (res.status === 200) {
+            if (res.data.hasNext){
+            res.data.page.pop()   
+          }
+            page.value = page.value.concat(res.data.page);
+            id.value = res.data.page[res.data.page.length-1].workoutId;
+            hasNext.value = res.data.hasNext;
+          }
+        
+        }).catch(() => {});
+      }
     };
 
-    const onchange = (res) => {
-      console.log(res.target.value);
-      selected.value = res.target.value;
-    };
-
-    const arr = reactive([]);
-
-    // 버튼
-
-    const addWorkout = () => {
-      console.log(selected.value);
-      console.log(arr);
-      // arr.value.push(name);
-      arr.push({
-        workout: selected.value,
-        set: 0,
-        rep: 0,
-        weight: 0,
-        total: 0,
-      });
-      console.log(arr);
-    };
-
-    const changeValue = (res, idx, k) => {
-      let v = parseInt(res.target.value);
-      arr[idx][k] = v > 0 ? v : 0;
-      arr[idx]["total"] =
-        arr[idx]["set"] * arr[idx]["rep"] * arr[idx]["weight"];
-    };
-
-    const minusWorkout = () => {
-      arr.pop();
+    const addWorkoukList = () => {
+      router.push("/workout/create");
     };
 
     return {
-      selected,
-      tmp,
-      arr,
-      onchange,
-      addWorkout,
-      minusWorkout,
-      changeValue,
-      message:"Workout"
+      page,
+      category,
+      hasNext,
+      changeCategory,
+      addWorkoukList,
+      addCard,
+      message: "운동 리스트",
     };
   },
 };

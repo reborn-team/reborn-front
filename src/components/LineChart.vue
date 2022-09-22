@@ -9,13 +9,15 @@
   </div>
 </template>
 <script>
+import "../css/components/lineChart.css"
+
 export default {
   name: "AreaChart",
-  data: function () {
+  setup() {
     return {
       series: [
         {
-          name: "Desktops",
+          name: "",
           data: [10, 41, 35, 51, 49, 62, 69, 91, 100],
         },
       ],
@@ -39,7 +41,7 @@ export default {
         },
         grid: {
           row: {
-            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+            colors: ["#f3f3f3", "transparent"], 
             opacity: 0.5,
           },
         },

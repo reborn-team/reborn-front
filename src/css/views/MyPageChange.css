@@ -1,16 +1,22 @@
-#change { width: 50%; margin: 0 auto; }
-#change #change-box{ width:50%; margin: 10px auto; }
-#change #change-box .row{ flex-wrap: nowrap; }
-#change #change-box .form-label{ width: 7rem; }
-#change #change-box button{ width: 16rem; }
-#change #change-box .form-control{ width: 16rem; }
-#change #change-box .col-sm-5{ padding : 0px; }
-#change #change-box label{ text-align: left; }
-#change #change-box input{ width: 100%; }
-#change #change-box #address { display:flex; }
-#change #change-box #address .zipcode { width: 8rem;}
-#change #change-box #address button { width: 5rem; margin-left: 3rem;}
-#change #change-box #addressInput { margin-left: 7em;}
-#change #changeBtn { display: flex; gap: 10px; margin-top: 20px;}
-#change #changeBtn .delete{ margin-right: 6rem; }
-#change #changeBtn button{ width: 80px; }
+#myPageChange { width: 50%; margin: 0 auto; min-width: 700px;}
+#myPageChange #change-box{ width:360px; margin: 10px auto; }
+#myPageChange #change-box .row{ flex-wrap: nowrap; }
+#myPageChange #change-box .form-label{ width: 7rem; }
+#myPageChange #change-box button{ width: 16rem; }
+#myPageChange #change-box .form-control{ width: 16rem; }
+#myPageChange #change-box .col-sm-5{ padding : 0px; }
+#myPageChange #change-box label{ text-align: left; }
+#myPageChange #change-box input{ width: 100%; }
+
+#myPageChange #change-box #address { display:flex; }
+#myPageChange #change-box #address .zipcode { width: 8rem;}
+#myPageChange #change-box #address button { width: 5rem; margin-left: 3rem;}
+#myPageChange #change-box #addressInput { margin-left: 7em;}
+
+#myPageChange #changeBtn { width:100%; display: flex; margin-top: 20px; justify-content: space-between;}
+#myPageChange #changeBtn button{ width: 80px; }
+
+.modal-body {width: 70%; margin: 0 auto; padding: 10px;}
+.modal-body div{display: flex; margin-bottom: 7px;}
+.modal-body label{width:100%; text-align: left;}
+.modal-body input{width: 100%;}

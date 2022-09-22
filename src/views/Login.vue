@@ -4,6 +4,7 @@
     <hr />
 
     <div id="login-box">
+
       <div class="row mb-3">
         <label
           for="colFormLabelSm"
@@ -20,6 +21,7 @@
           />
         </div>
       </div>
+
       <div class="row mb-3">
         <label
           for="colFormLabelSm"
@@ -59,26 +61,25 @@
   </div>
 </template>
 
-<script charset="utf-8">
+<script>
 import { reactive, ref } from "@vue/reactivity";
 // import { useRouter } from "vue-router";
 import axios from "axios";
-import "../css/views/login.css";
+import "../css/views/Login.css";
 import router from "@/router/router";
 
 export default {
   name: "TheLogin",
   setup() {
-    // const router = useRouter();
     const state = reactive({
-      email: "reborn111@naver.com",
-      password: "1",
+      email: "",
+      password: "",
     });
     const email = ref("");
     const password = ref("");
 
     const loginHandler = async () => {
-      // 유효성
+
       if (state.email === "") {
         alert("Check Email");
         email.value.focus();
@@ -89,7 +90,6 @@ export default {
         return;
       }
 
-      // 토큰
       const url = "/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
       const body = { email: state.email, password: state.password };
@@ -103,7 +103,9 @@ export default {
         } else {
           alert("로그인 실패")
         }
-      });
+      }).catch(() => {
+        alert("로그인에 실패했습니다")
+      })
     };
 
     return { state, email, password, loginHandler, message: "Login" };

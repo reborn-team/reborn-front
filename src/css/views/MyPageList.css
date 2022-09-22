@@ -1,6 +1,6 @@
-#MyPageList { width: 70%; margin: 0 auto;}
-#MyPageList #searchBar {display: flex; justify-content: center; margin-top: 80px; gap:5px;}
-#MyPageList #searchBar select {width: 15%; }
-#MyPageList #searchBar input {width: 40%; }
-#MyPageList #searchBar button {width: 80px; }
-#MyPageList #boardPagi{display:flex; justify-content: center; margin-top: 15px;}
+#myPageList { width: 50%; margin: 0 auto; min-width: 700px;}
+#myPageList #searchBar {display: flex; justify-content: center; margin-top: 80px; gap:5px;}
+#myPageList #searchBar select {width: 15%; }
+#myPageList #searchBar input {width: 40%; }
+#myPageList #searchBar button {width: 80px; }
+#myPageList #boardPagi{display:flex; justify-content: center; margin-top: 15px;}
