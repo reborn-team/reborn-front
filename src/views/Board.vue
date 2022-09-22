@@ -1,5 +1,5 @@
 <template>
-  <div id="boardWrap">
+  <div id="board">
     <div id="boardList">
       <h1 class="title">{{ message }}</h1>
       <BoardList />

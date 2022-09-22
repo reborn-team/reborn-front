@@ -5,7 +5,6 @@
 
     <div id="login-box">
 
-      <!-- ID -->
       <div class="row mb-3">
         <label
           for="colFormLabelSm"
@@ -23,7 +22,6 @@
         </div>
       </div>
 
-      <!-- Password -->
       <div class="row mb-3">
         <label
           for="colFormLabelSm"
@@ -41,7 +39,6 @@
         </div>
       </div>
 
-      <!-- 버튼 -->
       <div id="loginBtn">
         <div class="login-button">
           <button
@@ -68,13 +65,12 @@
 import { reactive, ref } from "@vue/reactivity";
 // import { useRouter } from "vue-router";
 import axios from "axios";
-import "../css/views/login.css";
+import "../css/views/Login.css";
 import router from "@/router/router";
 
 export default {
   name: "TheLogin",
   setup() {
-    // const router = useRouter();
     const state = reactive({
       email: "",
       password: "",
@@ -82,10 +78,8 @@ export default {
     const email = ref("");
     const password = ref("");
 
-    // 로그인 버튼
     const loginHandler = async () => {
 
-      // 유효성 검사
       if (state.email === "") {
         alert("Check Email");
         email.value.focus();
@@ -96,7 +90,6 @@ export default {
         return;
       }
 
-      // 토큰
       const url = "/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
       const body = { email: state.email, password: state.password };

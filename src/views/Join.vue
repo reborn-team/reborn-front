@@ -3,7 +3,6 @@
     <h1 class="title">{{ message }}</h1>
     <hr />
 
-    <!-- 아이디 -->
     <div id="join-box">
       <div class="row mb-3">
         <label for="email" class="form-label">ID</label>
@@ -23,7 +22,6 @@
         </button>
       </div>
 
-      <!-- 비밀번호 -->
       <div class="row mb-3">
         <label for="user_password" class="form-label">Password</label>
         <input
@@ -35,7 +33,6 @@
         />
       </div>
 
-      <!-- 비밀번호 확인 -->
       <div class="row mb-3">
         <label for="repassword" class="form-label">RePassword</label>
         <input
@@ -47,19 +44,24 @@
         />
       </div>
 
-      <!-- 이름 -->
       <div class="row mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="nickname" class="form-label">NickName</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          ref="name"
-          v-model="state.name"
-          placeholder="이름을 입력해 주세요"
+          ref="nickname"
+          v-model="state.nickname"
+          placeholder="닉네임을 입력해 주세요"
         />
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          @click="nickNameCheckHandler"
+        >
+          ✔
+        </button>
       </div>
 
-      <!-- 전화번호 -->
       <div class="row mb-3">
         <label for="phone" class="form-label">Mobile</label>
         <input
@@ -71,7 +73,6 @@
         />
       </div>
 
-      <!-- 주소 -->
       <div id="address">
         <div class="row mb-1 search">
           <label for="address" class="form-label">Address</label>
@@ -112,7 +113,6 @@
         <VueDaumPostcode @complete="oncomplete" />
       </div>
 
-      <!-- 버튼 -->
       <div id="joinBtn">
         <div class="join2-button">
           <button class="btn btn-danger btn-sm" @click="joinHandler">
@@ -134,7 +134,7 @@ import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
 import router from "@/router/router";
 import axios from "axios";
-import "../css/views/join.css";
+import "../css/views/Join.css";
 
 export default {
   name: "TheRegist",
@@ -145,7 +145,7 @@ export default {
       emailCheck: "",
       password: "",
       repassword: "",
-      name: "",
+      nickname: "",
       phone: "",
       zipcode: "",
       roadName: "",
@@ -154,30 +154,29 @@ export default {
     const email = ref("");
     const password = ref("");
     const repassword = ref("");
-    const name = ref("");
+    const nickname = ref("");
     const phone = ref("");
     let zipcode = ref("");
     let roadName = ref("");
     const detailAddress = ref("");
     let postOpen = ref(false);
 
-    // 유효성 검사 정규식
-    const email_pattern = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
-    const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
+    // const email_pattern = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
+    // const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
-    // 가입 버튼
     const joinHandler = async () => {
 
-      // 유효성 검사
       if (state.email === "") {
         alert("아이디를 입력해 주세요");
         email.value.focus();
         return false;
-      } else if( !email_pattern.test(state.email)){
-        alert("이메일 형식에 맞춰주세요");
-        email.value.focus();
-        return false;
-      } else if (state.password === "") {
+      } 
+      // else if( !email_pattern.test(state.email)){
+      //   alert("이메일 형식에 맞춰주세요");
+      //   email.value.focus();
+      //   return false;
+      // }
+       else if (state.password === "") {
         alert("비밀번호를 입력해 주세요");
         password.value.focus();
         return false;
@@ -190,28 +189,29 @@ export default {
         repassword.value.focus();
         repassword.value.value = "";
         return false;
-      } else if (state.name === "") {
-        alert("이름을 입력해 주세요");
-        name.value.focus();
+      } else if (state.nickname === "") {
+        alert("닉네임을 입력해 주세요");
+        nickname.value.focus();
         return;
       } else if (state.phone === "") {
         alert("전화번호를 입력해 주세요");
         phone.value.focus();
         return;
-      } else if( !phone_pattern.test(state.phone)){
-        alert("전화번호 형식에 맞춰주세요");
-        email.value.focus();
-        return false;
-      }
+      } 
+      // else if( !phone_pattern.test(state.phone)){
+      //   alert("전화번호 형식에 맞춰주세요");
+      //   email.value.focus();
+      //   return false;
+      // }
 
-      const url = "/api/v1/join";
+      const url = "/api/v1/members ";
       const headers = {
         "Content-Type": "application/json",
       };
       const body = {
         email: state.email,
         password: state.password,
-        name: state.name,
+        nickname: state.nickname,
         phone: state.phone,
         zipcode: state.zipcode,
         roadName: state.roadName,
@@ -227,31 +227,34 @@ export default {
       });
     };
 
-    // ID 중복체크
     const emailCheckHandler = async () => {
       const url = "/api/v1/email-check?email=";
       const email = state.email;
       const response = await axios.get(url + email);
       if (response.status === 200) {
-        response.data == true ? alert("중복된 이메일입니다") : alert("등록 가능한 이메일입니다");
-      } else {
-        state.emailCheck = "중복 확인";
-      }
+        response.data.exist == true ? alert("중복된 이메일입니다") : alert("등록 가능한 이메일입니다");
+      } 
+    };
+    
+    const nickNameCheckHandler = async () => {
+      const url = "/api/v1/nickname-check?nickname=";
+      const nickname = state.nickname;
+      const response = await axios.get(url + nickname);
+      if (response.status === 200) {
+        response.data.exist == true ? alert("중복된 닉네임입니다") : alert("등록 가능한 닉네임입니다");
+      } 
     };
 
-    // 주소 API
     const address_search = async () => {
       postOpen.value = !postOpen.value;
     };
     const oncomplete = (data) => {
-      var addr = ""; // 주소 변수
-      var extraAddr = ""; // 참고항목 변수
+      var addr = ""; 
+      var extraAddr = ""; 
 
       if (data.userSelectedType === "R") {
-        // 사용자가 도로명 주소를 선택했을 경우
         addr = data.roadAddress;
       } else {
-        // 사용자가 지번 주소를 선택했을 경우(J)
         addr = data.jibunAddress;
       }
 
@@ -286,7 +289,7 @@ export default {
       email,
       password,
       repassword,
-      name,
+      nickname,
       phone,
       zipcode,
       roadName,
@@ -295,6 +298,7 @@ export default {
       address_search,
       oncomplete,
       emailCheckHandler,
+      nickNameCheckHandler,
       message: "Join",
       postOpen,
     };

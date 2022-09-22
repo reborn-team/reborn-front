@@ -2,16 +2,30 @@
   <div id="workoutDetail">
     <h1 class="title">{{ message }}</h1>
     <div id="detail">
-      <img :src="viewUrl(Workout.uploadFileName)" class="card-img-top" alt="#"  v-if="Workout.uploadFileName != 'empty' && Workout.uploadFileName != null"/>
-      <img src="https://place-hold.it/300x300/666/fff/000.gif" alt="" v-if="Workout.uploadFileName == 'empty'"/>     
-       <div id="detailWrap">
+      <div>
+        <img
+          :src="viewUrl(Workout.uploadFileName)"
+          class="card-img-top"
+          alt="No image"
+          v-if="Workout.uploadFileName != 'empty'"
+          onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
+        />
+      </div>
+      <img
+        src="https://place-hold.it/300x300/666/fff/000.gif"
+        alt="Error"
+        v-if="Workout.uploadFileName == 'empty'"
+      />
+      <div id="detailWrap">
         <div id="workoutCategory">
           <label
             for="category"
             class="col-sm-2 col-form-label col-form-label-sm"
-            >카테고리 :
+            >운동 부위 :
           </label>
-          <div class="workoutItem" >{{ Workout.workoutCategory }}</div>
+          <div class="workoutItem">
+            {{ convertCategoryValue(Workout.workoutCategory) }}
+          </div>
         </div>
         <div id="wokroutName">
           <label
@@ -27,13 +41,29 @@
           </label>
           <div class="workoutExplain">{{ Workout.content }}</div>
         </div>
+        <div id="author">
+          <label for="author" class="col-sm-2 col-form-label col-form-label-sm"
+            >작성자 :
+          </label>
+          <div class="author">{{ Workout.memberNickname }}</div>
+        </div>
       </div>
     </div>
     <button type="button" class="btn btn-danger btn-sm" @click="linkList">
       목록으로
     </button>
-    <button type="button" class="btn btn-danger btn-sm" @click="linkMyworkout">추가하기</button>
-  </div>
+    <button type="button" class="btn btn-danger btn-sm" @click="linkMyworkout">
+      추가하기
+    </button>
+    <div class="authorBtn" v-if="Workout.author==true">
+      <button type="button" class="btn btn-warning btn-sm" @click="linkEdit">
+        수정
+      </button>
+      <button type="button" class="btn btn-secondary btn-sm" @click="linkDeleteWorkout" >
+        삭제
+      </button>
+    </div>
+    </div>
 </template>
 
 <script>
@@ -46,20 +76,21 @@ import { useRoute } from "vue-router";
 
 export default {
   name: "WorkoutDetail",
-
   setup() {
-
     onMounted(() => {
       getWorkoutHandler();
     });
-    
+
     const route = useRoute();
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const WorkoutID = ref(route.params.workoutID);
     const Workout = ref("");
     const viewUrl = (i) => {
-      return "/api/v1/file/images?filename=" + i;
+      if(i != undefined){
+        return "/api/v1/file/images?filename=" + i;
+      }
     };
+
     async function getWorkoutHandler() {
       const url = `/api/v1/workout/${WorkoutID.value}`;
       const headers = {
@@ -69,45 +100,72 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           Workout.value = res.data;
-          console.log(res.data)
-          console.log(Workout.value.uploadFileName)
-          viewUrl()
         }
-        
       });
     }
 
     const state = reactive({
       category: "",
+    });
 
-    })
+    const convertCategoryValue = (category) => {
+      switch (category) {
+        case "BACK":
+          return "등";
+        case "CHEST":
+          return "가슴";
+        case "LOWER_BODY":
+          return "하체";
+        case "CORE":
+          return "코어";
+      }
+    };
 
-    const linkMyworkout = async() => {
-      const url = `/api/v1/my-workout/${WorkoutID.value}`
+    const linkDeleteWorkout = async() => {
+      const url = `/api/v1/workout/${WorkoutID.value}`
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
-      }
-      await axios.post(url, {}, {headers}).then((res)=>{
-        console.log(res.data);
-        console.log(Token.value);
-      })
+      };
+      await axios.delete(url, { headers }).then((res) => {
+        if(res.status == 204){
+          alert("목록이 삭제되었습니다.")
+          router.push(`/workout`)
+        }
+      });
+    }
+
+    const linkMyworkout = async () => {
+      const url = `/api/v1/my-workout/${WorkoutID.value}`;
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: Token.value,
+      };
+      await axios.post(url, {}, { headers }).then(() => {
+      });
     };
+
+    const linkEdit = () =>{
+      router.push(`/workout/${WorkoutID.value}/edit`);
+    }
 
     const linkList = () => {
-      router.push("/workout");
+      router.push(`/workout?category=${route.query.category}`);
+      console.log(Workout.value.workoutCategory);
     };
- 
 
     return {
+      message: "운동 정보",
+      state,
       Workout,
       WorkoutID,
-      linkList,
-      viewUrl,
-      linkMyworkout,
       getWorkoutHandler,
-      state,
-      message: "운동 정보",
+      convertCategoryValue,
+      viewUrl,
+      linkList,
+      linkEdit,
+      linkMyworkout,
+      linkDeleteWorkout,
     };
   },
 };

@@ -1,13 +1,13 @@
 <template>
-  <div id="create">
+  <div id="program">
     <h1 class="title">{{ message }}</h1>
     <div id="collector">
-      <select class="form-select one" size="7" >
-        <option style="font-weight: bold;" disabled>부위</option>
-        <option value="1">등</option>
-        <option value="2">가슴</option>
-        <option value="3">하체</option>
-        <option value="4">코어</option>
+      <select class="form-select one" size="7">
+        <option style="font-weight: bold;"  disabled>부위</option>
+        <option value="back">등</option>
+        <option value="chest">가슴</option>
+        <option value="lower-body">하체</option>
+        <option value="core">코어</option>
       </select>
       <select
         class="form-select two"
@@ -23,32 +23,33 @@
         <option value="인버티드로우">인버티드 로우</option>
       </select>
       <div>
-        <img :src="`${tmp[selected]}`" class="img three" alt="" />
+        <img :src="`${back[selected]}`"  alt="" />
       </div>
     </div>
     <div id="createBtn">
       <button type="button" class="btn btn-danger" @click="minusWorkout">-</button>
       <button type="button" class="btn btn-danger" @click="addWorkout">+</button>
     </div>
-
     <Table :arr="arr" :changeValue="changeValue" />
-
     <br />
     <button type="button" class="btn btn-danger recode">Create</button>
   </div>
 </template>
 
 <script>
-import "../css/views/Workout.css";
+import "../css/views/Program.css";
 import Table from "@/components/Table.vue";
 import { reactive, ref } from "@vue/reactivity";
+import program from '../service/program.json'
 
 export default {
   name: "WorkoutCreate",
   components: { Table },
   setup() {
-    const selected = ref("인버티드로우");
-    const tmp = {
+    const category = program;
+
+    const selected = ref("렛풀다운");
+    const back = {
       렛풀다운:
         "https://images.unsplash.com/photo-1534872724459-3a23213491fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80",
       풀업: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
@@ -68,8 +69,8 @@ export default {
     // 버튼
 
     const addWorkout = () => {
-      console.log(selected.value);
-      console.log(arr);
+      console.log(category);
+      // console.log(arr);
       // arr.value.push(name);
       arr.push({
         workout: selected.value,
@@ -78,7 +79,6 @@ export default {
         weight: 0,
         total: 0,
       });
-      console.log(arr);
     };
 
     const changeValue = (res, idx, k) => {
@@ -93,8 +93,9 @@ export default {
     };
 
     return {
+      category,
       selected,
-      tmp,
+      back,
       arr,
       onchange,
       addWorkout,

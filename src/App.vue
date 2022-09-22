@@ -56,7 +56,7 @@
               <img src="./assets/img/header/person.svg" alt="" width="30" height="25"/>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/mypage/goal">달성도</a></li>
+              <li><a class="dropdown-item" href="/mypage/goal" >달성도</a></li>
               <li>
                 <a class="dropdown-item" href="/mypage/list">내가 쓴 글</a>
               </li>
@@ -79,7 +79,9 @@
     </nav>
   </div>
   <hr />
+
   <router-view />
+  
 </template>
 
 <script>

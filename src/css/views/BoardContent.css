@@ -1,13 +1,27 @@
-#boardContent { width: 50%; margin: 80px auto;}
-#boardContent #article { margin: 0px; width: 100%;}
-#boardContent #article .article-subject{display: flex;}
-#boardContent #article .subject { margin:10px; width: 50%; height: 30px; border-bottom: 1px solid red; }
-#boardContent #article .container{margin: 7px 0; width: 100%; height: 30rem;}
-#boardContent #contentBtn{display:flex; gap:10px; float:right; margin: 10px 0;}
-#boardContent #contentBtn button { height: 40px;}
-#boardContent #contentBtn img { width: 30px;}
-#boardContent #contentBtn .like { width: 40px; height:40px; padding: 1px;}
-#boardContent #enterReply {padding: 10px;}
-#boardContent #enterReply .form-control{width: 100%; height: 5rem; margin-bottom: 10px;}
-#boardContent #enterReply button{float: right;}
-#boardContent hr {margin-top: 3rem;}
+#boardContent { width: 50%; margin: 0 auto; min-width: 700px; padding:30px}
+#boardContent .board-title { margin: 30px 0 ; text-align: left;}
+#boardContent .board-info { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; font-weight: 300; font-size: 14px;}
+#boardContent .profile-img { border-radius: 50%; width: 40px; height: 40px; object-fit: cover; }
+#boardContent .content1 { width: 70%; height: 70%; background: #e5e5e5; margin: 0 auto; text-align: left; line-height: 1em; }
+#boardContent .content2 { width: 70%; height: 70%; background: #e5e5e5; margin: 0 auto; line-height: 1em; }
+#boardContent .textareas { text-align: left; white-space: pre-line; padding: 15px; } 
+#boardContent .boardsPic { width: 100%; height: 100%; display: flex; padding: 2%; margin: 0 auto;}
+#boardContent hr{margin-bottom: 20px;}
+
+#boardContent .btns { display: flex; flex-wrap: wrap; justify-content: space-between; margin: 20px 0; }
+#boardContent .btn {font-weight: 300; font-size: 14px; border: none; box-shadow: none;}
+#boardContent .mdifyBtn { margin-right: 5px;}
+#boardContent .likeBtn { margin-left: 5px; --bs-btn-padding-y: 0.14rem;}
+
+#boardContent .input-container { display: flex; justify-content: center; background: #e5e5e5; padding: 20px ; }
+#boardContent .reply-input { margin-right: 10px; resize: none }
+
+#boardContent .reply{ display:flex; font-weight: bold; margin: 20px 0;}
+#boardContent .reviewsWrap{ display: flex; width: 100%; border-bottom: 1px solid pink;}
+#boardContent .reviews-members-header{ text-align: left;}
+#boardContent .reviews-members-header h6{ font-size: 14px; font-weight: bold;}
+#boardContent .reviews-members-header .text-gray{ font-size: 10px; color: gray; margin: 0px;}
+#boardContent .reviews-members-body{ text-align: left; font-size: 14px;}
+#boardContent .review-members-btn{ float: left; }
+#boardContent .mBtn{ margin-right: 5px;}
+

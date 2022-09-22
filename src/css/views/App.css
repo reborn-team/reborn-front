@@ -2,9 +2,11 @@
 html, body { width: 100vw; height: 100%; }
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Noto+Sans+KR:wght@300&display=swap');
 
-#app { text-align: center; }
+#app { text-align: center;}
 #app hr {border: 0; height: 2px; background: red; padding: 0; margin: 0;}
 #app button {--bs-btn-active-color: black; --bs-btn-active-bg: #fff; }
+#app button:hover{ cursor: pointer;}
+
 #app .title {display: flex; text-decoration: underline red; margin: 50px auto; text-underline-position: under ;}
 
 #navbar {display:flex; justify-content: center;  width: 100%; height:100%; min-width: 800px;}

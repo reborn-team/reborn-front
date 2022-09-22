@@ -1,6 +1,6 @@
 <template>
   <MyPageNav/>
-  <div id="goal">
+  <div id="myPageGoal">
     <h1 class="title">{{message}}</h1>
     <LineChart/>
     <BarChart/>

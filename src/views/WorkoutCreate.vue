@@ -4,6 +4,7 @@
     <div id="Create">
       <div v-for="i in files" :key="i">
         <img
+          id="uploadImg"
           :src="viewUrl(i.uploadFileName)"
           class="card-img-top"
           alt="No Image"
@@ -11,7 +12,7 @@
       </div>
       <img
         src="https://place-hold.it/300x300/666/fff/000.gif"
-        alt=""
+        alt="Error"
         v-if="files.length == 0"
       />
 
@@ -57,7 +58,7 @@
           <textarea
             class="form-control"
             aria-label="With textarea"
-            rows="7"
+            rows="8"
             ref="content"
             v-model="state.content"
           ></textarea>
@@ -67,12 +68,7 @@
     <div id="insert">
       <div id="fileUpload">
         <div class="form-group centerz">
-          <input
-            type="file"
-            @change="selectFile"
-            ref="fileRef"
-            class="form-control"
-          />
+          <input type="file" @change="selectFile" class="form-control" id="imgName" accept="image/*"/>
         </div>
       </div>
       <div id="insertBtn">
@@ -88,6 +84,15 @@
         </button>
       </div>
     </div>
+    <button
+      id="deleteImage"
+      type="button"
+      class="btn btn-secondary btn-sm"
+      @click="deleteImage"
+      v-if="files.length != 0"
+    >
+      삭제하기
+    </button>
   </div>
 </template>
 
@@ -96,7 +101,6 @@ import router from "@/router/router";
 import "../css/views/WorkoutCreate.css";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
-
 export default {
   name: "WorkoutDetail",
   setup() {
@@ -111,8 +115,25 @@ export default {
     const workoutName = ref("");
     const content = ref("");
     let files = ref([]);
+    let imageName;
 
     const createHandler = async () => {
+
+      if(state.workoutCategory === "") {
+        alert("카테고리를 선택해 주세요");
+        workoutCategory.value.focus();
+        return false;
+      } else if (state.workoutName === "") {
+        alert("운동 이름을 입력해주세요");
+        workoutName.value.focus();
+        return;
+      } else if (state.content == "") {
+        alert("운동에 대해 간단히 알려주세요");
+        content.value.focus();
+        return false;
+      }
+
+
       const url = "/api/v1/workout";
       const headers = {
         "Content-Type": "application/json;",
@@ -149,11 +170,29 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             files.value = res.data;
+            imageName = files.value[0].uploadFileName;
+            console.log(imageName)
           }
         })
-        .catch((error) => {
-          alert(error.message);
+        .catch(() => {
+          alert("파일을 업로드 할 수 없습니다");
         });
+    };
+
+    const deleteImage = () => {
+      const headers = { "Content-Type": "application/json;" };
+
+      axios.delete("/api/v1/file?filename=" + imageName, { headers }).then((res) => {
+          console.log(imageName)
+          if (res.status == 200) {
+            if (res.data) {
+              files.value=""
+              imageName = undefined;
+              document.getElementById("imgName").value=""
+            }
+          }
+        })
+        .catch((err) => console.log(err));
     };
 
     const viewUrl = (i) => {
@@ -168,9 +207,10 @@ export default {
       linkList,
       createHandler,
       selectFile,
+      deleteImage,
+      viewUrl,
       state,
       files,
-      viewUrl,
       workoutCategory,
       workoutName,
       content,

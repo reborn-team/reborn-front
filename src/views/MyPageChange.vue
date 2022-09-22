@@ -1,7 +1,6 @@
 <template>
   <MyPageNav />
-  <div id="change">
-    <!-- 아이디 -->
+  <div id="myPageChange">
     <div id="change-box">
       <div class="row mb-3">
         <label for="email" class="form-label">ID</label>
@@ -9,11 +8,11 @@
           type="text"
           class="form-control form-control-sm"
           ref="email"
+          v-model="state.email"
           disabled
         />
       </div>
 
-      <!-- 비밀번호 -->
       <div class="row mb-3">
         <label for="user_password" class="form-label">Password</label>
         <button
@@ -26,31 +25,28 @@
         </button>
       </div>
 
-      <!-- 이름 -->
       <div class="row mb-3">
-        <label for="name" class="form-label">Name</label>
+        <label for="nickname" class="form-label">Nickname</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          ref="name"
-          v-model="state.name"
-          placeholder="이름을 입력해주세요"
+          ref="nickname"
+          v-model="state.nickname"
+          placeholder="닉네임을 입력하세요"
         />
       </div>
 
-      <!-- 전화번호 -->
       <div class="row mb-3">
-        <label for="phoneNum" class="form-label">Mobile</label>
+        <label for="phone" class="form-label">Mobile</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          ref="phoneNum"
+          ref="phone"
           placeholder="ex) 010-1111-1111"
-          v-model="state.phoneNum"
+          v-model="state.phone"
         />
       </div>
 
-      <!-- 주소 -->
       <div id="address">
         <div class="row mb-1 search">
           <label for="address" class="form-label">Address</label>
@@ -112,7 +108,6 @@
     </div>
   </div>
 
-  <!-- 모달 -->
   <div
     class="modal fade"
     id="changePassword"
@@ -181,6 +176,7 @@ import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
 import "../css/views/MyPageChange.css";
 import axios from 'axios';
+import { onMounted } from '@vue/runtime-core';
 
 export default {
   name: "TheRegist",
@@ -191,88 +187,87 @@ export default {
       rawPassword: "",
       changePassword: "",
       passwordCheck: "",
-      name: "",
-      phoneNum: "",
+      nickname: "",
+      phone: "",
       zipcode: "",
       roadName: "",
       detailAddress: "",
       token: sessionStorage.getItem("TOKEN"),
     });
+
+    const data = ref("");
     const email = ref("");
     const rawPassword = ref("");
     const changePassword = ref("");
     const passwordCheck = ref("");
-    const name = ref("");
-    const phoneNum = ref("");
+    const nickname = ref("");
+    const phone = ref("");
     let zipcode = ref("");
     let roadName = ref("");
     const detailAddress = ref("");
     let postOpen = ref(false);
 
-    // 전화번호 정규식
+    onMounted(()=>{
+      getData();
+    })
+
+    const getData = async() =>{
+      const url = "/api/v1/members/me";
+      const headers = {
+        "Content-Type": "application/json;",
+        Authorization: state.token,
+      };
+      await axios.get(url, { headers }).then((res)=>{
+        if(res.status==200){
+          data.value = res.data
+
+          state.email = data.value.email
+          state.nickname = data.value.nickname
+          state.phone = data.value.phone
+          state.zipcode = data.value.zipcode
+          state.roadName = data.value.roadName
+          state.detailAddress = data.value.detailAddress
+        }
+      })
+    }
+
     const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
-    // 주소창 열기
-    const address_search = async () => {
-      postOpen.value = !postOpen.value;
-    };
-
-    // 주소 API
-    const oncomplete = (data) => {
-      var addr = ""; // 주소 변수
-      var extraAddr = ""; // 참고항목 변수
-
-      if (data.userSelectedType === "R") {
-        // 사용자가 도로명 주소를 선택했을 경우
-        addr = data.roadAddress;
-      } else {
-        // 사용자가 지번 주소를 선택했을 경우(J)
-        addr = data.jibunAddress;
-      }
-
-      if (data.userSelectedType === "R") {
-        if (data.bname !== "") {
-          extraAddr += data.bname;
-        }
-        if (data.buildingName !== "" && data.apartment === "Y") {
-          extraAddr +=
-            extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
-        }
-        if (extraAddr !== "") {
-          extraAddr = " (" + extraAddr + ")";
-        }
-        roadName.value.value = addr + " " + extraAddr;
-      } else {
-        roadName.value.value = addr;
-      }
-
-      zipcode.value.value = data.zonecode;
-      detailAddress.value.focus();
-
-      state.zipcode = data.zonecode;
-      state.roadName = addr;
-
-      postOpen.value = false;
-    };
-
-    // 유효성 검사
     const changeHandler = async () => {
-      if (state.name === "") {
-        alert("이름을 입력해 주세요");
-        name.value.focus();
+      if (state.nickname === "") {
+        alert("닉네임을 입력해 주세요");
+        nickname.value.focus();
         return;
-      } else if (state.phoneNum === "") {
+      } else if (state.phone === "") {
         alert("전화번호를 입력해 주세요");
-        phoneNum.value.focus();
+        phone.value.focus();
         return;
-      } else if( !phone_pattern.test(state.phone)){
+      } else if(!phone_pattern.test(state.phone)){
         alert("전화번호 형식에 맞춰주세요");
-        email.value.focus();
+        phone.value.focus();
         return false;
       }
+
+      const url = "/api/v1/members/me";
+      const headers = {
+        "Content-Type": "application/json;",
+        Authorization: state.token,
+      };
+      const body = {
+        nickname: state.nickname,
+        phone: state.phone,
+        zipcode: state.zipcode,
+        roadName: state.roadName,
+        detailAddress: state.detailAddress
+      };
+      console.log(body);
+      await axios.patch(url, body, { headers }).then((res)=>{
+        if(res.status==204){
+          alert("회원정보가 수정 되었습니다.")
+        }
+      })
     };
 
-    //비밀번호 변경
     const changePasswordHandler = async () => {
 
       if (state.rawPassword === "") {
@@ -306,10 +301,40 @@ export default {
       };
       console.log(body);
       await axios.patch(url, body, { headers }).then((res)=>{
-        if(res.status==200){
+        if(res.status==204){
           alert("비밀번호가 변경 되었습니다.")
         }
       })
+    };
+
+    const address_search = async () => {
+      postOpen.value = !postOpen.value;
+    };
+
+    const oncomplete = (data) => {
+      var addr = ""; 
+      var extraAddr = ""; 
+
+      if (data.userSelectedType === "R") {addr = data.roadAddress;} 
+      else {addr = data.jibunAddress;}
+
+      if (data.userSelectedType === "R") {
+        if (data.bname !== "") {extraAddr += data.bname;}
+        if (data.buildingName !== "" && data.apartment === "Y") {
+          extraAddr +=
+            extraAddr !== "" ? ", " + data.buildingName : data.buildingName;}
+        if (extraAddr !== "") {
+          extraAddr = " (" + extraAddr + ")";}
+        roadName.value.value = addr + " " + extraAddr;
+      } else {roadName.value.value = addr;}
+
+      zipcode.value.value = data.zonecode;
+      detailAddress.value.focus();
+
+      state.zipcode = data.zonecode;
+      state.roadName = addr;
+
+      postOpen.value = false;
     };
 
     return {
@@ -318,8 +343,8 @@ export default {
       rawPassword,
       changePassword,
       passwordCheck,
-      name,
-      phoneNum,
+      nickname,
+      phone,
       zipcode,
       roadName,
       detailAddress,
@@ -328,6 +353,8 @@ export default {
       postOpen,
       changeHandler,
       changePasswordHandler,
+      getData,
+      data
     };
   },
 };
