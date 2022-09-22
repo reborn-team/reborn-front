@@ -81,7 +81,7 @@
         <button
           type="button"
           class="btn btn-warning btn-sm"
-          @click="createHandler"
+          @click="modifyHandler"
         >
           수정하기
         </button>
@@ -107,6 +107,7 @@ import router from "@/router/router";
 import "../css/views/WorkoutCreate.css";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
+import { useRoute } from 'vue-router';
 export default {
   name: "WorkoutDetail",
   setup() {
@@ -117,18 +118,16 @@ export default {
       viewURL: "",
       token: sessionStorage.getItem("TOKEN"),
     });
+    const route = useRoute();
+    const WorkoutID = ref(route.params.workoutID);
     const workoutCategory = ref("");
     const workoutName = ref("");
     const content = ref("");
     let files = ref([]);
     let imageName;
 
-    const createHandler = async () => {
-      if (state.workoutCategory === "") {
-        alert("카테고리를 선택해 주세요");
-        workoutCategory.value.focus();
-        return false;
-      } else if (state.workoutName === "") {
+    const modifyHandler = async () => {
+        if (state.workoutName === "") {
         alert("운동 이름을 입력해주세요");
         workoutName.value.focus();
         return;
@@ -138,22 +137,22 @@ export default {
         return false;
       }
 
-      const url = "/api/v1/workout";
+      const url = `/api/v1/workout/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json;",
         Authorization: state.token,
       };
       const body = {
-        workoutCategory: state.workoutCategory,
         workoutName: state.workoutName,
         content: state.content,
         files: files.value,
       };
       await axios
-        .post(url, body, { headers })
+        .patch(url, body, { headers })
         .then(function (res) {
-          if (res.status === 201) {
-            alert("운동이 등록 되었습니다.");
+          if (res.status === 204) {
+            console.log(res.data)
+            alert("운동이 수정 되었습니다.");
             router.push("/workout/" + res.data);
           }
         })
@@ -214,12 +213,13 @@ export default {
 
     return {
       linkList,
-      createHandler,
+      modifyHandler,
       selectFile,
       deleteImage,
       viewUrl,
       state,
       files,
+      WorkoutID,
       workoutCategory,
       workoutName,
       content,
