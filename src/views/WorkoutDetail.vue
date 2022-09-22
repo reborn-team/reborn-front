@@ -56,7 +56,7 @@
       추가하기
     </button>
     <div class="authorBtn" v-if="Workout.author==true">
-      <button type="button" class="btn btn-warning btn-sm">
+      <button type="button" class="btn btn-warning btn-sm" @click="linkEdit">
         수정
       </button>
       <button type="button" class="btn btn-secondary btn-sm" @click="linkDeleteWorkout" >
@@ -145,22 +145,27 @@ export default {
       });
     };
 
+    const linkEdit = () =>{
+      router.push(`/workout/${WorkoutID.value}/edit`);
+    }
+
     const linkList = () => {
       router.push(`/workout?category=${route.query.category}`);
       console.log(Workout.value.workoutCategory);
     };
 
     return {
+      message: "운동 정보",
+      state,
       Workout,
       WorkoutID,
-      linkList,
-      viewUrl,
-      linkMyworkout,
-      linkDeleteWorkout,
       getWorkoutHandler,
       convertCategoryValue,
-      state,
-      message: "운동 정보",
+      viewUrl,
+      linkList,
+      linkEdit,
+      linkMyworkout,
+      linkDeleteWorkout,
     };
   },
 };

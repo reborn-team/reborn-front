@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import MapAPI from "@/components/MapAPI.vue";
-import api from "../service/api";
 import "../css/views/Nearby.css";
-import MarkerHandler from "../components/marker-handler";
-import KakaoOverlay from "../components/overlay";
+import api from "../service/api";
+import MapAPI from "@/components/KakaoMap/MapAPI.vue";
+import MarkerHandler from "../components/KakaoMap/marker-handler";
+import KakaoOverlay from "../components/KakaoMap/index";
 
 export default {
   name: "TheNearby",

@@ -9,7 +9,7 @@ import Workout from "@/views/Workout.vue";
 import WorkoutMyworkout from "@/views/WorkoutMyworkout";
 import WorkoutDetail from "@/views/WorkoutDetail.vue";
 import WorkoutCreate from "@/views/WorkoutCreate.vue";
-import WorkoutModify from "@/views/WorkoutModify.vue";
+import WorkoutEdit from "@/views/WorkoutEdit.vue";
 
 import Board from "@/views/Board.vue";
 import BoardWrite from "@/views/BoardWrite.vue";
@@ -30,7 +30,7 @@ const routes = [
   {path: "/workout/myworkout", name: "WorkoutMyworkout", component: WorkoutMyworkout},
   {path: "/workout/:workoutID", name: "workoutDetail", component: WorkoutDetail},
   {path: "/workout/create", name: "workoutCreate", component: WorkoutCreate},
-  {path: "/workout/modify", name: "workoutModify", component: WorkoutModify},
+  {path: "/workout/:workoutID/edit", name: "workoutEdit", component: WorkoutEdit},
 
   {path: "/program", name: "program", component: Program},
 
