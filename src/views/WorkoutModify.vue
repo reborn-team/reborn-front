@@ -27,6 +27,7 @@
             aria-label="Default select example"
             ref="modifyCategory"
             v-model="state.modifyCategory"
+            disabled
           >
             <option selected disabled>부위</option>
             <option value="BACK">등</option>

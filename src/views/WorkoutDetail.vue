@@ -114,7 +114,7 @@ export default {
           return "등";
         case "CHEST":
           return "가슴";
-        case "LOWER-BODY":
+        case "LOWER_BODY":
           return "하체";
         case "CORE":
           return "코어";
@@ -127,7 +127,11 @@ export default {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
-      await axios.delete(url, {}, { headers }).then(() => {
+      await axios.delete(url, { headers }).then((res) => {
+        if(res.status == 204){
+          alert("목록이 삭제되었습니다.")
+          router.push(`/workout`)
+        }
       });
     }
 
