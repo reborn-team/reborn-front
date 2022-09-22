@@ -1,24 +1,40 @@
 <template>
   <div id="boardContent">
     <div id="article">
-      <div class="article-subject">
-        <h2>제목 :</h2>
-        <div class="subject"></div>
+      <h4 class="board-title">제목</h4>
+      <div class="board-info">
+        <div>작성자</div>
+        <span>날짜 | 조회수 | 댓글수 </span>
       </div>
-      <div class="container"></div>
-      <div id="contentBtn">
-        <button type="button" class="btn btn-warning">수정</button>
-        <button type="button" class="btn btn-secondary">삭제</button>
+      <hr />
+      <div class="content2">
+        <img src="#" alt="boardsPic" class="boardsPic" />
+      </div>
+      <div class="content1">
+        <div class="textareas">내용</div>
       </div>
     </div>
-    <div id="enterReply">
-      <input type="text" class="form-control" placeholder="댓글을 입력하세요" />
-      <button type="button" class="btn btn-danger enter">등록</button>
-      <button type="button" class="btn btn-danger like">
-        <img src="../assets/img/talk.png" alt="" />
-      </button>
+
+    <div class="btns">
+        <button class="btn" onclick="location.href=`/board/`">
+            목록
+        </button>
+        <div class="edit-btns">
+            <button class="btn" >수정</button>
+            <button class="btn" >삭제</button>
+        </div>
     </div>
-    <hr />
+
+    <div class="input-container">
+      <textarea
+        class="form-control reply-input"
+        style="height: 100px; width: 900px"
+      ></textarea>
+      <button class="btn">등록</button>
+    </div>
+
+    
+
     <Reply />
   </div>
 </template>

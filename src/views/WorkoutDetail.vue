@@ -59,7 +59,7 @@
       <button type="button" class="btn btn-warning btn-sm">
         수정
       </button>
-      <button type="button" class="btn btn-secondary btn-sm" >
+      <button type="button" class="btn btn-secondary btn-sm" @click="linkDeleteWorkout" >
         삭제
       </button>
     </div>
@@ -86,7 +86,9 @@ export default {
     const WorkoutID = ref(route.params.workoutID);
     const Workout = ref("");
     const viewUrl = (i) => {
-      return "/api/v1/file/images?filename=" + i;
+      if(i != undefined){
+        return "/api/v1/file/images?filename=" + i;
+      }
     };
 
     async function getWorkoutHandler() {
@@ -98,7 +100,6 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           Workout.value = res.data;
-          console.log(Workout.value)
         }
       });
     }
@@ -120,14 +121,23 @@ export default {
       }
     };
 
+    const linkDeleteWorkout = async() => {
+      const url = `/api/v1/workout/${WorkoutID.value}`
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: Token.value,
+      };
+      await axios.delete(url, {}, { headers }).then(() => {
+      });
+    }
+
     const linkMyworkout = async () => {
       const url = `/api/v1/my-workout/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
-      await axios.post(url, {}, { headers }).then((res) => {
-        console.log(res.data);
+      await axios.post(url, {}, { headers }).then(() => {
       });
     };
 
@@ -142,6 +152,7 @@ export default {
       linkList,
       viewUrl,
       linkMyworkout,
+      linkDeleteWorkout,
       getWorkoutHandler,
       convertCategoryValue,
       state,

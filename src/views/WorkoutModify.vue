@@ -79,10 +79,10 @@
       <div id="insertBtn">
         <button
           type="button"
-          class="btn btn-danger btn-sm"
+          class="btn btn-warning btn-sm"
           @click="createHandler"
         >
-          등록하기
+          수정하기
         </button>
         <button type="button" class="btn btn-danger btn-sm" @click="linkList">
           취소하기
@@ -222,7 +222,7 @@ export default {
       workoutCategory,
       workoutName,
       content,
-      message: "운동 생성",
+      message: "수정하기",
     };
   },
 };
