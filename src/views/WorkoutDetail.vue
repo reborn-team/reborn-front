@@ -85,6 +85,7 @@ export default {
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const WorkoutID = ref(route.params.workoutID);
     const Workout = ref("");
+
     const viewUrl = (i) => {
       if(i != undefined){
         return "/api/v1/file/images?filename=" + i;
@@ -100,6 +101,8 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           Workout.value = res.data;
+          console.log(Workout.value)
+          console.log(Workout.uploadFileName)
         }
       });
     }

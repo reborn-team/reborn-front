@@ -68,7 +68,13 @@
     <div id="insert">
       <div id="fileUpload">
         <div class="form-group centerz">
-          <input type="file" @change="selectFile" class="form-control" id="imgName" accept="image/*"/>
+          <input
+            type="file"
+            @change="selectFile"
+            class="form-control"
+            id="imgName"
+            accept="image/*"
+          />
         </div>
       </div>
       <div id="insertBtn">
@@ -118,8 +124,7 @@ export default {
     let imageName;
 
     const createHandler = async () => {
-
-      if(state.workoutCategory === "") {
+      if (state.workoutCategory === "") {
         alert("카테고리를 선택해 주세요");
         workoutCategory.value.focus();
         return false;
@@ -132,7 +137,6 @@ export default {
         content.value.focus();
         return false;
       }
-
 
       const url = "/api/v1/workout";
       const headers = {
@@ -171,7 +175,7 @@ export default {
           if (res.status == 200) {
             files.value = res.data;
             imageName = files.value[0].uploadFileName;
-            console.log(imageName)
+            console.log(imageName);
           }
         })
         .catch(() => {
@@ -182,13 +186,14 @@ export default {
     const deleteImage = () => {
       const headers = { "Content-Type": "application/json;" };
 
-      axios.delete("/api/v1/file?filename=" + imageName, { headers }).then((res) => {
-          console.log(imageName)
+      axios
+        .delete("/api/v1/file?filename=" + imageName, { headers })
+        .then((res) => {
           if (res.status == 200) {
             if (res.data) {
-              files.value=""
+              files.value = "";
               imageName = undefined;
-              document.getElementById("imgName").value=""
+              document.getElementById("imgName").value = "";
             }
           }
         })

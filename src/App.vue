@@ -66,9 +66,17 @@
             </ul>
           </li>
 
-          <a class="navbar-brand" href="/login" style="padding: 0; margin: 0">
+          <a class="navbar-brand" href="/login" style="padding: 0; margin: 0" v-if="state.token">
             <img
               src="./assets/img/header/login.svg"
+              alt=""
+              width="30"
+              height="25"
+            />
+          </a>
+          <a class="navbar-brand" href="/login" style="padding: 0; margin: 0" v-if="!state.token">
+            <img
+              src="./assets/img/header/logout.svg"
               alt=""
               width="30"
               height="25"
@@ -85,10 +93,21 @@
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity';
 import "./css/views/App.css";
 
 export default {
   name: "App",
   components: {},
+  setup(){
+    const state = reactive({
+      title: "",
+      content: "",
+      token: sessionStorage.getItem("TOKEN"),
+    })
+
+    return { state }
+  }
+
 };
 </script>
