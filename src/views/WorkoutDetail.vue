@@ -103,7 +103,6 @@ export default {
           Workout.value = res.data;
           console.log(res.data)
           console.log(Workout.value)
-          console.log(Workout.value.files[0].uploadFileName)
         }
       });
     }

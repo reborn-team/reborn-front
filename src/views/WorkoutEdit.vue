@@ -14,12 +14,10 @@
       </div>
       <div>
         <img
-          :src="viewUrl(Workout.uploadFileName)"
-          class="card-img-top"
-          alt="No image"
-          v-if="Workout.files == 0"
-          onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
-        />
+        src="https://place-hold.it/300x300/666/fff/000.gif"
+        alt="Error"
+        v-if="Workout.files==0"
+      />
       </div>
       <div id="editWrap">
         <div id="editCategory">

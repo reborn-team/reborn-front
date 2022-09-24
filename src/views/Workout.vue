@@ -24,6 +24,7 @@ import router from "@/router/router";
 import { ref } from "@vue/runtime-core";
 import axios from "axios";
 import { useRoute } from 'vue-router';
+
 export default {
   name: "TheWorkout",
   components: { WorkoutCard },
@@ -57,7 +58,7 @@ export default {
       }
     }
     changeCategory(ROUTE.query.category || "");
-    // changeCategory();
+    // changeCategory("");
 
     const addCard = () => {
       const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;

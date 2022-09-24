@@ -1,19 +1,18 @@
 <template>
   <div class="row row-cols-3">
     <div class="col" v-for="(i, idx) in page" :key="{ i, idx }">
-        <div id="card" @click="link(i.workoutId)">
-          <img
-            :src="viewUrl(i.uploadFileName)"
-            class="card-img-top"
-            alt="Workout Image"
-            v-if="i.uploadFileName != 'empty'"
-            onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
-          />
-          <img src="../assets/img/noImage.gif" alt="No Image" v-else />
-          <div class="card-body">
-            <h5 class="card-title">{{ i.workoutName }}</h5>
-            <!-- <h5 class="card-title">{{ i.workoutId }}</h5> -->
-          </div>
+      <div id="card" @click="link(i.workoutId)">
+        <img
+          :src="viewUrl(i.uploadFileName)"
+          class="card-img-top"
+          alt="Workout Image"
+          v-if="i.uploadFileName != 'empty'"
+          onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
+        />
+        <img src="../assets/img/noImage.gif" alt="No Image" v-else />
+        <div class="card-body">
+          <h5 class="card-title">{{ i.workoutName }}</h5>
+        </div>
       </div>
     </div>
   </div>
@@ -28,8 +27,8 @@ export default {
   props: ["page", "category"],
   setup(props) {
     const link = (i) => {
+      console.log(props.category);
       router.push(`/workout/${i}?category=${props.category}`);
-
     };
     const viewUrl = (i) => {
       return "/api/v1/file/images?filename=" + i;
