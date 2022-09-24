@@ -3,7 +3,7 @@
     <h1 class="title">{{ message }}</h1>
     <div id="edit">
       <div>
-        <div v-for="i in files" :key="i">
+        <div v-for="i in Workout.files" :key="i">
           <img
             id="uploadImg"
             :src="viewUrl(i.uploadFileName)"
@@ -17,7 +17,7 @@
           :src="viewUrl(Workout.uploadFileName)"
           class="card-img-top"
           alt="No image"
-          v-if="files.length == 0"
+          v-if="Workout.files == 0"
           onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
         />
       </div>
@@ -186,6 +186,7 @@ export default {
           state.editName = Workout.value.workoutName;
           state.editContent = Workout.value.content;
           state.uploadFileName = Workout.value.uploadFileName;
+          console.log(Workout.value)
         }
       });
     }

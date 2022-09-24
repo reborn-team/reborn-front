@@ -2,19 +2,19 @@
   <div id="workoutDetail">
     <h1 class="title">{{ message }}</h1>
     <div id="detail">
-      <div>
+      <div v-for="i in Workout.files" :key="i">
         <img
-          :src="viewUrl(Workout.uploadFileName)"
+          :src="viewUrl(i.uploadFileName)"
           class="card-img-top"
           alt="No image"
-          v-if="Workout.uploadFileName != 'empty'"
+          v-if="Workout.files != 0"
           onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
         />
       </div>
       <img
         src="https://place-hold.it/300x300/666/fff/000.gif"
         alt="Error"
-        v-if="Workout.uploadFileName == 'empty'"
+        v-if="Workout.files==0"
       />
       <div id="detailWrap">
         <div id="workoutCategory">
@@ -101,8 +101,9 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           Workout.value = res.data;
+          console.log(res.data)
           console.log(Workout.value)
-          console.log(Workout.uploadFileName)
+          console.log(Workout.value.files[0].uploadFileName)
         }
       });
     }
