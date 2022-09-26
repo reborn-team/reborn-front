@@ -1,26 +1,22 @@
 {
   "back": [
-    { "name": "렛풀다운", "img": "NoImage", "total": "0", "date":"" },
-    { "name": "풀업", "img": "NoImage", "total": "0" },
-    { "name": "인버티드로우", "img": "NoImage", "total": "0" },
-    { "name": "바벨로우", "img": "NoImage", "total": "0" }
+    { "name": "렛풀다운", "img": "NoImage", "total": "0", "date": "09/23" },
+    { "name": "풀업", "img": "NoImage", "total": "0", "date": "09/25" },
+    { "name": "바벨로우", "img": "NoImage", "total": "0", "date": "09/26" }
   ],
   "chest": [
-    { "name": "렛풀다운", "img": "NoImage", "total": "0" },
-    { "name": "풀업", "img": "NoImage", "total": "0" },
-    { "name": "인버티드로우", "img": "NoImage", "total": "0" },
-    { "name": "바벨로우", "img": "NoImage", "total": "0" }
+    { "name": "벤치프레스", "img": "NoImage", "total": "0", "date": "09/23" },
+    { "name": "푸시업", "img": "NoImage", "total": "0", "date": "09/25" },
+    { "name": "딥스", "img": "NoImage", "total": "0", "date": "09/26" }
   ],
   "lower-body": [
-    { "name": "렛풀다운", "img": "NoImage", "total": "0" },
-    { "name": "풀업", "img": "NoImage", "total": "0" },
-    { "name": "인버티드로우", "img": "NoImage", "total": "0" },
-    { "name": "바벨로우", "img": "NoImage", "total": "0" }
+    { "name": "스쿼트", "img": "NoImage", "total": "0", "date": "09/23" },
+    { "name": "데드리프트", "img": "NoImage", "total": "0", "date": "09/25" },
+    { "name": "런지", "img": "NoImage", "total": "0", "date": "09/26" }
   ],
   "core": [
-    { "name": "렛풀다운", "img": "NoImage", "total": "0" },
-    { "name": "풀업", "img": "NoImage", "total": "0" },
-    { "name": "인버티드로우", "img": "NoImage", "total": "0" },
-    { "name": "바벨로우", "img": "NoImage", "total": "0" }
+    { "name": "싯업", "img": "NoImage", "total": "0", "date": "09/23" },
+    { "name": "행잉레그레이즈", "img": "NoImage", "total": "0", "date": "09/25" },
+    { "name": "토투바", "img": "NoImage", "total": "0", "date": "09/26" }
   ]
 }

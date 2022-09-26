@@ -54,6 +54,9 @@ export default {
           if (res.status === 200) {
             if (res.data.hasNext){
               res.data.page.pop()   
+              res.data.page.pop()   
+              res.data.page.pop()   
+              res.data.page.pop()
             }
             page.value = res.data.page;
             id.value = res.data.page[res.data.page.length - 1].workoutId;
