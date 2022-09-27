@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="boardContent">
     <div id="article">
       <h4 class="board-title">제목</h4>

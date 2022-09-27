@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="workout">
     <h1 class="title">{{ message }}</h1>
     <div id="workoutListNav">
@@ -36,7 +36,6 @@ export default {
     const hasNext = ref(true);
 
     const changeCategory = async (i) => {
-      console.log(category.value !== i)
       if(category.value !== i) {
         category.value = i || "";
         id.value = "";

@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="table">
     <table>
       <colgroup>

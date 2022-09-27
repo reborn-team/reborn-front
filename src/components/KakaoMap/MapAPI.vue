@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div ref="map" class="k-map" style="width: 100%; height: 500px"></div>
   <slot name="overlay"></slot>
 </template>

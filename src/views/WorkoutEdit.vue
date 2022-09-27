@@ -1,23 +1,29 @@
-<template>
+<template lang="ko">
   <div id="workoutEdit">
     <h1 class="title">{{ message }}</h1>
     <div id="edit">
-      <div>
-        <div v-for="i in Workout.files" :key="i">
-          <img
-            id="uploadImg"
-            :src="viewUrl(i.uploadFileName)"
-            class="card-img-top"
-            alt="No Image"
-          />
-        </div>
-      </div>
-      <div>
+      <div v-for="i in Workout.files" :key="i">
         <img
-        src="https://place-hold.it/300x300/666/fff/000.gif"
+          id="uploadImg"
+          :src="viewUrl(i.uploadFileName)"
+          class="card-img-top"
+          alt="No Image"
+          v-if="files.length==0"
+          onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
+        />
+      </div>
+      <img
+        src="../assets/img/noImage.gif"
         alt="Error"
-        v-if="Workout.files==0"
+        v-if="Workout.files==0 && files.length==0"
       />
+      <div v-for="i in files" :key="i">
+        <img
+          id="uploadImg"
+          :src="viewUrl(i.uploadFileName)"
+          class="card-img-top"
+          alt="No Image"
+        />
       </div>
       <div id="editWrap">
         <div id="editCategory">
@@ -36,7 +42,7 @@
             <option selected disabled>부위</option>
             <option value="BACK">등</option>
             <option value="CHEST">가슴</option>
-            <option value="LOWER-BODY">하체</option>
+            <option value="LOWER_BODY">하체</option>
             <option value="CORE">코어</option>
           </select>
         </div>
@@ -77,8 +83,10 @@
           <label for="editImgName">업로드</label>
           <input type="file" id="editImgName" @change="selectFile" />
         </div>
-        <div v-if="files.length == 0">{{ Workout.originFileName }}</div>
+      <div class="name">
+        <div v-if="files.length==0">{{ originFile }}</div>
         <div v-for="i in files" :key="i">{{ i.originFileName }}</div>
+      </div>
       </div>
       <div id="editInsertBtn">
         <button
@@ -130,6 +138,7 @@ export default {
     const editContent = ref("");
     let files = ref([]);
     let imageName = ref("");
+    let originFile = ref("");
 
     const modifyHandler = async () => {
       if (state.editName === "") {
@@ -155,9 +164,9 @@ export default {
       await axios
         .patch(url, body, { headers })
         .then(function (res) {
-          console.log(files)
+          console.log(files);
           if (res.status === 204) {
-            console.log(res.data);
+            // console.log(res.data);
             alert("운동이 수정 되었습니다.");
             router.push("/workout/" + res.data);
           }
@@ -184,7 +193,8 @@ export default {
           state.editName = Workout.value.workoutName;
           state.editContent = Workout.value.content;
           state.uploadFileName = Workout.value.uploadFileName;
-          console.log(Workout.value)
+          console.log(Workout.value.files[0].originFileName);
+          originFile.value = Workout.value.files[0].originFileName;
         }
       });
     }
@@ -248,6 +258,7 @@ export default {
       Workout,
       WorkoutID,
       editCategory,
+      originFile,
       editName,
       editContent,
       message: "수정하기",

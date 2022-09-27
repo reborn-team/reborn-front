@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="join">
     <h1 class="title">{{ message }}</h1>
     <hr />

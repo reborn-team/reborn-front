@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="boardWrite">
     <h1 class="title">{{ message }}</h1>
     <div id="subject">
@@ -46,6 +46,8 @@ export default {
     const state = reactive({
       title: "",
       content: "",
+      originFileName: "",
+      uploadFileName: "",
       token: sessionStorage.getItem("TOKEN"),
     })
     const title = ref("");
@@ -63,8 +65,8 @@ export default {
       const body = {
         title: state.title,
         content: state.content,
-        originFileName: originFileName,
-        uploadFileName: uploadFileName,
+        originFileName: state.originFileName,
+        uploadFileName: state.uploadFileName,
       };
       await axios.post(url, body, {headers}).then((res)=>{
         console.log(originFileName)

@@ -14,7 +14,7 @@
       <img
         src="../assets/img/noImage.gif"
         alt="Error"
-        v-if="Workout.files==0"
+        v-if="Workout.files == 0"
       />
       <div id="detailWrap">
         <div id="workoutCategory">
@@ -53,17 +53,9 @@
       목록으로
     </button>
     <button type="button" class="btn btn-danger btn-sm" @click="linkMyworkout">
-      추가하기
+      삭제하기
     </button>
-    <div class="authorBtn" v-if="Workout.author==true">
-      <button type="button" class="btn btn-warning btn-sm" @click="linkEdit">
-        수정
-      </button>
-      <button type="button" class="btn btn-secondary btn-sm" @click="linkDeleteWorkout" >
-        삭제
-      </button>
-    </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -87,7 +79,7 @@ export default {
     const Workout = ref("");
 
     const viewUrl = (i) => {
-      if(i != undefined){
+      if (i != undefined) {
         return "/api/v1/file/images?filename=" + i;
       }
     };
@@ -101,8 +93,8 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           Workout.value = res.data;
-          console.log(res.data)
-          console.log(Workout.value)
+          console.log(res.data);
+          console.log(Workout.value);
         }
       });
     }
@@ -124,41 +116,22 @@ export default {
       }
     };
 
-    const linkDeleteWorkout = async() => {
-      const url = `/api/v1/workout/${WorkoutID.value}`
+    const linkDeleteWorkout = async () => {
+      const url = `/api/v1/workout/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
       await axios.delete(url, { headers }).then((res) => {
-        if(res.status == 204){
-          alert("목록이 삭제되었습니다.")
-          router.push(`/workout`)
+        if (res.status == 204) {
+          alert("목록이 삭제되었습니다.");
+          router.push(`/workout`);
         }
       });
-    }
-
-    const linkMyworkout = async () => {
-      const url = `/api/v1/my-workout/${WorkoutID.value}`;
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: Token.value,
-      };
-      await axios.post(url, {}, { headers }).then((res) => {
-        if(res.status==201){
-          alert("내 운동 목록에 담겼습니다")
-        }
-      }).catch(()=>{
-         
-      })
     };
 
-    const linkEdit = () =>{
-      router.push(`/workout/${WorkoutID.value}/edit`);
-    }
-
     const linkList = () => {
-      router.push(`/workout?category=${route.query.category}`);
+      router.push(`/workout/myworkout?category=${route.query.category}`);
       console.log(Workout.value.workoutCategory);
     };
 
@@ -171,8 +144,6 @@ export default {
       convertCategoryValue,
       viewUrl,
       linkList,
-      linkEdit,
-      linkMyworkout,
       linkDeleteWorkout,
     };
   },

@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <MyPageNav/>
   <div id="myPageGoal">
     <h1 class="title">{{message}}</h1>

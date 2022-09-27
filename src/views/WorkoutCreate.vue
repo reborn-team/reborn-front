@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="workoutCreate">
     <h1 class="title">{{ message }}</h1>
     <div id="Create">
@@ -67,15 +67,13 @@
     </div>
     <div id="insert">
       <div id="fileUpload">
-        <div class="form-group centerz">
-          <input
-            type="file"
-            @change="selectFile"
-            class="form-control"
-            id="imgName"
-            accept="image/*"
-          />
+        <div class="filebox">
+          <label for="editImgName">업로드</label>
+          <input type="file" id="editImgName" @change="selectFile" />
         </div>
+      <div class="name">
+        <div v-for="i in files" :key="i">{{ i.originFileName }}</div>
+      </div>
       </div>
       <div id="insertBtn">
         <button
@@ -154,7 +152,9 @@ export default {
         .then(function (res) {
           if (res.status === 201) {
             alert("운동이 등록 되었습니다.");
-            router.push("/workout/" + res.data);
+            router.push(
+              `/workout/${res.data}?category=${state.workoutCategory}`
+            );
           }
         })
         .catch(() => {

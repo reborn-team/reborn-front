@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="nearby">
     <h1 class="title">{{ message }}</h1>
     <div class="map-area">

@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="main">
     <div id="banner">
       <video muted autoplay>

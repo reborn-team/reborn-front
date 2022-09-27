@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <MyPageNav />
   <div id="myPageList">
     <List />

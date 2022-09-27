@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="barChart">
     <apexchart
       width="700"

@@ -3,13 +3,14 @@ import Main from "@/views/Main.vue";
 import Login from "@/views/Login.vue";
 import Join from "@/views/Join.vue";
 
-import Program from "@/views/Program.vue";
-
 import Workout from "@/views/Workout.vue";
-import WorkoutMyworkout from "@/views/WorkoutMyworkout";
 import WorkoutDetail from "@/views/WorkoutDetail.vue";
 import WorkoutCreate from "@/views/WorkoutCreate.vue";
 import WorkoutEdit from "@/views/WorkoutEdit.vue";
+
+import WorkoutMyworkout from "@/views/WorkoutMyworkout";
+import WorkoutMyworkoutDetail from "@/views/WorkoutMyworkoutDetail";
+import Program from "@/views/Program.vue";
 
 import Board from "@/views/Board.vue";
 import BoardWrite from "@/views/BoardWrite.vue";
@@ -27,11 +28,12 @@ const routes = [
   {path: "/join", name: "join", component: Join},
 
   {path: "/workout", name: "Workout", component: Workout},
-  {path: "/workout/myworkout", name: "WorkoutMyworkout", component: WorkoutMyworkout},
-  {path: "/workout/:workoutID", name: "workoutDetail", component: WorkoutDetail},
   {path: "/workout/create", name: "workoutCreate", component: WorkoutCreate},
+  {path: "/workout/:workoutID", name: "workoutDetail", component: WorkoutDetail},
   {path: "/workout/:workoutID/edit", name: "workoutEdit", component: WorkoutEdit},
-
+  
+  {path: "/workout/myworkout", name: "workoutMyworkout", component: WorkoutMyworkout},
+  {path: "/workout/myworkout/:workoutID", name: "workoutMyworkoutDetail", component: WorkoutMyworkoutDetail},
   {path: "/program", name: "program", component: Program},
 
   {path: "/board", name: "board", component: Board},
