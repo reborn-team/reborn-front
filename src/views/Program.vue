@@ -2,8 +2,8 @@
   <div id="program">
     <h1 class="title">{{ message }}</h1>
     <div id="collector">
-      <select class="form-select one" size="7"  @change="onchangeCategory">
-        <option style="font-weight: bold;"  disabled>부위</option>
+      <select class="form-select one" size="7" v-model="selectCategory" @change="onchangeCategory" >
+        <option style="font-weight: bold;" disabled>부위</option>
         <option value="back">등</option>
         <option value="chest">가슴</option>
         <option value="lower-body">하체</option>
@@ -16,16 +16,16 @@
         v-model="selected"
         @change="onchange"
       >
-        <option style="font-weight: bold;" disabled >세부사항</option>
-        <option :value="i.uploadFileName" v-for="i in workout" :key="i">{{i.workoutName}}</option>
+        <option style="font-weight: bold;" disabled>세부사항</option>
+        <option id="selectName" :value="JSON.stringify(i)" v-for="i in workout" :key="i">{{i.workoutName}}</option>
       </select>
       <div>
-        <img :src="viewUrl(selected)"  alt="No image" v-if="selected!='empty'"/>
         <img
         src="../assets/img/noImage.gif"
         alt="Error"
-        v-else
-      />
+        v-if="selected.uploadFileName == 'empty'"
+        />
+        <img :src="viewUrl(selected.uploadFileName)"  alt="No image" v-else/>
       </div>
     </div>
     <div id="createBtn">
@@ -47,11 +47,14 @@ import axios from "axios";
 export default {
   name: "WorkoutCreate",
   components: { Table },
+  data() {},
   setup() {
     const category = ref();
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const workout = ref("");
     const selected = ref("");
+    const selectCategory = ref("chest");
+    const seletName = ref('')
 
     const onchangeCategory = async (i) => {
       category.value = i.target.value;
@@ -64,20 +67,20 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           workout.value = res.data.list;
-          console.log(workout.value);
         }
       });
     };
 
     const onchange = (res) => {
-      selected.value = res.target.value;
+      selected.value = JSON.parse(res.target.value);
       console.log(selected.value);
+      
     };
 
     const arr = reactive([]);
     const addWorkout = () => {
       arr.push({
-        workout: "asfwseagarsasf",
+        workout: selected.value.workoutName,
         set: 0,
         rep: 0,
         weight: 0,
@@ -104,6 +107,8 @@ export default {
       category,
       workout,
       selected,
+      seletName,
+      selectCategory,
       arr,
       onchangeCategory,
       onchange,
