@@ -32,8 +32,8 @@ const routes = [
   {path: "/workout/:workoutID", name: "workoutDetail", component: WorkoutDetail},
   {path: "/workout/:workoutID/edit", name: "workoutEdit", component: WorkoutEdit},
   
-  {path: "/workout/myworkout", name: "workoutMyworkout", component: WorkoutMyworkout},
-  {path: "/workout/myworkout/:workoutID", name: "workoutMyworkoutDetail", component: WorkoutMyworkoutDetail},
+  {path: "/workout/me", name: "workoutMyworkout", component: WorkoutMyworkout},
+  {path: "/workout/me/:workoutID", name: "workoutMyworkoutDetail", component: WorkoutMyworkoutDetail},
   {path: "/program", name: "program", component: Program},
 
   {path: "/board", name: "board", component: Board},

@@ -1,4 +1,4 @@
-<template lang="ko">
+<template >
   <div id="chart">
     <apexchart
       type="area"

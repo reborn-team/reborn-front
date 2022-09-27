@@ -10,7 +10,7 @@
     </div>
     <hr />
     <div id="MyWorkoutCard">
-      <MyWorkoutCard :page ="page"/>
+      <MyWorkoutCard :page ="page" :category="category"/>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@ import MyWorkoutCard from "@/components/MyworkoutCard.vue";
 import "../css/views/WorkoutMyworkout.css";
 import axios from 'axios';
 import { ref } from '@vue/reactivity';
-// import router from '@/router/router';
+import router from '@/router/router';
 
 export default {
   name: "WorkoutList",
@@ -29,11 +29,11 @@ export default {
     const page = ref([]);
     const id = ref("");
     const Token = ref(sessionStorage.getItem("TOKEN"));
-    let category = "";
+    const category = ref();
 
     const changeCategory = async (i) =>{
-      category = i;
-      const url = `/api/v1/my-workout?id=${id.value}&category=${category}`;
+      category.value = i;
+      const url = `/api/v1/my-workout?id=${id.value}&category=${category.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
@@ -41,11 +41,8 @@ export default {
       await axios.get(url, {headers}).then(res=>{
         if (res.status === 200) {
           page.value = res.data.page
-          console.log(res.data)
-          console.log(page.value)
-          console.log(Token.value)
 
-          // router.replace(`/workout/myworkout?category=${category}`);
+          router.replace(`/workout/me?category=${category.value}`);
         }
       }).catch(()=>{
       })
@@ -54,6 +51,7 @@ export default {
 
     return { 
       page,
+      category,
       changeCategory,
       message:"나의 리스트"
     }

@@ -2,7 +2,7 @@
   <div id="program">
     <h1 class="title">{{ message }}</h1>
     <div id="collector">
-      <select class="form-select one" size="7" v-model="selected" @change="onchangeCategory">
+      <select class="form-select one" size="7"  @change="onchangeCategory">
         <option style="font-weight: bold;"  disabled>부위</option>
         <option value="back">등</option>
         <option value="chest">가슴</option>
@@ -17,14 +17,15 @@
         @change="onchange"
       >
         <option style="font-weight: bold;" disabled >세부사항</option>
-        <option value="렛풀다운" >렛풀다운</option>
-        <option value="풀업">풀업</option>
-        <option value="바벨로우">바벨로우</option>
-        <option value="인버티드로우">인버티드 로우</option>
-          <option value="" v-for="i in back" :key="i">{{i}}</option>
+        <option :value="i.uploadFileName" v-for="i in workout" :key="i">{{i.workoutName}}</option>
       </select>
       <div>
-        <img :src="`${back[selected]}`"  alt="" />
+        <img :src="viewUrl(selected)"  alt="No image" v-if="selected!='empty'"/>
+        <img
+        src="../assets/img/noImage.gif"
+        alt="Error"
+        v-else
+      />
       </div>
     </div>
     <div id="createBtn">
@@ -41,39 +42,42 @@
 import "../css/views/Program.css";
 import Table from "@/components/Table.vue";
 import { reactive, ref } from "@vue/reactivity";
-// import program from '../service/program.json'
+import axios from "axios";
 
 export default {
   name: "WorkoutCreate",
   components: { Table },
   setup() {
     const category = ref();
+    const Token = ref(sessionStorage.getItem("TOKEN"));
+    const workout = ref("");
+    const selected = ref("");
 
-    const selected = ref("렛풀다운");
-    const back = {
-      렛풀다운:
-        "https://images.unsplash.com/photo-1534872724459-3a23213491fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80",
-      풀업: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      바벨로우:
-        "https://images.unsplash.com/photo-1616803689943-5601631c7fec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-      인버티드로우:
-        "https://images.unsplash.com/photo-1603503364272-6e28e046b37a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80",
+    const onchangeCategory = async (i) => {
+      category.value = i.target.value;
+
+      const url = `/api/v1/my-workout/program?category=${category.value}`;
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: Token.value,
+      };
+      await axios.get(url, { headers }).then((res) => {
+        if (res.status === 200) {
+          workout.value = res.data.list;
+          console.log(workout.value);
+        }
+      });
     };
-
-    const onchangeCategory = (res) => {
-      category.value = res.target.value;
-      console.log(category.value)
-    }
 
     const onchange = (res) => {
       selected.value = res.target.value;
-      console.log(selected.value)
+      console.log(selected.value);
     };
 
     const arr = reactive([]);
     const addWorkout = () => {
       arr.push({
-        workout: selected.value,
+        workout: "asfwseagarsasf",
         set: 0,
         rep: 0,
         weight: 0,
@@ -90,17 +94,24 @@ export default {
         arr[idx]["set"] * arr[idx]["rep"] * arr[idx]["weight"];
     };
 
+    const viewUrl = (i) => {
+      if (i != undefined) {
+        return "/api/v1/file/images?filename=" + i;
+      }
+    };
+
     return {
       category,
+      workout,
       selected,
-      back,
       arr,
       onchangeCategory,
       onchange,
       addWorkout,
       minusWorkout,
+      viewUrl,
       changeValue,
-      message:"프로그램"
+      message: "프로그램",
     };
   },
 };

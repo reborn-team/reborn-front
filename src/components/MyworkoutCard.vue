@@ -27,8 +27,7 @@ export default {
   props: ["page", "category"],
   setup(props) {
     const link = (i) => {
-      console.log(props.category);
-      router.push(`/workout/myworkout/${i}?category=${props.category}`);
+      router.push(`/workout/me/${i}?category=${props.category}`);
     };
     const viewUrl = (i) => {
       return "/api/v1/file/images?filename=" + i;

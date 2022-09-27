@@ -23,56 +23,59 @@ import "../css/views/Workout.css";
 import router from "@/router/router";
 import { ref } from "@vue/runtime-core";
 import axios from "axios";
-import { useRoute } from 'vue-router';
+import { useRoute } from "vue-router";
 
 export default {
   name: "TheWorkout",
   components: { WorkoutCard },
   setup() {
-    const ROUTE = useRoute()
+    const ROUTE = useRoute();
     const page = ref([]);
     const id = ref();
     const category = ref();
     const hasNext = ref(true);
 
     const changeCategory = async (i) => {
-      if(category.value !== i) {
+      if (category.value !== i) {
         category.value = i || "";
         id.value = "";
         const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
-  
-        axios.get(url).then((res) => {
-          if (res.status === 200) {
-            if (res.data.hasNext){
-              res.data.page.pop()   
+
+        axios
+          .get(url)
+          .then((res) => {
+            if (res.status === 200) {
+              if (res.data.hasNext) {
+                res.data.page.pop();
+              }
+              page.value = res.data.page;
+              id.value = res.data.page[res.data.page.length - 1].workoutId;
+              hasNext.value = res.data.hasNext;
+
+              router.replace(`/workout?category=${category.value}`);
             }
-            page.value = res.data.page;
-            id.value = res.data.page[res.data.page.length - 1].workoutId;
-            hasNext.value = res.data.hasNext;
-  
-            router.replace(`/workout?category=${category.value}`);
-          }
-          
-        }).catch(() => {});
+          })
+          .catch(() => {});
       }
-    }
+    };
     changeCategory(ROUTE.query.category || "");
-    // changeCategory("");
 
     const addCard = () => {
       const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
       if (hasNext.value) {
-        axios.get(url).then((res) => {
-          if (res.status === 200) {
-            if (res.data.hasNext){
-            res.data.page.pop()   
-          }
-            page.value = page.value.concat(res.data.page);
-            id.value = res.data.page[res.data.page.length-1].workoutId;
-            hasNext.value = res.data.hasNext;
-          }
-        
-        }).catch(() => {});
+        axios
+          .get(url)
+          .then((res) => {
+            if (res.status === 200) {
+              if (res.data.hasNext) {
+                res.data.page.pop();
+              }
+              page.value = page.value.concat(res.data.page);
+              id.value = res.data.page[res.data.page.length - 1].workoutId;
+              hasNext.value = res.data.hasNext;
+            }
+          })
+          .catch(() => {});
       }
     };
 

@@ -30,7 +30,7 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/workout">운동 리스트</a></li>
               <li>
-                <a class="dropdown-item" href="/workout/myworkout">나의 리스트</a>
+                <a class="dropdown-item" href="/workout/me">나의 리스트</a>
               </li>
             </ul>
           </li>
