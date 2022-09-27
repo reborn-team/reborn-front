@@ -23,7 +23,7 @@
             <input
               type="text"
               class="form-control"
-              :value="arr[i - 1].workout"
+              :value="arr[i - 1].workoutName"
               disabled
               />
           </div>
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import '../css/components/Table.css'
+import "../css/components/Table.css";
 
 export default {
   name: "TheTable",

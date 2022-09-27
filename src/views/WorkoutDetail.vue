@@ -52,10 +52,10 @@
     <button type="button" class="btn btn-danger btn-sm" @click="linkList">
       목록으로
     </button>
-    <button type="button" class="btn btn-danger btn-sm" @click="linkMyworkout" v-if="!Workout.isAdd">
+    <button type="button" class="btn btn-primary btn-sm" @click="linkMyworkout" v-if="!Workout.isAdd">
       리스트 추가
     </button>
-    <button type="button" class="btn btn-primary btn-sm" @click="deleteList" v-if="Workout.isAdd">
+    <button type="button" class="btn btn-secondary btn-sm" @click="deleteList" v-if="Workout.isAdd">
       리스트 삭제
     </button>
     <div class="authorBtn" v-if="Workout.author==true">
@@ -66,7 +66,7 @@
         삭제
       </button>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>

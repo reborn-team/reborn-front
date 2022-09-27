@@ -54,7 +54,7 @@ export default {
     const workout = ref("");
     const selected = ref("");
     const selectCategory = ref("chest");
-    const seletName = ref('')
+    const seletName = ref("");
 
     const onchangeCategory = async (i) => {
       category.value = i.target.value;
@@ -74,21 +74,30 @@ export default {
     const onchange = (res) => {
       selected.value = JSON.parse(res.target.value);
       console.log(selected.value);
-      
     };
 
     const arr = reactive([]);
+    let check = {};
     const addWorkout = () => {
+      if (check[selected.value.workoutName]) {
+        return console.log("중복");
+      }
+      check[selected.value.workoutName] = true;
       arr.push({
-        workout: selected.value.workoutName,
+        workoutName: selected.value.workoutName,
         set: 0,
         rep: 0,
         weight: 0,
         total: 0,
+        workoutId: selected.value.myWorkoutId
       });
     };
     const minusWorkout = () => {
-      arr.pop();
+      if (arr.length) {
+        let pop = arr.pop();
+        check[pop.workoutName] = false;
+        console.log(pop)
+      }
     };
     const changeValue = (res, idx, k) => {
       let v = parseInt(res.target.value);
