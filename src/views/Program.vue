@@ -47,7 +47,6 @@ import axios from "axios";
 export default {
   name: "WorkoutCreate",
   components: { Table },
-  data() {},
   setup() {
     const category = ref();
     const Token = ref(sessionStorage.getItem("TOKEN"));
@@ -91,6 +90,7 @@ export default {
         total: 0,
         workoutId: selected.value.myWorkoutId
       });
+      console.log(arr)
     };
     const minusWorkout = () => {
       if (arr.length) {

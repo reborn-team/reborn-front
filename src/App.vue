@@ -2,86 +2,50 @@
   <div id="navbar">
     <nav class="navbar navbar-expand">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-          <img
-            src="./assets/img/header/ReBORN.png"
-            alt=""
-            width="60"
-            height="50"
-            href="../src/views/Main.vue"
-          />
-        </a>
+
+        <button onclick="location.href='/' ">
+          <img src="./assets/img/header/ReBORN.png" alt="" width="60" height="50" href="../src/views/Main.vue" />
+        </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/program/"
-                >프로그램</a
-              >
+              <button onclick="location.href='/program'">프로그램</button>
             </li>
 
             <li class="nav-item dropdown">
-            <a class="nav-link"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >루틴관리</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/workout">운동 리스트</a></li>
-              <li>
-                <a class="dropdown-item" href="/workout/me">나의 리스트</a>
-              </li>
-            </ul>
-          </li>
-
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/board"
-                >운동일지</a>
+              <button class="nav-link"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">루틴관리</button>
+              <ul class="dropdown-menu">
+                <li><button onclick="location.href='/workout'">운동 리스트</button></li>
+                <li><button onclick="location.href='/workout/me'">나의 리스트</button></li>
+              </ul>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/nearby"
-                >주변 헬스장</a>
-            </li>
-          </ul>
+            <li class="nav-item"> <button onclick="location.href='/board'">운동일지</button> </li>
+            <li class="nav-item"> <button onclick="location.href='/nearby'">주변 헬스장</button></li> </ul>
 
           <li class="nav-item dropdown" style="list-style: none; margin: 5px 4px 0 0">
-            <a
+            <button 
               class="nav-link"
-              href="#"
-              role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false">
               <img src="./assets/img/header/person.svg" alt="" width="30" height="25"/>
-            </a>
+            </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/mypage/goal" >달성도</a></li>
-              <li>
-                <a class="dropdown-item" href="/mypage/list">내가 쓴 글</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="/mypage/change">정보 수정</a>
-              </li>
+              <li><button onclick="location.href='/mypage/goal'" >달성도</button></li>
+              <li><button onclick="location.href='/mypage/list'">내가 쓴 글</button></li>
+              <li><button onclick="location.href='/mypage/change'">정보 수정</button></li>
             </ul>
           </li>
 
-          <a class="navbar-brand" href="/login" style="padding: 0; margin: 0" v-if="state.token">
-            <img
-              src="./assets/img/header/login.svg"
-              alt=""
-              width="30"
-              height="25"
-            />
-          </a>
-          <a class="navbar-brand" href="/login" style="padding: 0; margin: 0" v-if="!state.token">
-            <img
-              src="./assets/img/header/logout.svg"
-              alt=""
-              width="30"
-              height="25"
-            />
-          </a>
+          <button @click="login" v-if="state.token==null">
+            <img src="./assets/img/header/login.svg" alt="" width="30" height="20" />
+          </button>
+          <button @click="logout" v-if="state.token!=null">
+            <img src="./assets/img/header/logout.svg" alt="" width="30" height="20" />
+          </button>
         </div>
       </div>
     </nav>
@@ -95,6 +59,7 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import "./css/views/App.css";
+import router from './router/router';
 
 export default {
   name: "App",
@@ -106,7 +71,20 @@ export default {
       token: sessionStorage.getItem("TOKEN"),
     })
 
-    return { state }
+    const login = () => {
+      router.push("/login")
+    }
+
+    const logout = () =>{
+      sessionStorage.clear()
+      router.go()
+    }
+
+    return { 
+      state,
+      login,
+      logout
+     }
   }
 
 };
