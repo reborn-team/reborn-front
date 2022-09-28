@@ -2,7 +2,7 @@
   <div id="board">
     <div id="boardList">
       <h1 class="title">{{ message }}</h1>
-      <BoardList />
+      <BoardList :article="article" />
       <a href="/board/write">
         <button type="button" class="btn btn-danger recode write">Write</button>
       </a>
@@ -28,6 +28,8 @@
         </li>
         <li class="page-item"><a class="page-link" href="#">1</a></li>
         <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
         <li class="page-item"><a class="page-link" href="#">3</a></li>
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Next">
@@ -40,15 +42,39 @@
 </template>
 
 <script>
+import axios from 'axios';
 import BoardList from "../components/List.vue";
 import "../css/views/Board.css";
+import { onMounted, ref } from '@vue/runtime-core';
 
 export default {
   name: "TheBoard",
   components: { BoardList },
   setup(){
+
+    onMounted(()=>{
+      getBoard();
+    })
+
+    const article = ref();
+    const board = ref();
+
+    const getBoard = async() => {
+      const url = "api/v1/articles"
+
+      axios.get(url).then((res)=>{
+        article.value = res.data.pageList
+        board.value = res.data
+        console.log(board.value)
+        console.log(article.value)
+      })
+    }
+
     return{
       message:"Board",
+      article,
+      board,
+      getBoard
     }
   }
 };

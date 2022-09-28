@@ -23,7 +23,7 @@
         <img
         src="../assets/img/noImage.gif"
         alt="Error"
-        v-if="selected.uploadFileName == 'empty' && selected.uploadFileName == null"
+        v-if="selected.uploadFileName == 'empty'"
         />
         <img :src="viewUrl(selected.uploadFileName)"  alt="No image" v-else/>
       </div>
@@ -87,7 +87,7 @@ export default {
       arr.push({
         workoutName: selected.value.workoutName,
         total: 0,
-        workoutId: selected.value.myWorkoutId
+        myWorkoutId: selected.value.myWorkoutId
       });
       console.log(arr)
     };
