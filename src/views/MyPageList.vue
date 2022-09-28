@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import List from "@/components/List.vue";
+import List from "@/components/Board/List.vue";
 import "../css/views/MyPageList.css";
 import MyPageNav from "@/components/MyPageNav.vue";
 

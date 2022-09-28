@@ -2,7 +2,7 @@
   <div id="board">
     <div id="boardList">
       <h1 class="title">{{ message }}</h1>
-      <BoardList :article="article" />
+      <BoardList :pageList="pageList" />
       <a href="/board/write">
         <button type="button" class="btn btn-danger recode write">Write</button>
       </a>
@@ -17,62 +17,74 @@
       <input class="form-control" type="text" />
       <button type="button" class="btn btn-danger recode search">Search</button>
     </div>
+    
+    <Pagination
+      :page="page"
+      :prev="prev"
+      :next="next"
+      :start="start"
+      :end="end"
+      :pageNumberList="pageNumberList"
+      :totalPage="totalPage"
+    />
 
-    <!-- 페이지네이션 -->
-    <div id="boardPagi" class="pagination-div">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import BoardList from "../components/List.vue";
+import BoardList from "../components/Board/List.vue";
+import Pagination from '@/components/Board/Pagination.vue';
 import "../css/views/Board.css";
 import { onMounted, ref } from '@vue/runtime-core';
 
 export default {
   name: "TheBoard",
-  components: { BoardList },
+  components: { BoardList, Pagination },
   setup(){
 
     onMounted(()=>{
       getBoard();
     })
 
-    const article = ref();
+    const pageList = ref();
     const board = ref();
+    const page = ref();
+    const prev = ref();
+    const next = ref();
+    const start = ref();
+    const end = ref();
+    const pageNumberList = ref();
+    const totalPage = ref();
 
     const getBoard = async() => {
       const url = "api/v1/articles"
 
       axios.get(url).then((res)=>{
-        article.value = res.data.pageList
-        board.value = res.data
+        pageList.value = res.data.pageList;
+        page.value = res.data.page;
+        prev.value = res.data.prev;
+        next.value = res.data.next;
+        start.value = res.data.start;
+        end.value = res.data.end;
+        pageNumberList.value = res.data.pageNumberList;
+        totalPage.value = res.data.totalPage;
+        board.value = res.data;
         console.log(board.value)
-        console.log(article.value)
+        console.log(pageList.value)
       })
     }
 
     return{
       message:"Board",
-      article,
+      pageList,
+      page,
+      prev,
+      next,
+      start,
+      end,
+      pageNumberList,
+      totalPage,
       board,
       getBoard
     }

@@ -28,7 +28,7 @@
 
 <script>
 import MainCard from "@/components/Card.vue";
-import BoardList from "@/components/List.vue";
+import BoardList from "@/components/Board/List.vue";
 import "../css/views/Main.css";
 // import router from "@/router/router";
 import { ref } from '@vue/reactivity';
