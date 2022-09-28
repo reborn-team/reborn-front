@@ -2,12 +2,14 @@
   <div id="nearby">
     <h1 class="title">{{ message }}</h1>
     <div class="map-area">
-      <button type="button" @click="zoom(1)">
-        <span class="material-symbols-outlined"> zoom_in </span>
-      </button>
-      <button type="button" @click="zoom(-1)">
-        <span class="material-symbols-outlined"> zoom_out </span>
-      </button>
+      <div class="zoom">
+        <button type="button" @click="zoom(-1)">
+          <span class="material-symbols-outlined"> zoom_in </span>
+        </button>
+        <button type="button" @click="zoom(1)">
+          <span class="material-symbols-outlined"> zoom_out </span>
+        </button>
+      </div>
       <MapAPI ref="kmap" class="kmap" :options="mapOptions" />
       <div class="overlay-popup" ref="harborOverlay">
         <div v-if="overlayHarbor">
@@ -31,6 +33,49 @@
         <h4>{{ hbr.place }}</h4>
       </div>
     </div>
+
+    <div class="input-container">
+      <textarea class="form-control reply-input"></textarea>
+      <select class="form-select" aria-label="Default select example">
+        <option selected disabled>별점</option>
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="3">⭐⭐⭐⭐</option>
+        <option value="3">⭐⭐⭐⭐⭐</option>
+      </select>
+      <button class="btn btn-danger btn-sm enterBtn">등록</button>
+    </div>
+
+    <h6 class="reply">평가</h6>
+    <div class="reviewsWrap p-4" v-for="i in 4" :key="i">
+      <div class="reviews-members">
+        <div class="reviews-members-header">
+          <div>
+            <h6 class="mb-0">작성자</h6>
+            <p class="text-gray mb-3">작성시간</p>
+          </div>          
+            <div>⭐⭐⭐⭐⭐</div>
+        </div>
+        <div class="reviews-members-body">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique,
+            enim exercitationem quisquam quas culpa nostrum ea porro minima
+            molestias? Fugit inventore numquam tempore eveniet, minima incidunt
+            laborum nobis harum quibusdam!
+          </p>
+        </div>
+        <div class="review-members-btn">
+          <button class="btn btn-warning btn-sm mBtn">수정</button>
+          <button class="btn btn-secondary btn-sm">삭제</button>
+          <!-- <div style="margin-top: 10px">
+              <input type="text" />
+              <button class="btn">확인</button>
+            </div> -->
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -48,8 +93,8 @@ export default {
     return {
       mapOptions: {
         center: {
-          lat: 35.1605598,
-          lng: 129.0560362,
+          lat: 35.1544453,
+          lng: 129.060646,
         },
         level: 3,
       },
@@ -101,7 +146,7 @@ export default {
   },
   setup() {
     return {
-      message: "주변 헬스장",
+      message: "평가",
     };
   },
 };

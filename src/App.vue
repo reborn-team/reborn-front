@@ -24,7 +24,7 @@
             </li>
 
             <li class="nav-item"> <button onclick="location.href='/board'">운동일지</button> </li>
-            <li class="nav-item"> <button onclick="location.href='/nearby'">주변 헬스장</button></li> </ul>
+            <li class="nav-item"> <button onclick="location.href='/nearby'">헬스장</button></li> </ul>
 
           <li class="nav-item dropdown" style="list-style: none; margin: 5px 4px 0 0">
             <button 

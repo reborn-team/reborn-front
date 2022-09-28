@@ -79,7 +79,6 @@ export default {
     const password = ref("");
 
     const loginHandler = async () => {
-
       if (state.email === "") {
         alert("Check Email");
         email.value.focus();
@@ -93,19 +92,20 @@ export default {
       const url = "/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
       const body = { email: state.email, password: state.password };
-      await axios.post(url, body, { headers }).then(function (res) {
-        console.log(res.data);
+      await axios
+        .post(url, body, { headers })
+        .then(function (res) {
+          console.log(res.data);
 
-        if (res.status == 200) {
-          sessionStorage.setItem("TOKEN", res.headers.authorization);
-          alert("로그인 되었습니다.");
-          router.push("/");
-        } else {
-          alert("로그인 실패")
-        }
-      }).catch(() => {
-        alert("로그인에 실패했습니다")
-      })
+          if (res.status == 200) {
+            sessionStorage.setItem("TOKEN", res.headers.authorization);
+            alert("로그인 되었습니다.");
+            router.push("/");
+          }
+        })
+        .catch(() => {
+          alert("로그인에 실패했습니다");
+        });
     };
 
     return { state, email, password, loginHandler, message: "Login" };

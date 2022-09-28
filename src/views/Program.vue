@@ -23,7 +23,7 @@
         <img
         src="../assets/img/noImage.gif"
         alt="Error"
-        v-if="selected.uploadFileName == 'empty'"
+        v-if="selected.uploadFileName == 'empty' && selected.uploadFileName == null"
         />
         <img :src="viewUrl(selected.uploadFileName)"  alt="No image" v-else/>
       </div>
@@ -34,8 +34,9 @@
     </div>
     <Table :arr="arr" :changeValue="changeValue" />
     <br />
-    <button type="button" class="btn btn-danger recode">Create</button>
+    <button type="button" class="btn btn-danger recode" @click="recode">Create</button>
   </div>
+  
 </template>
 
 <script>
@@ -48,6 +49,7 @@ export default {
   name: "WorkoutCreate",
   components: { Table },
   setup() {
+    
     const category = ref();
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const workout = ref("");
@@ -84,9 +86,6 @@ export default {
       check[selected.value.workoutName] = true;
       arr.push({
         workoutName: selected.value.workoutName,
-        set: 0,
-        rep: 0,
-        weight: 0,
         total: 0,
         workoutId: selected.value.myWorkoutId
       });
@@ -112,6 +111,22 @@ export default {
       }
     };
 
+    const recode = async() =>{
+      const url = "/api/v1/record ";
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: Token.value,
+      };
+      const body = {
+        recordList : arr
+      };
+      console.log(body)
+      await axios.post(url, body, {headers}).then((res)=>{
+        console.log(arr)
+        console.log(res.data)
+      })
+    }
+
     return {
       category,
       workout,
@@ -125,6 +140,7 @@ export default {
       minusWorkout,
       viewUrl,
       changeValue,
+      recode,
       message: "프로그램",
     };
   },

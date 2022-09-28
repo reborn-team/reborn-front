@@ -19,7 +19,7 @@
       <div id="MainCard">
         <MainCard :page ="page" :category="category"/>
       </div>
-        <h3>인기 운동일지</h3>
+        <h3>운동일지</h3>
       <hr />
       <BoardList />
     </div>

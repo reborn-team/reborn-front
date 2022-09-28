@@ -69,7 +69,8 @@ export default {
         uploadFileName: state.uploadFileName,
       };
       await axios.post(url, body, {headers}).then((res)=>{
-        console.log(originFileName)
+        console.log(state.originFileName)
+        console.log(state.uploadFileName)
         console.log(res.data);
       })
 
@@ -88,8 +89,9 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             files.value = res.data;
-            originFileName = files.value[0].originFileName;
-            uploadFileName = files.value[0].uploadFileName;
+            state.originFileName = files.value[0].originFileName;
+            state.uploadFileName = files.value[0].uploadFileName;
+            console.log(originFileName)
             console.log(uploadFileName)
           }
         })

@@ -1,6 +1,16 @@
 <template lang="ko">
   <div id="workout">
     <h1 class="title">{{ message }}</h1>
+
+    <div id="workoutSearch">
+      <select class="form-select">
+        <option value="1">제목</option>
+        <option value="2">작성자</option>
+      </select>
+      <input class="form-control" type="text" />
+      <button type="button" class="btn btn-danger recode search">찾기</button>
+    </div>
+
     <div id="workoutListNav">
       <button class="btn btn-danger" type="button" @click="changeCategory('')">전체</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('back')">등</button>

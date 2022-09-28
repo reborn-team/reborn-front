@@ -109,7 +109,7 @@ export default {
   name: "WorkoutDetail",
   setup() {
     const state = reactive({
-      workoutCategory: "",
+      workoutCategory: "부위",
       workoutName: "",
       content: "",
       viewURL: "",

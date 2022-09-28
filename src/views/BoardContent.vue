@@ -29,9 +29,6 @@
         <button class="btn btn-danger" onclick="location.href=`/board/`">
           목록
         </button>
-        <button class="btn btn-danger likeBtn">
-          <span class="material-symbols-outlined"> thumb_up </span>
-        </button>
       </div>
       <div class="edit-btns">
         <button class="btn btn-danger mdifyBtn">수정</button>
@@ -62,10 +59,7 @@
         <div class="review-members-btn">
           <button class="btn btn-warning btn-sm mBtn">수정</button>
           <button class="btn btn-secondary btn-sm">삭제</button>
-          <!-- <div style="margin-top: 10px">
-              <input type="text" />
-              <button class="btn">확인</button>
-            </div> -->
+      
         </div>
       </div>
     </div>
