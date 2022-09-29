@@ -2,7 +2,7 @@
   <div id="board">
     <div id="boardList">
       <h1 class="title">{{ message }}</h1>
-      <BoardList :pageList="pageList" />
+      <BoardList :pageList="pageList" :page="page" />
       <a href="/board/write">
         <button type="button" class="btn btn-danger recode write">Write</button>
       </a>

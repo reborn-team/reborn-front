@@ -38,7 +38,7 @@ const routes = [
 
   {path: "/board", name: "board", component: Board},
   {path: "/board/write", name: "boardWrite", component: BoardWrite},
-  {path: "/board/content", name: "boardContent", component: BoardContent},
+  {path: "/board/:articleID", name: "boardContent", component: BoardContent},
 
   {path: "/nearby", name: "nearby", component: Nearby},
   

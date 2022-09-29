@@ -11,8 +11,8 @@
         </tr>
       </thead>
       <tbody class="table-group-divider" >
-        <tr v-for="i in pageList" :key="i" @click="link">
-          <th scope="row" >{{i.id}}</th>
+        <tr v-for="i in pageList" :key="i" @click="link(i.id)">
+          <td>{{i.id}}</td>
           <td>{{i.title}}</td>
           <td>{{i.memberNickname}}</td>
           <td>{{i.regDate}}</td>
@@ -25,13 +25,13 @@
 
 <script>
 import router from '@/router/router';
-import "../../css/components/List.css";
+import "../../css/components/Board/List.css";
 export default {
   name: "TheList",
-  props: ["pageList"],
-  setup() {
-    const link = () => {
-      router.push("/board/content")
+  props: ["page","pageList"],
+  setup(props) {
+    const link = (i) => {
+      router.push(`/board/${i}?page=${props.page}`)
     };
 
     return { link };
