@@ -16,12 +16,5 @@
 #boardContent .input-container { display: flex; justify-content: center; background: #e5e5e5; padding: 20px ; }
 #boardContent .reply-input { margin-right: 10px; resize: none }
 
-#boardContent .reply{ display:flex; font-weight: bold; margin: 20px 0;}
-#boardContent .reviewsWrap{ display: flex; width: 100%; border-bottom: 1px solid pink;}
-#boardContent .reviews-members-header{ text-align: left;}
-#boardContent .reviews-members-header h6{ font-size: 14px; font-weight: bold;}
-#boardContent .reviews-members-header .text-gray{ font-size: 10px; color: gray; margin: 0px;}
-#boardContent .reviews-members-body{ text-align: left; font-size: 14px;}
-#boardContent .review-members-btn{ float: left; }
-#boardContent .mBtn{ margin-right: 5px;}
+
 
