@@ -3,12 +3,13 @@
     <h1 class="title">{{ message }}</h1>
 
     <div id="workoutSearch">
-      <select class="form-select">
-        <option value="1">제목</option>
-        <option value="2">작성자</option>
+      <select class="form-select" v-model="condition" @click="onClick">
+        <option value="" disabled>----</option>
+        <option value="title">제목</option>
+        <option value="nickname">작성자</option>
       </select>
-      <input class="form-control" type="text" />
-      <button type="button" class="btn btn-danger recode search">찾기</button>
+      <input class="form-control" type="text" v-model="input"/>
+      <button type="button" class="btn btn-danger recode search" @click="search">찾기</button>
     </div>
 
     <div id="workoutListNav">
@@ -44,6 +45,9 @@ export default {
     const id = ref();
     const category = ref();
     const hasNext = ref(true);
+
+    const condition = ref("");
+    const input = ref("");
 
     const changeCategory = async (i) => {
       if (category.value !== i) {
@@ -89,6 +93,32 @@ export default {
       }
     };
 
+    const onClick = (res) => {
+      condition.value = res.target.value;
+      console.log(condition.value);
+    };
+    
+    const search = () => {
+      const url = `/api/v1/workout?category=${category.value}&${condition.value}=${input.value}`;
+      axios.get(url).then((res) => {
+        if (res.status === 200) {
+          if (res.data.hasNext) {
+            res.data.page.pop();
+          }
+          page.value = res.data.page;
+          hasNext.value = res.data.hasNext;
+          if(res.data.page.length!=0){
+            id.value = res.data.page[res.data.page.length - 1].workoutId;
+          }
+
+          console.log(url)
+          console.log(res.data)
+
+          router.replace(`/workout?category=${category.value}`);
+        }
+      });
+    };
+
     const addWorkoukList = () => {
       router.push("/workout/create");
     };
@@ -97,9 +127,13 @@ export default {
       page,
       category,
       hasNext,
+      condition,
+      input,
       changeCategory,
       addWorkoukList,
       addCard,
+      onClick,
+      search,
       message: "운동 리스트",
     };
   },

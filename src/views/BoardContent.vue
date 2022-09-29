@@ -26,7 +26,7 @@
 
     <div class="btns">
       <div>
-        <button class="btn btn-danger" onclick="location.href=`/board/`">
+        <button class="btn btn-danger" onclick="location.href=`/board?page=1`">
           목록
         </button>
       </div>
@@ -71,6 +71,8 @@ import "../css/views/BoardContent.css";
 
 export default {
   name: "BoardContent",
-  setup() {},
+  setup() {
+    
+  },
 };
 </script>

@@ -26,9 +26,7 @@
         class="btn btn-danger recode"
         @click="registArticle"> 등록하기
       </button>
-      <a href="/board">
-        <button type="button" class="btn btn-danger recode">취소하기</button>
-      </a>
+      <button type="button" class="btn btn-danger recode" onclick="location.href='/board?page=1'">취소하기</button>
     </div>
   </div>
 </template>
@@ -72,9 +70,12 @@ export default {
         console.log(state.originFileName)
         console.log(state.uploadFileName)
         console.log(res.data);
+        if(res.status==201){
+          alert("글이 등록 되었습니다.")
+        }
       })
 
-      router.push("/board");
+      router.push("/board?page=1");
     };
 
     const selectFile = (event) => {

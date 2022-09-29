@@ -10,12 +10,13 @@
 
     <!-- 서치 옵션 -->
     <div id="searchBar">
-      <select class="form-select">
-        <option value="1">제목</option>
-        <option value="2">작성자</option>
+      <select class="form-select" v-model="condition" @click="onClick">
+        <option value="" selected disabled>----</option>
+        <option value="title">제목</option>
+        <option value="nickname">작성자</option>
       </select>
-      <input class="form-control" type="text" />
-      <button type="button" class="btn btn-danger recode search">Search</button>
+      <input class="form-control" type="text" v-model="input" />
+      <button type="button" class="btn btn-danger recode search" @click="search">Search</button>
     </div>
     
     <Pagination
@@ -27,25 +28,25 @@
       :pageNumberList="pageNumberList"
       :totalPage="totalPage"
     />
-
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import BoardList from "../components/Board/List.vue";
-import Pagination from '@/components/Board/Pagination.vue';
+import Pagination from "@/components/Board/Pagination.vue";
 import "../css/views/Board.css";
-import { onMounted, ref } from '@vue/runtime-core';
+import { onMounted, ref } from "@vue/runtime-core";
+import { useRoute } from "vue-router";
+import router from "@/router/router";
 
 export default {
   name: "TheBoard",
   components: { BoardList, Pagination },
-  setup(){
-
-    onMounted(()=>{
+  setup() {
+    onMounted(() => {
       getBoard();
-    })
+    });
 
     const pageList = ref();
     const board = ref();
@@ -57,10 +58,16 @@ export default {
     const pageNumberList = ref();
     const totalPage = ref();
 
-    const getBoard = async() => {
-      const url = "api/v1/articles"
+    const route = useRoute();
+    const currentpage = route.query.page;
+    
+    const condition = ref("");
+    const input = ref("");
 
-      axios.get(url).then((res)=>{
+    const getBoard = async () => {
+      const url = `api/v1/articles?page=${currentpage}`;
+
+      axios.get(url).then((res) => {
         pageList.value = res.data.pageList;
         page.value = res.data.page;
         prev.value = res.data.prev;
@@ -70,13 +77,35 @@ export default {
         pageNumberList.value = res.data.pageNumberList;
         totalPage.value = res.data.totalPage;
         board.value = res.data;
-        console.log(board.value)
-        console.log(pageList.value)
+        console.log(board.value);
+
+        router.replace(`/board?page=${currentpage}`);
+      });
+    };
+
+    const onClick = (res) => {
+      condition.value = res.target.value
+      console.log(condition.value)
+    }
+
+    const search = () => {
+      const url = `api/v1/articles?page=${currentpage}&${condition.value}=${input.value}`;
+      axios.get(url).then((res) => {
+        pageList.value = res.data.pageList;
+        page.value = res.data.page;
+        prev.value = res.data.prev;
+        next.value = res.data.next;
+        start.value = res.data.start;
+        end.value = res.data.end;
+        pageNumberList.value = res.data.pageNumberList;
+        totalPage.value = res.data.totalPage;
+
+        router.replace(`/board?page=${currentpage}&${condition.value}=${input.value}`)
       })
     }
 
-    return{
-      message:"Board",
+    return {
+      message: "Board",
       pageList,
       page,
       prev,
@@ -86,8 +115,13 @@ export default {
       pageNumberList,
       totalPage,
       board,
-      getBoard
-    }
-  }
+      currentpage,
+      condition,
+      input,
+      getBoard,
+      search,
+      onClick,
+    };
+  },
 };
 </script>
