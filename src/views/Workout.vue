@@ -1,6 +1,17 @@
-<template>
+<template lang="ko">
   <div id="workout">
     <h1 class="title">{{ message }}</h1>
+
+    <div id="workoutSearch">
+      <select class="form-select" v-model="condition" @click="onClick">
+        <option value="" disabled>----</option>
+        <option value="title">제목</option>
+        <option value="nickname">작성자</option>
+      </select>
+      <input class="form-control" type="text" v-model="input"/>
+      <button type="button" class="btn btn-danger recode search" @click="search">찾기</button>
+    </div>
+
     <div id="workoutListNav">
       <button class="btn btn-danger" type="button" @click="changeCategory('')">전체</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('back')">등</button>
@@ -23,57 +34,89 @@ import "../css/views/Workout.css";
 import router from "@/router/router";
 import { ref } from "@vue/runtime-core";
 import axios from "axios";
-import { useRoute } from 'vue-router';
+import { useRoute } from "vue-router";
+
 export default {
   name: "TheWorkout",
   components: { WorkoutCard },
   setup() {
-    const ROUTE = useRoute()
+    const ROUTE = useRoute();
     const page = ref([]);
     const id = ref();
     const category = ref();
     const hasNext = ref(true);
 
+    const condition = ref("");
+    const input = ref("");
+
     const changeCategory = async (i) => {
-      console.log(category.value !== i)
-      if(category.value !== i) {
+      if (category.value !== i) {
         category.value = i || "";
         id.value = "";
         const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
-  
-        axios.get(url).then((res) => {
-          if (res.status === 200) {
-            if (res.data.hasNext){
-              res.data.page.pop()   
+
+        axios
+          .get(url)
+          .then((res) => {
+            if (res.status === 200) {
+              if (res.data.hasNext) {
+                res.data.page.pop();
+              }
+              page.value = res.data.page;
+              id.value = res.data.page[res.data.page.length - 1].workoutId;
+              hasNext.value = res.data.hasNext;
+
+              router.replace(`/workout?category=${category.value}`);
             }
-            page.value = res.data.page;
-            id.value = res.data.page[res.data.page.length - 1].workoutId;
-            hasNext.value = res.data.hasNext;
-  
-            router.replace(`/workout?category=${category.value}`);
-          }
-          
-        }).catch(() => {});
+          })
+          .catch(() => {});
       }
-    }
+    };
     changeCategory(ROUTE.query.category || "");
-    // changeCategory();
 
     const addCard = () => {
       const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
       if (hasNext.value) {
-        axios.get(url).then((res) => {
-          if (res.status === 200) {
-            if (res.data.hasNext){
-            res.data.page.pop()   
-          }
-            page.value = page.value.concat(res.data.page);
-            id.value = res.data.page[res.data.page.length-1].workoutId;
-            hasNext.value = res.data.hasNext;
-          }
-        
-        }).catch(() => {});
+        axios
+          .get(url)
+          .then((res) => {
+            if (res.status === 200) {
+              if (res.data.hasNext) {
+                res.data.page.pop();
+              }
+              page.value = page.value.concat(res.data.page);
+              id.value = res.data.page[res.data.page.length - 1].workoutId;
+              hasNext.value = res.data.hasNext;
+            }
+          })
+          .catch(() => {});
       }
+    };
+
+    const onClick = (res) => {
+      condition.value = res.target.value;
+      console.log(condition.value);
+    };
+    
+    const search = () => {
+      const url = `/api/v1/workout?category=${category.value}&${condition.value}=${input.value}`;
+      axios.get(url).then((res) => {
+        if (res.status === 200) {
+          if (res.data.hasNext) {
+            res.data.page.pop();
+          }
+          page.value = res.data.page;
+          hasNext.value = res.data.hasNext;
+          if(res.data.page.length!=0){
+            id.value = res.data.page[res.data.page.length - 1].workoutId;
+          }
+
+          console.log(url)
+          console.log(res.data)
+
+          router.replace(`/workout?category=${category.value}`);
+        }
+      });
     };
 
     const addWorkoukList = () => {
@@ -84,9 +127,13 @@ export default {
       page,
       category,
       hasNext,
+      condition,
+      input,
       changeCategory,
       addWorkoukList,
       addCard,
+      onClick,
+      search,
       message: "운동 리스트",
     };
   },

@@ -1,7 +1,7 @@
 <template lang="ko">
   <div class="row row-cols-3">
-    <div class="col" v-for="i in page" :key="i">
-      <div id="card" @click="link(i.workoutId)">
+    <div class="col" v-for="i,  in page" :key="i">
+      <div id="checkboxCard" @click="link(i.workoutId)">
         <img
           :src="viewUrl(i.uploadFileName)"
           class="card-img-top"
@@ -20,15 +20,14 @@
 
 <script>
 import router from "@/router/router";
-import "../css/components/Card.css";
+import "../css/components/CheckboxCard.css";
 
 export default {
   name: "TheCard",
   props: ["page", "category"],
   setup(props) {
     const link = (i) => {
-      console.log(props.category);
-      router.push(`/workout/${i}?category=${props.category}`);
+      router.push(`/workout/me/${i}?category=${props.category}`);
     };
     const viewUrl = (i) => {
       return "/api/v1/file/images?filename=" + i;

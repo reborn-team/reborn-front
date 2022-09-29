@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="workoutCreate">
     <h1 class="title">{{ message }}</h1>
     <div id="Create">
@@ -67,9 +67,13 @@
     </div>
     <div id="insert">
       <div id="fileUpload">
-        <div class="form-group centerz">
-          <input type="file" @change="selectFile" class="form-control" id="imgName" accept="image/*"/>
+        <div class="filebox">
+          <label for="editImgName">업로드</label>
+          <input type="file" id="editImgName" @change="selectFile" />
         </div>
+      <div class="name">
+        <div v-for="i in files" :key="i">{{ i.originFileName }}</div>
+      </div>
       </div>
       <div id="insertBtn">
         <button
@@ -105,7 +109,7 @@ export default {
   name: "WorkoutDetail",
   setup() {
     const state = reactive({
-      workoutCategory: "",
+      workoutCategory: "부위",
       workoutName: "",
       content: "",
       viewURL: "",
@@ -118,8 +122,7 @@ export default {
     let imageName;
 
     const createHandler = async () => {
-
-      if(state.workoutCategory === "") {
+      if (state.workoutCategory === "") {
         alert("카테고리를 선택해 주세요");
         workoutCategory.value.focus();
         return false;
@@ -132,7 +135,6 @@ export default {
         content.value.focus();
         return false;
       }
-
 
       const url = "/api/v1/workout";
       const headers = {
@@ -150,7 +152,9 @@ export default {
         .then(function (res) {
           if (res.status === 201) {
             alert("운동이 등록 되었습니다.");
-            router.push("/workout/" + res.data);
+            router.push(
+              `/workout/${res.data}?category=${state.workoutCategory}`
+            );
           }
         })
         .catch(() => {
@@ -171,7 +175,7 @@ export default {
           if (res.status == 200) {
             files.value = res.data;
             imageName = files.value[0].uploadFileName;
-            console.log(imageName)
+            console.log(imageName);
           }
         })
         .catch(() => {
@@ -182,13 +186,14 @@ export default {
     const deleteImage = () => {
       const headers = { "Content-Type": "application/json;" };
 
-      axios.delete("/api/v1/file?filename=" + imageName, { headers }).then((res) => {
-          console.log(imageName)
+      axios
+        .delete("/api/v1/file?filename=" + imageName, { headers })
+        .then((res) => {
           if (res.status == 200) {
             if (res.data) {
-              files.value=""
+              files.value = "";
               imageName = undefined;
-              document.getElementById("imgName").value=""
+              document.getElementById("imgName").value = "";
             }
           }
         })

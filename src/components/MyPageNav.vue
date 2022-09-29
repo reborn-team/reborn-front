@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="MyPageNav">
     <nav class="navbar">
       <div class="container-fluid">

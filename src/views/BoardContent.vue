@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="boardContent">
     <div id="article">
       <h4 class="board-title">제목</h4>
@@ -26,11 +26,8 @@
 
     <div class="btns">
       <div>
-        <button class="btn btn-danger" onclick="location.href=`/board/`">
+        <button class="btn btn-danger" onclick="location.href=`/board?page=1`">
           목록
-        </button>
-        <button class="btn btn-danger likeBtn">
-          <span class="material-symbols-outlined"> thumb_up </span>
         </button>
       </div>
       <div class="edit-btns">
@@ -62,10 +59,7 @@
         <div class="review-members-btn">
           <button class="btn btn-warning btn-sm mBtn">수정</button>
           <button class="btn btn-secondary btn-sm">삭제</button>
-          <!-- <div style="margin-top: 10px">
-              <input type="text" />
-              <button class="btn">확인</button>
-            </div> -->
+      
         </div>
       </div>
     </div>
@@ -77,6 +71,8 @@ import "../css/views/BoardContent.css";
 
 export default {
   name: "BoardContent",
-  setup() {},
+  setup() {
+    
+  },
 };
 </script>

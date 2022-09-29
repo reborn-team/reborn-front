@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="boardWrite">
     <h1 class="title">{{ message }}</h1>
     <div id="subject">
@@ -26,9 +26,7 @@
         class="btn btn-danger recode"
         @click="registArticle"> 등록하기
       </button>
-      <a href="/board">
-        <button type="button" class="btn btn-danger recode">취소하기</button>
-      </a>
+      <button type="button" class="btn btn-danger recode" onclick="location.href='/board?page=1'">취소하기</button>
     </div>
   </div>
 </template>
@@ -46,6 +44,8 @@ export default {
     const state = reactive({
       title: "",
       content: "",
+      originFileName: "",
+      uploadFileName: "",
       token: sessionStorage.getItem("TOKEN"),
     })
     const title = ref("");
@@ -63,15 +63,19 @@ export default {
       const body = {
         title: state.title,
         content: state.content,
-        originFileName: originFileName,
-        uploadFileName: uploadFileName,
+        originFileName: state.originFileName,
+        uploadFileName: state.uploadFileName,
       };
       await axios.post(url, body, {headers}).then((res)=>{
-        console.log(originFileName)
+        console.log(state.originFileName)
+        console.log(state.uploadFileName)
         console.log(res.data);
+        if(res.status==201){
+          alert("글이 등록 되었습니다.")
+        }
       })
 
-      router.push("/board");
+      router.push("/board?page=1");
     };
 
     const selectFile = (event) => {
@@ -86,8 +90,9 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             files.value = res.data;
-            originFileName = files.value[0].originFileName;
-            uploadFileName = files.value[0].uploadFileName;
+            state.originFileName = files.value[0].originFileName;
+            state.uploadFileName = files.value[0].uploadFileName;
+            console.log(originFileName)
             console.log(uploadFileName)
           }
         })
