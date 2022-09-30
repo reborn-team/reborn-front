@@ -10,7 +10,7 @@
 <script>
 import LineChart from '@/components/LineChart.vue';
 import BarChart from '@/components/BarChart.vue';
-import '../css/views/MypageGoal.css'
+import '@/css/views/MyPage/MypageGoal.css'
 import MyPageNav from '@/components/MyPageNav.vue';
 
 export default {

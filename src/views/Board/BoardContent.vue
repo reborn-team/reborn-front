@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import "../css/views/BoardContent.css";
-import Reply from "../components/Board/reply.vue";
+import "@/css/views/Board/BoardContent.css";
+import Reply from "@/components/Board/reply.vue";
 import axios from "axios";
 import { onMounted, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";

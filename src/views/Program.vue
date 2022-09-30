@@ -54,7 +54,7 @@ export default {
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const workout = ref("");
     const selected = ref("");
-    const selectCategory = ref("chest");
+    const selectCategory = ref("back");
     const seletName = ref("");
 
     const onchangeCategory = async (i) => {

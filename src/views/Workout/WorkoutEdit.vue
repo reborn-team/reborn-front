@@ -1,7 +1,22 @@
 <template lang="ko">
-  <div id="workoutCreate">
+  <div id="workoutEdit">
     <h1 class="title">{{ message }}</h1>
-    <div id="Create">
+    <div id="edit">
+      <div v-for="i in Workout.files" :key="i">
+        <img
+          id="uploadImg"
+          :src="viewUrl(i.uploadFileName)"
+          class="card-img-top"
+          alt="No Image"
+          v-if="files.length==0"
+          onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
+        />
+      </div>
+      <img
+        src="@/assets/img/noImage.gif"
+        alt="Error"
+        v-if="Workout.files==0 && files.length==0"
+      />
       <div v-for="i in files" :key="i">
         <img
           id="uploadImg"
@@ -10,24 +25,19 @@
           alt="No Image"
         />
       </div>
-      <img
-        src="https://place-hold.it/300x300/666/fff/000.gif"
-        alt="Error"
-        v-if="files.length == 0"
-      />
-
-      <div id="createWrap">
-        <div id="category">
+      <div id="editWrap">
+        <div id="editCategory">
           <label
-            for="workoutCategory"
+            for="editCategory"
             class="col-sm-2 col-form-label col-form-label-sm"
             >카테고리 :
           </label>
           <select
             class="form-select"
             aria-label="Default select example"
-            ref="workoutCategory"
-            v-model="state.workoutCategory"
+            ref="editCategory"
+            v-model="state.editCategory"
+            disabled
           >
             <option selected disabled>부위</option>
             <option value="BACK">등</option>
@@ -36,9 +46,9 @@
             <option value="CORE">코어</option>
           </select>
         </div>
-        <div id="woName">
+        <div id="editName">
           <label
-            for="workoutName"
+            for="editName"
             class="col-sm-2 col-form-label col-form-label-sm"
             >운동명 :
           </label>
@@ -46,12 +56,12 @@
             <input
               type="text"
               class="form-control form-control-sm"
-              ref="workoutName"
-              v-model="state.workoutName"
+              ref="editName"
+              v-model="state.editName"
             />
           </div>
         </div>
-        <div id="woContent">
+        <div id="editContent">
           <label for="content" class="col-sm-2 col-form-label col-form-label-sm"
             >설명 :
           </label>
@@ -59,29 +69,32 @@
             class="form-control"
             aria-label="With textarea"
             rows="8"
-            ref="content"
-            v-model="state.content"
+            ref="editContent"
+            v-model="state.editContent"
+            style="resize: none"
+            maxlength="150"
           ></textarea>
         </div>
       </div>
     </div>
-    <div id="insert">
-      <div id="fileUpload">
+    <div id="editInsert">
+      <div id="editFileUpload">
         <div class="filebox">
           <label for="editImgName">업로드</label>
           <input type="file" id="editImgName" @change="selectFile" />
         </div>
       <div class="name">
+        <div v-if="files.length==0">{{ originFile }}</div>
         <div v-for="i in files" :key="i">{{ i.originFileName }}</div>
       </div>
       </div>
-      <div id="insertBtn">
+      <div id="editInsertBtn">
         <button
           type="button"
-          class="btn btn-danger btn-sm"
-          @click="createHandler"
+          class="btn btn-warning btn-sm"
+          @click="modifyHandler"
         >
-          등록하기
+          수정하기
         </button>
         <button type="button" class="btn btn-danger btn-sm" @click="linkList">
           취소하기
@@ -89,7 +102,7 @@
       </div>
     </div>
     <button
-      id="deleteImage"
+      id="editDeleteImage"
       type="button"
       class="btn btn-secondary btn-sm"
       @click="deleteImage"
@@ -101,66 +114,91 @@
 </template>
 
 <script>
+import "@/css/views/Workout/WorkoutEdit.css";
 import router from "@/router/router";
-import "../css/views/WorkoutCreate.css";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
+import { useRoute } from "vue-router";
+import { onMounted } from "@vue/runtime-core";
+
 export default {
   name: "WorkoutDetail",
   setup() {
     const state = reactive({
-      workoutCategory: "부위",
-      workoutName: "",
-      content: "",
+      editCategory: "",
+      editName: "",
+      editContent: "",
       viewURL: "",
       token: sessionStorage.getItem("TOKEN"),
     });
-    const workoutCategory = ref("");
-    const workoutName = ref("");
-    const content = ref("");
+    const route = useRoute();
+    const WorkoutID = ref(route.params.workoutID);
+    const Workout = ref("");
+    const editCategory = ref("");
+    const editName = ref("");
+    const editContent = ref("");
     let files = ref([]);
-    let imageName;
+    let imageName = ref("");
+    let originFile = ref("");
 
-    const createHandler = async () => {
-      if (state.workoutCategory === "") {
-        alert("카테고리를 선택해 주세요");
-        workoutCategory.value.focus();
-        return false;
-      } else if (state.workoutName === "") {
+    const modifyHandler = async () => {
+      if (state.editName === "") {
         alert("운동 이름을 입력해주세요");
-        workoutName.value.focus();
+        editName.value.focus();
         return;
-      } else if (state.content == "") {
+      } else if (state.editContent == "") {
         alert("운동에 대해 간단히 알려주세요");
-        content.value.focus();
+        editContent.value.focus();
         return false;
       }
 
-      const url = "/api/v1/workout";
+      const url = `/api/v1/workout/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json;",
         Authorization: state.token,
       };
       const body = {
-        workoutCategory: state.workoutCategory,
-        workoutName: state.workoutName,
-        content: state.content,
+        workoutName: state.editName,
+        content: state.editContent,
         files: files.value,
       };
       await axios
-        .post(url, body, { headers })
+        .patch(url, body, { headers })
         .then(function (res) {
-          if (res.status === 201) {
-            alert("운동이 등록 되었습니다.");
-            router.push(
-              `/workout/${res.data}?category=${state.workoutCategory}`
-            );
+          console.log(files);
+          if (res.status === 204) {
+            // console.log(res.data);
+            alert("운동이 수정 되었습니다.");
+            router.push("/workout/" + res.data);
           }
         })
         .catch(() => {
           alert("등록에 실패했습니다");
         });
     };
+
+    onMounted(() => {
+      getEditHandler();
+    });
+
+    async function getEditHandler() {
+      const url = `/api/v1/workout/${WorkoutID.value}`;
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: state.token,
+      };
+      await axios.get(url, { headers }).then((res) => {
+        if (res.status === 200) {
+          Workout.value = res.data;
+          state.editCategory = Workout.value.workoutCategory;
+          state.editName = Workout.value.workoutName;
+          state.editContent = Workout.value.content;
+          state.uploadFileName = Workout.value.uploadFileName;
+          console.log(Workout.value.files[0].originFileName);
+          originFile.value = Workout.value.files[0].originFileName;
+        }
+      });
+    }
 
     const selectFile = (event) => {
       const formData = new FormData();
@@ -185,15 +223,13 @@ export default {
 
     const deleteImage = () => {
       const headers = { "Content-Type": "application/json;" };
-
       axios
         .delete("/api/v1/file?filename=" + imageName, { headers })
         .then((res) => {
           if (res.status == 200) {
             if (res.data) {
               files.value = "";
-              imageName = undefined;
-              document.getElementById("imgName").value = "";
+              document.getElementById("editImgName").value = "";
             }
           }
         })
@@ -201,7 +237,9 @@ export default {
     };
 
     const viewUrl = (i) => {
-      return "/api/v1/file/images?filename=" + i;
+      if (i != undefined) {
+        return "/api/v1/file/images?filename=" + i;
+      }
     };
 
     const linkList = () => {
@@ -210,16 +248,21 @@ export default {
 
     return {
       linkList,
-      createHandler,
+      modifyHandler,
       selectFile,
       deleteImage,
       viewUrl,
+      getEditHandler,
       state,
       files,
-      workoutCategory,
-      workoutName,
-      content,
-      message: "운동 생성",
+      imageName,
+      Workout,
+      WorkoutID,
+      editCategory,
+      originFile,
+      editName,
+      editContent,
+      message: "수정하기",
     };
   },
 };

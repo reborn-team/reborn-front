@@ -33,9 +33,9 @@
 
 <script>
 import axios from "axios";
-import BoardList from "../components/Board/List.vue";
+import BoardList from "@/components/Board/List.vue";
 import Pagination from "@/components/Board/Pagination.vue";
-import "../css/views/Board.css";
+import "@/css/views/Board/Board.css";
 import { onMounted, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import router from "@/router/router";

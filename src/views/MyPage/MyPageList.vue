@@ -35,7 +35,7 @@
 
 <script>
 import List from "@/components/Board/List.vue";
-import "../css/views/MyPageList.css";
+import "@/css/views/MyPage/MyPageList.css";
 import MyPageNav from "@/components/MyPageNav.vue";
 
 export default {
