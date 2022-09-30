@@ -1,8 +1,8 @@
 <template lang="ko">
-  <div id="workoutMyworkout">
+  <div id="workout">
     <h1 class="title">{{ message }}</h1>
 
-    <div id="myWorkoutSearch">
+    <div id="workoutSearch">
       <select class="form-select" v-model="condition" @click="onClick">
         <option value="" disabled>----</option>
         <option value="title">제목</option>
@@ -12,39 +12,39 @@
       <button type="button" class="btn btn-danger recode search" @click="search">찾기</button>
     </div>
 
-    <div id="MyworkoutListNav">
+    <div id="workoutListNav">
       <button class="btn btn-danger" type="button" @click="changeCategory('')">전체</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('back')">등</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('chest')">가슴</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('lower-body')">하체</button>
       <button class="btn btn-danger" type="button" @click="changeCategory('core')">코어</button>
+      <button class="btn btn-danger" id="add" @click="addWorkoukList">추가</button>
     </div>
     <hr />
-    <div id="MyWorkoutCard">
-      <MyWorkoutCard :page ="page" :category="category"/>
+    <div id="WorkoutCard">
+      <WorkoutCard :page="page" :category="category" />
     </div>
     <button id="addBtn" class="btn btn-danger" type="button" @click="addCard" v-if="hasNext.valueOf(true)">더보기</button>
   </div>
 </template>
 
 <script>
-import MyWorkoutCard from "@/components/MyworkoutCard.vue";
-import "../css/views/WorkoutMyworkout.css";
-import axios from "axios";
-import { ref } from "@vue/reactivity";
+import WorkoutCard from "@/components/Card.vue";
+import "@/css/views/Workout/Workout.css";
 import router from "@/router/router";
+import { ref } from "@vue/runtime-core";
+import axios from "axios";
 import { useRoute } from "vue-router";
 
 export default {
-  name: "WorkoutList",
-  components: { MyWorkoutCard },
+  name: "TheWorkout",
+  components: { WorkoutCard },
   setup() {
     const ROUTE = useRoute();
     const page = ref([]);
     const id = ref();
     const category = ref();
     const hasNext = ref(true);
-    const Token = ref(sessionStorage.getItem("TOKEN"));
 
     const condition = ref("");
     const input = ref("");
@@ -53,25 +53,20 @@ export default {
       if (category.value !== i) {
         category.value = i || "";
         id.value = "";
-        const url = `/api/v1/my-workout?id=${id.value}&category=${category.value}`;
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: Token.value,
-        };
+        const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
 
         axios
-          .get(url, { headers })
+          .get(url)
           .then((res) => {
             if (res.status === 200) {
               if (res.data.hasNext) {
                 res.data.page.pop();
               }
               page.value = res.data.page;
-              id.value = res.data.page[res.data.page.length - 1].myWorkoutId;
+              id.value = res.data.page[res.data.page.length - 1].workoutId;
               hasNext.value = res.data.hasNext;
-              console.log(res.data);
 
-              router.replace(`/workout/me?category=${category.value}`);
+              router.replace(`/workout?category=${category.value}`);
             }
           })
           .catch(() => {});
@@ -80,22 +75,17 @@ export default {
     changeCategory(ROUTE.query.category || "");
 
     const addCard = () => {
-      const url = `/api/v1/my-workout?id=${id.value}&category=${category.value}`;
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: Token.value,
-      };
+      const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
       if (hasNext.value) {
         axios
-          .get(url, { headers })
+          .get(url)
           .then((res) => {
-            console.log(url);
             if (res.status === 200) {
               if (res.data.hasNext) {
                 res.data.page.pop();
               }
               page.value = page.value.concat(res.data.page);
-              id.value = res.data.page[res.data.page.length - 1].myWorkoutId;
+              id.value = res.data.page[res.data.page.length - 1].workoutId;
               hasNext.value = res.data.hasNext;
             }
           })
@@ -107,14 +97,10 @@ export default {
       condition.value = res.target.value;
       console.log(condition.value);
     };
-
+    
     const search = () => {
-      const url = `/api/v1/my-workout?category=${category.value}&${condition.value}=${input.value}`;
-      const headers = {
-        "Content-Type": "application/json",
-          Authorization: Token.value,
-      }
-      axios.get(url,{headers}).then((res) => {
+      const url = `/api/v1/workout?category=${category.value}&${condition.value}=${input.value}`;
+      axios.get(url).then((res) => {
         if (res.status === 200) {
           if (res.data.hasNext) {
             res.data.page.pop();
@@ -128,9 +114,13 @@ export default {
           console.log(url)
           console.log(res.data)
 
-          router.replace(`/workout/me?category=${category.value}`);
+          router.replace(`/workout?category=${category.value}`);
         }
       });
+    };
+
+    const addWorkoukList = () => {
+      router.push("/workout/create");
     };
 
     return {
@@ -140,10 +130,11 @@ export default {
       condition,
       input,
       changeCategory,
+      addWorkoukList,
       addCard,
       onClick,
       search,
-      message: "나의 리스트",
+      message: "운동 리스트",
     };
   },
 };

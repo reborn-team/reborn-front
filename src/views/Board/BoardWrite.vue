@@ -33,7 +33,7 @@
 
 <script>
 import router from "@/router/router";
-import "../css/views/BoardWrite.css";
+import "@/css/views/Board/BoardWrite.css";
 import { reactive, ref } from '@vue/reactivity';
 import axios from 'axios';
 

@@ -3,24 +3,25 @@ import Main from "@/views/Main.vue";
 import Login from "@/views/Login.vue";
 import Join from "@/views/Join.vue";
 
-import Workout from "@/views/Workout.vue";
-import WorkoutDetail from "@/views/WorkoutDetail.vue";
-import WorkoutCreate from "@/views/WorkoutCreate.vue";
-import WorkoutEdit from "@/views/WorkoutEdit.vue";
+import Workout from "@/views/Workout/Workout.vue";
+import WorkoutDetail from "@/views/Workout/WorkoutDetail.vue";
+import WorkoutCreate from "@/views/Workout/WorkoutCreate.vue";
+import WorkoutEdit from "@/views/Workout/WorkoutEdit.vue";
 
-import WorkoutMyworkout from "@/views/WorkoutMyworkout";
-import WorkoutMyworkoutDetail from "@/views/WorkoutMyworkoutDetail";
+import WorkoutMyworkout from "@/views/MyWorkout/WorkoutMyworkout";
+import WorkoutMyworkoutDetail from "@/views/MyWorkout/WorkoutMyworkoutDetail";
 import Program from "@/views/Program.vue";
 
-import Board from "@/views/Board.vue";
-import BoardWrite from "@/views/BoardWrite.vue";
-import BoardContent from "@/views/BoardContent.vue";
+import Board from "@/views/Board/Board.vue";
+import BoardWrite from "@/views/Board/BoardWrite.vue";
+import BoardContent from "@/views/Board/BoardContent.vue";
+import BoardEdit from "@/views/Board/BoardEdit.vue";
 
 import Nearby from "@/views/Nearby.vue";
 
-import MyPageGoal from "@/views/MyPageGoal.vue";
-import MyPageList from "@/views/MyPageList.vue";
-import MyPageChange from "@/views/MyPageChange.vue";
+import MyPageGoal from "@/views/MyPage/MyPageGoal.vue";
+import MyPageList from "@/views/MyPage/MyPageList.vue";
+import MyPageChange from "@/views/MyPage/MyPageChange.vue";
 
 const routes = [
   {path: "/", name: "main", component: Main},
@@ -39,6 +40,7 @@ const routes = [
   {path: "/board", name: "board", component: Board},
   {path: "/board/write", name: "boardWrite", component: BoardWrite},
   {path: "/board/:articleID", name: "boardContent", component: BoardContent},
+  {path: "/board/:articleID/edit", name: "boardEdit", component: BoardEdit},
 
   {path: "/nearby", name: "nearby", component: Nearby},
   

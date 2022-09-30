@@ -12,7 +12,7 @@
         />
       </div>
       <img
-        src="../assets/img/noImage.gif"
+        src="@/assets/img/noImage.gif"
         alt="Error"
         v-if="Workout.files==0"
       />
@@ -70,8 +70,8 @@
 </template>
 
 <script>
+import "@/css/views/Workout/WorkoutDetail.css";
 import router from "@/router/router";
-import "../css/views/WorkoutDetail.css";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
 import { onMounted } from "@vue/runtime-core";

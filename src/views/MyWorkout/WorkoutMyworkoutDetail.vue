@@ -1,7 +1,7 @@
 <template lang="ko">
-  <div id="workoutDetail">
+  <div id="myWorkoutDetail">
     <h1 class="title">{{ message }}</h1>
-    <div id="detail">
+    <div id="myDetail">
       <div v-for="i in Workout.files" :key="i">
         <img
           :src="viewUrl(i.uploadFileName)"
@@ -12,22 +12,22 @@
         />
       </div>
       <img
-        src="../assets/img/noImage.gif"
+        src="@/assets/img/noImage.gif"
         alt="Error"
         v-if="Workout.files == 0"
       />
-      <div id="detailWrap">
-        <div id="workoutCategory">
+      <div id="myDetailWrap">
+        <div id="myWorkoutCategory">
           <label
             for="category"
             class="col-sm-2 col-form-label col-form-label-sm"
             >운동 부위 :
           </label>
-          <div class="workoutItem">
+          <div class="myWorkoutItem">
             {{ convertCategoryValue(Workout.workoutCategory) }}
           </div>
         </div>
-        <div id="wokroutName">
+        <div id="myWokroutName">
           <label
             for="workoutName"
             class="col-sm-2 col-form-label col-form-label-sm"
@@ -35,13 +35,13 @@
           </label>
           <div class="workoutItem">{{ Workout.workoutName }}</div>
         </div>
-        <div id="explain">
+        <div id="myExplain">
           <label for="explain" class="col-sm-2 col-form-label col-form-label-sm"
             >설명 :
           </label>
           <div class="workoutExplain">{{ Workout.content }}</div>
         </div>
-        <div id="author">
+        <div id="myAuthor">
           <label for="author" class="col-sm-2 col-form-label col-form-label-sm"
             >작성자 :
           </label>
@@ -59,8 +59,8 @@
 </template>
 
 <script>
+import "@/css/views/MyWorkout/WorkoutMyworkoutDetail.css";
 import router from "@/router/router";
-import "../css/views/WorkoutDetail.css";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
 import { onMounted } from "@vue/runtime-core";

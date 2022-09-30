@@ -1,0 +1,13 @@
+#boardEdit {width: 50%; height:100%; margin: 0 auto; min-width: 700px;}
+#boardEdit .subject{display: flex; }
+#boardEdit .subject input{width: 40%; margin-left: 10px;}
+#boardEdit .content{ margin-top: 10px;}
+#boardEdit .content textarea{ resize: none;}
+#boardEdit .fileUpload{margin: 10px 0;}
+#boardEdit .editBtn{display: flex; justify-content: right; gap: 10px;}
+#boardEdit #editFileUpload {display: flex;}
+#boardEdit #editFileUpload .form-control { float : left; width: 300px;}
+#boardEdit #editFileUpload .name { margin-left: 10px;}
+#boardEdit #editFileUpload .filebox label { display: inline-block; padding: .25em .5em; color: white; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #2655bb; cursor: pointer; border: 1px solid #ebebeb; border-bottom-color: #e2e2e2; border-radius: .25em; }
+#boardEdit #editFileUpload .filebox input[type="file"] { position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip:rect(0,0,0,0);border: 0;}
+#boardEdit #editDeleteImage{ display:flex; margin-top: 3px; width: 300px; justify-content: center;}
