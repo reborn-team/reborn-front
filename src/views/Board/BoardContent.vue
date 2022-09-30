@@ -37,7 +37,7 @@
 
     <div class="input-container">
       <textarea class="form-control reply-input"></textarea>
-      <button class="btn btn-danger btn-sm enterBtn">등록</button>
+      <button class="btn btn-danger btn-sm enterBtn" @click="insertComment">등록</button>
     </div>
     <Reply />
   </div>

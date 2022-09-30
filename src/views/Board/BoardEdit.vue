@@ -15,10 +15,10 @@
         v-model="state.content"
       ></textarea>
     </div>
-    <div id="editFileUpload">
+    <div id="editFileBoard">
       <div class="filebox">
         <label for="editImgName">업로드</label>
-        <input type="file"   @change="selectFile" />
+        <input type="file" id="editImgName"  @change="selectFile" />
       </div>
       <div class="name">
         <div v-if="files.length==0">{{ originFile }}</div>

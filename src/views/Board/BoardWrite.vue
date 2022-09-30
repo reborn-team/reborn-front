@@ -44,15 +44,12 @@ export default {
     const state = reactive({
       title: "",
       content: "",
-      originFileName: "",
-      uploadFileName: "",
       token: sessionStorage.getItem("TOKEN"),
     })
     const title = ref("");
     const content = ref("");
     let files = ref([]);
-    let originFileName = ref("");
-    let uploadFileName = ref("");
+    let imageName;
 
     const registArticle = async() => {
       const url = "/api/v1/articles ";
@@ -63,8 +60,7 @@ export default {
       const body = {
         title: state.title,
         content: state.content,
-        originFileName: state.originFileName,
-        uploadFileName: state.uploadFileName,
+        files: files.value
       };
       await axios.post(url, body, {headers}).then((res)=>{
         console.log(state.originFileName)
@@ -90,10 +86,8 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             files.value = res.data;
-            state.originFileName = files.value[0].originFileName;
-            state.uploadFileName = files.value[0].uploadFileName;
-            console.log(originFileName)
-            console.log(uploadFileName)
+            imageName = files.value[0].uploadFileName;
+            console.log(imageName)
           }
         })
         .catch(() => {
