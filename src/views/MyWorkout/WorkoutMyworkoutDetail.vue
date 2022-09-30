@@ -23,11 +23,11 @@
             class="col-sm-2 col-form-label col-form-label-sm"
             >운동 부위 :
           </label>
-          <div class="workoutItem">
+          <div class="myWorkoutItem">
             {{ convertCategoryValue(Workout.workoutCategory) }}
           </div>
         </div>
-        <div id="wokroutName">
+        <div id="myWokroutName">
           <label
             for="workoutName"
             class="col-sm-2 col-form-label col-form-label-sm"

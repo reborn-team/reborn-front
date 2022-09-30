@@ -15,6 +15,7 @@ import Program from "@/views/Program.vue";
 import Board from "@/views/Board/Board.vue";
 import BoardWrite from "@/views/Board/BoardWrite.vue";
 import BoardContent from "@/views/Board/BoardContent.vue";
+import BoardEdit from "@/views/Board/BoardEdit.vue";
 
 import Nearby from "@/views/Nearby.vue";
 
@@ -39,6 +40,7 @@ const routes = [
   {path: "/board", name: "board", component: Board},
   {path: "/board/write", name: "boardWrite", component: BoardWrite},
   {path: "/board/:articleID", name: "boardContent", component: BoardContent},
+  {path: "/board/:articleID/edit", name: "boardEdit", component: BoardEdit},
 
   {path: "/nearby", name: "nearby", component: Nearby},
   

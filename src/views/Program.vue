@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import "../css/views/Program.css";
-import Table from "@/components/Table.vue";
+import "@/css/views/Program.css";
+import Table from "@/components/WorkoutTable.vue";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
 

@@ -30,8 +30,8 @@
         </button>
       </div>
       <div class="edit-btns">
-        <button class="btn btn-danger mdifyBtn">수정</button>
-        <button class="btn btn-danger">삭제</button>
+        <button class="btn btn-danger mdifyBtn" @click="linkEdit">수정</button>
+        <button class="btn btn-danger" @click="deleteArticle">삭제</button>
       </div>
     </div>
 
@@ -49,6 +49,7 @@ import Reply from "@/components/Board/reply.vue";
 import axios from "axios";
 import { onMounted, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
+import router from '@/router/router';
 
 export default {
   name: "BoardContent",
@@ -57,6 +58,7 @@ export default {
     const ArticleContent = ref("");
     const route = useRoute();
     const articleId = ref(route.params.articleID);
+    const Token = ref(sessionStorage.getItem("TOKEN"));
 
     onMounted(() => {
       getArticle();
@@ -70,10 +72,28 @@ export default {
       });
     };
 
+    const deleteArticle = async () => {
+      const url = `/api/v1/articles/${articleId.value}`;
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: Token.value,
+      };
+      await axios.delete(url, { headers }).then((res) => {
+        if (res.status == 204) {
+          alert("목록이 삭제되었습니다.");
+          router.push("/board?page=1");
+        }
+      });
+    };
+
     const viewUrl = (i) => {
       if (i != undefined) {
         return "/api/v1/file/images?filename=" + i;
       }
+    };
+
+    const linkEdit = () => {
+      router.push(`/board/${articleId.value}/edit`);
     };
 
     return {
@@ -81,6 +101,8 @@ export default {
       articleId,
       ArticleContent,
       viewUrl,
+      linkEdit,
+      deleteArticle,
     };
   },
 };

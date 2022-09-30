@@ -83,10 +83,10 @@
           <label for="editImgName">업로드</label>
           <input type="file" id="editImgName" @change="selectFile" />
         </div>
-      <div class="name">
-        <div v-if="files.length==0">{{ originFile }}</div>
-        <div v-for="i in files" :key="i">{{ i.originFileName }}</div>
-      </div>
+        <div class="name">
+          <div v-if="files.length==0">{{ originFile }}</div>
+          <div v-for="i in files" :key="i">{{ i.originFileName }}</div>
+        </div>
       </div>
       <div id="editInsertBtn">
         <button
