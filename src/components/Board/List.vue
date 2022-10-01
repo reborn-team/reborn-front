@@ -28,7 +28,7 @@ import router from '@/router/router';
 import "../../css/components/Board/List.css";
 export default {
   name: "TheList",
-  props: ["page","pageList"],
+  props: ["page","pageList","articlePage"],
   setup(props) {
     const link = (i) => {
       router.push(`/board/${i}?page=${props.page}`)

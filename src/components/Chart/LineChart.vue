@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import "../css/components/lineChart.css"
+import "@/css/components/lineChart.css"
 
 export default {
   name: "AreaChart",

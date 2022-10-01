@@ -150,6 +150,7 @@ export default {
       await axios
         .post(url, body, { headers })
         .then(function (res) {
+          console.log(res.data)
           if (res.status === 201) {
             alert("운동이 등록 되었습니다.");
             router.push(

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import "../css/components/BarChart.css"
+import "@/css/components/BarChart.css"
 
 export default {
   name: "BarExample",
