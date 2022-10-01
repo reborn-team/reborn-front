@@ -118,7 +118,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">비밀번호 변경</h5>
           <button
             type="button"
             class="btn-close"

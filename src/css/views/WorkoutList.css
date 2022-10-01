@@ -1,7 +1,0 @@
-#workoutList{width:50%; height:100%; margin: 0 auto; min-width: 700px;}
-#workoutList #workoutListNav{ display: flex; width: 80%; margin: 0 auto;}
-#workoutList #workoutListNav .btn{margin: 0 3px 5px 5px; width: 60px;}
-#workoutList #workoutListNav .btn:hover{ cursor: pointer;}
-#workoutList #workoutListNav #add{ margin-left: auto; }
-#workoutList hr{ margin-bottom: 1rem;}
-#workoutList #WorkoutCard { display: flex; width: 80%; margin: 0 auto;}

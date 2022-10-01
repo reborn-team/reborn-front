@@ -5,4 +5,4 @@
 #boardReply .reviews-members-header .text-gray{ font-size: 10px; color: gray; margin: 0px;}
 #boardReply .reviews-members-body{ text-align: left; font-size: 14px;}
 #boardReply .review-members-btn{ float: left; }
-#boardReply .mBtn{ margin-right: 5px;}
+#boardReply button{ margin-right: 5px;}

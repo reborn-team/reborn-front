@@ -101,6 +101,7 @@ export default {
         totalPage.value = res.data.totalPage;
 
         router.replace(`/board?page=${currentpage}&${condition.value}=${input.value}`)
+        input.value = ""
       })
     }
 
