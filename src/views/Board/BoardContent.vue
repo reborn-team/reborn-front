@@ -75,7 +75,6 @@ export default {
       const url = `/api/v1/articles/${articleId.value}`;
       await axios.get(url).then((res) => {
         ArticleContent.value = res.data;
-        // console.log(ArticleContent.value);
       });
     };
 
