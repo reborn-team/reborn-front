@@ -29,7 +29,6 @@ export default {
     },
     "options.center"(cur){
       this.mapInstance.panTo(new kakao.maps.LatLng(cur.lat, cur.lng));
-      console.log(cur.lat, cur.lng)
     }
   },
 };
