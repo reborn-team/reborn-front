@@ -17,7 +17,7 @@ import BoardWrite from "@/views/Board/BoardWrite.vue";
 import BoardContent from "@/views/Board/BoardContent.vue";
 import BoardEdit from "@/views/Board/BoardEdit.vue";
 
-import Nearby from "@/views/Nearby.vue";
+import Gym from "@/views/Gym/Gym.vue";
 
 import MyPageGoal from "@/views/MyPage/MyPageGoal.vue";
 import MyPageList from "@/views/MyPage/MyPageList.vue";
@@ -42,7 +42,7 @@ const routes = [
   {path: "/board/:articleID", name: "boardContent", component: BoardContent},
   {path: "/board/:articleID/edit", name: "boardEdit", component: BoardEdit},
 
-  {path: "/nearby", name: "nearby", component: Nearby},
+  {path: "/gym", name: "gym", component: Gym},
   
   {path: "/mypage/goal", name: "myPageGoal", component: MyPageGoal},
   {path: "/mypage/list", name: "myPageList", component: MyPageList},

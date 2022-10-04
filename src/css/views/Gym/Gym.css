@@ -1,0 +1,28 @@
+#gym{ width: 50%; margin: 0 auto; min-width: 700px;}
+#gym .button{display: flex; justify-content: space-between;}
+#gym .zoom button{border: 1px solid transparent; background-color: transparent; padding: 3px;}
+
+
+#gym .overlay-popup{background-color: #ffffffcc; box-shadow: 0 0 8px #0000004d, 0 0 1px 2px #00000022; max-width: 200px; min-width: 160px; position: absolute; bottom:40px; right: -80px;}
+#gym .overlay-popup h3{margin:0; padding: 8px; background-color: rgb(148, 180, 84); color: white; font-weight: 400; font-size: 16px;}
+#gym .overlay-popup div{padding: 8px; white-space: break-spaces;}
+#gym .overlay-popup a{color:black; position: absolute; top: 0; left: 100%; transform: translate(-50%, -50%); background-color: white; border-radius: 100%; line-height: 0; box-shadow: 0 0 6px black; }
+
+#gym .harbors { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; margin: 0 auto; width:100%}
+#gym .harbors .harbor {width: 90%; list-style: none; padding: 10px 10px; margin: 10px; border: 1px solid lightgray; box-shadow: rgb(100, 223, 212) 0px 2px 2px 0px; border-radius: 10px; cursor: pointer; padding: 0;} 
+#gym .harbors .harbor :hover{ cursor: pointer;}
+#gym .harbors .harbor :active{ background-color: rgb(100, 223, 212, 0.3); cursor: pointer;}
+#gym .harbors .active{ background-color: rgb(100, 223, 212); color:white; cursor: pointer;}
+
+#gym .input-container { display: flex; justify-content: center; background: #e5e5e5; padding: 10px ; }
+#gym .input-container select{width: 120px; font-size: 10px;}
+#gym .input-container button{margin-left: 10px;}
+#gym .reply-input { margin-right: 10px; resize: none }
+
+#gym .map-area{display: flex; position: relative;}
+#gym .map-area .searchbox{display: flex; position: absolute; flex-direction: column; width: 12rem; height: 350px; z-index: 10000; background-color: #ffffffaa;}
+#gym .map-area .searchbox .results{flex: 1 1 auto; overflow-y: auto;}
+#gym .map-area .searchbox .place{padding: 8px; cursor: pointer;}
+#gym .map-area .searchbox .place:hover{background-color: rgba(100, 223, 212, 0.3);}
+#gym .map-area .searchbox .place h4{ font-size: 16px; font-weight: bold; margin: 0;}
+#gym .map-area .searchbox .place div{ font-size: 10px;}

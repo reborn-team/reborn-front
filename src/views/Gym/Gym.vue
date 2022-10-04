@@ -1,5 +1,5 @@
 <template lang="ko">
-  <div id="nearby">
+  <div id="gym">
     <h1 class="title">{{ message }}</h1>
     <div class="button">
       <div class="insert">
@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <!-- <div class="input-container">
+    <div class="input-container">
       <textarea class="form-control reply-input"></textarea>
       <select class="form-select" aria-label="Default select example">
         <option selected disabled>별점</option>
@@ -66,47 +66,25 @@
       <button class="btn btn-danger btn-sm enterBtn">등록</button>
     </div>
 
-    <h6 class="reply">평가</h6>
-    <div class="reviewsWrap p-4" v-for="i in 4" :key="i">
-      <div class="reviews-members">
-        <div class="reviews-members-header">
-          <div>
-            <h6 class="mb-0">작성자</h6>
-            <p class="text-gray mb-3">작성시간</p>
-          </div>          
-            <div>⭐⭐⭐⭐⭐</div>
-        </div>
-        <div class="reviews-members-body">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique,
-            enim exercitationem quisquam quas culpa nostrum ea porro minima
-            molestias? Fugit inventore numquam tempore eveniet, minima incidunt
-            laborum nobis harum quibusdam!
-          </p>
-        </div>
-        <div class="review-members-btn">
-          <button class="btn btn-warning btn-sm mBtn">수정</button>
-          <button class="btn btn-secondary btn-sm">삭제</button>
-        </div>
-      </div>
-    </div> -->
-
+    <GymReply />
   </div>
 </template>
 
 <script>
-import "../css/views/Nearby.css";
-import api from "../service/api";
+import "@/css/views/Gym/Gym.css";
+import api from "@/service/api";
 import MapAPI from "@/components/KakaoMap/MapAPI.vue";
-import MarkerHandler from "../components/KakaoMap/marker-handler";
-import KakaoOverlay from "../components/KakaoMap/index";
+import MarkerHandler from "@/components/KakaoMap/marker-handler";
+import KakaoOverlay from "@/components/KakaoMap/index";
+import GymReply from "@/views/Gym/GymReply.vue"
+
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
 import router from "@/router/router";
 
 export default {
   name: "TheNearby",
-  components: { MapAPI },
+  components: { MapAPI, GymReply },
   setup() {
     const state = reactive({
       place: "",
@@ -258,7 +236,6 @@ export default {
         if (res.status == 200) {
           this.gym = res.data.list;
           this.gymId = res.data.list.id;
-          console.log(this.gym);
 
           api.harbor.all(() => {
             this.harbors = this.gym;
