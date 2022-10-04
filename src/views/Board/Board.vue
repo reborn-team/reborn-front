@@ -77,7 +77,6 @@ export default {
         pageNumberList.value = res.data.pageNumberList;
         totalPage.value = res.data.totalPage;
         board.value = res.data;
-        console.log(board.value);
 
         router.replace(`/board?page=${currentpage}`);
       });
@@ -85,7 +84,6 @@ export default {
 
     const onClick = (res) => {
       condition.value = res.target.value
-      console.log(condition.value)
     }
 
     const search = () => {
@@ -101,6 +99,7 @@ export default {
         totalPage.value = res.data.totalPage;
 
         router.replace(`/board?page=${currentpage}&${condition.value}=${input.value}`)
+        input.value = ""
       })
     }
 

@@ -21,7 +21,7 @@
       </div>
         <h3>운동일지</h3>
       <hr />
-      <BoardList />
+      <BoardList :pageList="pageList"/>
     </div>
   </div>
 </template>
@@ -30,14 +30,15 @@
 import MainCard from "@/components/Card.vue";
 import BoardList from "@/components/Board/List.vue";
 import "../css/views/Main.css";
-// import router from "@/router/router";
 import { ref } from '@vue/reactivity';
 import axios from 'axios';
+import { onMounted } from '@vue/runtime-core';
 
 export default {
   name: "TheHome",
   components: { MainCard, BoardList },
   setup(){
+    const pageList = ref([]);
     const page = ref([]);
     const id = ref("");
     const category = ref();
@@ -68,9 +69,23 @@ export default {
     }
     changeCategory("");
 
+    onMounted(() => {
+      getBoard();
+    });
+
+    const getBoard = async () => {
+      const url = `api/v1/articles`;
+      axios.get(url).then((res) => {
+        pageList.value = res.data.pageList;
+        console.log(pageList.value)
+      });
+    };
+
     return { 
       page,
+      pageList,
       category,
+      getBoard,
       changeCategory,
       message:"운동 리스트"
     }

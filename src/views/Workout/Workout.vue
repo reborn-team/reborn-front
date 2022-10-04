@@ -115,6 +115,7 @@ export default {
           console.log(res.data)
 
           router.replace(`/workout?category=${category.value}`);
+          input.value = ""
         }
       });
     };

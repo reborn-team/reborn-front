@@ -129,6 +129,7 @@ export default {
           console.log(res.data)
 
           router.replace(`/workout/me?category=${category.value}`);
+          input.value = ""
         }
       });
     };

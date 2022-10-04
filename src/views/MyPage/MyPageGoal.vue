@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import LineChart from '@/components/LineChart.vue';
-import BarChart from '@/components/BarChart.vue';
+import LineChart from '@/components/Chart/LineChart.vue';
+import BarChart from '@/components/Chart/BarChart.vue';
 import '@/css/views/MyPage/MypageGoal.css'
 import MyPageNav from '@/components/MyPageNav.vue';
 

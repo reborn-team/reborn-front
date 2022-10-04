@@ -1,0 +1,8 @@
+#gymReply .reply{ display:flex; font-weight: bold; margin: 20px 0;}
+#gymReply .reviewsWrap{ display: flex;  width: 100%; border-bottom: 1px solid pink;}
+#gymReply .reviews-members-header{ display: flex; justify-content: space-between; text-align: left;}
+#gymReply .reviews-members-header h6{ font-size: 14px; font-weight: bold;}
+#gymReply .reviews-members-header .text-gray{ font-size: 10px; color: gray; margin: 0px;}
+#gymReply .reviews-members-body{ text-align: left; font-size: 14px;}
+#gymReply .review-members-btn{ float: left; }
+#gymReply .mBtn{ margin-right: 5px;}
