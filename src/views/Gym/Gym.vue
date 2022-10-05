@@ -52,21 +52,6 @@
         <button @click="deleteGym(hbr)">삭제</button>
       </div>
     </div>
-
-    <div class="input-container">
-      <textarea class="form-control reply-input"></textarea>
-      <select class="form-select" aria-label="Default select example">
-        <option selected disabled>별점</option>
-        <option value="1">⭐</option>
-        <option value="2">⭐⭐</option>
-        <option value="3">⭐⭐⭐</option>
-        <option value="3">⭐⭐⭐⭐</option>
-        <option value="3">⭐⭐⭐⭐⭐</option>
-      </select>
-      <button class="btn btn-danger btn-sm enterBtn">등록</button>
-    </div>
-
-    <GymReply />
   </div>
 </template>
 
@@ -189,7 +174,7 @@ export default {
     };
 
     return {
-      message: "평가",
+      message: "헬스장",
       state,
       gym,
       gymId,
