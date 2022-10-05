@@ -33,6 +33,7 @@
           ref="nickname"
           v-model="state.nickname"
           placeholder="닉네임을 입력하세요"
+          minlength="1"
         />
       </div>
 
@@ -44,6 +45,7 @@
           ref="phone"
           placeholder="ex) 010-1111-1111"
           v-model="state.phone"
+          minlength="1"
         />
       </div>
 
@@ -82,6 +84,7 @@
             ref="detailAddress"
             v-model="state.detailAddress"
             placeholder="상세주소를 입력하세요"
+            minlength="1"
           />
         </div>
       </div>
@@ -143,6 +146,8 @@
               class="form-control form-control-sm"
               ref="changePassword"
               v-model="state.changePassword"
+              minlength="1"
+              maxlength="20"
             />
           </div>
           <div>
@@ -152,6 +157,8 @@
               class="form-control form-control-sm"
               ref="passwordCheck"
               v-model="state.passwordCheck"
+              minlength="1"
+              maxlength="20"
             />
           </div>
         </div>

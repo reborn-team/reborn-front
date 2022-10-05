@@ -45,7 +45,7 @@ const routes = [
   {path: "/gym", name: "gym", component: Gym},
   
   {path: "/mypage/goal", name: "myPageGoal", component: MyPageGoal},
-  {path: "/mypage/list", name: "myPageList", component: MyPageList},
+  {path: "/mypage/list/", name: "myPageList", component: MyPageList},
   {path: "/mypage/change", name: "myPageChange", component: MyPageChange},
 ]
 
