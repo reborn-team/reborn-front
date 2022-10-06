@@ -30,7 +30,8 @@
             <button 
               class="nav-link"
               data-bs-toggle="dropdown"
-              aria-expanded="false">
+              aria-expanded="false"
+              v-if="state.token!=null">
               <img src="./assets/img/header/person.svg" alt="" width="30" height="25"/>
             </button>
             <ul class="dropdown-menu">

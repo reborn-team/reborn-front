@@ -29,8 +29,8 @@
           목록
         </button>
       </div>
-      <div class="edit-btns">
-        <button class="btn btn-danger mdifyBtn" @click="linkEdit">수정</button>
+      <div class="edit-btns" v-if="ArticleContent.author==true">
+        <button class="btn btn-danger mdifyBtn" @click="linkEdit" >수정</button>
         <button class="btn btn-danger" @click="deleteArticle">삭제</button>
       </div>
     </div>
@@ -73,8 +73,14 @@ export default {
 
     const getArticle = async () => {
       const url = `/api/v1/articles/${articleId.value}`;
-      await axios.get(url).then((res) => {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: Token.value,
+      }
+      await axios.get(url, {headers}).then((res) => {
+        console.log(res.data)
         ArticleContent.value = res.data;
+        console.log(ArticleContent.value.isAuthor)
       });
     };
 

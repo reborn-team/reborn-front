@@ -71,6 +71,7 @@ export default {
       })
     }
 
+
     const getComment = (i) =>{ 
       replyId.value = i.id
       replyContent.value = i.content
