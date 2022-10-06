@@ -90,13 +90,6 @@ export default {
       const url = `api/v1/articles?page=${currentpage}&${condition.value}=${input.value}`;
       axios.get(url).then((res) => {
         pageList.value = res.data.pageList;
-        page.value = res.data.page;
-        prev.value = res.data.prev;
-        next.value = res.data.next;
-        start.value = res.data.start;
-        end.value = res.data.end;
-        pageNumberList.value = res.data.pageNumberList;
-        totalPage.value = res.data.totalPage;
 
         router.replace(`/board?page=${currentpage}&${condition.value}=${input.value}`)
         input.value = ""

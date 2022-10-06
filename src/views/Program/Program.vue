@@ -4,32 +4,28 @@
     <div id="collector">
       <select class="form-select one" size="7" v-model="selectCategory" @change="onchangeCategory" >
         <option style="font-weight: bold;" disabled>부위</option>
-        <option value="back">등</option>
-        <option value="chest">가슴</option>
-        <option value="lower-body">하체</option>
-        <option value="core">코어</option>
+        <option value="BACK">등</option>
+        <option value="CHEST">가슴</option>
+        <option value="LOWER_BODY">하체</option>
+            <option value="CORE">코어</option>
       </select>
       <select
         class="form-select two"
         size="7"
         aria-label="size 7 select example"
         v-model="selected"
-        @click="onchange"
+        @change="onchange"
       >
         <option style="font-weight: bold;" disabled>세부사항</option>
         <option id="selectName" :value="JSON.stringify(i)" v-for="i in workout" :key="i">{{i.workoutName}}</option>
       </select>
-      <div class="programImg">
-        <img :src="viewUrl(selected.uploadFileName)"  
-        alt="no image" 
-        onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'" 
-        v-if="selected.uploadFileName != 'empty'"/>
+      <div>
         <img
         src="@/assets/img/noImage.gif"
         alt="Error"
-        v-else
-        onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
+        v-if="selected.uploadFileName == 'empty'"
         />
+        <img :src="viewUrl(selected.uploadFileName)"  alt="No image" v-else/>
       </div>
     </div>
     <div id="createBtn">
@@ -53,11 +49,12 @@ export default {
   name: "WorkoutCreate",
   components: { Table },
   setup() {
+    
     const category = ref();
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const workout = ref("");
     const selected = ref("");
-    const selectCategory = ref("");
+    const selectCategory = ref("back");
     const seletName = ref("");
 
     const onchangeCategory = async (i) => {
@@ -91,14 +88,16 @@ export default {
         workoutName: selected.value.workoutName,
         total: 0,
         myWorkoutId: selected.value.myWorkoutId,
+        workoutCategory: selectCategory.value
       });
-      console.log(arr);
+      console.log(arr)
+      console.log(selectCategory)
     };
     const minusWorkout = () => {
       if (arr.length) {
         let pop = arr.pop();
         check[pop.workoutName] = false;
-        console.log(pop);
+        console.log(pop)
       }
     };
     const changeValue = (res, idx, k) => {
@@ -114,21 +113,21 @@ export default {
       }
     };
 
-    const recode = async () => {
+    const recode = async() =>{
       const url = "/api/v1/record ";
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
       const body = {
-        recordList: arr,
+        recordList : arr
       };
-      console.log(body);
-      await axios.post(url, body, { headers }).then((res) => {
-        console.log(arr);
-        console.log(res.data);
-      });
-    };
+      console.log(body)
+      await axios.post(url, body, {headers}).then((res)=>{
+        console.log(arr)
+        console.log(res.data)
+      })
+    }
 
     return {
       category,
