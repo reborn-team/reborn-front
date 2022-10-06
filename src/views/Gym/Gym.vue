@@ -3,7 +3,7 @@
     <h1 class="title">{{ message }}</h1>
     <div class="button">
       <div class="insert">
-        <input type="text" v-model="state.addr"/>
+        <input type="text" v-model="state.addr" style="width: 12rem"/>
         <button type="button" class="btn btn-danger btn-sm" @click="insertGym">추가</button>
       </div>
       <div class="zoom">
@@ -19,7 +19,7 @@
     <div class="map-area">
       <div class=searchbox>
         <div>
-          <input type="text" value="헬스장" @keyup.enter="searchPlace" />
+          <input type="text" value="헬스장" @keyup.enter="searchPlace" style="width: 100%"/>
         </div>
         <div class="results">
           <div class="place" v-for="i in search.results" :key="i.id" @click="showPlace(i)">

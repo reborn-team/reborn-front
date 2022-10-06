@@ -1,6 +1,7 @@
 #gym{ width: 50%; margin: 0 auto; min-width: 700px;}
 #gym .button{display: flex; justify-content: space-between;}
 #gym .zoom button{border: 1px solid transparent; background-color: transparent; padding: 3px;}
+#gym .insert button{ margin-left: 3px; }
 
 
 #gym .overlay-popup{background-color: #ffffffcc; box-shadow: 0 0 8px #0000004d, 0 0 1px 2px #00000022; max-width: 200px; min-width: 160px; position: absolute; bottom:40px; right: -80px;}
