@@ -14,18 +14,22 @@
         size="7"
         aria-label="size 7 select example"
         v-model="selected"
-        @change="onchange"
+        @click="onchange"
       >
         <option style="font-weight: bold;" disabled>세부사항</option>
         <option id="selectName" :value="JSON.stringify(i)" v-for="i in workout" :key="i">{{i.workoutName}}</option>
       </select>
-      <div>
+      <div class="programImg">
+        <img :src="viewUrl(selected.uploadFileName)"  
+        alt="no image" 
+        onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'" 
+        v-if="selected.uploadFileName != 'empty'"/>
         <img
-        src="../assets/img/noImage.gif"
+        src="@/assets/img/noImage.gif"
         alt="Error"
-        v-if="selected.uploadFileName == 'empty'"
+        v-else
+        onerror="this.src='https://place-hold.it/300x300/666/fff/000.gif'"
         />
-        <img :src="viewUrl(selected.uploadFileName)"  alt="No image" v-else/>
       </div>
     </div>
     <div id="createBtn">
@@ -40,7 +44,7 @@
 </template>
 
 <script>
-import "@/css/views/Program.css";
+import "@/css/views/Program/Program.css";
 import Table from "@/components/WorkoutTable.vue";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
@@ -49,12 +53,11 @@ export default {
   name: "WorkoutCreate",
   components: { Table },
   setup() {
-    
     const category = ref();
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const workout = ref("");
     const selected = ref("");
-    const selectCategory = ref("back");
+    const selectCategory = ref("");
     const seletName = ref("");
 
     const onchangeCategory = async (i) => {
@@ -87,15 +90,15 @@ export default {
       arr.push({
         workoutName: selected.value.workoutName,
         total: 0,
-        myWorkoutId: selected.value.myWorkoutId
+        myWorkoutId: selected.value.myWorkoutId,
       });
-      console.log(arr)
+      console.log(arr);
     };
     const minusWorkout = () => {
       if (arr.length) {
         let pop = arr.pop();
         check[pop.workoutName] = false;
-        console.log(pop)
+        console.log(pop);
       }
     };
     const changeValue = (res, idx, k) => {
@@ -111,21 +114,21 @@ export default {
       }
     };
 
-    const recode = async() =>{
+    const recode = async () => {
       const url = "/api/v1/record ";
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
       const body = {
-        recordList : arr
+        recordList: arr,
       };
-      console.log(body)
-      await axios.post(url, body, {headers}).then((res)=>{
-        console.log(arr)
-        console.log(res.data)
-      })
-    }
+      console.log(body);
+      await axios.post(url, body, { headers }).then((res) => {
+        console.log(arr);
+        console.log(res.data);
+      });
+    };
 
     return {
       category,

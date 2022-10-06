@@ -80,11 +80,11 @@ export default {
 
     const loginHandler = async () => {
       if (state.email === "") {
-        alert("Check Email");
+        alert("ID를 입력해주세요");
         email.value.focus();
         return;
       } else if (state.password === "") {
-        alert("Check Password");
+        alert("비밀번호를 입력해주세요");
         password.value.focus();
         return;
       }

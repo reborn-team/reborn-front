@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import WorkoutCard from "@/components/Card.vue";
+import WorkoutCard from "@/components/Card/Card.vue";
 import "@/css/views/Workout/Workout.css";
 import router from "@/router/router";
 import { ref } from "@vue/runtime-core";

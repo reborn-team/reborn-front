@@ -10,7 +10,7 @@ import WorkoutEdit from "@/views/Workout/WorkoutEdit.vue";
 
 import WorkoutMyworkout from "@/views/MyWorkout/WorkoutMyworkout";
 import WorkoutMyworkoutDetail from "@/views/MyWorkout/WorkoutMyworkoutDetail";
-import Program from "@/views/Program.vue";
+import Program from "@/views/Program/Program.vue";
 
 import Board from "@/views/Board/Board.vue";
 import BoardWrite from "@/views/Board/BoardWrite.vue";

@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import "../css/components/Table.css";
+import "@/css/components/Table.css";
 
 export default {
   name: "TheTable",

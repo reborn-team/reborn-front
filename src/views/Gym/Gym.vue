@@ -61,7 +61,6 @@ import api from "@/service/api";
 import MapAPI from "@/components/KakaoMap/MapAPI.vue";
 import MarkerHandler from "@/components/KakaoMap/marker-handler";
 import KakaoOverlay from "@/components/KakaoMap/index";
-import GymReply from "@/views/Gym/GymReply.vue"
 
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
@@ -69,7 +68,7 @@ import router from "@/router/router";
 
 export default {
   name: "TheNearby",
-  components: { MapAPI, GymReply },
+  components: { MapAPI },
   setup() {
     const state = reactive({
       place: "",

@@ -29,7 +29,7 @@
 
 <script>
 import "@/css/views/MyWorkout/WorkoutMyworkout.css";
-import MyWorkoutCard from "@/components/MyworkoutCard.vue";
+import MyWorkoutCard from "@/components/Card/MyworkoutCard.vue";
 import axios from "axios";
 import { ref } from "@vue/reactivity";
 import router from "@/router/router";

@@ -31,7 +31,7 @@
               class="nav-link"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              v-if="state.token!=null">
+              v-if="token!=null">
               <img src="./assets/img/header/person.svg" alt="" width="30" height="25"/>
             </button>
             <ul class="dropdown-menu">
@@ -41,11 +41,11 @@
             </ul>
           </li>
 
-          <button @click="login" v-if="state.token==null">
-            <img src="./assets/img/header/login.svg" alt="" width="30" height="20" />
+          <button @click="login" v-if="token==null">
+            <img src="./assets/img/header/login.svg" alt="login" width="30" height="20" />
           </button>
-          <button @click="logout" v-if="state.token!=null">
-            <img src="./assets/img/header/logout.svg" alt="" width="30" height="20" />
+          <button @click="logout" v-if="token!=null">
+            <img src="./assets/img/header/logout.svg" alt="logout" width="30" height="20" />
           </button>
         </div>
       </div>
@@ -69,8 +69,8 @@ export default {
     const state = reactive({
       title: "",
       content: "",
-      token: sessionStorage.getItem("TOKEN"),
     })
+    const token = sessionStorage.getItem("TOKEN")
 
     const login = () => {
       router.push("/login")
@@ -83,6 +83,7 @@ export default {
 
     return { 
       state,
+      token,
       login,
       logout
      }
