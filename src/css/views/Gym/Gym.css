@@ -1,18 +1,21 @@
 #gym{ width: 50%; margin: 0 auto; min-width: 700px;}
 #gym .button{display: flex; justify-content: space-between;}
 #gym .zoom button{border: 1px solid transparent; background-color: transparent; padding: 3px;}
+#gym .insert button{ margin-left: 3px; }
 
 
 #gym .overlay-popup{background-color: #ffffffcc; box-shadow: 0 0 8px #0000004d, 0 0 1px 2px #00000022; max-width: 200px; min-width: 160px; position: absolute; bottom:40px; right: -80px;}
-#gym .overlay-popup h3{margin:0; padding: 8px; background-color: rgb(148, 180, 84); color: white; font-weight: 400; font-size: 16px;}
+#gym .overlay-popup h3{margin:0; padding: 8px; background-color: rgb(48, 62, 20); color: white; font-weight: 400; font-size: 16px;}
 #gym .overlay-popup div{padding: 8px; white-space: break-spaces;}
 #gym .overlay-popup a{color:black; position: absolute; top: 0; left: 100%; transform: translate(-50%, -50%); background-color: white; border-radius: 100%; line-height: 0; box-shadow: 0 0 6px black; }
 
-#gym .harbors { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; margin: 0 auto; width:100%}
-#gym .harbors .harbor {width: 90%; list-style: none; padding: 10px 10px; margin: 10px; border: 1px solid lightgray; box-shadow: rgb(100, 223, 212) 0px 2px 2px 0px; border-radius: 10px; cursor: pointer; padding: 0;} 
+#gym .harbors { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; margin: 0 auto; width:100%; gap:10px}
+#gym .harbors .harbor {position: relative; width: 100%; height: 100%; list-style: none; padding: 10px 10px; margin: 10px; border: 1px solid lightgray; box-shadow: rgba(0, 0, 0, 0.885) 0px 2px 2px 0px; border-radius: 10px; cursor: pointer; padding: 0;} 
+#gym .harbors .harbor h4 { text-align: center; font-size: 20px; margin-bottom: 15px;}
+#gym .harbors .harbor button { width: 80%; padding: 2px; position: absolute; left: 18px; bottom: 2px;}
 #gym .harbors .harbor :hover{ cursor: pointer;}
-#gym .harbors .harbor :active{ background-color: rgb(100, 223, 212, 0.3); cursor: pointer;}
-#gym .harbors .active{ background-color: rgb(100, 223, 212); color:white; cursor: pointer;}
+#gym .harbors .harbor :active{cursor: pointer;}
+#gym .harbors .active{ background-color: rgba(18, 15, 37, 0.3); color:white; cursor: pointer;}
 
 #gym .input-container { display: flex; justify-content: center; background: #e5e5e5; padding: 10px ; }
 #gym .input-container select{width: 120px; font-size: 10px;}

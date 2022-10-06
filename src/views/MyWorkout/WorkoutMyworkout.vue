@@ -29,7 +29,7 @@
 
 <script>
 import "@/css/views/MyWorkout/WorkoutMyworkout.css";
-import MyWorkoutCard from "@/components/MyworkoutCard.vue";
+import MyWorkoutCard from "@/components/Card/MyworkoutCard.vue";
 import axios from "axios";
 import { ref } from "@vue/reactivity";
 import router from "@/router/router";
@@ -69,7 +69,6 @@ export default {
               page.value = res.data.page;
               id.value = res.data.page[res.data.page.length - 1].myWorkoutId;
               hasNext.value = res.data.hasNext;
-              console.log(res.data);
 
               router.replace(`/workout/me?category=${category.value}`);
             }
@@ -89,7 +88,6 @@ export default {
         axios
           .get(url, { headers })
           .then((res) => {
-            console.log(url);
             if (res.status === 200) {
               if (res.data.hasNext) {
                 res.data.page.pop();
@@ -105,7 +103,6 @@ export default {
 
     const onClick = (res) => {
       condition.value = res.target.value;
-      console.log(condition.value);
     };
 
     const search = () => {
@@ -124,9 +121,6 @@ export default {
           if(res.data.page.length!=0){
             id.value = res.data.page[res.data.page.length - 1].workoutId;
           }
-
-          console.log(url)
-          console.log(res.data)
 
           router.replace(`/workout/me?category=${category.value}`);
           input.value = ""

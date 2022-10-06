@@ -125,6 +125,8 @@ export default {
           alert("목록이 삭제되었습니다.");
           router.push(`/workout/me`);
         }
+      }).catch(()=>{
+        alert("목록이 삭제를 실패하였습니다.")
       });
     };
 
@@ -139,12 +141,13 @@ export default {
           alert("목록이 삭제되었습니다.");
           router.push(`/workout/me`);
         }
+      }).catch(()=>{
+        alert("목록이 삭제를 실패하였습니다.")
       });
     };
 
     const linkList = () => {
       router.push(`/workout/me?category=${route.query.category}`);
-      console.log(Workout.value.workoutCategory);
     };
 
     return {

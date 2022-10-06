@@ -33,6 +33,7 @@
           ref="nickname"
           v-model="state.nickname"
           placeholder="닉네임을 입력하세요"
+          minlength="1"
         />
       </div>
 
@@ -44,6 +45,7 @@
           ref="phone"
           placeholder="ex) 010-1111-1111"
           v-model="state.phone"
+          minlength="1"
         />
       </div>
 
@@ -82,6 +84,7 @@
             ref="detailAddress"
             v-model="state.detailAddress"
             placeholder="상세주소를 입력하세요"
+            minlength="1"
           />
         </div>
       </div>
@@ -91,14 +94,6 @@
       </div>
 
       <div id="changeBtn">
-        <div class="change-button">
-          <button
-            class="btn btn-secondary btn-sm delete"
-            @click="deletehandler"
-          >
-            회원 탈퇴
-          </button>
-        </div>
         <div class="change-button">
           <button class="btn btn-danger btn-sm" @click="changeHandler">
             완료
@@ -143,6 +138,8 @@
               class="form-control form-control-sm"
               ref="changePassword"
               v-model="state.changePassword"
+              minlength="1"
+              maxlength="20"
             />
           </div>
           <div>
@@ -152,6 +149,8 @@
               class="form-control form-control-sm"
               ref="passwordCheck"
               v-model="state.passwordCheck"
+              minlength="1"
+              maxlength="20"
             />
           </div>
         </div>
@@ -177,6 +176,7 @@ import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
 import axios from 'axios';
 import { onMounted } from '@vue/runtime-core';
+import router from '@/router/router';
 
 export default {
   name: "TheRegist",
@@ -260,11 +260,13 @@ export default {
         roadName: state.roadName,
         detailAddress: state.detailAddress
       };
-      console.log(body);
       await axios.patch(url, body, { headers }).then((res)=>{
         if(res.status==204){
           alert("회원정보가 수정 되었습니다.")
+          router.go()
         }
+      }).catch(()=>{
+        alert("회원정보 수정에 실패하였습니다.")
       })
     };
 
@@ -299,12 +301,15 @@ export default {
         rawPassword: state.rawPassword,
         changePassword: state.changePassword,
       };
-      console.log(body);
       await axios.patch(url, body, { headers }).then((res)=>{
         if(res.status==204){
           alert("비밀번호가 변경 되었습니다.")
+          router.go();
         }
+      }).catch(()=>{
+        alert("비밀번호 변경에 실패하였습니다.")
       })
+
     };
 
     const address_search = async () => {
@@ -337,6 +342,22 @@ export default {
       postOpen.value = false;
     };
 
+    const deleteIdHandler = () => {
+      const url = "/api/v1/members/me"
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: state.token,
+      }
+      axios.delete(url, {headers}).then((res)=>{
+        if(res.status==204){
+          alert("회원 탈퇴가 완료 되었습니다.")
+        }
+      }).catch(()=>{
+        alert("회원 탈퇴를 실패하였습니다.")
+      })
+
+    }
+
     return {
       state,
       email,
@@ -354,6 +375,7 @@ export default {
       changeHandler,
       changePasswordHandler,
       getData,
+      deleteIdHandler,
       data
     };
   },

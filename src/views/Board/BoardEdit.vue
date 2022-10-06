@@ -10,7 +10,7 @@
         class="form-control"
         aria-label="With textarea"
         rows="15"
-        maxlength="300"
+        maxlength="301"
         ref="content"
         v-model="state.content"
       ></textarea>
@@ -80,15 +80,29 @@ export default {
       const url = `/api/v1/articles/${articleId.value}`;
       await axios.get(url).then((res) => {
         ArticleContent.value = res.data;
-        console.log(ArticleContent.value);
         state.title = ArticleContent.value.title;
         state.content = ArticleContent.value.content;
         originFile.value = ArticleContent.value.files[0].originFileName;
-        console.log(originFile.value)
       });
     };
 
     const editArticle = async () => {
+      if (state.title === "") {
+        alert("제목을 입력해 주세요");
+        title.value.focus();
+        return false;
+      } 
+      else if (state.content === "") {
+        alert("내용을 입력해 주세요");
+        content.value.focus();
+        return false;
+      } 
+      if (state.content.length > 300 ) {
+        alert("300글자 이하로 작성해주세요");
+        content.value.focus();
+        return false;
+      } 
+
       const url = `/api/v1/articles/${articleId.value}`;
       const headers = {
         "Content-Type": "application/json",
@@ -105,6 +119,8 @@ export default {
         if (res.status == 204) {
           alert("글이 수정 되었습니다.");
         }
+      }).catch(()=>{
+        alert("글 수정에 실패하였습니다.");
       });
       router.push("/board?page=1");
     };
@@ -123,11 +139,10 @@ export default {
             files.value = res.data;
             state.originFileName = files.value[0].originFileName;
             state.uploadFileName = files.value[0].uploadFileName;
-            console.log(state.originFileName);
           }
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
+          alert("파일 업로드에 실패했습니다.")
         });
     };
 
@@ -143,7 +158,9 @@ export default {
             }
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => 
+          alert("파일 삭제를 실패했습니다.")
+        );
     };
 
     return {

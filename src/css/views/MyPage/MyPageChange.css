@@ -13,8 +13,8 @@
 #myPageChange #change-box #address button { width: 5rem; margin-left: 3rem;}
 #myPageChange #change-box #addressInput { margin-left: 7em;}
 
-#myPageChange #changeBtn { width:100%; display: flex; margin-top: 20px; justify-content: space-between;}
-#myPageChange #changeBtn button{ width: 80px; }
+#myPageChange #changeBtn { width:100%; margin-top: 20px; }
+#myPageChange #changeBtn button{ width: 80px; float: right;}
 
 .modal-body {width: 70%; margin: 0 auto; padding: 10px;}
 .modal-body div{display: flex; margin-bottom: 7px;}

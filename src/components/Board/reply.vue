@@ -12,7 +12,7 @@
           <div id="replyId" hidden>{{i.id}}</div>
         </div>
 
-        <div class="review-members-btn">
+        <div class="review-members-btn" v-if="i.author">
           <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="getComment(i)">수정하기</button>
           <button class="btn btn-secondary btn-sm" @click="deleteReply(i)">삭제</button>
         </div>
@@ -57,7 +57,10 @@ export default {
     const reply = ref()
     const replyId = ref();
     const replyContent = ref();
+    const editComment = ref();
+    const author = ref();
     const token = sessionStorage.getItem("TOKEN")
+
 
     onMounted(()=>{
       getReply()
@@ -65,21 +68,32 @@ export default {
 
     const getReply = async() => {
       const url = `/api/v1/articles/${props.articleId}/comments`
-      console.log(url)
-      await axios.get(url).then((res)=>{
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: token,
+      };
+      await axios.get(url,{headers}).then((res)=>{
         reply.value = res.data
       })
     }
+
 
     const getComment = (i) =>{ 
       replyId.value = i.id
       replyContent.value = i.content
       state.editComment = i.content
-      console.log(replyId.value)
-      console.log(replyContent.value)
+      author.value = i.author
     }
 
+
+
     const modifyReply = async() => {
+      if (state.editComment === "") {
+        alert("내용을 입력해 주세요");
+        editComment.value.focus();
+        return false;
+      } 
+
       const url = `/api/v1/articles/comments/${replyId.value}`
       const headers = {
         "Content-Type": "application/json",
@@ -90,9 +104,11 @@ export default {
       }
       await axios.patch(url,body,{headers}).then((res)=>{
         if(res.status === 204){
-          alert("글이 수정 되었습니다")
+          alert("댓글이 수정 되었습니다")
           router.go()
         }
+      }).catch(()=>{
+        alert("댓글 수정에 실패했습니다")
       })
     }
 
@@ -103,11 +119,12 @@ export default {
         Authorization: token,
       };
       axios.delete(url, {headers}).then((res)=>{
-        console.log(res.status)
         if(res.status == 204){
-          alert("글이 삭제 되었습니다")
+          alert("댓글이 삭제 되었습니다")
           router.go()
         }
+      }).catch(()=>{
+        alert("댓글 삭제에 실패했습니다.")
       })
     };
 
@@ -116,6 +133,8 @@ export default {
       reply,
       replyId,
       replyContent,
+      editComment,
+      author,
       getReply,
       getComment,
       modifyReply,

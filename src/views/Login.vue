@@ -80,11 +80,11 @@ export default {
 
     const loginHandler = async () => {
       if (state.email === "") {
-        alert("Check Email");
+        alert("ID를 입력해주세요");
         email.value.focus();
         return;
       } else if (state.password === "") {
-        alert("Check Password");
+        alert("비밀번호를 입력해주세요");
         password.value.focus();
         return;
       }
@@ -95,8 +95,6 @@ export default {
       await axios
         .post(url, body, { headers })
         .then(function (res) {
-          console.log(res.data);
-
           if (res.status == 200) {
             sessionStorage.setItem("TOKEN", res.headers.authorization);
             alert("로그인 되었습니다.");

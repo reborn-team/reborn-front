@@ -4,10 +4,10 @@
     <div id="collector">
       <select class="form-select one" size="7" v-model="selectCategory" @change="onchangeCategory" >
         <option style="font-weight: bold;" disabled>부위</option>
-        <option value="back">등</option>
-        <option value="chest">가슴</option>
-        <option value="lower-body">하체</option>
-        <option value="core">코어</option>
+        <option value="BACK">등</option>
+        <option value="CHEST">가슴</option>
+        <option value="LOWER_BODY">하체</option>
+            <option value="CORE">코어</option>
       </select>
       <select
         class="form-select two"
@@ -21,7 +21,7 @@
       </select>
       <div>
         <img
-        src="../assets/img/noImage.gif"
+        src="@/assets/img/noImage.gif"
         alt="Error"
         v-if="selected.uploadFileName == 'empty'"
         />
@@ -40,10 +40,11 @@
 </template>
 
 <script>
-import "@/css/views/Program.css";
+import "@/css/views/Program/Program.css";
 import Table from "@/components/WorkoutTable.vue";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
+import router from '@/router/router';
 
 export default {
   name: "WorkoutCreate",
@@ -74,28 +75,26 @@ export default {
 
     const onchange = (res) => {
       selected.value = JSON.parse(res.target.value);
-      console.log(selected.value);
     };
 
     const arr = reactive([]);
     let check = {};
     const addWorkout = () => {
       if (check[selected.value.workoutName]) {
-        return console.log("중복");
+        return alert("중복된 운동입니다.")
       }
       check[selected.value.workoutName] = true;
       arr.push({
         workoutName: selected.value.workoutName,
         total: 0,
-        myWorkoutId: selected.value.myWorkoutId
+        myWorkoutId: selected.value.myWorkoutId,
+        workoutCategory: selectCategory.value
       });
-      console.log(arr)
     };
     const minusWorkout = () => {
       if (arr.length) {
         let pop = arr.pop();
         check[pop.workoutName] = false;
-        console.log(pop)
       }
     };
     const changeValue = (res, idx, k) => {
@@ -120,10 +119,11 @@ export default {
       const body = {
         recordList : arr
       };
-      console.log(body)
       await axios.post(url, body, {headers}).then((res)=>{
-        console.log(arr)
-        console.log(res.data)
+        if(res.status==201){
+          alert("운동 기록이 저장되었습니다")
+          router.go()
+        }
       })
     }
 

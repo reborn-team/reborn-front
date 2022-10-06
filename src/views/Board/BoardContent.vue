@@ -4,7 +4,11 @@
       <h3 class="board-title">{{ArticleContent.title}}</h3>
       <div class="board-info">
         <div>작성자 : {{ArticleContent.memberNickname}}</div>
-        <span>{{ArticleContent.regDate}}</span>
+        <div>
+          <span>조회수 : {{ArticleContent.viewCount}}</span>
+          &nbsp&nbsp
+          <span>{{ArticleContent.regDate}}</span>
+        </div>
       </div>
       <hr />
       <div class="content2" v-for="i in ArticleContent.files" :key="i" >
@@ -29,8 +33,8 @@
           목록
         </button>
       </div>
-      <div class="edit-btns">
-        <button class="btn btn-danger mdifyBtn" @click="linkEdit">수정</button>
+      <div class="edit-btns" v-if="ArticleContent.author==true">
+        <button class="btn btn-danger mdifyBtn" @click="linkEdit" >수정</button>
         <button class="btn btn-danger" @click="deleteArticle">삭제</button>
       </div>
     </div>
@@ -53,6 +57,7 @@ import { onMounted, reactive, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import router from "@/router/router";
 
+// To do
 export default {
   name: "BoardContent",
   components: { Reply },
@@ -60,7 +65,6 @@ export default {
     const state = reactive({
       comment: "",
     });
-
     const ArticleContent = ref("");
     const route = useRoute();
     const articleId = ref(route.params.articleID);
@@ -73,7 +77,11 @@ export default {
 
     const getArticle = async () => {
       const url = `/api/v1/articles/${articleId.value}`;
-      await axios.get(url).then((res) => {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: Token.value,
+      };
+      await axios.get(url, { headers }).then((res) => {
         ArticleContent.value = res.data;
       });
     };
@@ -84,15 +92,26 @@ export default {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
-      await axios.delete(url, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("목록이 삭제되었습니다.");
-          router.push("/board?page=1");
-        }
-      });
+      await axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("목록이 삭제되었습니다.");
+            router.push("/board?page=1");
+          }
+        })
+        .catch(() => {
+          alert("목록 삭제를 실패하였습니다.");
+        });
     };
 
     const insertComment = async () => {
+      if (state.comment === "") {
+        alert("내용을 입력해 주세요");
+        comment.value.focus();
+        return false;
+      }
+
       const url = `/api/v1/articles/${articleId.value}/comments`;
       const headers = {
         "Content-Type": "application/json",
@@ -101,13 +120,18 @@ export default {
       const body = {
         content: state.comment,
       };
-      await axios.post(url, body, { headers }).then((res) => {
-        if (res.status == 201) {
-          alert("댓글이 등록되었습니다.");
-          comment.value.value = "";
-          router.go();
-        }
-      });
+      await axios
+        .post(url, body, { headers })
+        .then((res) => {
+          if (res.status == 201) {
+            alert("댓글이 등록되었습니다.");
+            comment.value.value = "";
+            router.go();
+          }
+        })
+        .catch(() => {
+          alert("댓글 등록에 실패하였습니다.");
+        });
     };
 
     const viewUrl = (i) => {

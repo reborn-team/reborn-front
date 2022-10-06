@@ -58,6 +58,8 @@
               class="form-control form-control-sm"
               ref="editName"
               v-model="state.editName"
+              minlength="1"
+              maxlength="20"
             />
           </div>
         </div>
@@ -72,6 +74,7 @@
             ref="editContent"
             v-model="state.editContent"
             style="resize: none"
+            minlength="5"
             maxlength="150"
           ></textarea>
         </div>
@@ -143,13 +146,15 @@ export default {
 
     const modifyHandler = async () => {
       if (state.editName === "") {
-        alert("운동 이름을 입력해주세요");
+        alert("운동명을 입력해주세요");
         editName.value.focus();
         return;
       } else if (state.editContent == "") {
         alert("운동에 대해 간단히 알려주세요");
         editContent.value.focus();
         return false;
+      } else if (state.editContent.length < 5) {
+        alert("최소 5글자 이상 입력해주세요");
       }
 
       const url = `/api/v1/workout/${WorkoutID.value}`;
@@ -165,15 +170,13 @@ export default {
       await axios
         .patch(url, body, { headers })
         .then(function (res) {
-          console.log(files);
           if (res.status === 204) {
-            // console.log(res.data);
             alert("운동이 수정 되었습니다.");
             router.push("/workout/" + res.data);
           }
         })
         .catch(() => {
-          alert("등록에 실패했습니다");
+          alert("수정에 실패했습니다.");
         });
     };
 
@@ -194,7 +197,6 @@ export default {
           state.editName = Workout.value.workoutName;
           state.editContent = Workout.value.content;
           state.uploadFileName = Workout.value.uploadFileName;
-          console.log(Workout.value.files[0].originFileName);
           originFile.value = Workout.value.files[0].originFileName;
         }
       });
@@ -213,7 +215,6 @@ export default {
           if (res.status == 200) {
             files.value = res.data;
             imageName = files.value[0].uploadFileName;
-            console.log(imageName);
           }
         })
         .catch(() => {
@@ -233,7 +234,7 @@ export default {
             }
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => alert("파일 삭제를 실패했습니다."));
     };
 
     const viewUrl = (i) => {

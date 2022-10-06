@@ -3,8 +3,8 @@
     <h1 class="title">{{ message }}</h1>
     <div class="button">
       <div class="insert">
-        <input type="text" v-model="state.addr"/>
-        <button type="button" @click="insertGym">추가</button>
+        <input type="text" v-model="state.addr" style="width: 12rem"/>
+        <button type="button" class="btn btn-danger btn-sm" @click="insertGym">추가</button>
       </div>
       <div class="zoom">
         <button type="button" @click="zoom(-1)">
@@ -19,7 +19,7 @@
     <div class="map-area">
       <div class=searchbox>
         <div>
-          <input type="text" value="헬스장" @keyup.enter="searchPlace" />
+          <input type="text" value="헬스장" @keyup.enter="searchPlace" style="width: 100%"/>
         </div>
         <div class="results">
           <div class="place" v-for="i in search.results" :key="i.id" @click="showPlace(i)">
@@ -46,27 +46,11 @@
         v-for="hbr in harbors"
         :key="hbr.id"
         @click="showOnMap(hbr)"
-        :class="{ active: hbr == activeHarbor }"
-      >
+        :class="{ active: hbr == activeHarbor }">
         <h4>{{ hbr.place }}</h4>
-        <button @click="deleteGym(hbr)">삭제</button>
+        <button class="btn btn-secondary btn-sm" @click="deleteGym(hbr)" v-if="hbr.author">삭제</button>
       </div>
     </div>
-
-    <div class="input-container">
-      <textarea class="form-control reply-input"></textarea>
-      <select class="form-select" aria-label="Default select example">
-        <option selected disabled>별점</option>
-        <option value="1">⭐</option>
-        <option value="2">⭐⭐</option>
-        <option value="3">⭐⭐⭐</option>
-        <option value="3">⭐⭐⭐⭐</option>
-        <option value="3">⭐⭐⭐⭐⭐</option>
-      </select>
-      <button class="btn btn-danger btn-sm enterBtn">등록</button>
-    </div>
-
-    <GymReply />
   </div>
 </template>
 
@@ -76,7 +60,6 @@ import api from "@/service/api";
 import MapAPI from "@/components/KakaoMap/MapAPI.vue";
 import MarkerHandler from "@/components/KakaoMap/marker-handler";
 import KakaoOverlay from "@/components/KakaoMap/index";
-import GymReply from "@/views/Gym/GymReply.vue"
 
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
@@ -84,7 +67,7 @@ import router from "@/router/router";
 
 export default {
   name: "TheNearby",
-  components: { MapAPI, GymReply },
+  components: { MapAPI },
   setup() {
     const state = reactive({
       place: "",
@@ -166,7 +149,6 @@ export default {
         .post(url, body, { headers })
         .then((res) => {
           if (res.status == 201) {
-            console.log(res.data);
             router.go();
           }
         })
@@ -177,19 +159,22 @@ export default {
 
     const deleteGym = async (hbr) => {
       const url = `/api/v1/gym/${hbr.id}`;
-      console.log(url);
       const headers = {
         "Content-Type": "application/json;",
         Authorization: state.token,
       };
       await axios.delete(url, { headers }).then((res) => {
-        console.log(res.status);
-        router.go();
+        if(res.status == 201){
+          alert("헬스장을 등록했습니다.")
+          router.go();
+        }
+      }).catch(()=>{
+        alert("등록에 실패하였습니다.");
       });
     };
 
     return {
-      message: "평가",
+      message: "헬스장",
       state,
       gym,
       gymId,
@@ -227,15 +212,17 @@ export default {
 
     this.overlay = new KakaoOverlay(vueKakaoMap, this.$refs.harborOverlay);
 
+    const Token = ref(sessionStorage.getItem("TOKEN"));
     const getGym = () => {
       const url = "/api/v1/gym";
       const headers = {
         "Content-Type": "application/json;",
+        Authorization: Token.value,
       };
       axios.get(url, { headers }).then((res) => {
         if (res.status == 200) {
-          this.gym = res.data.list;
-          this.gymId = res.data.list.id;
+          this.gym = res.data;
+          this.gymId = res.data.id;
 
           api.harbor.all(() => {
             this.harbors = this.gym;
