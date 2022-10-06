@@ -12,7 +12,7 @@
           <div id="replyId" hidden>{{i.id}}</div>
         </div>
 
-        <div class="review-members-btn">
+        <div class="review-members-btn" v-if="i.author">
           <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="getComment(i)">수정하기</button>
           <button class="btn btn-secondary btn-sm" @click="deleteReply(i)">삭제</button>
         </div>
@@ -30,7 +30,7 @@
             <textarea class="form-control reply-input" v-model="state.editComment" ref="editComment"></textarea>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-warning" @click="modifyReply">수정하기</button>
+            <button type="button" class="btn btn-warning" @click="modifyReply" v-if="!author">수정하기</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
           </div>
         </div>
@@ -58,7 +58,9 @@ export default {
     const replyId = ref();
     const replyContent = ref();
     const editComment = ref();
+    const author = ref();
     const token = sessionStorage.getItem("TOKEN")
+
 
     onMounted(()=>{
       getReply()
@@ -81,9 +83,13 @@ export default {
       replyId.value = i.id
       replyContent.value = i.content
       state.editComment = i.content
+      author.value = i.author
       console.log(replyId.value)
       console.log(replyContent.value)
+      console.log(author.value)
     }
+
+
 
     const modifyReply = async() => {
       if (state.editComment === "") {
@@ -129,6 +135,7 @@ export default {
       replyId,
       replyContent,
       editComment,
+      author,
       getReply,
       getComment,
       modifyReply,

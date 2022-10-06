@@ -97,7 +97,7 @@
         <div class="change-button">
           <button
             class="btn btn-secondary btn-sm delete"
-            @click="deletehandler"
+            @click="deleteIdHandler"
           >
             회원 탈퇴
           </button>
@@ -344,6 +344,20 @@ export default {
       postOpen.value = false;
     };
 
+    const deleteIdHandler = () => {
+      const url = "/api/v1/members/me"
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: state.token,
+      }
+      axios.delete(url, {headers}).then((res)=>{
+        if(res.status==204){
+          alert("회원 탈퇴가 완료 되었습니다.")
+        }
+      })
+
+    }
+
     return {
       state,
       email,
@@ -361,6 +375,7 @@ export default {
       changeHandler,
       changePasswordHandler,
       getData,
+      deleteIdHandler,
       data
     };
   },

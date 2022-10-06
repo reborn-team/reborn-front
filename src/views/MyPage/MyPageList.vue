@@ -57,6 +57,7 @@ export default {
     const end = ref();
     const pageNumberList = ref();
     const totalPage = ref();
+    const Token = ref(sessionStorage.getItem("TOKEN"));
 
     const route = useRoute();
     const currentpage = route.query.page;
@@ -65,9 +66,13 @@ export default {
     const input = ref("");
 
     const getBoard = async () => {
-      const url = `api/v1/articles?page=${currentpage}`;
+      const url = `/api/v1/articles/me?page=1`;
+      const headers = {
+        "Content-Type": "application/json;",
+        Authorization: Token.value,
+      };
 
-      axios.get(url).then((res) => {
+      axios.get(url,{headers}).then((res) => {
         pageList.value = res.data.pageList;
         page.value = res.data.page;
         prev.value = res.data.prev;
@@ -78,7 +83,7 @@ export default {
         totalPage.value = res.data.totalPage;
         board.value = res.data;
 
-        router.replace(`/board?page=${currentpage}`);
+        router.replace(`/mypage/list/?page=${currentpage}`);
       });
     };
 
@@ -87,18 +92,11 @@ export default {
     }
 
     const search = () => {
-      const url = `api/v1/articles?page=${currentpage}&${condition.value}=${input.value}`;
+      const url = `/api/v1/articles/me?page=${currentpage}&${condition.value}=${input.value}`;
       axios.get(url).then((res) => {
         pageList.value = res.data.pageList;
-        page.value = res.data.page;
-        prev.value = res.data.prev;
-        next.value = res.data.next;
-        start.value = res.data.start;
-        end.value = res.data.end;
-        pageNumberList.value = res.data.pageNumberList;
-        totalPage.value = res.data.totalPage;
 
-        router.replace(`/board?page=${currentpage}&${condition.value}=${input.value}`)
+        router.replace(`/mypage/list/?page=${currentpage}&${condition.value}=${input.value}`)
         input.value = ""
       })
     }
@@ -116,6 +114,7 @@ export default {
       currentpage,
       condition,
       input,
+      Token,
       getBoard,
       search,
       onClick,

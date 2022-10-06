@@ -142,8 +142,8 @@ export default {
             console.log(state.originFileName);
           }
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
+          alert("파일 업로드에 실패했습니다.")
         });
     };
 
@@ -159,7 +159,9 @@ export default {
             }
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => 
+          alert("파일 삭제를 실패했습니다.")
+        );
     };
 
     return {

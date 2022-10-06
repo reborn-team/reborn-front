@@ -154,7 +154,10 @@ export default {
             router.go();
           }
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.log(err.status)
+            alert("권한이 없습니다.")
+        });
     };
 
     const linkEdit = () => {

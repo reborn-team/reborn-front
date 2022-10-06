@@ -48,7 +48,7 @@
         @click="showOnMap(hbr)"
         :class="{ active: hbr == activeHarbor }">
         <h4>{{ hbr.place }}</h4>
-        <button class="btn btn-secondary btn-sm" @click="deleteGym(hbr)">삭제</button>
+        <button class="btn btn-secondary btn-sm" @click="deleteGym(hbr)" v-if="hbr.author">삭제</button>
       </div>
     </div>
   </div>
@@ -210,15 +210,18 @@ export default {
 
     this.overlay = new KakaoOverlay(vueKakaoMap, this.$refs.harborOverlay);
 
+    const Token = ref(sessionStorage.getItem("TOKEN"));
     const getGym = () => {
       const url = "/api/v1/gym";
       const headers = {
         "Content-Type": "application/json;",
+        Authorization: Token.value,
       };
       axios.get(url, { headers }).then((res) => {
         if (res.status == 200) {
-          this.gym = res.data.list;
-          this.gymId = res.data.list.id;
+          console.log(res.data)
+          this.gym = res.data;
+          this.gymId = res.data.id;
 
           api.harbor.all(() => {
             this.harbors = this.gym;

@@ -126,7 +126,7 @@ export default {
       console.log(body)
       await axios.post(url, body, {headers}).then((res)=>{
         if(res.status==201){
-          alert("운동량이 저장되었습니다")
+          alert("운동 기록이 저장되었습니다")
           router.go()
         }
       })

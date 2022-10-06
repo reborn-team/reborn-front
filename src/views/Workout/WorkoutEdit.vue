@@ -153,12 +153,12 @@ export default {
         alert("운동에 대해 간단히 알려주세요");
         editContent.value.focus();
         return false;
-      } else if (state.editContent.length<5){
-        alert("최소 5글자 이상 입력해주세요")
+      } else if (state.editContent.length < 5) {
+        alert("최소 5글자 이상 입력해주세요");
       }
 
       const url = `/api/v1/workout/${WorkoutID.value}`;
-      console.log(url)
+      console.log(url);
       const headers = {
         "Content-Type": "application/json;",
         Authorization: state.token,
@@ -177,6 +177,7 @@ export default {
           }
         })
         .catch(() => {
+          alert("수정에 실패했습니다.");
         });
     };
 
@@ -236,7 +237,7 @@ export default {
             }
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => alert("파일 삭제를 실패했습니다."));
     };
 
     const viewUrl = (i) => {
