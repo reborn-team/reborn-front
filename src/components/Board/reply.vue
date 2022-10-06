@@ -66,9 +66,13 @@ export default {
 
     const getReply = async() => {
       const url = `/api/v1/articles/${props.articleId}/comments`
-      console.log(url)
-      await axios.get(url).then((res)=>{
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: token,
+      };
+      await axios.get(url,{headers}).then((res)=>{
         reply.value = res.data
+        console.log(reply.value)
       })
     }
 

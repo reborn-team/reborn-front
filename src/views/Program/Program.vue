@@ -44,6 +44,7 @@ import "@/css/views/Program/Program.css";
 import Table from "@/components/WorkoutTable.vue";
 import { reactive, ref } from "@vue/reactivity";
 import axios from "axios";
+import router from '@/router/router';
 
 export default {
   name: "WorkoutCreate",
@@ -124,8 +125,10 @@ export default {
       };
       console.log(body)
       await axios.post(url, body, {headers}).then((res)=>{
-        console.log(arr)
-        console.log(res.data)
+        if(res.status==201){
+          alert("운동량이 저장되었습니다")
+          router.go()
+        }
       })
     }
 

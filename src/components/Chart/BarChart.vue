@@ -4,19 +4,33 @@
       width="700"
       height="300"
       type="bar"
-      :options="chartOptions"
-      :series="series"
+      :options="chartMap.chartOptions"
+      :series="chartMap.series"
+      v-if="state.flag"
     ></apexchart>
   </div>
 </template>
 
 <script>
 import "@/css/components/Chart/BarChart.css"
+import { onMounted, reactive, ref } from '@vue/runtime-core';
+import axios from 'axios';
 
 export default {
   name: "BarExample",
   setup() {
-    return {
+    onMounted(() => {
+      getTodayRecord();
+    });
+    const Token = ref(sessionStorage.getItem("TOKEN"));
+    const state = reactive({
+      back: 10,
+      chest: 10,
+      lowerBody: 10,
+      core: 10,
+      flag: false,
+    });
+    let chartMap = {
       chartOptions: {
         plotOptions: {
           bar: {
@@ -30,10 +44,34 @@ export default {
       series: [
         {
           name: "series-1",
-          data: [88, 83, 70, 91],
         },
       ],
     };
+
+    const getTodayRecord = async () => {
+      const url = "/api/v1/record/today";
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: Token.value,
+      };
+      axios.get(url, { headers }).then((res) => {
+        if (res.status == 200) {
+          state.back = res.data.back;
+          state.chest = res.data.chest;
+          state.lowerBody = res.data.lowerBody;
+          state.core = res.data.core;
+          chartMap.series = [
+            {
+              name: "series-1",
+              data: [state.back, state.chest, state.lowerBody, state.core],
+            },
+          ];
+          state.flag = true;
+        }
+      });
+    };
+
+    return { getTodayRecord, state, chartMap };
   },
 };
 </script>

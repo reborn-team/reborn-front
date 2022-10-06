@@ -78,9 +78,7 @@ export default {
         Authorization: Token.value,
       }
       await axios.get(url, {headers}).then((res) => {
-        console.log(res.data)
         ArticleContent.value = res.data;
-        console.log(ArticleContent.value.isAuthor)
       });
     };
 

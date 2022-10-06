@@ -4,7 +4,7 @@
     <div class="button">
       <div class="insert">
         <input type="text" v-model="state.addr"/>
-        <button type="button" @click="insertGym">추가</button>
+        <button type="button" class="btn btn-danger btn-sm" @click="insertGym">추가</button>
       </div>
       <div class="zoom">
         <button type="button" @click="zoom(-1)">
@@ -46,10 +46,9 @@
         v-for="hbr in harbors"
         :key="hbr.id"
         @click="showOnMap(hbr)"
-        :class="{ active: hbr == activeHarbor }"
-      >
+        :class="{ active: hbr == activeHarbor }">
         <h4>{{ hbr.place }}</h4>
-        <button @click="deleteGym(hbr)">삭제</button>
+        <button class="btn btn-secondary btn-sm" @click="deleteGym(hbr)">삭제</button>
       </div>
     </div>
   </div>
