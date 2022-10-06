@@ -80,11 +80,9 @@ export default {
       const url = `/api/v1/articles/${articleId.value}`;
       await axios.get(url).then((res) => {
         ArticleContent.value = res.data;
-        console.log(ArticleContent.value);
         state.title = ArticleContent.value.title;
         state.content = ArticleContent.value.content;
         originFile.value = ArticleContent.value.files[0].originFileName;
-        console.log(originFile.value)
       });
     };
 
@@ -121,6 +119,8 @@ export default {
         if (res.status == 204) {
           alert("글이 수정 되었습니다.");
         }
+      }).catch(()=>{
+        alert("글 수정에 실패하였습니다.");
       });
       router.push("/board?page=1");
     };
@@ -139,7 +139,6 @@ export default {
             files.value = res.data;
             state.originFileName = files.value[0].originFileName;
             state.uploadFileName = files.value[0].uploadFileName;
-            console.log(state.originFileName);
           }
         })
         .catch(() => {

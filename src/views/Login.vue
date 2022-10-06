@@ -95,8 +95,6 @@ export default {
       await axios
         .post(url, body, { headers })
         .then(function (res) {
-          console.log(res.data);
-
           if (res.status == 200) {
             sessionStorage.setItem("TOKEN", res.headers.authorization);
             alert("로그인 되었습니다.");

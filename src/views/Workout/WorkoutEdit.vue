@@ -158,7 +158,6 @@ export default {
       }
 
       const url = `/api/v1/workout/${WorkoutID.value}`;
-      console.log(url);
       const headers = {
         "Content-Type": "application/json;",
         Authorization: state.token,
@@ -198,7 +197,6 @@ export default {
           state.editName = Workout.value.workoutName;
           state.editContent = Workout.value.content;
           state.uploadFileName = Workout.value.uploadFileName;
-          console.log(Workout.value.files[0].originFileName);
           originFile.value = Workout.value.files[0].originFileName;
         }
       });
@@ -217,7 +215,6 @@ export default {
           if (res.status == 200) {
             files.value = res.data;
             imageName = files.value[0].uploadFileName;
-            console.log(imageName);
           }
         })
         .catch(() => {

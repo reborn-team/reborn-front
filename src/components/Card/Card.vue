@@ -27,7 +27,6 @@ export default {
   props: ["page", "category"],
   setup(props) {
     const link = (i) => {
-      console.log(props.category);
       router.push(`/workout/${i}?category=${props.category}`);
     };
     const viewUrl = (i) => {

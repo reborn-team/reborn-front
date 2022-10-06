@@ -80,8 +80,8 @@ export default {
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
-      }
-      await axios.get(url, {headers}).then((res) => {
+      };
+      await axios.get(url, { headers }).then((res) => {
         ArticleContent.value = res.data;
       });
     };
@@ -92,12 +92,17 @@ export default {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
-      await axios.delete(url, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("목록이 삭제되었습니다.");
-          router.push("/board?page=1");
-        }
-      });
+      await axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("목록이 삭제되었습니다.");
+            router.push("/board?page=1");
+          }
+        })
+        .catch(() => {
+          alert("목록 삭제를 실패하였습니다.");
+        });
     };
 
     const insertComment = async () => {
@@ -105,7 +110,7 @@ export default {
         alert("내용을 입력해 주세요");
         comment.value.focus();
         return false;
-      } 
+      }
 
       const url = `/api/v1/articles/${articleId.value}/comments`;
       const headers = {
@@ -115,13 +120,18 @@ export default {
       const body = {
         content: state.comment,
       };
-      await axios.post(url, body, { headers }).then((res) => {
-        if (res.status == 201) {
-          alert("댓글이 등록되었습니다.");
-          comment.value.value = "";
-          router.go();
-        }
-      });
+      await axios
+        .post(url, body, { headers })
+        .then((res) => {
+          if (res.status == 201) {
+            alert("댓글이 등록되었습니다.");
+            comment.value.value = "";
+            router.go();
+          }
+        })
+        .catch(() => {
+          alert("댓글 등록에 실패하였습니다.");
+        });
     };
 
     const viewUrl = (i) => {

@@ -95,7 +95,6 @@ export default {
 
     const onClick = (res) => {
       condition.value = res.target.value;
-      console.log(condition.value);
     };
     
     const search = () => {
@@ -110,9 +109,6 @@ export default {
           if(res.data.page.length!=0){
             id.value = res.data.page[res.data.page.length - 1].workoutId;
           }
-
-          console.log(url)
-          console.log(res.data)
 
           router.replace(`/workout?category=${category.value}`);
           input.value = ""

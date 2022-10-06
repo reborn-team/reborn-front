@@ -82,7 +82,9 @@ export default {
         if(res.status==201){
           alert("글이 등록 되었습니다.")
         }
-      })
+      }).catch(()=>{
+        alert("글 등록에 실패하였습니다.");
+      });
 
       router.push("/board?page=1");
     };

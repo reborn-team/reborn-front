@@ -45,7 +45,6 @@ export default {
     const hasNext = ref(true);
 
     const changeCategory = async (i) => {
-      console.log(category.value !== i)
       if(category.value !== i) {
         category.value = i || "";
         id.value = "";
@@ -77,7 +76,6 @@ export default {
       const url = `api/v1/articles`;
       axios.get(url).then((res) => {
         pageList.value = res.data.pageList;
-        console.log(pageList.value)
       });
     };
 

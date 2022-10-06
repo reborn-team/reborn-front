@@ -75,14 +75,13 @@ export default {
 
     const onchange = (res) => {
       selected.value = JSON.parse(res.target.value);
-      console.log(selected.value);
     };
 
     const arr = reactive([]);
     let check = {};
     const addWorkout = () => {
       if (check[selected.value.workoutName]) {
-        return console.log("중복");
+        return alert("중복된 운동입니다.")
       }
       check[selected.value.workoutName] = true;
       arr.push({
@@ -91,14 +90,11 @@ export default {
         myWorkoutId: selected.value.myWorkoutId,
         workoutCategory: selectCategory.value
       });
-      console.log(arr)
-      console.log(selectCategory)
     };
     const minusWorkout = () => {
       if (arr.length) {
         let pop = arr.pop();
         check[pop.workoutName] = false;
-        console.log(pop)
       }
     };
     const changeValue = (res, idx, k) => {
@@ -123,7 +119,6 @@ export default {
       const body = {
         recordList : arr
       };
-      console.log(body)
       await axios.post(url, body, {headers}).then((res)=>{
         if(res.status==201){
           alert("운동 기록이 저장되었습니다")

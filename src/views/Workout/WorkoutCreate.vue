@@ -150,7 +150,6 @@ export default {
       await axios
         .post(url, body, { headers })
         .then(function (res) {
-          console.log(res.data)
           if (res.status === 201) {
             alert("운동이 등록 되었습니다.");
             router.push(
@@ -176,7 +175,6 @@ export default {
           if (res.status == 200) {
             files.value = res.data;
             imageName = files.value[0].uploadFileName;
-            console.log(imageName);
           }
         })
         .catch(() => {

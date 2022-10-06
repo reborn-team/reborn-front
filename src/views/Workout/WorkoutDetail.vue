@@ -104,7 +104,6 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           Workout.value = res.data;
-          console.log(Workout.value);
         }
       });
     }
@@ -137,6 +136,8 @@ export default {
           alert("목록이 삭제되었습니다.");
           router.push(`/workout`);
         }
+      }).catch(()=>{
+        alert("목록이 삭제를 실패하였습니다.")
       });
     };
 
@@ -154,8 +155,7 @@ export default {
             router.go();
           }
         })
-        .catch((err) => {
-          console.log(err.status)
+        .catch(() => {
             alert("권한이 없습니다.")
         });
     };
@@ -175,12 +175,13 @@ export default {
           alert("목록이 삭제되었습니다.");
           router.go();
         }
+      }).catch(()=>{
+        alert("목록이 삭제를 실패하였습니다.")
       });
     };
 
     const linkList = () => {
       router.push(`/workout?category=${route.query.category}`);
-      console.log(Workout.value.workoutCategory);
     };
 
     return {

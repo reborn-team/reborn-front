@@ -149,7 +149,6 @@ export default {
         .post(url, body, { headers })
         .then((res) => {
           if (res.status == 201) {
-            console.log(res.data);
             router.go();
           }
         })
@@ -160,14 +159,17 @@ export default {
 
     const deleteGym = async (hbr) => {
       const url = `/api/v1/gym/${hbr.id}`;
-      console.log(url);
       const headers = {
         "Content-Type": "application/json;",
         Authorization: state.token,
       };
       await axios.delete(url, { headers }).then((res) => {
-        console.log(res.status);
-        router.go();
+        if(res.status == 201){
+          alert("헬스장을 등록했습니다.")
+          router.go();
+        }
+      }).catch(()=>{
+        alert("등록에 실패하였습니다.");
       });
     };
 
@@ -219,7 +221,6 @@ export default {
       };
       axios.get(url, { headers }).then((res) => {
         if (res.status == 200) {
-          console.log(res.data)
           this.gym = res.data;
           this.gymId = res.data.id;
 

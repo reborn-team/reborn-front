@@ -267,11 +267,12 @@ export default {
         roadName: state.roadName,
         detailAddress: state.detailAddress
       };
-      console.log(body);
       await axios.patch(url, body, { headers }).then((res)=>{
         if(res.status==204){
           alert("회원정보가 수정 되었습니다.")
         }
+      }).catch(()=>{
+        alert("회원정보 수정에 실패하였습니다.")
       })
     };
 
@@ -306,12 +307,14 @@ export default {
         rawPassword: state.rawPassword,
         changePassword: state.changePassword,
       };
-      console.log(body);
       await axios.patch(url, body, { headers }).then((res)=>{
         if(res.status==204){
           alert("비밀번호가 변경 되었습니다.")
         }
+      }).catch(()=>{
+        alert("비밀번호 변경에 실패하였습니다.")
       })
+
     };
 
     const address_search = async () => {
@@ -354,6 +357,8 @@ export default {
         if(res.status==204){
           alert("회원 탈퇴가 완료 되었습니다.")
         }
+      }).catch(()=>{
+        alert("회원 탈퇴를 실패하였습니다.")
       })
 
     }

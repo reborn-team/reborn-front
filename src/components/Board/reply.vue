@@ -74,7 +74,6 @@ export default {
       };
       await axios.get(url,{headers}).then((res)=>{
         reply.value = res.data
-        console.log(reply.value)
       })
     }
 
@@ -84,9 +83,6 @@ export default {
       replyContent.value = i.content
       state.editComment = i.content
       author.value = i.author
-      console.log(replyId.value)
-      console.log(replyContent.value)
-      console.log(author.value)
     }
 
 
@@ -111,6 +107,8 @@ export default {
           alert("댓글이 수정 되었습니다")
           router.go()
         }
+      }).catch(()=>{
+        alert("댓글 수정에 실패했습니다")
       })
     }
 
@@ -121,11 +119,12 @@ export default {
         Authorization: token,
       };
       axios.delete(url, {headers}).then((res)=>{
-        console.log(res.status)
         if(res.status == 204){
-          alert("글이 삭제 되었습니다")
+          alert("댓글이 삭제 되었습니다")
           router.go()
         }
+      }).catch(()=>{
+        alert("댓글 삭제에 실패했습니다.")
       })
     };
 
