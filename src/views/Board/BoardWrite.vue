@@ -10,7 +10,7 @@
         class="form-control"
         aria-label="With textarea"
         rows="15"
-        maxlength="300"
+        maxlength="256"
         ref="content"
         v-model="state.content"
       ></textarea>
@@ -52,6 +52,22 @@ export default {
     let imageName;
 
     const registArticle = async() => {
+      if (state.title === "") {
+        alert("제목을 입력해 주세요");
+        title.value.focus();
+        return false;
+      } 
+      else if (state.content === "") {
+        alert("내용을 입력해 주세요");
+        content.value.focus();
+        return false;
+      } 
+      if (state.content.length > 255 ) {
+        alert("255글자 이하로 작성해주세요");
+        content.value.focus();
+        return false;
+      } 
+
       const url = "/api/v1/articles ";
       const headers = {
         "Content-Type": "application/json",
@@ -63,9 +79,6 @@ export default {
         files: files.value
       };
       await axios.post(url, body, {headers}).then((res)=>{
-        console.log(state.originFileName)
-        console.log(state.uploadFileName)
-        console.log(res.data);
         if(res.status==201){
           alert("글이 등록 되었습니다.")
         }

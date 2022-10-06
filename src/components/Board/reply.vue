@@ -57,6 +57,7 @@ export default {
     const reply = ref()
     const replyId = ref();
     const replyContent = ref();
+    const editComment = ref();
     const token = sessionStorage.getItem("TOKEN")
 
     onMounted(()=>{
@@ -81,6 +82,12 @@ export default {
     }
 
     const modifyReply = async() => {
+      if (state.editComment === "") {
+        alert("내용을 입력해 주세요");
+        editComment.value.focus();
+        return false;
+      } 
+
       const url = `/api/v1/articles/comments/${replyId.value}`
       const headers = {
         "Content-Type": "application/json",
@@ -91,7 +98,7 @@ export default {
       }
       await axios.patch(url,body,{headers}).then((res)=>{
         if(res.status === 204){
-          alert("글이 수정 되었습니다")
+          alert("댓글이 수정 되었습니다")
           router.go()
         }
       })
@@ -117,6 +124,7 @@ export default {
       reply,
       replyId,
       replyContent,
+      editComment,
       getReply,
       getComment,
       modifyReply,

@@ -53,6 +53,7 @@ import { onMounted, reactive, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import router from "@/router/router";
 
+// To do
 export default {
   name: "BoardContent",
   components: { Reply },
@@ -60,7 +61,6 @@ export default {
     const state = reactive({
       comment: "",
     });
-
     const ArticleContent = ref("");
     const route = useRoute();
     const articleId = ref(route.params.articleID);
@@ -99,6 +99,12 @@ export default {
     };
 
     const insertComment = async () => {
+      if (state.comment === "") {
+        alert("내용을 입력해 주세요");
+        comment.value.focus();
+        return false;
+      } 
+
       const url = `/api/v1/articles/${articleId.value}/comments`;
       const headers = {
         "Content-Type": "application/json",

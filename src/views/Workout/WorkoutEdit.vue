@@ -171,7 +171,6 @@ export default {
       await axios
         .patch(url, body, { headers })
         .then(function (res) {
-          console.log(files);
           if (res.status === 204) {
             alert("운동이 수정 되었습니다.");
             router.push("/workout/" + res.data);

@@ -10,7 +10,7 @@
         class="form-control"
         aria-label="With textarea"
         rows="15"
-        maxlength="300"
+        maxlength="301"
         ref="content"
         v-model="state.content"
       ></textarea>
@@ -89,6 +89,22 @@ export default {
     };
 
     const editArticle = async () => {
+      if (state.title === "") {
+        alert("제목을 입력해 주세요");
+        title.value.focus();
+        return false;
+      } 
+      else if (state.content === "") {
+        alert("내용을 입력해 주세요");
+        content.value.focus();
+        return false;
+      } 
+      if (state.content.length > 300 ) {
+        alert("300글자 이하로 작성해주세요");
+        content.value.focus();
+        return false;
+      } 
+
       const url = `/api/v1/articles/${articleId.value}`;
       const headers = {
         "Content-Type": "application/json",
