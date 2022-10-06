@@ -3,22 +3,39 @@
     <apexchart
       type="area"
       height="350"
-      :options="chartOptions"
-      :series="series"
+      :options="chartMap.chartOptions"
+      :series="chartMap.series"
+      v-if="state.flag"
     ></apexchart>
   </div>
 </template>
 <script>
 import "@/css/components/Chart/lineChart.css"
+import { onMounted, reactive, ref } from '@vue/runtime-core';
+import axios from 'axios';
 
 export default {
   name: "AreaChart",
   setup() {
-    return {
+    onMounted(()=>{
+      getWeekRecord();
+    })
+    const Token = ref(sessionStorage.getItem("TOKEN"));
+    const state = reactive({
+      mon: 10,
+      tue: 10,
+      wed: 10,
+      thu: 10,
+      fri:10,
+      sat:10,
+      sun:10,
+      flag: false,
+    });
+    let chartMap ={
       series: [
         {
           name: "",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 100],
+          data: [10, 41, 35, 51, 49, 62, 69],
         },
       ],
       chartOptions: {
@@ -36,7 +53,7 @@ export default {
           curve: "straight",
         },
         title: {
-          text: "월 별 달성도",
+          text: "주간 달성도",
           align: "center",
         },
         grid: {
@@ -47,19 +64,45 @@ export default {
         },
         xaxis: {
           categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
+            "Sun",
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat",
+            
           ],
         },
       },
     };
+    const getWeekRecord = async () => {
+      const url = "/api/v1/record/week";
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: Token.value,
+      };
+      axios.get(url, { headers }).then((res) => {
+        if (res.status == 200) {
+          console.log(res.data)
+          state.mon = res.data.mon;
+          state.tue = res.data.tue;
+          state.wed = res.data.wed;
+          state.thu = res.data.thu;
+          state.fri = res.data.fri;
+          state.sat = res.data.sat;
+          state.sun = res.data.sun;
+          chartMap.series = [
+            {
+              name: "",
+              data: [state.sun, state.mon, state.tue, state.wed,state.thu,state.fri,state.sat],
+            },
+          ];
+          state.flag = true;
+        }
+      });
+    };
+    return {getWeekRecord,state,chartMap}
   },
 };
 </script>
