@@ -30,7 +30,7 @@
             <textarea class="form-control reply-input" v-model="state.editComment" ref="editComment"></textarea>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-warning" @click="modifyReply" v-if="!author">수정하기</button>
+            <button type="button" class="btn btn-warning" @click="modifyReply">수정하기</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
           </div>
         </div>

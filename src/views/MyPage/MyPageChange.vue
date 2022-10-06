@@ -95,14 +95,6 @@
 
       <div id="changeBtn">
         <div class="change-button">
-          <button
-            class="btn btn-secondary btn-sm delete"
-            @click="deleteIdHandler"
-          >
-            회원 탈퇴
-          </button>
-        </div>
-        <div class="change-button">
           <button class="btn btn-danger btn-sm" @click="changeHandler">
             완료
           </button>
@@ -184,6 +176,7 @@ import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
 import axios from 'axios';
 import { onMounted } from '@vue/runtime-core';
+import router from '@/router/router';
 
 export default {
   name: "TheRegist",
@@ -270,6 +263,7 @@ export default {
       await axios.patch(url, body, { headers }).then((res)=>{
         if(res.status==204){
           alert("회원정보가 수정 되었습니다.")
+          router.go()
         }
       }).catch(()=>{
         alert("회원정보 수정에 실패하였습니다.")
@@ -310,6 +304,7 @@ export default {
       await axios.patch(url, body, { headers }).then((res)=>{
         if(res.status==204){
           alert("비밀번호가 변경 되었습니다.")
+          router.go();
         }
       }).catch(()=>{
         alert("비밀번호 변경에 실패하였습니다.")
