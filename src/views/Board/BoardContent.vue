@@ -4,7 +4,11 @@
       <h3 class="board-title">{{ArticleContent.title}}</h3>
       <div class="board-info">
         <div>작성자 : {{ArticleContent.memberNickname}}</div>
-        <span>{{ArticleContent.regDate}}</span>
+        <div>
+          <span>조회수 : {{ArticleContent.viewCount}}</span>
+          &nbsp&nbsp
+          <span>{{ArticleContent.regDate}}</span>
+        </div>
       </div>
       <hr />
       <div class="content2" v-for="i in ArticleContent.files" :key="i" >
