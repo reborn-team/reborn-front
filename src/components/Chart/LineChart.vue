@@ -47,11 +47,10 @@ export default {
       return new Date(paramDate.setDate(diff));
     }
     let today = new Date();
-
     let date = getMondayDate(today);
     let start = new Date(date);
 
-    start.setDate(date.getDate() - 1);
+    start.setDate(date.getDate());
     state.sunday = start.toISOString().substring(0, 10);
     let end = new Date();
     end.setDate(start.getDate() + 6);
@@ -62,7 +61,7 @@ export default {
       today.setDate(today.getDate() - 7);
       date = getMondayDate(today);
       start = new Date(date);
-      start.setDate(date.getDate() - 1);
+      start.setDate(date.getDate());
       state.sunday = start.toISOString().substring(0, 10);
       let end = new Date(date);
       end.setDate(start.getDate() + 6);
@@ -75,7 +74,7 @@ export default {
       today.setDate(today.getDate() + 7);
       date = getMondayDate(today);
       start = new Date(date);
-      start.setDate(date.getDate() - 1);
+      start.setDate(date.getDate());
       state.sunday = start.toISOString().substring(0, 10);
       let end = new Date(date);
       end.setDate(start.getDate() + 6);
