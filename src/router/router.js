@@ -21,6 +21,9 @@ import Gym from "@/views/Gym/Gym.vue";
 
 import MyPageGoal from "@/views/MyPage/MyPageGoal.vue";
 import MyPageList from "@/views/MyPage/MyPageList.vue";
+import MyPageContent from "@/views/MyPage/MyPageContent.vue";
+import MyBoardEdit from "@/views/MyPage/MyBoardEdit.vue";
+import MyBoardWrite from "@/views/MyPage/MyBoardWrite.vue";
 import MyPageChange from "@/views/MyPage/MyPageChange.vue";
 
 const routes = [
@@ -45,7 +48,10 @@ const routes = [
   {path: "/gym", name: "gym", component: Gym},
   
   {path: "/mypage/goal", name: "myPageGoal", component: MyPageGoal},
-  {path: "/mypage/list", name: "myPageList", component: MyPageList},
+  {path: "/mypage/board", name: "myPageList", component: MyPageList},
+  {path: "/mypage/board/write", name: "myBoardWrite", component: MyBoardWrite},
+  {path: "/mypage/board/:articleID", name: "myPageContent", component: MyPageContent},
+  {path: "/mypage/board/:articleID/edit", name: "myBoardEdit", component: MyBoardEdit},
   {path: "/mypage/change", name: "myPageChange", component: MyPageChange},
 ]
 
