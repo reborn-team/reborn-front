@@ -9,7 +9,7 @@ module.exports = defineConfig({
     }
   },
   devServer: {
-    port: 8081,
+    port: 3000,
     proxy : {
     "/api/" : {target, changeOrigin: true},
     }

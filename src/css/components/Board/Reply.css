@@ -1,0 +1,8 @@
+#boardReply .reply{ display:flex; font-weight: bold; margin: 20px 0;}
+#boardReply .reviewsWrap{ display: flex; width: 100%; border-bottom: 1px solid pink;}
+#boardReply .reviews-members-header{ text-align: left;}
+#boardReply .reviews-members-header h6{ font-size: 14px; font-weight: bold;}
+#boardReply .reviews-members-header .text-gray{ font-size: 10px; color: gray; margin: 0px;}
+#boardReply .reviews-members-body{ text-align: left; font-size: 14px;}
+#boardReply .review-members-btn{ float: left; }
+#boardReply button{ margin-right: 5px;}

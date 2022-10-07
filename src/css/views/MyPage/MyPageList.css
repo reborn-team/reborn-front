@@ -1,0 +1,3 @@
+#myPageList { width: 50%; margin: 0 auto; min-width: 700px;}
+#myPageList #boardList a {float:right; margin: 0;}
+#myPageList #MyBoardPagi{display:flex; justify-content: center; margin-top: 15px;}

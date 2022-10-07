@@ -1,0 +1,9 @@
+#program { width: 50%; margin: 0 auto; min-width: 700px;}
+#program #collector { display:grid; grid-template-columns: 1fr 1fr 1fr; }
+#program #collector .one::-webkit-scrollbar{ display:none; }
+#program #collector .programImg{ width: 100%; height:250px; }
+#program #collector img { width: 100%; height:250px; margin-left: 10px; border-radius: 10px; justify-items: right; margin: 0;}
+#program #collector #createBtn{ margin-top: 2.5rem;}
+#program #createBtn {margin-bottom: 4rem;}
+#program #createBtn button { width: 7.5rem; height: 35px; margin-left: 5px; margin-top: 5px; padding: 0; }
+#program button{float: right;}

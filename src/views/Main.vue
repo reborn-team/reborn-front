@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="main">
     <div id="banner">
       <video muted autoplay>
@@ -17,44 +17,73 @@
       </div>
       <hr />
       <div id="MainCard">
-        <MainCard :page ="page"/>
+        <MainCard :page ="page" :category="category"/>
       </div>
-        <h3>인기 운동일지</h3>
+        <h3>운동일지</h3>
       <hr />
-      <BoardList />
+      <BoardList :pageList="pageList"/>
     </div>
   </div>
 </template>
 
 <script>
-import MainCard from "@/components/Card.vue";
-import BoardList from "@/components/List.vue";
+import MainCard from "@/components/Card/Card.vue";
+import BoardList from "@/components/Board/List.vue";
 import "../css/views/Main.css";
 import { ref } from '@vue/reactivity';
 import axios from 'axios';
+import { onMounted } from '@vue/runtime-core';
 
 export default {
   name: "TheHome",
   components: { MainCard, BoardList },
   setup(){
+    const pageList = ref([]);
     const page = ref([]);
     const id = ref("");
-    let category = "";
+    const category = ref();
+    const hasNext = ref(true);
 
-    const changeCategory = async (i) =>{
-      category = i;
-      const url = `/api/v1/workout?id=${id.value}&category=${category}`;
-      axios.get(url).then(res=>{
-        if (res.status === 200) {
-          page.value = res.data.page
-        }
-      }).catch(()=>{
-      })
+    const changeCategory = async (i) => {
+      if(category.value !== i) {
+        category.value = i || "";
+        id.value = "";
+        const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
+  
+        axios.get(url).then((res) => {
+          if (res.status === 200) {
+            if (res.data.hasNext){
+              res.data.page.pop()   
+              res.data.page.pop()   
+              res.data.page.pop()   
+              res.data.page.pop()
+            }
+            page.value = res.data.page;
+            id.value = res.data.page[res.data.page.length - 1].workoutId;
+            hasNext.value = res.data.hasNext;
+          }
+          
+        }).catch(() => {});
+      }
     }
     changeCategory("");
 
+    onMounted(() => {
+      getBoard();
+    });
+
+    const getBoard = async () => {
+      const url = `api/v1/articles`;
+      axios.get(url).then((res) => {
+        pageList.value = res.data.pageList;
+      });
+    };
+
     return { 
       page,
+      pageList,
+      category,
+      getBoard,
       changeCategory,
       message:"운동 리스트"
     }

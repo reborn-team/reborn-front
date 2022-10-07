@@ -1,5 +1,5 @@
-<template>
-  <div ref="map" class="k-map" style="width: 100%; height: 500px"></div>
+<template lang="ko">
+  <div ref="map" class="k-map" style="width: 100%; height: 350px"></div>
   <slot name="overlay"></slot>
 </template>
 
@@ -29,7 +29,6 @@ export default {
     },
     "options.center"(cur){
       this.mapInstance.panTo(new kakao.maps.LatLng(cur.lat, cur.lng));
-      console.log(cur.lat, cur.lng)
     }
   },
 };

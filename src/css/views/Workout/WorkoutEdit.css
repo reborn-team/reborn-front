@@ -1,0 +1,21 @@
+#workoutEdit {min-width: 700px;}
+#workoutEdit { width: 50%; margin: 0 auto;}
+#workoutEdit #edit { display: flex; justify-content: left; }
+#workoutEdit #edit #editCategory{ display: flex; text-align: left; }
+#workoutEdit #edit #editCategory select{ width: 42%; }
+#workoutEdit #edit #editName{ display: flex; text-align: left;}
+#workoutEdit #edit img { width: 300px; height: 300px;}
+#workoutEdit #edit label{ width: 20%; }
+#workoutEdit #edit input{ width: 50%; }
+#workoutEdit #editWrap { width: 100%; margin-left: 10px;}
+#workoutEdit #editWrap #editCategory{ display: flex; text-align: left; margin-bottom: 10px;}
+#workoutEdit #editWrap #editName{ display: flex; text-align: left; margin-bottom: 10px;}
+#workoutEdit #editWrap #editContent{ display: flex; text-align: left;}
+#workoutEdit #editFileUpload {display: flex;}
+#workoutEdit #editFileUpload .form-control { float : left; width: 300px;}
+#workoutEdit #editFileUpload .name { margin-left: 10px;}
+#workoutEdit #editFileUpload .filebox label { display: inline-block; padding: .25em .5em; color: white; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #2655bb; cursor: pointer; border: 1px solid #ebebeb; border-bottom-color: #e2e2e2; border-radius: .25em; }
+#workoutEdit #editFileUpload .filebox input[type="file"] { position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip:rect(0,0,0,0);border: 0;}
+#workoutEdit #editInsert #editInsertBtn button{margin-left: 5px;}
+#workoutEdit #editInsert {margin-top: 20px; display: flex; width: 100%; justify-content: space-between}
+#workoutEdit #editDeleteImage{ display:flex; margin-top: 3px; width: 300px; justify-content: center;}

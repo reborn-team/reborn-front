@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="login">
     <h1 class="title">{{ message }}</h1>
     <hr />
@@ -79,13 +79,12 @@ export default {
     const password = ref("");
 
     const loginHandler = async () => {
-
       if (state.email === "") {
-        alert("Check Email");
+        alert("ID를 입력해주세요");
         email.value.focus();
         return;
       } else if (state.password === "") {
-        alert("Check Password");
+        alert("비밀번호를 입력해주세요");
         password.value.focus();
         return;
       }
@@ -93,19 +92,18 @@ export default {
       const url = "/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
       const body = { email: state.email, password: state.password };
-      await axios.post(url, body, { headers }).then(function (res) {
-        console.log(res.data);
-
-        if (res.status == 200) {
-          sessionStorage.setItem("TOKEN", res.headers.authorization);
-          alert("로그인 되었습니다.");
-          router.push("/");
-        } else {
-          alert("로그인 실패")
-        }
-      }).catch(() => {
-        alert("로그인에 실패했습니다")
-      })
+      await axios
+        .post(url, body, { headers })
+        .then(function (res) {
+          if (res.status == 200) {
+            sessionStorage.setItem("TOKEN", res.headers.authorization);
+            alert("로그인 되었습니다.");
+            router.push("/");
+          }
+        })
+        .catch(() => {
+          alert("로그인에 실패했습니다");
+        });
     };
 
     return { state, email, password, loginHandler, message: "Login" };

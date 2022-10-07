@@ -1,4 +1,4 @@
-<template>
+<template lang="ko">
   <div id="join">
     <h1 class="title">{{ message }}</h1>
     <hr />
@@ -161,8 +161,8 @@ export default {
     const detailAddress = ref("");
     let postOpen = ref(false);
 
-    // const email_pattern = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
-    // const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
+    const email_pattern = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
+    const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
     const joinHandler = async () => {
 
@@ -171,11 +171,11 @@ export default {
         email.value.focus();
         return false;
       } 
-      // else if( !email_pattern.test(state.email)){
-      //   alert("이메일 형식에 맞춰주세요");
-      //   email.value.focus();
-      //   return false;
-      // }
+      else if( !email_pattern.test(state.email)){
+        alert("이메일 형식에 맞춰주세요");
+        email.value.focus();
+        return false;
+      }
        else if (state.password === "") {
         alert("비밀번호를 입력해 주세요");
         password.value.focus();
@@ -198,11 +198,11 @@ export default {
         phone.value.focus();
         return;
       } 
-      // else if( !phone_pattern.test(state.phone)){
-      //   alert("전화번호 형식에 맞춰주세요");
-      //   email.value.focus();
-      //   return false;
-      // }
+      else if( !phone_pattern.test(state.phone)){
+        alert("전화번호 형식에 맞춰주세요");
+        email.value.focus();
+        return false;
+      }
 
       const url = "/api/v1/members ";
       const headers = {

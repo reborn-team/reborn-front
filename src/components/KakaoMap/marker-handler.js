@@ -2,7 +2,6 @@ const kakao = window.kakao
 
 class MarkerHandler {
     constructor(vueKakaoMap, options){
-        console.log('[vueKakaoMap] : ', vueKakaoMap)
         this.vueMap = vueKakaoMap;
         this.options = options;
     }
@@ -10,7 +9,6 @@ class MarkerHandler {
     add(userData, fnConv) {
         userData.forEach(data => {
             const option = fnConv(data);
-            // const markerInstance = new kakao.map.Marker()
             const markerInstance = new kakao.maps.Marker({
                 map: this.vueMap.mapInstance,
                 position: new kakao.maps.LatLng(option.lat, option.lng)

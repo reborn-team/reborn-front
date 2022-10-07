@@ -1,0 +1,7 @@
+#boardWrite {width: 50%; height:100%; margin: 0 auto; min-width: 700px;}
+#boardWrite #subject{display: flex; }
+#boardWrite #subject input{width: 40%; margin-left: 10px;}
+#boardWrite .content{ margin-top: 10px;}
+#boardWrite .content textarea{ resize: none;}
+#boardWrite .fileUpload{margin: 10px 0;}
+#boardWrite #writeBtn{display: flex; justify-content: right; gap: 10px;}

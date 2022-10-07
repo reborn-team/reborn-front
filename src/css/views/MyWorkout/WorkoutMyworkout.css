@@ -1,0 +1,13 @@
+#workoutMyworkout {width:50%; height:100%; margin: 0 auto; min-width: 700px;}
+#workoutMyworkout #myWorkoutSearch{ display: flex; width: 75%; margin: 0 auto;  justify-content: right; margin-bottom: 20px; gap:3px;}
+#workoutMyworkout #myWorkoutSearch select {width: 20%; }
+#workoutMyworkout #myWorkoutSearch input {width: 30%; }
+#workoutMyworkout #myWorkoutSearch button {width: 12.5%; padding: 0;}
+#workoutMyworkout #MyworkoutListNav{ display: flex; width: 80%; margin: 0 auto;}
+#workoutMyworkout #MyworkoutListNav .btn{margin: 0 3px 5px 5px; width: 60px;}
+#workoutMyworkout #MyworkoutListNav .btn:hover{ cursor: pointer;}
+#workoutMyworkout #MyworkoutListNav #add{ margin-left: auto; }
+#workoutMyworkout hr{ margin-bottom: 1rem;}
+#workoutMyworkout #MyWorkoutCard { display: flex; width: 80%; margin: 0 auto;}
+#workoutMyworkout #MyWorkoutCard .row{ width: 100%;}
+#workoutMyworkout #addBtn { width: 75%; margin: 30px 0;}

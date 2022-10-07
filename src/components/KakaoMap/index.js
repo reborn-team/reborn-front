@@ -14,7 +14,6 @@ class KakaoOverlay{
         })
     }
     showAt(lat, lng){
-        console.log("[overlay show]", lat, lng)
         this.instance.setMap(this.vueMap.mapInstance);
         const pos = new kakao.maps.LatLng(lat, lng);
         this.instance.setPosition(pos);
