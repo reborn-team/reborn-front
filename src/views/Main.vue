@@ -6,6 +6,7 @@
       </video>
     </div>
     <div id="mainContent">
+      <h3>인기 운동</h3>
       <div id="workoutNav">
         <div class="gap-3 d-md-flex">
           <button class="btn btn-danger" type="button" @click="changeCategory('')">전체</button>
@@ -19,7 +20,7 @@
       <div id="MainCard">
         <MainCard :page ="page" :category="category"/>
       </div>
-        <h3>운동일지</h3>
+        <h3>인기 운동일지</h3>
       <hr />
       <BoardList :pageList="pageList"/>
     </div>
@@ -40,27 +41,17 @@ export default {
   setup(){
     const pageList = ref([]);
     const page = ref([]);
-    const id = ref("");
     const category = ref();
-    const hasNext = ref(true);
 
     const changeCategory = async (i) => {
       if(category.value !== i) {
         category.value = i || "";
-        id.value = "";
-        const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
+
+        const url = `/api/v1/workout/rank?category=${category.value}`;
   
         axios.get(url).then((res) => {
           if (res.status === 200) {
-            if (res.data.hasNext){
-              res.data.page.pop()   
-              res.data.page.pop()   
-              res.data.page.pop()   
-              res.data.page.pop()
-            }
-            page.value = res.data.page;
-            id.value = res.data.page[res.data.page.length - 1].workoutId;
-            hasNext.value = res.data.hasNext;
+            page.value = res.data.list;
           }
           
         }).catch(() => {});
@@ -73,7 +64,7 @@ export default {
     });
 
     const getBoard = async () => {
-      const url = `api/v1/articles`;
+      const url = `/api/v1/articles/rank`;
       axios.get(url).then((res) => {
         pageList.value = res.data.pageList;
       });
