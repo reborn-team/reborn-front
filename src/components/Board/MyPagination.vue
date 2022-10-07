@@ -36,7 +36,6 @@ export default {
       router.push(`/mypage/list?page=${i}`)
     };
 
-    console.log(props.page)
     const prevPage = () => {
         props.start - 10
         props.end -10

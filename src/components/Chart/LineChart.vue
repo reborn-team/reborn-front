@@ -60,7 +60,6 @@ export default {
     function prevWeek() {
       state.flag = false;
       today.setDate(today.getDate() - 7);
-      console.log(today);
       date = getMondayDate(today);
       start = new Date(date);
       start.setDate(date.getDate() - 1);
@@ -74,7 +73,6 @@ export default {
     function nextWeek() {
       state.flag = false;
       today.setDate(today.getDate() + 7);
-      console.log(today);
       date = getMondayDate(today);
       start = new Date(date);
       start.setDate(date.getDate() - 1);
@@ -130,7 +128,6 @@ export default {
       };
       axios.get(url, { headers }).then((res) => {
         if (res.status == 200) {
-          console.log(res.data);
           state.mon = res.data.mon;
           state.tue = res.data.tue;
           state.wed = res.data.wed;
@@ -138,7 +135,6 @@ export default {
           state.fri = res.data.fri;
           state.sat = res.data.sat;
           state.sun = res.data.sun;
-          console.log(state.fri);
           chartMap.series = [
             {
               name: "",
