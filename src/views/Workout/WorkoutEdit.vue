@@ -176,7 +176,6 @@ export default {
           }
         })
         .catch(() => {
-          alert("수정에 실패했습니다.");
         });
     };
 
