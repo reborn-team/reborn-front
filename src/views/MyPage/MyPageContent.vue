@@ -29,7 +29,7 @@
 
     <div class="btns">
       <div>
-        <button class="btn btn-danger" onclick="location.href=`/mypage/board?page=1`">
+        <button class="btn btn-danger" @click="link">
           목록
         </button>
       </div>
@@ -67,6 +67,7 @@ export default {
     const ArticleContent = ref("");
     const route = useRoute();
     const articleId = ref(route.params.articleID);
+    const page = route.query.page
     const comment = ref();
     const Token = ref(sessionStorage.getItem("TOKEN"));
 
@@ -96,7 +97,7 @@ export default {
         .then((res) => {
           if (res.status == 204) {
             alert("목록이 삭제되었습니다.");
-            router.replace("/mypage/board?page=1");
+            router.replace(`/mypage/board?page=${page}`);
           }
         })
         .catch(() => {
@@ -140,11 +141,16 @@ export default {
     };
 
     const linkEdit = () => {
-      router.replace(`/mypage/board/${articleId.value}/edit`);
+      router.replace(`/mypage/board/${articleId.value}/edit?page=${page}`);
     };
+
+    const link = () =>{
+      router.replace(`/mypage/board?page=${page}`)
+    }
 
     return {
       articleId,
+      page,
       state,
       comment,
       ArticleContent,
@@ -152,6 +158,7 @@ export default {
       insertComment,
       viewUrl,
       linkEdit,
+      link,
       deleteArticle,
     };
   },
