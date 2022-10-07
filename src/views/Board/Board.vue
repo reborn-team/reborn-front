@@ -8,7 +8,6 @@
       </a>
     </div>
 
-    <!-- 서치 옵션 -->
     <div id="searchBar">
       <select class="form-select" v-model="condition" @click="onClick">
         <option value="" selected disabled>----</option>
@@ -68,6 +67,7 @@ export default {
       const url = `api/v1/articles?page=${currentpage}`;
 
       axios.get(url).then((res) => {
+        console.log
         pageList.value = res.data.pageList;
         page.value = res.data.page;
         prev.value = res.data.prev;
@@ -89,7 +89,16 @@ export default {
     const search = () => {
       const url = `api/v1/articles?page=${currentpage}&${condition.value}=${input.value}`;
       axios.get(url).then((res) => {
+        console.log(res.data)
         pageList.value = res.data.pageList;
+        page.value = res.data.page;
+        prev.value = res.data.prev;
+        next.value = res.data.next;
+        start.value = res.data.start;
+        end.value = res.data.end;
+        pageNumberList.value = res.data.pageNumberList;
+        totalPage.value = res.data.totalPage;
+        board.value = res.data;
 
         router.replace(`/board?page=${currentpage}&${condition.value}=${input.value}`)
         input.value = ""

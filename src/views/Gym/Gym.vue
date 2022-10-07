@@ -164,12 +164,12 @@ export default {
         Authorization: state.token,
       };
       await axios.delete(url, { headers }).then((res) => {
-        if(res.status == 201){
-          alert("헬스장을 등록했습니다.")
+        if(res.status == 204){
+          alert("헬스장을 삭제했습니다.")
           router.go();
         }
       }).catch(()=>{
-        alert("등록에 실패하였습니다.");
+        alert("삭제에 실패하였습니다.");
       });
     };
 
