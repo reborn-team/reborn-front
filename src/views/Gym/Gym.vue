@@ -19,7 +19,7 @@
     <div class="map-area">
       <div class=searchbox>
         <div>
-          <input type="text" value="헬스장" @keyup.enter="searchPlace" style="width: 100%"/>
+          <input type="text" v-model="gymName" placeholder="헬스장" @keyup.enter="searchPlace" style="width: 100%"/>
         </div>
         <div class="results">
           <div class="place" v-for="i in search.results" :key="i.id" @click="showPlace(i)">
@@ -87,6 +87,7 @@ export default {
 
     const gym = ref();
     const gymId = ref();
+    const gymName = ref();
     const myLat = ref();
     const myLng = ref();
 
@@ -134,6 +135,10 @@ export default {
     };
 
     const insertGym = async () => {
+      if(gymName.value == null){
+        alert("헬스장을 검색해주세요")
+        return;
+      }
       const url = "/api/v1/gym";
       const headers = {
         "Content-Type": "application/json;",
@@ -149,7 +154,7 @@ export default {
         .post(url, body, { headers })
         .then((res) => {
           if (res.status == 201) {
-            router.go();
+              router.go();
           }
         })
         .catch(() => {
@@ -178,6 +183,7 @@ export default {
       state,
       gym,
       gymId,
+      gymName,
       mapOptions,
       search,
       myLat,
