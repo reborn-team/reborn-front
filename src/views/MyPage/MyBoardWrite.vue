@@ -15,11 +15,25 @@
         v-model="state.content"
       ></textarea>
     </div>
-    <div class="fileUpload">
-      <div class="form-group centerz">
-        <input type="file" @change="selectFile" class="form-control" accept="image/*"/>
+    <div id="writeFileBoard">
+      <div class="filebox">
+        <label for="writeImgName">업로드</label>
+        <input type="file" id="writeImgName"  @change="selectFile" />
+      </div>
+      <div class="name">
+        <div v-if="files.length==0">{{ originFile }}</div>
+        <div v-for="i in files" :key="i">{{ i.originFileName }}</div>
       </div>
     </div>
+    <button
+      id="writeDeleteImage"
+      type="button"
+      class="btn btn-secondary btn-sm"
+      @click="deleteImage"
+      v-if="files.length != 0"
+    >
+      삭제하기
+    </button>
     <div id="writeBtn">
       <button
         type="button"
@@ -110,13 +124,32 @@ export default {
         });
     };
 
+    const deleteImage = () => {
+      const headers = { "Content-Type": "application/json;" };
+      axios
+        .delete("/api/v1/file?filename=" + imageName, { headers })
+        .then((res) => {
+          if (res.status == 200) {
+            if (res.data) {
+              files.value = "";
+              document.getElementById("editImgName").value = "";
+            }
+          }
+        })
+        .catch(() => 
+          alert("파일 삭제를 실패했습니다.")
+        );
+    };
+
     return { 
       message: "글쓰기" ,
       state,
       title,
       content,
+      files,
       registArticle,
       selectFile,
+      deleteImage,
     };
   },
 };
