@@ -118,11 +118,11 @@ export default {
       await axios.patch(url, body, { headers }).then((res) => {
         if (res.status == 204) {
           alert("글이 수정 되었습니다.");
+          router.replace("/board?page=1");
         }
       }).catch(()=>{
         alert("글 수정에 실패하였습니다.");
       });
-      router.replace("/board?page=1");
     };
 
     const selectFile = (event) => {
