@@ -40,7 +40,7 @@
         class="btn btn-danger recode"
         @click="editArticle"> 수정하기
       </button>
-      <button type="button" class="btn btn-danger recode" onclick="location.href='/mypage/board?page=1'">취소하기</button>
+      <button type="button" class="btn btn-danger recode" @click="link">취소하기</button>
     </div>
   </div>
 </template>
@@ -70,6 +70,7 @@ export default {
 
     const route = useRoute();
     const articleId = ref(route.params.articleID);
+    const page = route.query.page
     const ArticleContent = ref("");
 
     onMounted(() => {
@@ -118,7 +119,7 @@ export default {
       await axios.patch(url, body, { headers }).then((res) => {
         if (res.status == 204) {
           alert("글이 수정 되었습니다.");
-          router.replace(`/mypage/board/${articleId.value}`);
+          router.replace(`/mypage/board/${articleId.value}?page=${page}`);
         }
       }).catch(()=>{
         alert("글 수정에 실패하였습니다.");
@@ -163,16 +164,22 @@ export default {
         );
     };
 
+    const link = () =>{
+      router.replace(`/mypage/board/${articleId.value}?page=${page}`)
+    }
+
     return {
       message: "글 수정",
       state,
       title,
       content,
       files,
+      page,
       originFile,
       editArticle,
       selectFile,
       deleteImage,
+      link,
     };
   },
 };
