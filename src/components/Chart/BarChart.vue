@@ -37,6 +37,10 @@ export default {
             horizontal: true,
           },
         },
+        title : {
+          text: "일간 부위별 운동 기록",
+          align: "center"
+        },
         xaxis: {
           categories: ["등", "가슴", "하체", "코어"],
         },
