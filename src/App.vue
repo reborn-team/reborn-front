@@ -133,7 +133,7 @@ export default {
       router.replace("/mypage/goal");
     };
     const linkMyPageList = () => {
-      router.replace("/mypage/list?page=1");
+      router.replace("/mypage/board?page=1");
     };
     const linkMyChange = () => {
       router.replace("/mypage/change");

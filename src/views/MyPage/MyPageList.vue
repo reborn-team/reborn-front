@@ -2,8 +2,8 @@
   <MyPageNavVue />
   <div id="myPageList">
     <div id="boardList">
-      <BoardList :pageList="pageList" :page="page" />
-      <a href="/board/write">
+      <MyList :pageList="pageList" :page="page" />
+      <a href="/mypage/board/write">
         <button type="button" class="btn btn-danger recode write">Write</button>
       </a>
     </div>
@@ -19,8 +19,8 @@
 
 <script>
 import "@/css/views/MyPage/MyPageList.css";
-import BoardList from "@/components/Board/List.vue";
-import Pagination from "@/components/Board/MyPagination.vue";
+import MyList from "@/components/MyPage/MyArticle.vue";
+import Pagination from "@/components/MyPage/MyPagination.vue";
 import MyPageNavVue from "@/components/MyPageNav.vue";
 import axios from "axios";
 import router from "@/router/router";
@@ -29,7 +29,7 @@ import { useRoute } from "vue-router";
 
 export default {
   name: "TheBoard",
-  components: { BoardList, Pagination, MyPageNavVue },
+  components: { MyList, Pagination, MyPageNavVue },
   setup() {
     onMounted(() => {
       getBoard();
@@ -64,7 +64,7 @@ export default {
         pageNumberList.value = res.data.pageNumberList;
         board.value = res.data;
 
-        router.replace(`/mypage/list?page=${currentpage}`);
+        router.replace(`/mypage/board?page=${currentpage}`);
       });
     };
 
