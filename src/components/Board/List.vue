@@ -31,7 +31,7 @@ export default {
   props: ["page","pageList","articlePage"],
   setup(props) {
     const link = (i) => {
-      router.push(`/board/${i}?page=${props.page}`)
+      router.replace(`/board/${i}?page=${props.page}`)
     };
 
     return { link };

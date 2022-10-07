@@ -92,11 +92,6 @@ export default {
         title.value.focus();
         return false;
       } 
-      else if (state.content < 5) {
-        alert("내용을 5자 이상 입력해 주세요");
-        content.value.focus();
-        return false;
-      } 
       else if (state.content === "") {
         alert("내용을 입력해 주세요");
         content.value.focus();
@@ -127,7 +122,7 @@ export default {
       }).catch(()=>{
         alert("글 수정에 실패하였습니다.");
       });
-      router.push("/board?page=1");
+      router.replace("/board?page=1");
     };
 
     const selectFile = (event) => {

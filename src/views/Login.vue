@@ -98,7 +98,7 @@ export default {
           if (res.status == 200) {
             sessionStorage.setItem("TOKEN", res.headers.authorization);
             alert("로그인 되었습니다.");
-            router.push("/");
+            router.replace("/");
           }
         })
         .catch(() => {

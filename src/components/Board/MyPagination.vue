@@ -2,7 +2,7 @@
   <div id="MyBoardPagi" class="pagination-div">
     <ul class="pagination">
       <li class="page-item">
-        <a class="page-link" aria-label="Previous" v-if="prev">
+        <a class="page-link" aria-label="Previous" href="" v-if="prev" @click="prevPage">
           <span aria-hidden="true" @click="prevPage">&laquo;</span>
         </a>
       </li>
@@ -10,7 +10,7 @@
         <a class="page-link" href="" @click="currentPage(i)">{{ i }} </a>
       </li>
       <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next" v-if="next">
+        <a class="page-link" href="" aria-label="Next" @click="nextPage" v-if="page<end">
           <span aria-hidden="true" @click="nextPage" >&raquo;</span>
         </a>
       </li>
@@ -23,40 +23,28 @@ import router from '@/router/router';
 export default {
   name: "ThePaginamtion",
   props: [
-  "page",
+    "page",
     "pageNumberList",
     "prev",
-    "next",
-    "start",
     "end",
-    "totalPage",
   ],
   setup(props) {
     const currentPage = (i) => {
-      router.push(`/mypage/list?page=${i}`)
+      router.replace(`/mypage/list?page=${i}`);
     };
 
     const prevPage = () => {
-        props.start - 10
-        props.end -10
-        if(props.page<=10){
-          router.replace(`/mypage/list?page=1`)
-        }
-        router.replace(`/mypage/list?page=${props.page-10}`);
-    }
+      router.replace(`/mypage/list?page=${props.page-1}`);
+    };
 
     const nextPage = () => {
-      if(props.next == true){
-        props.start + 10
-        props.end + 10
-        router.replace("/mypage/list?page=${props.page+10}")
-      }
-    }
+      router.replace(`/mypage/list?page=${props.page+1}`);
+    };
 
     return {
       currentPage,
       prevPage,
-      nextPage
+      nextPage,
     };
   },
 };

@@ -172,11 +172,10 @@ export default {
         .then(function (res) {
           if (res.status === 204) {
             alert("운동이 수정 되었습니다.");
-            router.push("/workout/" + res.data);
+            router.replace("/workout/" + res.data);
           }
         })
         .catch(() => {
-          alert("수정에 실패했습니다.");
         });
     };
 
@@ -244,7 +243,7 @@ export default {
     };
 
     const linkList = () => {
-      router.push("/workout");
+      router.replace("/workout");
     };
 
     return {
