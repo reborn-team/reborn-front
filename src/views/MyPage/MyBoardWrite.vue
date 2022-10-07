@@ -81,7 +81,7 @@ export default {
       await axios.post(url, body, {headers}).then((res)=>{
         if(res.status==201){
           alert("글이 등록 되었습니다.")
-          router.replace(`/mypage/board/` + res.data);
+          router.replace(`/mypage/board/${res.data}?page=1`);
         }
       }).catch(()=>{
         alert("글 등록에 실패하였습니다.");
