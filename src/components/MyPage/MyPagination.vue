@@ -30,15 +30,15 @@ export default {
   ],
   setup(props) {
     const currentPage = (i) => {
-      router.replace(`/mypage/list?page=${i}`);
+      router.replace(`/mypage/board?page=${i}`);
     };
 
     const prevPage = () => {
-      router.replace(`/mypage/list?page=${props.page-1}`);
+      router.replace(`/mypage/board?page=${props.page-1}`);
     };
 
     const nextPage = () => {
-      router.replace(`/mypage/list?page=${props.page+1}`);
+      router.replace(`/mypage/board?page=${props.page+1}`);
     };
 
     return {
