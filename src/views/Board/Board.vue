@@ -8,7 +8,6 @@
       </a>
     </div>
 
-    <!-- 서치 옵션 -->
     <div id="searchBar">
       <select class="form-select" v-model="condition" @click="onClick">
         <option value="" selected disabled>----</option>

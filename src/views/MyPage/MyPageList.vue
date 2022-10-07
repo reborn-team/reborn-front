@@ -8,16 +8,6 @@
       </a>
     </div>
 
-    <!-- 서치 옵션 -->
-    <div id="searchBar">
-      <select class="form-select" v-model="condition" @click="onClick">
-        <option value="" selected disabled>----</option>
-        <option value="title">제목</option>
-      </select>
-      <input class="form-control" type="text" v-model="input" />
-      <button type="button" class="btn btn-danger recode search" @click="search">Search</button>
-    </div>
-    
     <Pagination
       :page="page"
       :prev="prev"
@@ -33,7 +23,7 @@
 <script>
 import "@/css/views/MyPage/MyPageList.css";
 import BoardList from "@/components/Board/List.vue";
-import Pagination from "@/components/Board/Pagination.vue";
+import Pagination from "@/components/Board/MyPagination.vue";
 import MyPageNavVue from "@/components/MyPageNav.vue";
 import axios from "axios";
 import router from "@/router/router";
@@ -61,18 +51,18 @@ export default {
 
     const route = useRoute();
     const currentpage = route.query.page;
-    
+
     const condition = ref("");
     const input = ref("");
 
     const getBoard = async () => {
-      const url = `/api/v1/articles/me?page=1`;
+      const url = `/api/v1/articles/me?page=${currentpage}`;
       const headers = {
         "Content-Type": "application/json;",
         Authorization: Token.value,
       };
 
-      axios.get(url,{headers}).then((res) => {
+      axios.get(url, { headers }).then((res) => {
         pageList.value = res.data.pageList;
         page.value = res.data.page;
         prev.value = res.data.prev;
@@ -83,23 +73,9 @@ export default {
         totalPage.value = res.data.totalPage;
         board.value = res.data;
 
-        router.replace(`/mypage/list/?page=${currentpage}`);
+        router.replace(`/mypage/list?page=${currentpage}`);
       });
     };
-
-    const onClick = (res) => {
-      condition.value = res.target.value
-    }
-
-    const search = () => {
-      const url = `/api/v1/articles/me?page=${currentpage}&${condition.value}=${input.value}`;
-      axios.get(url).then((res) => {
-        pageList.value = res.data.pageList;
-
-        router.replace(`/mypage/list/?page=${currentpage}&${condition.value}=${input.value}`)
-        input.value = ""
-      })
-    }
 
     return {
       pageList,
@@ -116,8 +92,6 @@ export default {
       input,
       Token,
       getBoard,
-      search,
-      onClick,
     };
   },
 };

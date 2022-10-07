@@ -36,7 +36,7 @@
             </button>
             <ul class="dropdown-menu">
               <li><button onclick="location.href='/mypage/goal'" >달성도</button></li>
-              <li><button onclick="location.href='/mypage/list'">내가 쓴 글</button></li>
+              <li><button onclick="location.href='/mypage/list?page=1'">내가 쓴 글</button></li>
               <li><button onclick="location.href='/mypage/change'">정보 수정</button></li>
             </ul>
           </li>
