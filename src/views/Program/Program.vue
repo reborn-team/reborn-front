@@ -7,7 +7,7 @@
         <option value="BACK">등</option>
         <option value="CHEST">가슴</option>
         <option value="LOWER_BODY">하체</option>
-            <option value="CORE">코어</option>
+        <option value="CORE">코어</option>
       </select>
       <select
         class="form-select two"
@@ -16,16 +16,16 @@
         v-model="selected"
         @change="onchange"
       >
-        <option style="font-weight: bold;" disabled>세부사항</option>
-        <option id="selectName" :value="JSON.stringify(i)" v-for="i in workout" :key="i">{{i.workoutName}}</option>
+      <option style="font-weight: bold;" disabled>세부사항</option>
+      <option id="selectName" :value="JSON.stringify(i)" v-for="i in workout" :key="i">{{i.workoutName}}</option>
       </select>
-      <div>
+      <div class="programImg">
         <img
         src="@/assets/img/noImage.gif"
         alt="Error"
         v-if="selected.uploadFileName == 'empty'"
         />
-        <img :src="viewUrl(selected.uploadFileName)"  alt="No image" v-else/>
+        <img :src="viewUrl(selected.uploadFileName)"  alt="= 운동을 선택해주세요" v-else/>
       </div>
     </div>
     <div id="createBtn">

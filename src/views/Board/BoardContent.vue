@@ -97,7 +97,7 @@ export default {
         .then((res) => {
           if (res.status == 204) {
             alert("목록이 삭제되었습니다.");
-            router.push("/board?page=1");
+            router.replace("/board?page=1");
           }
         })
         .catch(() => {
@@ -141,7 +141,7 @@ export default {
     };
 
     const linkEdit = () => {
-      router.push(`/board/${articleId.value}/edit`);
+      router.replace(`/board/${articleId.value}/edit`);
     };
 
     return {
