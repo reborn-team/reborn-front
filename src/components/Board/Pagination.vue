@@ -2,15 +2,15 @@
   <div id="boardPagi" class="pagination-div">
     <ul class="pagination">
       <li class="page-item">
-        <a class="page-link" aria-label="Previous" v-if="prev" @click="prevPage">
+        <a class="page-link" aria-label="Previous" href="" v-if="prev" @click="prevPage">
           <span aria-hidden="true" >&laquo;</span>
         </a>
       </li>
       <li class="page-item" v-for="i in pageNumberList" :key="i">
         <a class="page-link" href="" @click="currentPage(i)">{{ i }} </a>
       </li>
-      <li class="page-item" v-if="next">
-        <a class="page-link" @click="nextPage">
+      <li class="page-item" >
+        <a class="page-link" href="" aria-label="Next" @click="nextPage" v-if="page<end">
           <span aria-hidden="true" >&raquo;</span>
         </a>
       </li>
@@ -26,11 +26,7 @@ export default {
     "page",
     "pageNumberList",
     "prev",
-    "next",
-    "start",
     "end",
-    "totalPage",
-    "currentpage"
   ],
   setup(props) {
     const currentPage = (i) => {
@@ -38,14 +34,11 @@ export default {
     };
 
     const prevPage = () => {
-      console.log(props.currentpage-1)
-      router.replace(`/board?page=${props.currentpage-1}`);
+      router.replace(`/board?page=${props.page-1}`);
     };
 
     const nextPage = () => {
-        props.start + 10;
-        props.end + 10;
-        router.replace(`/board?page=${props.start+1}`);
+      router.replace(`/board?page=${props.page+1}`);
     };
 
     return {
