@@ -92,6 +92,11 @@ export default {
         title.value.focus();
         return false;
       } 
+      else if (state.content < 5) {
+        alert("내용을 5자 이상 입력해 주세요");
+        content.value.focus();
+        return false;
+      } 
       else if (state.content === "") {
         alert("내용을 입력해 주세요");
         content.value.focus();
