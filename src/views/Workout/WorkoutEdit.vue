@@ -233,7 +233,7 @@ export default {
             }
           }
         })
-        .catch(() => alert("파일 삭제를 실패했습니다."));
+        .catch();
     };
 
     const viewUrl = (i) => {
