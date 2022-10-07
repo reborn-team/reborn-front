@@ -81,12 +81,12 @@ export default {
       await axios.post(url, body, {headers}).then((res)=>{
         if(res.status==201){
           alert("글이 등록 되었습니다.")
+          router.replace("/board/"+res.data);
         }
       }).catch(()=>{
         alert("글 등록에 실패하였습니다.");
       });
 
-      router.replace("/board?page=1");
     };
 
     const selectFile = (event) => {
