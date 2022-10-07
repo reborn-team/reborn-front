@@ -122,7 +122,7 @@ export default {
       }).catch(()=>{
         alert("글 수정에 실패하였습니다.");
       });
-      router.push("/board?page=1");
+      router.replace("/board?page=1");
     };
 
     const selectFile = (event) => {

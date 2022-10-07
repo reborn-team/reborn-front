@@ -26,6 +26,7 @@
       :end="end"
       :pageNumberList="pageNumberList"
       :totalPage="totalPage"
+      :currentpage="currentpage"
     />
   </div>
 </template>

@@ -134,7 +134,7 @@ export default {
       await axios.delete(url, { headers }).then((res) => {
         if (res.status == 204) {
           alert("목록이 삭제되었습니다.");
-          router.push(`/workout`);
+          router.replace(`/workout`);
         }
       }).catch(()=>{
         alert("목록이 삭제를 실패하였습니다.")
@@ -161,7 +161,7 @@ export default {
     };
 
     const linkEdit = () => {
-      router.push(`/workout/${WorkoutID.value}/edit`);
+      router.replace(`/workout/${WorkoutID.value}/edit`);
     };
 
     const deleteList = async () => {
@@ -181,7 +181,7 @@ export default {
     };
 
     const linkList = () => {
-      router.push(`/workout?category=${route.query.category}`);
+      router.replace(`/workout?category=${route.query.category}`);
     };
 
     return {

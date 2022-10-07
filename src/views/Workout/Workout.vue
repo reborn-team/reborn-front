@@ -117,7 +117,7 @@ export default {
     };
 
     const addWorkoukList = () => {
-      router.push("/workout/create");
+      router.replace("/workout/create");
     };
 
     return {

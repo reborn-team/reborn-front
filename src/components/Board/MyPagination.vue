@@ -33,7 +33,7 @@ export default {
   ],
   setup(props) {
     const currentPage = (i) => {
-      router.push(`/mypage/list?page=${i}`)
+      router.replace(`/mypage/list?page=${i}`)
     };
 
     const prevPage = () => {

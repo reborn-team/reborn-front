@@ -152,7 +152,7 @@ export default {
         .then(function (res) {
           if (res.status === 201) {
             alert("운동이 등록 되었습니다.");
-            router.push(
+            router.replace(
               `/workout/${res.data.saveId}?category=${state.workoutCategory}`
             );
           }
@@ -206,7 +206,7 @@ export default {
     };
 
     const linkList = () => {
-      router.push("/workout");
+      router.replace("/workout");
     };
 
     return {

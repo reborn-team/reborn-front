@@ -236,7 +236,7 @@ export default {
       await axios.post(url, body, { headers }).then(function (res) {
         if (res.status === 201) {
           alert("회원가입이 되었습니다.");
-          router.push("/login");
+          router.replace("/login");
         } 
       }).catch(() => {
         alert("회원가입에 실패했습니다")
