@@ -67,7 +67,6 @@ export default {
       const url = `api/v1/articles?page=${currentpage}`;
 
       axios.get(url).then((res) => {
-        console.log
         pageList.value = res.data.pageList;
         page.value = res.data.page;
         prev.value = res.data.prev;
@@ -89,7 +88,6 @@ export default {
     const search = () => {
       const url = `api/v1/articles?page=${currentpage}&${condition.value}=${input.value}`;
       axios.get(url).then((res) => {
-        console.log(res.data)
         pageList.value = res.data.pageList;
         page.value = res.data.page;
         prev.value = res.data.prev;
