@@ -46,7 +46,6 @@
               class="nav-link"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              v-if="token != null"
             >
               <img
                 src="./assets/img/header/person.svg"
@@ -72,7 +71,7 @@
           </button>
           <button @click="logout" v-if="token != null">
             <img
-              src="./assets/img/header/logout.svg"
+              src="./assets/img/header/login.svg"
               alt="logout"
               width="30"
               height="20"
