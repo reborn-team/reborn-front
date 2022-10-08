@@ -46,40 +46,35 @@ export default {
       let diff = paramDate.getDate() - day + (day == 0 ? -6 : 1);
       return new Date(paramDate.setDate(diff));
     }
+
     let today = new Date();
     let date = getMondayDate(today);
-    let start = new Date(date);
-
-    start.setDate(date.getDate());
-    state.sunday = start.toISOString().substring(0, 10);
-    let end = new Date();
-    end.setDate(start.getDate() + 6);
-    state.saturday = end.toISOString().substring(0, 10);
+    let start = new Date();
+    
+    setWeekDate(date)
 
     function prevWeek() {
       state.flag = false;
       today.setDate(today.getDate() - 7);
-      date = getMondayDate(today);
-      start = new Date(date);
-      start.setDate(date.getDate());
-      state.sunday = start.toISOString().substring(0, 10);
-      let end = new Date(date);
-      end.setDate(start.getDate() + 6);
-      state.saturday = end.toISOString().substring(0, 10);
+      start = getMondayDate(today);
+      setWeekDate(start)
       getWeekRecord(state.saturday);
     }
 
     function nextWeek() {
       state.flag = false;
       today.setDate(today.getDate() + 7);
-      date = getMondayDate(today);
-      start = new Date(date);
-      start.setDate(date.getDate());
+      start = getMondayDate(today);
+      setWeekDate(start)
+      getWeekRecord(state.saturday);
+    }
+
+    function setWeekDate(date){
+      start.setDate(date.getDate()-1);
       state.sunday = start.toISOString().substring(0, 10);
       let end = new Date(date);
       end.setDate(start.getDate() + 6);
       state.saturday = end.toISOString().substring(0, 10);
-      getWeekRecord(state.saturday);
     }
 
     let chartMap = {
