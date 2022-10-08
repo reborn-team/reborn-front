@@ -9,4 +9,5 @@
 #workout hr{ margin-bottom: 1rem;}
 #workout #WorkoutCard { display: flex; width: 80%; margin: 0 auto; justify-content: center;}
 #workout #WorkoutCard .row{ width: 100%;}
+#workout #WorkoutCard .noWorkout{ position: absolute; left: 40%; }
 #workout #addBtn { width: 75%; margin: 30px 0;}

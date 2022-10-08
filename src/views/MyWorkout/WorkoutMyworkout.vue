@@ -22,8 +22,9 @@
     <hr />
     <div id="MyWorkoutCard">
       <MyWorkoutCard :page ="page" :category="category"/>
+      <h5 v-if="page==0" class="noWorkout">등록된 운동이 없습니다</h5>
     </div>
-    <button id="addBtn" class="btn btn-danger" type="button" @click="addCard" v-if="hasNext.valueOf(true)">더보기</button>
+    <button id="addBtn" class="btn btn-danger" type="button" @click="addCard" v-if="hasNext.valueOf(true) && page != 0">더보기</button>
   </div>
 </template>
 

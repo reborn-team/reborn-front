@@ -77,7 +77,7 @@ export default {
     }
 
     const search = () => {
-      const url = `api/v1/articles?page=${currentpage}&${condition.value}=${input.value}`;
+      const url = `api/v1/articles?page=1&${condition.value}=${input.value}`;
       axios.get(url).then((res) => {
         pageList.value = res.data.pageList;
         page.value = res.data.page;
@@ -86,7 +86,7 @@ export default {
         pageNumberList.value = res.data.pageNumberList;
         board.value = res.data;
 
-        router.replace(`/board?page=${currentpage}&${condition.value}=${input.value}`)
+        router.replace(`/board?page=1&${condition.value}=${input.value}`)
         input.value = ""
       })
     }
