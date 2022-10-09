@@ -175,8 +175,7 @@ export default {
             router.replace("/workout/" + res.data);
           }
         })
-        .catch(() => {
-        });
+        .catch(() => {});
     };
 
     onMounted(() => {

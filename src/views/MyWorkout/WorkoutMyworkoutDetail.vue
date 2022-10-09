@@ -69,14 +69,17 @@ import { useRoute } from "vue-router";
 export default {
   name: "WorkoutMyworkoutDetail",
   setup() {
-    onMounted(() => {
-      getWorkoutHandler();
+    const state = reactive({
+      category: "",
     });
-
     const route = useRoute();
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const WorkoutID = ref(route.params.workoutID);
     const Workout = ref("");
+
+    onMounted(() => {
+      getWorkoutHandler();
+    });
 
     const viewUrl = (i) => {
       if (i != undefined) {
@@ -97,10 +100,6 @@ export default {
       });
     }
 
-    const state = reactive({
-      category: "",
-    });
-
     const convertCategoryValue = (category) => {
       switch (category) {
         case "BACK":
@@ -120,14 +119,17 @@ export default {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
-      await axios.delete(url, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("목록이 제외되었습니다.");
-          router.replace(`/workout/me`);
-        }
-      }).catch(()=>{
-        alert("목록이 삭제를 실패하였습니다.")
-      });
+      await axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("목록이 제외되었습니다.");
+            router.replace(`/workout/me`);
+          }
+        })
+        .catch(() => {
+          alert("목록이 삭제를 실패하였습니다.");
+        });
     };
 
     const linkList = () => {

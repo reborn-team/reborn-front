@@ -131,14 +131,17 @@ export default {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
-      await axios.delete(url, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("목록이 삭제되었습니다.");
-          router.replace(`/workout`);
-        }
-      }).catch(()=>{
-        alert("목록이 삭제를 실패하였습니다.")
-      });
+      await axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("목록이 삭제되었습니다.");
+            router.replace(`/workout`);
+          }
+        })
+        .catch(() => {
+          alert("목록이 삭제를 실패하였습니다.");
+        });
     };
 
     const linkMyworkout = async () => {
@@ -156,7 +159,7 @@ export default {
           }
         })
         .catch(() => {
-            alert("권한이 없습니다.")
+          alert("권한이 없습니다.");
         });
     };
 
@@ -170,14 +173,17 @@ export default {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
-      await axios.delete(url, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("목록이 삭제되었습니다.");
-          router.go();
-        }
-      }).catch(()=>{
-        alert("목록이 삭제를 실패하였습니다.")
-      });
+      await axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("목록이 삭제되었습니다.");
+            router.go();
+          }
+        })
+        .catch(() => {
+          alert("목록이 삭제를 실패하였습니다.");
+        });
     };
 
     const linkList = () => {

@@ -27,35 +27,62 @@ import MyBoardWrite from "@/views/MyPage/MyBoardWrite.vue";
 import MyPageChange from "@/views/MyPage/MyPageChange.vue";
 
 const routes = [
-  {path: "/", name: "main", component: Main},
-  {path: "/login", name: "login", component: Login},
-  {path: "/join", name: "join", component: Join},
+  { path: "/", name: "main", component: Main },
+  { path: "/login", name: "login", component: Login },
+  { path: "/join", name: "join", component: Join },
 
-  {path: "/workout", name: "Workout", component: Workout},
-  {path: "/workout/create", name: "workoutCreate", component: WorkoutCreate},
-  {path: "/workout/:workoutID", name: "workoutDetail", component: WorkoutDetail},
-  {path: "/workout/:workoutID/edit", name: "workoutEdit", component: WorkoutEdit},
-  
-  {path: "/workout/me", name: "workoutMyworkout", component: WorkoutMyworkout},
-  {path: "/workout/me/:workoutID", name: "workoutMyworkoutDetail", component: WorkoutMyworkoutDetail},
-  {path: "/program", name: "program", component: Program},
+  { path: "/workout", name: "Workout", component: Workout },
+  { path: "/workout/create", name: "workoutCreate", component: WorkoutCreate },
+  {
+    path: "/workout/:workoutID",
+    name: "workoutDetail",
+    component: WorkoutDetail,
+  },
+  {
+    path: "/workout/:workoutID/edit",
+    name: "workoutEdit",
+    component: WorkoutEdit,
+  },
 
-  {path: "/board", name: "board", component: Board},
-  {path: "/board/write", name: "boardWrite", component: BoardWrite},
-  {path: "/board/:articleID", name: "boardContent", component: BoardContent},
-  {path: "/board/:articleID/edit", name: "boardEdit", component: BoardEdit},
+  {
+    path: "/workout/me",
+    name: "workoutMyworkout",
+    component: WorkoutMyworkout,
+  },
+  {
+    path: "/workout/me/:workoutID",
+    name: "workoutMyworkoutDetail",
+    component: WorkoutMyworkoutDetail,
+  },
+  { path: "/program", name: "program", component: Program },
 
-  {path: "/gym", name: "gym", component: Gym},
-  
-  {path: "/mypage/goal", name: "myPageGoal", component: MyPageGoal},
-  {path: "/mypage/board", name: "myPageList", component: MyPageList},
-  {path: "/mypage/board/write", name: "myBoardWrite", component: MyBoardWrite},
-  {path: "/mypage/board/:articleID", name: "myPageContent", component: MyPageContent},
-  {path: "/mypage/board/:articleID/edit", name: "myBoardEdit", component: MyBoardEdit},
-  {path: "/mypage/change", name: "myPageChange", component: MyPageChange},
-]
+  { path: "/board", name: "board", component: Board },
+  { path: "/board/write", name: "boardWrite", component: BoardWrite },
+  { path: "/board/:articleID", name: "boardContent", component: BoardContent },
+  { path: "/board/:articleID/edit", name: "boardEdit", component: BoardEdit },
 
-const router = createRouter({history: createWebHistory(),routes,})
+  { path: "/gym", name: "gym", component: Gym },
+
+  { path: "/mypage/goal", name: "myPageGoal", component: MyPageGoal },
+  { path: "/mypage/board", name: "myPageList", component: MyPageList },
+  {
+    path: "/mypage/board/write",
+    name: "myBoardWrite",
+    component: MyBoardWrite,
+  },
+  {
+    path: "/mypage/board/:articleID",
+    name: "myPageContent",
+    component: MyPageContent,
+  },
+  {
+    path: "/mypage/board/:articleID/edit",
+    name: "myBoardEdit",
+    component: MyBoardEdit,
+  },
+  { path: "/mypage/change", name: "myPageChange", component: MyPageChange },
+];
+
+const router = createRouter({ history: createWebHistory(), routes });
 
 export default router;
-

@@ -48,7 +48,7 @@ export default {
     let date = getSunday(state.today);
     let start = new Date();
 
-    function setWeekDate(date){
+    function setWeekDate(date) {
       start.setDate(date.getDate());
       let sunday = new Date(start - timezoneOffset);
       state.sunday = sunday.toISOString().substring(0, 10);
@@ -77,7 +77,7 @@ export default {
       state.flag = false;
       today.setDate(today.getDate() - 7);
       start = getSunday(today);
-      setWeekDate(start)
+      setWeekDate(start);
       getWeekRecord(state.saturday);
     }
 
@@ -85,11 +85,9 @@ export default {
       state.flag = false;
       today.setDate(today.getDate() + 7);
       start = getSunday(today);
-      setWeekDate(start)
+      setWeekDate(start);
       getWeekRecord(state.saturday);
     }
-
-  
 
     let chartMap = {
       series: [

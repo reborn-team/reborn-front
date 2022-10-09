@@ -115,10 +115,10 @@ export default {
       router.replace("/");
     };
     const linkProgram = () => {
-      if(token === null){
-        alert("로그인 해야합니다")
-        router.push("/login")
-      }else{
+      if (token === null) {
+        alert("로그인 해야합니다");
+        router.push("/login");
+      } else {
         router.replace("/program");
       }
     };
@@ -126,10 +126,10 @@ export default {
       router.replace("/workout");
     };
     const linkMyList = () => {
-      if(token === null){
-        alert("로그인 해야합니다")
-        router.push("/login")
-      }else{
+      if (token === null) {
+        alert("로그인 해야합니다");
+        router.push("/login");
+      } else {
         router.replace("/workout/me");
       }
     };

@@ -110,21 +110,21 @@ export default {
       const url = `/api/v1/workouts/me?category=${category.value}&${condition.value}=${input.value}`;
       const headers = {
         "Content-Type": "application/json",
-          Authorization: Token.value,
-      }
-      axios.get(url,{headers}).then((res) => {
+        Authorization: Token.value,
+      };
+      axios.get(url, { headers }).then((res) => {
         if (res.status === 200) {
           if (res.data.hasNext) {
             res.data.page.pop();
           }
           page.value = res.data.page;
           hasNext.value = res.data.hasNext;
-          if(res.data.page.length!=0){
+          if (res.data.page.length != 0) {
             id.value = res.data.page[res.data.page.length - 1].workoutId;
           }
 
           router.replace(`/workout/me?category=${category.value}`);
-          input.value = ""
+          input.value = "";
         }
       });
     };

@@ -87,10 +87,11 @@ export default {
         password.value.focus();
         return;
       }
-      async function routerPush(){
-          await router.push(`/`)
-          await router.go(0)
-        }
+      async function routerPush() {
+        await router.push(`/`);
+        await router.go(0);
+      }
+
       const url = "/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
       const body = { email: state.email, password: state.password };
@@ -100,7 +101,7 @@ export default {
           if (res.status == 200) {
             sessionStorage.setItem("TOKEN", res.headers.authorization);
             alert("로그인 되었습니다.");
-            routerPush()
+            routerPush();
           }
         })
         .catch(() => {
