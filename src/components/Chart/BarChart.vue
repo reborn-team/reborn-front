@@ -1,9 +1,23 @@
 <template lang="ko">
   <div id="barChart">
     <div class="linePeriod">
-      <button class="btn btn-primary btn-sm" @click="getDay(-1)">&lt;</button>
+      <a href="#" @click="getDay(-1)">
+        <img
+          src="@/assets/img/left.png"
+          alt=""
+          width="20"
+          height="20"
+        />
+      </a>
       <span>{{ `${state.today}` }}</span>
-      <button class="btn btn-primary btn-sm" @click="getDay(1)">&gt;</button>
+       <a href="#" @click="getDay(1)">
+        <img
+          src="@/assets/img/right.png"
+          alt=""
+          width="20"
+          height="20"
+        />
+      </a>
     </div>
     <apexchart
       width="700"

@@ -1,9 +1,23 @@
-<template>
+<template lang="ko">
   <div id="chart">
     <div class="linePeriod">
-      <button class="btn btn-primary btn-sm" @click="prevWeek">&lt;</button>
-      <span>{{ `${state.sunday} ~ ${state.saturday}` }}</span>
-      <button class="btn btn-primary btn-sm" @click="nextWeek">&gt;</button>
+      <a href="#" @click="prevWeek">
+        <img
+          src="@/assets/img/left.png"
+          alt=""
+          width="20"
+          height="20"
+        />
+        </a>
+          <span>{{ `${state.sunday} ~ ${state.saturday}` }}</span>
+          <a href="#" @click="nextWeek">
+          <img
+            src="@/assets/img/right.png"
+            alt=""
+            width="20"
+            height="20"
+          />
+        </a>
     </div>
     <apexchart
       type="area"
@@ -38,12 +52,12 @@ export default {
       flag: false,
       sunday: "",
       saturday: "",
-      today:"",
+      today: "",
     });
 
     const timezoneOffset = new Date().getTimezoneOffset() * 60000;
     let today = new Date(Date.now() - timezoneOffset);
-    state.today = today.toISOString().substring(0,10)
+    state.today = today.toISOString().substring(0, 10);
 
     let date = getSunday(state.today);
     let start = new Date();
@@ -55,23 +69,19 @@ export default {
 
       let saturday = new Date();
       saturday.setDate(start.getDate() + 6);
-      saturday = new Date(saturday - timezoneOffset)
+      saturday = new Date(saturday - timezoneOffset);
       state.saturday = saturday.toISOString().substring(0, 10);
     }
 
-
     function getSunday(i) {
       let paramDate = new Date(i);
-      console.log(paramDate)
       let day = paramDate.getDay();
-      console.log(day)
-      let diff = paramDate.getDate() - day;   
-      console.log(diff)
+      let diff = paramDate.getDate() - day;
 
       return new Date(paramDate.setDate(diff));
     }
 
-    setWeekDate(date)
+    setWeekDate(date);
 
     function prevWeek() {
       state.flag = false;
