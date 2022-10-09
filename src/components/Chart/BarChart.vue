@@ -1,5 +1,10 @@
 <template lang="ko">
   <div id="barChart">
+    <div class="linePeriod">
+      <button class="btn btn-primary btn-sm" @click="getDay(-1)">&lt;</button>
+      <span>{{ `${state.today}` }}</span>
+      <button class="btn btn-primary btn-sm" @click="getDay(1)">&gt;</button>
+    </div>
     <apexchart
       width="700"
       height="300"
@@ -20,7 +25,7 @@ export default {
   name: "BarExample",
   setup() {
     onMounted(() => {
-      getTodayRecord();
+      getTodayRecord(new Date().toISOString().substring(0, 10));
     });
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const state = reactive({
@@ -29,6 +34,7 @@ export default {
       lowerBody: 10,
       core: 10,
       flag: false,
+      today: "",
     });
     let chartMap = {
       chartOptions: {
@@ -51,9 +57,18 @@ export default {
         },
       ],
     };
+    let today = new Date();
+    state.today = today.toISOString().substring(0,10);
 
-    const getTodayRecord = async () => {
-      const url = "/api/v1/record/today";
+    function getDay(i){
+      state.flag = false;
+      today.setDate(today.getDate()+i);
+      state.today = today.toISOString().substring(0,10);
+      getTodayRecord(state.today)
+    }
+
+    const getTodayRecord = async (i) => {
+      const url = "/api/v1/records/day?date="+i;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
@@ -66,7 +81,7 @@ export default {
           state.core = res.data.core;
           chartMap.series = [
             {
-              name: "series-1",
+              name: "",
               data: [state.back, state.chest, state.lowerBody, state.core],
             },
           ];
@@ -75,7 +90,7 @@ export default {
       });
     };
 
-    return { getTodayRecord, state, chartMap };
+    return { getTodayRecord,getDay, state, chartMap };
   },
 };
 </script>

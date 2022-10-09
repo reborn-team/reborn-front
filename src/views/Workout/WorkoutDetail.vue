@@ -91,12 +91,12 @@ export default {
 
     const viewUrl = (i) => {
       if (i != undefined) {
-        return "/api/v1/file/images?filename=" + i;
+        return "/api/v1/files/images?filename=" + i;
       }
     };
 
     async function getWorkoutHandler() {
-      const url = `/api/v1/workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
@@ -126,7 +126,7 @@ export default {
     };
 
     const linkDeleteWorkout = async () => {
-      const url = `/api/v1/workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
@@ -142,7 +142,7 @@ export default {
     };
 
     const linkMyworkout = async () => {
-      const url = `/api/v1/my-workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/me/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
@@ -165,7 +165,7 @@ export default {
     };
 
     const deleteList = async () => {
-      const url = `/api/v1/my-workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/me/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,

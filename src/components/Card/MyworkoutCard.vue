@@ -30,7 +30,7 @@ export default {
       router.replace(`/workout/me/${i}?category=${props.category}`);
     };
     const viewUrl = (i) => {
-      return "/api/v1/file/images?filename=" + i;
+      return "/api/v1/files/images?filename=" + i;
     };
 
     return { link, viewUrl };

@@ -47,7 +47,7 @@ export default {
       if(category.value !== i) {
         category.value = i || "";
 
-        const url = `/api/v1/workout/rank?category=${category.value}`;
+        const url = `/api/v1/workouts/rank?category=${category.value}`;
   
         axios.get(url).then((res) => {
           if (res.status === 200) {
