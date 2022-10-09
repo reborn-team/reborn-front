@@ -166,27 +166,23 @@ export default {
     const email_pattern = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
     const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
-    const changeEmailFlag = () =>{
-      emailFlag = false
-    }
-    const changeNicknameFlag = () =>{
-      nickNameFlag = false
-    }
+    const changeEmailFlag = () => {
+      emailFlag = false;
+    };
+    const changeNicknameFlag = () => {
+      nickNameFlag = false;
+    };
 
     const joinHandler = async () => {
-
-
       if (state.email === "") {
         alert("아이디를 입력해 주세요");
         email.value.focus();
         return false;
-      } 
-      else if( !email_pattern.test(state.email)){
+      } else if (!email_pattern.test(state.email)) {
         alert("이메일 형식에 맞춰주세요");
         email.value.focus();
         return false;
-      }
-       else if (state.password === "") {
+      } else if (state.password === "") {
         alert("비밀번호를 입력해 주세요");
         password.value.focus();
         return false;
@@ -207,16 +203,15 @@ export default {
         alert("전화번호를 입력해 주세요");
         phone.value.focus();
         return;
-      } 
-      else if( !phone_pattern.test(state.phone)){
+      } else if (!phone_pattern.test(state.phone)) {
         alert("전화번호 형식에 맞춰주세요");
         email.value.focus();
         return false;
-      } else if(!emailFlag){
-        alert("아이디 중복 확인을 해주세요")
+      } else if (!emailFlag) {
+        alert("아이디 중복 확인을 해주세요");
         return;
-      } else if(!nickNameFlag){
-        alert("닉네임 중복 확인을 해주세요")
+      } else if (!nickNameFlag) {
+        alert("닉네임 중복 확인을 해주세요");
         return;
       }
 
@@ -233,14 +228,17 @@ export default {
         roadName: state.roadName,
         detailAddress: state.detailAddress,
       };
-      await axios.post(url, body, { headers }).then(function (res) {
-        if (res.status === 201) {
-          alert("회원가입이 되었습니다.");
-          router.replace("/login");
-        } 
-      }).catch(() => {
-        alert("회원가입에 실패했습니다")
-      });
+      await axios
+        .post(url, body, { headers })
+        .then(function (res) {
+          if (res.status === 201) {
+            alert("회원가입이 되었습니다.");
+            router.replace("/login");
+          }
+        })
+        .catch(() => {
+          alert("회원가입에 실패했습니다");
+        });
     };
 
     const emailCheckHandler = async () => {
@@ -248,28 +246,27 @@ export default {
       const email = state.email;
       const response = await axios.get(url + email);
       if (response.status === 200) {
-        if(response.data.exist == true){
-          alert("중복된 이메일입니다")
-        } else{
+        if (response.data.exist == true) {
+          alert("중복된 이메일입니다");
+        } else {
           alert("등록 가능한 이메일입니다");
-          emailFlag = true
+          emailFlag = true;
         }
-      } 
+      }
     };
-    
+
     const nickNameCheckHandler = async () => {
       const url = "/api/v1/nickname-check?nickname=";
       const nickname = state.nickname;
       const response = await axios.get(url + nickname);
       if (response.status === 200) {
-        if(response.data.exist == true){
-          alert("중복된 닉네임입니다")
-        } else{
+        if (response.data.exist == true) {
+          alert("중복된 닉네임입니다");
+        } else {
           alert("등록 가능한 닉네임입니다");
           nickNameFlag = true;
         }
-          
-      } 
+      }
     };
 
     const address_search = async () => {
@@ -277,8 +274,8 @@ export default {
     };
 
     const oncomplete = (data) => {
-      var addr = ""; 
-      var extraAddr = ""; 
+      var addr = "";
+      var extraAddr = "";
 
       if (data.userSelectedType === "R") {
         addr = data.roadAddress;

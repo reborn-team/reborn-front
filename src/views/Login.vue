@@ -91,7 +91,7 @@ export default {
         await router.push(`/`);
         await router.go(0);
       }
-      
+
       const url = "/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
       const body = { email: state.email, password: state.password };

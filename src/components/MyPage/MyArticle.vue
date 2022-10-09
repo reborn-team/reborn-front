@@ -24,14 +24,14 @@
 </template>
 
 <script>
-import router from '@/router/router';
+import router from "@/router/router";
 import "../../css/components/Board/List.css";
 export default {
   name: "MyArticle",
-  props: ["page","pageList","articlePage"],
+  props: ["page", "pageList", "articlePage"],
   setup(props) {
     const link = (i) => {
-      router.replace(`/mypage/board/${i}?page=${props.page}`)
+      router.replace(`/mypage/board/${i}?page=${props.page}`);
     };
 
     return { link };

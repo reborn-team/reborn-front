@@ -57,7 +57,6 @@ import { onMounted, reactive, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import router from "@/router/router";
 
-// To do
 export default {
   name: "BoardContent",
   components: { Reply },
