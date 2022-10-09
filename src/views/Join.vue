@@ -275,6 +275,7 @@ export default {
     const address_search = async () => {
       postOpen.value = !postOpen.value;
     };
+
     const oncomplete = (data) => {
       var addr = ""; 
       var extraAddr = ""; 
@@ -309,7 +310,6 @@ export default {
 
       postOpen.value = false;
     };
-
 
     return {
       state,

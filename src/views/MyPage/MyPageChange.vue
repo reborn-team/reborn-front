@@ -174,9 +174,9 @@ import MyPageNav from "@/components/MyPageNav.vue";
 import "@/css/views/MyPage/MyPageChange.css";
 import { VueDaumPostcode } from "vue-daum-postcode";
 import { reactive, ref } from "@vue/reactivity";
-import axios from 'axios';
-import { onMounted } from '@vue/runtime-core';
-import router from '@/router/router';
+import axios from "axios";
+import { onMounted } from "@vue/runtime-core";
+import router from "@/router/router";
 
 export default {
   name: "TheRegist",
@@ -207,29 +207,29 @@ export default {
     const detailAddress = ref("");
     let postOpen = ref(false);
 
-    onMounted(()=>{
+    onMounted(() => {
       getData();
-    })
+    });
 
-    const getData = async() =>{
+    const getData = async () => {
       const url = "/api/v1/members/me";
       const headers = {
         "Content-Type": "application/json;",
         Authorization: state.token,
       };
-      await axios.get(url, { headers }).then((res)=>{
-        if(res.status==200){
-          data.value = res.data
+      await axios.get(url, { headers }).then((res) => {
+        if (res.status == 200) {
+          data.value = res.data;
 
-          state.email = data.value.email
-          state.nickname = data.value.nickname
-          state.phone = data.value.phone
-          state.zipcode = data.value.zipcode
-          state.roadName = data.value.roadName
-          state.detailAddress = data.value.detailAddress
+          state.email = data.value.email;
+          state.nickname = data.value.nickname;
+          state.phone = data.value.phone;
+          state.zipcode = data.value.zipcode;
+          state.roadName = data.value.roadName;
+          state.detailAddress = data.value.detailAddress;
         }
-      })
-    }
+      });
+    };
 
     const phone_pattern = /^\d{2,3}-\d{3,4}-\d{4}$/;
 
@@ -242,7 +242,7 @@ export default {
         alert("전화번호를 입력해 주세요");
         phone.value.focus();
         return;
-      } else if(!phone_pattern.test(state.phone)){
+      } else if (!phone_pattern.test(state.phone)) {
         alert("전화번호 형식에 맞춰주세요");
         phone.value.focus();
         return false;
@@ -258,20 +258,22 @@ export default {
         phone: state.phone,
         zipcode: state.zipcode,
         roadName: state.roadName,
-        detailAddress: state.detailAddress
+        detailAddress: state.detailAddress,
       };
-      await axios.patch(url, body, { headers }).then((res)=>{
-        if(res.status==204){
-          alert("회원정보가 수정 되었습니다.")
-          router.go()
-        }
-      }).catch(()=>{
-        alert("회원정보 수정에 실패하였습니다.")
-      })
+      await axios
+        .patch(url, body, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("회원정보가 수정 되었습니다.");
+            router.go();
+          }
+        })
+        .catch(() => {
+          alert("회원정보 수정에 실패하였습니다.");
+        });
     };
 
     const changePasswordHandler = async () => {
-
       if (state.rawPassword === "") {
         alert("현재 비밀번호를 입력해 주세요");
         rawPassword.value.focus();
@@ -301,15 +303,17 @@ export default {
         rawPassword: state.rawPassword,
         changePassword: state.changePassword,
       };
-      await axios.patch(url, body, { headers }).then((res)=>{
-        if(res.status==204){
-          alert("비밀번호가 변경 되었습니다.")
-          router.go();
-        }
-      }).catch(()=>{
-        alert("비밀번호 변경에 실패하였습니다.")
-      })
-
+      await axios
+        .patch(url, body, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("비밀번호가 변경 되었습니다.");
+            router.go();
+          }
+        })
+        .catch(() => {
+          alert("비밀번호 변경에 실패하였습니다.");
+        });
     };
 
     const address_search = async () => {
@@ -317,21 +321,30 @@ export default {
     };
 
     const oncomplete = (data) => {
-      var addr = ""; 
-      var extraAddr = ""; 
-
-      if (data.userSelectedType === "R") {addr = data.roadAddress;} 
-      else {addr = data.jibunAddress;}
+      var addr = "";
+      var extraAddr = "";
 
       if (data.userSelectedType === "R") {
-        if (data.bname !== "") {extraAddr += data.bname;}
+        addr = data.roadAddress;
+      } else {
+        addr = data.jibunAddress;
+      }
+
+      if (data.userSelectedType === "R") {
+        if (data.bname !== "") {
+          extraAddr += data.bname;
+        }
         if (data.buildingName !== "" && data.apartment === "Y") {
           extraAddr +=
-            extraAddr !== "" ? ", " + data.buildingName : data.buildingName;}
+            extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
+        }
         if (extraAddr !== "") {
-          extraAddr = " (" + extraAddr + ")";}
+          extraAddr = " (" + extraAddr + ")";
+        }
         roadName.value.value = addr + " " + extraAddr;
-      } else {roadName.value.value = addr;}
+      } else {
+        roadName.value.value = addr;
+      }
 
       zipcode.value.value = data.zonecode;
       detailAddress.value.focus();
@@ -343,20 +356,22 @@ export default {
     };
 
     const deleteIdHandler = () => {
-      const url = "/api/v1/members/me"
+      const url = "/api/v1/members/me";
       const headers = {
         "Content-Type": "application/json",
         Authorization: state.token,
-      }
-      axios.delete(url, {headers}).then((res)=>{
-        if(res.status==204){
-          alert("회원 탈퇴가 완료 되었습니다.")
-        }
-      }).catch(()=>{
-        alert("회원 탈퇴를 실패하였습니다.")
-      })
-
-    }
+      };
+      axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("회원 탈퇴가 완료 되었습니다.");
+          }
+        })
+        .catch(() => {
+          alert("회원 탈퇴를 실패하였습니다.");
+        });
+    };
 
     return {
       state,
@@ -376,7 +391,7 @@ export default {
       changePasswordHandler,
       getData,
       deleteIdHandler,
-      data
+      data,
     };
   },
 };

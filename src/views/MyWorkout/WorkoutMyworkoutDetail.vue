@@ -69,14 +69,17 @@ import { useRoute } from "vue-router";
 export default {
   name: "WorkoutMyworkoutDetail",
   setup() {
-    onMounted(() => {
-      getWorkoutHandler();
+    const state = reactive({
+      category: "",
     });
-
     const route = useRoute();
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const WorkoutID = ref(route.params.workoutID);
     const Workout = ref("");
+
+    onMounted(() => {
+      getWorkoutHandler();
+    });
 
     const viewUrl = (i) => {
       if (i != undefined) {
@@ -97,9 +100,6 @@ export default {
       });
     }
 
-    const state = reactive({
-      category: "",
-    });
 
     const convertCategoryValue = (category) => {
       switch (category) {

@@ -97,14 +97,14 @@ export default {
         lng: coords.longitude,
       };
     }
-    
+
     function getUserLocation() {
       if (!navigator.geolocation) {
         throw "위치 정보가 지원되지 않습니다.";
       }
       navigator.geolocation.getCurrentPosition(success);
     }
-    getUserLocation()
+    getUserLocation();
 
     const search = reactive({
       keyword: null,
@@ -129,15 +129,15 @@ export default {
         lat: place.y,
         lng: place.x,
       };
-      console.log(state.place)
+      console.log(state.place);
       state.place = place.place_name;
       state.lat = mapOptions.center.lat;
       state.lng = mapOptions.center.lng;
     };
 
     const insertGym = async () => {
-      if(state.place == ""){
-        alert("헬스장을 검색해주세요")
+      if (state.place == "") {
+        alert("헬스장을 검색해주세요");
         return;
       }
       const url = "/api/v1/gym";
@@ -169,14 +169,17 @@ export default {
         "Content-Type": "application/json;",
         Authorization: state.token,
       };
-      await axios.delete(url, { headers }).then((res) => {
-        if(res.status == 204){
-          alert("헬스장을 삭제했습니다.")
-          router.go();
-        }
-      }).catch(()=>{
-        alert("삭제에 실패하였습니다.");
-      });
+      await axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("헬스장을 삭제했습니다.");
+            router.go();
+          }
+        })
+        .catch(() => {
+          alert("삭제에 실패하였습니다.");
+        });
     };
 
     return {
@@ -242,8 +245,6 @@ export default {
       });
     };
     getGym();
-
-    
   },
   methods: {
     zoom(delta) {

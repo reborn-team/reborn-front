@@ -68,7 +68,7 @@ export default {
     const ArticleContent = ref("");
     const route = useRoute();
     const articleId = ref(route.params.articleID);
-    const page = route.query.page
+    const page = route.query.page;
     const comment = ref();
     const Token = ref(sessionStorage.getItem("TOKEN"));
 
@@ -85,8 +85,8 @@ export default {
       await axios.get(url, { headers }).then((res) => {
         ArticleContent.value = res.data;
 
-        if(page == "undefined"){
-          router.replace(`/board/${articleId.value}?page=1`)
+        if (page == "undefined") {
+          router.replace(`/board/${articleId.value}?page=1`);
         }
       });
     };
@@ -148,9 +148,9 @@ export default {
       router.replace(`/board/${articleId.value}/edit?page=${page}`);
     };
 
-    const link = () =>{
-      router.replace(`/board?page=${page}`)
-    }
+    const link = () => {
+      router.replace(`/board?page=${page}`);
+    };
 
     return {
       articleId,

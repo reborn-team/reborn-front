@@ -67,7 +67,7 @@ export default {
     const ArticleContent = ref("");
     const route = useRoute();
     const articleId = ref(route.params.articleID);
-    const page = route.query.page
+    const page = route.query.page;
     const comment = ref();
     const Token = ref(sessionStorage.getItem("TOKEN"));
 
@@ -144,9 +144,9 @@ export default {
       router.replace(`/mypage/board/${articleId.value}/edit?page=${page}`);
     };
 
-    const link = () =>{
-      router.replace(`/mypage/board?page=${page}`)
-    }
+    const link = () => {
+      router.replace(`/mypage/board?page=${page}`);
+    };
 
     return {
       articleId,
