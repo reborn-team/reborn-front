@@ -132,7 +132,7 @@ export default {
         formData.append("file", file);
       }
       axios
-        .post("/api/v1/file", formData, {
+        .post("/api/v1/files", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
@@ -150,7 +150,7 @@ export default {
     const deleteImage = () => {
       const headers = { "Content-Type": "application/json;" };
       axios
-        .delete("/api/v1/file?filename=" + state.uploadFileName, { headers })
+        .delete("/api/v1/files?filename=" + state.uploadFileName, { headers })
         .then((res) => {
           if (res.status == 200) {
             if (res.data) {

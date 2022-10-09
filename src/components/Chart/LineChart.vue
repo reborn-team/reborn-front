@@ -1,9 +1,9 @@
 <template>
   <div id="chart">
     <div class="linePeriod">
-      <button class="btn btn-primary btn-sm" @click="prevWeek">지난 주</button>
+      <button class="btn btn-primary btn-sm" @click="prevWeek">&lt;</button>
       <span>{{ `${state.sunday} ~ ${state.saturday}` }}</span>
-      <button class="btn btn-primary btn-sm" @click="nextWeek">다음 주</button>
+      <button class="btn btn-primary btn-sm" @click="nextWeek">&gt;</button>
     </div>
     <apexchart
       type="area"
@@ -40,15 +40,23 @@ export default {
       saturday: "",
     });
 
-    function getMondayDate(i) {
+    function getSunday(i) {
       let paramDate = new Date(i);
       let day = paramDate.getDay();
-      let diff = paramDate.getDate() - day + (day == 0 ? -6 : 1);
+      let diff = paramDate.getDate() - day;
       return new Date(paramDate.setDate(diff));
     }
 
+    function setWeekDate(date){
+      start.setDate(date.getDate());
+      state.sunday = start.toISOString().substring(0, 10);
+      let end = new Date(date);
+      end.setDate(start.getDate() + 6);
+      state.saturday = end.toISOString().substring(0, 10);
+    }
+
     let today = new Date();
-    let date = getMondayDate(today);
+    let date = getSunday(today);
     let start = new Date();
     
     setWeekDate(date)
@@ -56,7 +64,7 @@ export default {
     function prevWeek() {
       state.flag = false;
       today.setDate(today.getDate() - 7);
-      start = getMondayDate(today);
+      start = getSunday(today);
       setWeekDate(start)
       getWeekRecord(state.saturday);
     }
@@ -64,18 +72,12 @@ export default {
     function nextWeek() {
       state.flag = false;
       today.setDate(today.getDate() + 7);
-      start = getMondayDate(today);
+      start = getSunday(today);
       setWeekDate(start)
       getWeekRecord(state.saturday);
     }
 
-    function setWeekDate(date){
-      start.setDate(date.getDate()-1);
-      state.sunday = start.toISOString().substring(0, 10);
-      let end = new Date(date);
-      end.setDate(start.getDate() + 6);
-      state.saturday = end.toISOString().substring(0, 10);
-    }
+  
 
     let chartMap = {
       series: [
@@ -115,7 +117,7 @@ export default {
     };
 
     const getWeekRecord = async (i) => {
-      const url = `/api/v1/record/week?date=${i}`;
+      const url = `/api/v1/records/week?date=${i}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,

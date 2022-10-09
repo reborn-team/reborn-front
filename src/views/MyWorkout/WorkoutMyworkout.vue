@@ -54,7 +54,7 @@ export default {
       if (category.value !== i) {
         category.value = i || "";
         id.value = "";
-        const url = `/api/v1/my-workout?id=${id.value}&category=${category.value}`;
+        const url = `/api/v1/workouts/me?id=${id.value}&category=${category.value}`;
         const headers = {
           "Content-Type": "application/json",
           Authorization: Token.value,
@@ -80,7 +80,7 @@ export default {
     changeCategory(ROUTE.query.category || "");
 
     const addCard = () => {
-      const url = `/api/v1/my-workout?id=${id.value}&category=${category.value}`;
+      const url = `/api/v1/workouts/me?id=${id.value}&category=${category.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
@@ -107,7 +107,7 @@ export default {
     };
 
     const search = () => {
-      const url = `/api/v1/my-workout?category=${category.value}&${condition.value}=${input.value}`;
+      const url = `/api/v1/workouts/me?category=${category.value}&${condition.value}=${input.value}`;
       const headers = {
         "Content-Type": "application/json",
           Authorization: Token.value,

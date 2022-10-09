@@ -54,7 +54,7 @@ export default {
       if (category.value !== i) {
         category.value = i || "";
         id.value = "";
-        const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
+        const url = `/api/v1/workouts?id=${id.value}&category=${category.value}`;
 
         axios
           .get(url)
@@ -76,7 +76,7 @@ export default {
     changeCategory(ROUTE.query.category || "");
 
     const addCard = () => {
-      const url = `/api/v1/workout?id=${id.value}&category=${category.value}`;
+      const url = `/api/v1/workouts?id=${id.value}&category=${category.value}`;
       if (hasNext.value) {
         axios
           .get(url)
@@ -99,7 +99,7 @@ export default {
     };
     
     const search = () => {
-      const url = `/api/v1/workout?category=${category.value}&${condition.value}=${input.value}`;
+      const url = `/api/v1/workouts?category=${category.value}&${condition.value}=${input.value}`;
       axios.get(url).then((res) => {
         if (res.status === 200) {
           if (res.data.hasNext) {

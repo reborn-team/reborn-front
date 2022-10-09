@@ -61,7 +61,7 @@ export default {
     const onchangeCategory = async (i) => {
       category.value = i.target.value;
 
-      const url = `/api/v1/my-workout/program?category=${category.value}`;
+      const url = `/api/v1/workouts/me/program?category=${category.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
@@ -106,12 +106,12 @@ export default {
 
     const viewUrl = (i) => {
       if (i != undefined) {
-        return "/api/v1/file/images?filename=" + i;
+        return "/api/v1/files/images?filename=" + i;
       }
     };
 
     const recode = async() =>{
-      const url = "/api/v1/record ";
+      const url = "/api/v1/records ";
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
