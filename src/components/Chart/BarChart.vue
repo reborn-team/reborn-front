@@ -25,7 +25,7 @@ export default {
   name: "BarExample",
   setup() {
     onMounted(() => {
-      getTodayRecord(new Date().toISOString().substring(0, 10));
+      getTodayRecord(state.today);
     });
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const state = reactive({
@@ -57,8 +57,10 @@ export default {
         },
       ],
     };
-    let today = new Date();
+    let timezoneOffset = new Date().getTimezoneOffset() * 60000;
+    let today = new Date(Date.now() - timezoneOffset);
     state.today = today.toISOString().substring(0,10);
+ 
 
     function getDay(i){
       state.flag = false;

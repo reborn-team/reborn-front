@@ -24,7 +24,7 @@ export default {
   name: "AreaChart",
   setup() {
     onMounted(() => {
-      getWeekRecord(new Date().toISOString().substring(0, 10));
+      getWeekRecord(state.today);
     });
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const state = reactive({
@@ -38,27 +38,39 @@ export default {
       flag: false,
       sunday: "",
       saturday: "",
+      today:"",
     });
 
-    function getSunday(i) {
-      let paramDate = new Date(i);
-      let day = paramDate.getDay();
-      let diff = paramDate.getDate() - day;
-      return new Date(paramDate.setDate(diff));
-    }
+    const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+    let today = new Date(Date.now() - timezoneOffset);
+    state.today = today.toISOString().substring(0,10)
+
+    let date = getSunday(state.today);
+    let start = new Date();
 
     function setWeekDate(date){
       start.setDate(date.getDate());
-      state.sunday = start.toISOString().substring(0, 10);
-      let end = new Date(date);
-      end.setDate(start.getDate() + 6);
-      state.saturday = end.toISOString().substring(0, 10);
+      let sunday = new Date(start - timezoneOffset);
+      state.sunday = sunday.toISOString().substring(0, 10);
+
+      let saturday = new Date();
+      saturday.setDate(start.getDate() + 6);
+      saturday = new Date(saturday - timezoneOffset)
+      state.saturday = saturday.toISOString().substring(0, 10);
     }
 
-    let today = new Date();
-    let date = getSunday(today);
-    let start = new Date();
-    
+
+    function getSunday(i) {
+      let paramDate = new Date(i);
+      console.log(paramDate)
+      let day = paramDate.getDay();
+      console.log(day)
+      let diff = paramDate.getDate() - day;   
+      console.log(diff)
+
+      return new Date(paramDate.setDate(diff));
+    }
+
     setWeekDate(date)
 
     function prevWeek() {
