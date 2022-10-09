@@ -52,8 +52,8 @@
     <button type="button" class="btn btn-danger btn-sm" @click="linkList">
       목록으로
     </button>
-    <button type="button" class="btn btn-danger btn-sm" @click="deleteList">
-      삭제하기
+    <button type="button" class="btn btn-secondary btn-sm" @click="deleteList">
+      제외하기
     </button>
   </div>
 </template>
@@ -114,22 +114,6 @@ export default {
       }
     };
 
-    const linkDeleteWorkout = async () => {
-      const url = `/api/v1/workouts/${WorkoutID.value}`;
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: Token.value,
-      };
-      await axios.delete(url, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("목록이 삭제되었습니다.");
-          router.replace(`/workout/me`);
-        }
-      }).catch(()=>{
-        alert("목록이 삭제를 실패하였습니다.")
-      });
-    };
-
     const deleteList = async () => {
       const url = `/api/v1/workouts/me/${WorkoutID.value}`;
       const headers = {
@@ -138,7 +122,7 @@ export default {
       };
       await axios.delete(url, { headers }).then((res) => {
         if (res.status == 204) {
-          alert("목록이 삭제되었습니다.");
+          alert("목록이 제외되었습니다.");
           router.replace(`/workout/me`);
         }
       }).catch(()=>{
@@ -160,7 +144,6 @@ export default {
       viewUrl,
       linkList,
       deleteList,
-      linkDeleteWorkout,
     };
   },
 };
