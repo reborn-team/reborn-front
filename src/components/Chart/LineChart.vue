@@ -52,12 +52,12 @@ export default {
       flag: false,
       sunday: "",
       saturday: "",
-      today:"",
+      today: "",
     });
 
     const timezoneOffset = new Date().getTimezoneOffset() * 60000;
     let today = new Date(Date.now() - timezoneOffset);
-    state.today = today.toISOString().substring(0,10)
+    state.today = today.toISOString().substring(0, 10);
 
     let date = getSunday(state.today);
     let start = new Date();
@@ -68,9 +68,9 @@ export default {
       state.sunday = sunday.toISOString().substring(0, 10);
 
       let saturday = new Date();
-      saturday.setMonth(sunday.getMonth())
+      saturday.setMonth(sunday.getMonth());
       saturday.setDate(sunday.getDate() + 6);
-      saturday = new Date(saturday - timezoneOffset)
+      saturday = new Date(saturday - timezoneOffset);
       state.saturday = saturday.toISOString().substring(0, 10);
     }
     function prevWeek() {
@@ -79,7 +79,7 @@ export default {
       start = getSunday(today);
       setWeekDate(start);
       getWeekRecord(state.saturday);
-    } 
+    }
     function nextWeek() {
       state.flag = false;
       today.setDate(today.getDate() + 7);
@@ -91,16 +91,12 @@ export default {
     function getSunday(i) {
       let paramDate = new Date(i);
       let day = paramDate.getDay();
-      let diff = paramDate.getDate() - day;   
+      let diff = paramDate.getDate() - day;
 
       return new Date(paramDate.setDate(diff));
     }
 
-    setWeekDate(date)
-
-    
-
-   
+    setWeekDate(date);
 
     let chartMap = {
       series: [
