@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <button @click="linkMain">
           <img
-            src="@/assets/img/header/reborn.png"
+            src="@/assets/img/header/rebornLogo.png"
             alt=""
             width="60"
             height="50"
