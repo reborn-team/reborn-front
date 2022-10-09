@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <button @click="linkMain">
           <img
-            src="./assets/img/header/ReBORN.png"
+            src="@/assets/img/header/reborn.png"
             alt=""
             width="60"
             height="50"
@@ -46,6 +46,7 @@
               class="nav-link"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              v-if="token != null"
             >
               <img
                 src="./assets/img/header/person.svg"
@@ -71,7 +72,7 @@
           </button>
           <button @click="logout" v-if="token != null">
             <img
-              src="./assets/img/header/login.svg"
+              src="./assets/img/header/logout.svg"
               alt="logout"
               width="30"
               height="20"
@@ -114,13 +115,23 @@ export default {
       router.replace("/");
     };
     const linkProgram = () => {
-      router.replace("/program");
+      if(token === null){
+        alert("로그인 해야합니다")
+        router.push("/login")
+      }else{
+        router.replace("/program");
+      }
     };
     const linkList = () => {
       router.replace("/workout");
     };
     const linkMyList = () => {
-      router.replace("/workout/me");
+      if(token === null){
+        alert("로그인 해야합니다")
+        router.push("/login")
+      }else{
+        router.replace("/workout/me");
+      }
     };
     const linkBoard = () => {
       router.replace("/board?page=1");

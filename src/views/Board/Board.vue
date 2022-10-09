@@ -52,14 +52,16 @@ export default {
     const end = ref();
 
     const route = useRoute();
-    const currentpage = route.query.page;
+    let currentpage = route.query.page;
     
     const condition = ref("");
     const input = ref("");
 
     const getBoard = async () => {
-      const url = `api/v1/articles?page=${currentpage}`;
+      console.log(currentpage)
+      if(currentpage === "undefined"){currentpage = 1}
 
+      const url = `api/v1/articles?page=${currentpage}`;
       axios.get(url).then((res) => {
         pageList.value = res.data.pageList;
         page.value = res.data.page;

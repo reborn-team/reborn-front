@@ -21,7 +21,6 @@
         <input type="file" id="writeImgName"  @change="selectFile" />
       </div>
       <div class="name">
-        <div v-if="files.length==0">{{ originFile }}</div>
         <div v-for="i in files" :key="i">{{ i.originFileName }}</div>
       </div>
     </div>

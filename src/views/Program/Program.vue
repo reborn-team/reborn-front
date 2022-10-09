@@ -57,6 +57,8 @@ export default {
     const selected = ref("");
     const selectCategory = ref("back");
     const seletName = ref("");
+    const arr = reactive([]);
+    let check = {};
 
     const onchangeCategory = async (i) => {
       category.value = i.target.value;
@@ -77,8 +79,6 @@ export default {
       selected.value = JSON.parse(res.target.value);
     };
 
-    const arr = reactive([]);
-    let check = {};
     const addWorkout = () => {
       if (check[selected.value.workoutName]) {
         return alert("중복된 운동입니다.")
@@ -91,12 +91,14 @@ export default {
         workoutCategory: selectCategory.value
       });
     };
+
     const minusWorkout = () => {
       if (arr.length) {
         let pop = arr.pop();
         check[pop.workoutName] = false;
       }
     };
+
     const changeValue = (res, idx, k) => {
       let v = parseInt(res.target.value);
       arr[idx][k] = v > 0 ? v : 0;

@@ -84,6 +84,10 @@ export default {
       };
       await axios.get(url, { headers }).then((res) => {
         ArticleContent.value = res.data;
+
+        if(page == "undefined"){
+          router.replace(`/board/${articleId.value}?page=1`)
+        }
       });
     };
 
@@ -112,7 +116,6 @@ export default {
         comment.value.focus();
         return false;
       }
-
       const url = `/api/v1/articles/${articleId.value}/comments`;
       const headers = {
         "Content-Type": "application/json",

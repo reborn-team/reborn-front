@@ -134,6 +134,8 @@ export default {
         alert("운동에 대해 간단히 알려주세요");
         content.value.focus();
         return false;
+      } else if (state.content.length < 5) {
+        alert("최소 5글자 이상 입력해주세요");
       }
 
       const url = "/api/v1/workouts";

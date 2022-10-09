@@ -3,7 +3,7 @@
     <h1 class="title">{{ message }}</h1>
     <div class="button">
       <div class="insert">
-        <input type="text" v-model="state.addr" style="width: 12rem"/>
+        <input type="text" v-model="state.addr" style="width: 12rem" placeholder="평가"/>
         <button type="button" class="btn btn-danger btn-sm" @click="insertGym">추가</button>
       </div>
       <div class="zoom">
@@ -71,7 +71,7 @@ export default {
   setup() {
     const state = reactive({
       place: "",
-      addr: "설명",
+      addr: "",
       lat: "",
       lng: "",
       token: sessionStorage.getItem("TOKEN"),
@@ -129,13 +129,14 @@ export default {
         lat: place.y,
         lng: place.x,
       };
+      console.log(state.place)
       state.place = place.place_name;
       state.lat = mapOptions.center.lat;
       state.lng = mapOptions.center.lng;
     };
 
     const insertGym = async () => {
-      if(gymName.value == null){
+      if(state.place == ""){
         alert("헬스장을 검색해주세요")
         return;
       }
@@ -154,7 +155,7 @@ export default {
         .post(url, body, { headers })
         .then((res) => {
           if (res.status == 201) {
-              router.go();
+            router.go();
           }
         })
         .catch(() => {
