@@ -70,7 +70,7 @@ export default {
 
     const route = useRoute();
     const articleId = ref(route.params.articleID);
-    const page = route.query.page
+    const page = route.query.page;
     const ArticleContent = ref("");
 
     onMounted(() => {
@@ -92,17 +92,16 @@ export default {
         alert("제목을 입력해 주세요");
         title.value.focus();
         return false;
-      } 
-      else if (state.content === "") {
+      } else if (state.content === "") {
         alert("내용을 입력해 주세요");
         content.value.focus();
         return false;
-      } 
-      if (state.content.length > 300 ) {
+      }
+      if (state.content.length > 300) {
         alert("300글자 이하로 작성해주세요");
         content.value.focus();
         return false;
-      } 
+      }
 
       const url = `/api/v1/articles/${articleId.value}`;
       const headers = {
@@ -114,16 +113,19 @@ export default {
         content: state.content,
         originFileName: state.originFileName,
         uploadFileName: state.uploadFileName,
-        files: files.value
+        files: files.value,
       };
-      await axios.patch(url, body, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("글이 수정 되었습니다.");
-          router.replace(`/mypage/board/${articleId.value}?page=${page}`);
-        }
-      }).catch(()=>{
-        alert("글 수정에 실패하였습니다.");
-      });
+      await axios
+        .patch(url, body, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("글이 수정 되었습니다.");
+            router.replace(`/mypage/board/${articleId.value}?page=${page}`);
+          }
+        })
+        .catch(() => {
+          alert("글 수정에 실패하였습니다.");
+        });
     };
 
     const selectFile = (event) => {
@@ -132,7 +134,7 @@ export default {
         formData.append("file", file);
       }
       axios
-        .post("/api/v1/file", formData, {
+        .post("/api/v1/files", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
@@ -143,14 +145,14 @@ export default {
           }
         })
         .catch(() => {
-          alert("파일 업로드에 실패했습니다.")
+          alert("파일 업로드에 실패했습니다.");
         });
     };
 
     const deleteImage = () => {
       const headers = { "Content-Type": "application/json;" };
       axios
-        .delete("/api/v1/file?filename=" + state.uploadFileName, { headers })
+        .delete("/api/v1/files?filename=" + state.uploadFileName, { headers })
         .then((res) => {
           if (res.status == 200) {
             if (res.data) {
@@ -159,14 +161,12 @@ export default {
             }
           }
         })
-        .catch(() => 
-          alert("파일 삭제를 실패했습니다.")
-        );
+        .catch(() => alert("파일 삭제를 실패했습니다."));
     };
 
-    const link = () =>{
-      router.replace(`/mypage/board/${articleId.value}?page=${page}`)
-    }
+    const link = () => {
+      router.replace(`/mypage/board/${articleId.value}?page=${page}`);
+    };
 
     return {
       message: "글 수정",

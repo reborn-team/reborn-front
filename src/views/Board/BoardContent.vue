@@ -57,7 +57,6 @@ import { onMounted, reactive, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import router from "@/router/router";
 
-// To do
 export default {
   name: "BoardContent",
   components: { Reply },
@@ -68,7 +67,7 @@ export default {
     const ArticleContent = ref("");
     const route = useRoute();
     const articleId = ref(route.params.articleID);
-    const page = route.query.page
+    const page = route.query.page;
     const comment = ref();
     const Token = ref(sessionStorage.getItem("TOKEN"));
 
@@ -84,6 +83,10 @@ export default {
       };
       await axios.get(url, { headers }).then((res) => {
         ArticleContent.value = res.data;
+
+        if (page == "undefined") {
+          router.replace(`/board/${articleId.value}?page=1`);
+        }
       });
     };
 
@@ -112,7 +115,6 @@ export default {
         comment.value.focus();
         return false;
       }
-
       const url = `/api/v1/articles/${articleId.value}/comments`;
       const headers = {
         "Content-Type": "application/json",
@@ -137,7 +139,7 @@ export default {
 
     const viewUrl = (i) => {
       if (i != undefined) {
-        return "/api/v1/file/images?filename=" + i;
+        return "/api/v1/files/images?filename=" + i;
       }
     };
 
@@ -145,9 +147,9 @@ export default {
       router.replace(`/board/${articleId.value}/edit?page=${page}`);
     };
 
-    const link = () =>{
-      router.replace(`/board?page=${page}`)
-    }
+    const link = () => {
+      router.replace(`/board?page=${page}`);
+    };
 
     return {
       articleId,

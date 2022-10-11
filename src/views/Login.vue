@@ -87,6 +87,10 @@ export default {
         password.value.focus();
         return;
       }
+      async function routerPush() {
+        await router.push(`/`);
+        await router.go(0);
+      }
 
       const url = "/api/v1/login";
       const headers = { "Content-Type": "application/json; charset=utf-8" };
@@ -97,7 +101,7 @@ export default {
           if (res.status == 200) {
             sessionStorage.setItem("TOKEN", res.headers.authorization);
             alert("로그인 되었습니다.");
-            router.replace("/");
+            routerPush();
           }
         })
         .catch(() => {
@@ -105,7 +109,7 @@ export default {
         });
     };
 
-    return { state, email, password, loginHandler, message: "Login" };
+    return { state, email, password, loginHandler, message: "로그인" };
   },
 };
 </script>

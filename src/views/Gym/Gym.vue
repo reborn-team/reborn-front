@@ -3,7 +3,7 @@
     <h1 class="title">{{ message }}</h1>
     <div class="button">
       <div class="insert">
-        <input type="text" v-model="state.addr" style="width: 12rem"/>
+        <input type="text" v-model="state.addr" style="width: 12rem" placeholder="평가"/>
         <button type="button" class="btn btn-danger btn-sm" @click="insertGym">추가</button>
       </div>
       <div class="zoom">
@@ -71,7 +71,7 @@ export default {
   setup() {
     const state = reactive({
       place: "",
-      addr: "설명",
+      addr: "",
       lat: "",
       lng: "",
       token: sessionStorage.getItem("TOKEN"),
@@ -97,14 +97,14 @@ export default {
         lng: coords.longitude,
       };
     }
-    
+
     function getUserLocation() {
       if (!navigator.geolocation) {
         throw "위치 정보가 지원되지 않습니다.";
       }
       navigator.geolocation.getCurrentPosition(success);
     }
-    getUserLocation()
+    getUserLocation();
 
     const search = reactive({
       keyword: null,
@@ -135,8 +135,8 @@ export default {
     };
 
     const insertGym = async () => {
-      if(gymName.value == null){
-        alert("헬스장을 검색해주세요")
+      if (state.place == "") {
+        alert("헬스장을 검색해주세요");
         return;
       }
       const url = "/api/v1/gym";
@@ -154,7 +154,7 @@ export default {
         .post(url, body, { headers })
         .then((res) => {
           if (res.status == 201) {
-              router.go();
+            router.go();
           }
         })
         .catch(() => {
@@ -168,14 +168,17 @@ export default {
         "Content-Type": "application/json;",
         Authorization: state.token,
       };
-      await axios.delete(url, { headers }).then((res) => {
-        if(res.status == 204){
-          alert("헬스장을 삭제했습니다.")
-          router.go();
-        }
-      }).catch(()=>{
-        alert("삭제에 실패하였습니다.");
-      });
+      await axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("헬스장을 삭제했습니다.");
+            router.go();
+          }
+        })
+        .catch(() => {
+          alert("삭제에 실패하였습니다.");
+        });
     };
 
     return {
@@ -241,8 +244,6 @@ export default {
       });
     };
     getGym();
-
-    
   },
   methods: {
     zoom(delta) {

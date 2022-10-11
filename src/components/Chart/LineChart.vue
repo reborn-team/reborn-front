@@ -1,9 +1,23 @@
-<template>
+<template lang="ko">
   <div id="chart">
     <div class="linePeriod">
-      <button class="btn btn-primary btn-sm" @click="prevWeek">지난 주</button>
-      <span>{{ `${state.sunday} ~ ${state.saturday}` }}</span>
-      <button class="btn btn-primary btn-sm" @click="nextWeek">다음 주</button>
+      <a href="#" @click="prevWeek">
+        <img
+          src="@/assets/img/left.png"
+          alt=""
+          width="20"
+          height="20"
+        />
+        </a>
+          <span>{{ `${state.sunday} ~ ${state.saturday}` }}</span>
+          <a href="#" @click="nextWeek">
+          <img
+            src="@/assets/img/right.png"
+            alt=""
+            width="20"
+            height="20"
+          />
+        </a>
     </div>
     <apexchart
       type="area"
@@ -24,7 +38,7 @@ export default {
   name: "AreaChart",
   setup() {
     onMounted(() => {
-      getWeekRecord(new Date().toISOString().substring(0, 10));
+      getWeekRecord(state.today);
     });
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const state = reactive({
@@ -38,44 +52,51 @@ export default {
       flag: false,
       sunday: "",
       saturday: "",
+      today: "",
     });
 
-    function getMondayDate(i) {
-      let paramDate = new Date(i);
-      let day = paramDate.getDay();
-      let diff = paramDate.getDate() - day + (day == 0 ? -6 : 1);
-      return new Date(paramDate.setDate(diff));
-    }
+    const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+    let today = new Date(Date.now() - timezoneOffset);
+    state.today = today.toISOString().substring(0, 10);
 
-    let today = new Date();
-    let date = getMondayDate(today);
+    let date = getSunday(state.today);
     let start = new Date();
-    
-    setWeekDate(date)
 
+    function setWeekDate(date) {
+      start.setDate(date.getDate());
+      let sunday = new Date(start - timezoneOffset);
+      state.sunday = sunday.toISOString().substring(0, 10);
+
+      let saturday = new Date();
+      saturday.setMonth(sunday.getMonth());
+      saturday.setDate(sunday.getDate() + 6);
+      saturday = new Date(saturday - timezoneOffset);
+      state.saturday = saturday.toISOString().substring(0, 10);
+    }
     function prevWeek() {
       state.flag = false;
       today.setDate(today.getDate() - 7);
-      start = getMondayDate(today);
-      setWeekDate(start)
+      start = getSunday(today);
+      setWeekDate(start);
       getWeekRecord(state.saturday);
     }
-
     function nextWeek() {
       state.flag = false;
       today.setDate(today.getDate() + 7);
-      start = getMondayDate(today);
-      setWeekDate(start)
+      start = getSunday(today);
+      setWeekDate(start);
       getWeekRecord(state.saturday);
     }
 
-    function setWeekDate(date){
-      start.setDate(date.getDate()-1);
-      state.sunday = start.toISOString().substring(0, 10);
-      let end = new Date(date);
-      end.setDate(start.getDate() + 6);
-      state.saturday = end.toISOString().substring(0, 10);
+    function getSunday(i) {
+      let paramDate = new Date(i);
+      let day = paramDate.getDay();
+      let diff = paramDate.getDate() - day;
+
+      return new Date(paramDate.setDate(diff));
     }
+
+    setWeekDate(date);
 
     let chartMap = {
       series: [
@@ -115,7 +136,7 @@ export default {
     };
 
     const getWeekRecord = async (i) => {
-      const url = `/api/v1/record/week?date=${i}`;
+      const url = `/api/v1/records/week?date=${i}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,

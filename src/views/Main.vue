@@ -22,7 +22,7 @@
       </div>
         <h3>인기 운동일지</h3>
       <hr />
-      <BoardList :pageList="pageList"/>
+        <BoardList :pageList="pageList"/>
     </div>
   </div>
 </template>
@@ -31,32 +31,34 @@
 import MainCard from "@/components/Card/Card.vue";
 import BoardList from "@/components/Board/List.vue";
 import "../css/views/Main.css";
-import { ref } from '@vue/reactivity';
-import axios from 'axios';
-import { onMounted } from '@vue/runtime-core';
+import { ref } from "@vue/reactivity";
+import axios from "axios";
+import { onMounted } from "@vue/runtime-core";
 
 export default {
   name: "TheHome",
   components: { MainCard, BoardList },
-  setup(){
+  setup() {
     const pageList = ref([]);
     const page = ref([]);
     const category = ref();
 
     const changeCategory = async (i) => {
-      if(category.value !== i) {
+      if (category.value !== i) {
         category.value = i || "";
 
-        const url = `/api/v1/workout/rank?category=${category.value}`;
-  
-        axios.get(url).then((res) => {
-          if (res.status === 200) {
-            page.value = res.data.list;
-          }
-          
-        }).catch(() => {});
+        const url = `/api/v1/workouts/rank?category=${category.value}`;
+
+        axios
+          .get(url)
+          .then((res) => {
+            if (res.status === 200) {
+              page.value = res.data.list;
+            }
+          })
+          .catch(() => {});
       }
-    }
+    };
     changeCategory("");
 
     onMounted(() => {
@@ -70,14 +72,14 @@ export default {
       });
     };
 
-    return { 
+    return {
       page,
       pageList,
       category,
       getBoard,
       changeCategory,
-      message:"운동 리스트"
-    }
-  }
+      message: "운동 리스트",
+    };
+  },
 };
 </script>

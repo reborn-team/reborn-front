@@ -4,7 +4,7 @@
 </template>
 
 <script>
-let kakao = window.kakao
+let kakao = window.kakao;
 export default {
   props: ["options"],
   data() {
@@ -27,9 +27,9 @@ export default {
       console.log(`[LEVEL CHANGED] ${prev} => ${cur}`);
       this.mapInstance.setLevel(cur);
     },
-    "options.center"(cur){
+    "options.center"(cur) {
       this.mapInstance.panTo(new kakao.maps.LatLng(cur.lat, cur.lng));
-    }
+    },
   },
 };
 </script>

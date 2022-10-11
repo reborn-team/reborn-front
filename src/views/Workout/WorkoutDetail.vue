@@ -91,12 +91,12 @@ export default {
 
     const viewUrl = (i) => {
       if (i != undefined) {
-        return "/api/v1/file/images?filename=" + i;
+        return "/api/v1/files/images?filename=" + i;
       }
     };
 
     async function getWorkoutHandler() {
-      const url = `/api/v1/workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
@@ -126,23 +126,26 @@ export default {
     };
 
     const linkDeleteWorkout = async () => {
-      const url = `/api/v1/workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
-      await axios.delete(url, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("목록이 삭제되었습니다.");
-          router.replace(`/workout`);
-        }
-      }).catch(()=>{
-        alert("목록이 삭제를 실패하였습니다.")
-      });
+      await axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("목록이 삭제되었습니다.");
+            router.replace(`/workout`);
+          }
+        })
+        .catch(() => {
+          alert("목록이 삭제를 실패하였습니다.");
+        });
     };
 
     const linkMyworkout = async () => {
-      const url = `/api/v1/my-workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/me/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
@@ -156,7 +159,7 @@ export default {
           }
         })
         .catch(() => {
-            alert("권한이 없습니다.")
+          alert("권한이 없습니다.");
         });
     };
 
@@ -165,19 +168,22 @@ export default {
     };
 
     const deleteList = async () => {
-      const url = `/api/v1/my-workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/me/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
-      await axios.delete(url, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("목록이 삭제되었습니다.");
-          router.go();
-        }
-      }).catch(()=>{
-        alert("목록이 삭제를 실패하였습니다.")
-      });
+      await axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("목록이 삭제되었습니다.");
+            router.go();
+          }
+        })
+        .catch(() => {
+          alert("목록이 삭제를 실패하였습니다.");
+        });
     };
 
     const linkList = () => {

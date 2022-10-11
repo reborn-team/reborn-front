@@ -52,8 +52,8 @@
     <button type="button" class="btn btn-danger btn-sm" @click="linkList">
       목록으로
     </button>
-    <button type="button" class="btn btn-danger btn-sm" @click="deleteList">
-      삭제하기
+    <button type="button" class="btn btn-secondary btn-sm" @click="deleteList">
+      제외하기
     </button>
   </div>
 </template>
@@ -69,23 +69,26 @@ import { useRoute } from "vue-router";
 export default {
   name: "WorkoutMyworkoutDetail",
   setup() {
-    onMounted(() => {
-      getWorkoutHandler();
+    const state = reactive({
+      category: "",
     });
-
     const route = useRoute();
     const Token = ref(sessionStorage.getItem("TOKEN"));
     const WorkoutID = ref(route.params.workoutID);
     const Workout = ref("");
 
+    onMounted(() => {
+      getWorkoutHandler();
+    });
+
     const viewUrl = (i) => {
       if (i != undefined) {
-        return "/api/v1/file/images?filename=" + i;
+        return "/api/v1/files/images?filename=" + i;
       }
     };
 
     async function getWorkoutHandler() {
-      const url = `/api/v1/workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
@@ -96,10 +99,6 @@ export default {
         }
       });
     }
-
-    const state = reactive({
-      category: "",
-    });
 
     const convertCategoryValue = (category) => {
       switch (category) {
@@ -114,36 +113,23 @@ export default {
       }
     };
 
-    const linkDeleteWorkout = async () => {
-      const url = `/api/v1/workout/${WorkoutID.value}`;
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: Token.value,
-      };
-      await axios.delete(url, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("목록이 삭제되었습니다.");
-          router.replace(`/workout/me`);
-        }
-      }).catch(()=>{
-        alert("목록이 삭제를 실패하였습니다.")
-      });
-    };
-
     const deleteList = async () => {
-      const url = `/api/v1/my-workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/me/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: Token.value,
       };
-      await axios.delete(url, { headers }).then((res) => {
-        if (res.status == 204) {
-          alert("목록이 삭제되었습니다.");
-          router.replace(`/workout/me`);
-        }
-      }).catch(()=>{
-        alert("목록이 삭제를 실패하였습니다.")
-      });
+      await axios
+        .delete(url, { headers })
+        .then((res) => {
+          if (res.status == 204) {
+            alert("목록이 제외되었습니다.");
+            router.replace(`/workout/me`);
+          }
+        })
+        .catch(() => {
+          alert("목록이 삭제를 실패하였습니다.");
+        });
     };
 
     const linkList = () => {
@@ -160,7 +146,6 @@ export default {
       viewUrl,
       linkList,
       deleteList,
-      linkDeleteWorkout,
     };
   },
 };

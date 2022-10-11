@@ -52,14 +52,17 @@ export default {
     const end = ref();
 
     const route = useRoute();
-    const currentpage = route.query.page;
-    
+    let currentpage = route.query.page;
+
     const condition = ref("");
     const input = ref("");
 
     const getBoard = async () => {
-      const url = `api/v1/articles?page=${currentpage}`;
+      if (currentpage === "undefined") {
+        currentpage = 1;
+      }
 
+      const url = `api/v1/articles?page=${currentpage}`;
       axios.get(url).then((res) => {
         pageList.value = res.data.pageList;
         page.value = res.data.page;
@@ -73,8 +76,8 @@ export default {
     };
 
     const onClick = (res) => {
-      condition.value = res.target.value
-    }
+      condition.value = res.target.value;
+    };
 
     const search = () => {
       const url = `api/v1/articles?page=1&${condition.value}=${input.value}`;
@@ -86,13 +89,13 @@ export default {
         pageNumberList.value = res.data.pageNumberList;
         board.value = res.data;
 
-        router.replace(`/board?page=1&${condition.value}=${input.value}`)
-        input.value = ""
-      })
-    }
+        router.replace(`/board?page=1&${condition.value}=${input.value}`);
+        input.value = "";
+      });
+    };
 
     return {
-      message: "Board",
+      message: "운동 일지",
       pageList,
       page,
       prev,

@@ -157,7 +157,7 @@ export default {
         alert("최소 5글자 이상 입력해주세요");
       }
 
-      const url = `/api/v1/workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json;",
         Authorization: state.token,
@@ -175,8 +175,7 @@ export default {
             router.replace("/workout/" + res.data);
           }
         })
-        .catch(() => {
-        });
+        .catch(() => {});
     };
 
     onMounted(() => {
@@ -184,7 +183,7 @@ export default {
     });
 
     async function getEditHandler() {
-      const url = `/api/v1/workout/${WorkoutID.value}`;
+      const url = `/api/v1/workouts/${WorkoutID.value}`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: state.token,
@@ -207,7 +206,7 @@ export default {
         formData.append("file", file);
       }
       axios
-        .post("/api/v1/file", formData, {
+        .post("/api/v1/files", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
@@ -224,7 +223,7 @@ export default {
     const deleteImage = () => {
       const headers = { "Content-Type": "application/json;" };
       axios
-        .delete("/api/v1/file?filename=" + imageName, { headers })
+        .delete("/api/v1/files?filename=" + imageName, { headers })
         .then((res) => {
           if (res.status == 200) {
             if (res.data) {
@@ -238,7 +237,7 @@ export default {
 
     const viewUrl = (i) => {
       if (i != undefined) {
-        return "/api/v1/file/images?filename=" + i;
+        return "/api/v1/files/images?filename=" + i;
       }
     };
 
