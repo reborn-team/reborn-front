@@ -327,7 +327,7 @@ export default {
       nickNameCheckHandler,
       changeEmailFlag,
       changeNicknameFlag,
-      message: "Join",
+      message: "회원가입",
       postOpen,
     };
   },

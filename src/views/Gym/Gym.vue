@@ -129,7 +129,6 @@ export default {
         lat: place.y,
         lng: place.x,
       };
-      console.log(state.place);
       state.place = place.place_name;
       state.lat = mapOptions.center.lat;
       state.lng = mapOptions.center.lng;

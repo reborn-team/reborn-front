@@ -14,13 +14,9 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <button @click="linkProgram">프로그램</button>
-            </li>
-
             <li class="nav-item dropdown">
               <button
-                class="nav-link"
+              class="nav-link"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
@@ -31,7 +27,11 @@
                 <li><button @click="linkMyList">나의 리스트</button></li>
               </ul>
             </li>
-
+            
+            <li class="nav-item">
+              <button @click="linkProgram">프로그램</button>
+            </li>
+            
             <li class="nav-item">
               <button @click="linkBoard">운동일지</button>
             </li>

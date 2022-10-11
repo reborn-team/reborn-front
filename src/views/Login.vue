@@ -109,7 +109,7 @@ export default {
         });
     };
 
-    return { state, email, password, loginHandler, message: "Login" };
+    return { state, email, password, loginHandler, message: "로그인" };
   },
 };
 </script>

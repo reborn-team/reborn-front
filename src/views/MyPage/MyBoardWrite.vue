@@ -115,7 +115,6 @@ export default {
           if (res.status == 200) {
             files.value = res.data;
             imageName = files.value[0].uploadFileName;
-            console.log(imageName);
           }
         })
         .catch(() => {

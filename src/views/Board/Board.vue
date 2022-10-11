@@ -58,7 +58,6 @@ export default {
     const input = ref("");
 
     const getBoard = async () => {
-      console.log(currentpage);
       if (currentpage === "undefined") {
         currentpage = 1;
       }
@@ -96,7 +95,7 @@ export default {
     };
 
     return {
-      message: "Board",
+      message: "운동 일지",
       pageList,
       page,
       prev,
